@@ -298,8 +298,8 @@
             <constraint>
               <height>-1</height>
               <width>-1</width>
-              <x>351</x>
-              <y>464</y>
+              <x>392</x>
+              <y>476</y>
             </constraint>
             <sourceConnections>
               <net.java.amateras.db.visual.model.ForeignKeyModel reference="../../.."/>
@@ -430,7 +430,7 @@
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>date</columnName>
+          <columnName>rdate</columnName>
           <logicalName>가입일</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>DATE</name>
@@ -472,7 +472,7 @@
   </children>
   <dommains/>
   <dialectName>Oracle</dialectName>
-  <logicalMode>true</logicalMode>
+  <logicalMode>false</logicalMode>
   <jarFile>workspace:/team4_v2sbm3c/src/main/webapp/WEB-INF/lib/ojdbc8.jar</jarFile>
   <jdbcDriver>oracle.jdbc.OracleDriver</jdbcDriver>
   <jdbcUrl></jdbcUrl>

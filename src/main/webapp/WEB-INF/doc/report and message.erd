@@ -105,7 +105,7 @@
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>date</columnName>
+          <columnName>rdate</columnName>
           <logicalName>날짜</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>DATE</name>
@@ -219,7 +219,7 @@
   </children>
   <dommains/>
   <dialectName>Oracle</dialectName>
-  <logicalMode>true</logicalMode>
+  <logicalMode>false</logicalMode>
   <jarFile></jarFile>
   <jdbcDriver>sun.jdbc.odbc.JdbcOdbc</jdbcDriver>
   <jdbcUrl></jdbcUrl>
