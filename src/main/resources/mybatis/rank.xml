@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace = "dev.mvc.rank.RankDAOInter">
+  
+  <insert id="create" parameterType="dev.mvc.rank.RankDAOInter">
+    INSERT INTO rank(rankno, rankname) 
+    VALUES(#{rankno}, #{rankname})
+  </insert>
+  
+  <select id="list" resultType="dev.mvc.rank.RankDAOInter">
+    SELECT rankno, rankname
+    FROM rank
+    ORDER BY rankno ASC;
+  </select>
+  
+  <!-- rankno로 등급 조회 -->
+  <select id="read" resultType="dev.mvc.rank.RankDAOInter" parameterType="int">
+    SELECT memberno, id, password, name, tel, rdate, rankno
+    FROM rank
+    WHERE rankno = #{rankno}
+  </select>  
+  
+  <!-- rankno로 등급 이름 수정 -->
+  <update id="update" parameterType="dev.mvc.rank.RankDAOInter">
+    UPDATE member 
+    SET rankname=#{rankname}
+    WHERE rankno=#{rankno}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM rank
+    WHERE rankno=#{rankno}
+  </delete>
+  
+</mapper>

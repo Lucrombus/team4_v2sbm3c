@@ -24,11 +24,11 @@ CREATE SEQUENCE rankurl_seq
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
   
 -- 등록: 1건 이상, adminno, noticecateno 컬럼에 등록되어 있는 값만 사용 가능
-INSERT INTO rankurl VALUES (rankurl_seq.nextval, 1, 1);
-INSERT INTO rankurl VALUES (rankurl_seq.nextval, 1, 2);
-INSERT INTO rankurl VALUES (rankurl_seq.nextval, 1, 3);
-INSERT INTO rankurl VALUES (rankurl_seq.nextval, 1, 4);
-INSERT INTO rankurl VALUES (rankurl_seq.nextval, 2, 5);
+INSERT INTO rankurl(rankurlno, rankno, contactadno) VALUES (rankurl_seq.nextval, 1, 1);
+INSERT INTO rankurl(rankurlno, rankno, contactadno) VALUES (rankurl_seq.nextval, 1, 2);
+INSERT INTO rankurl(rankurlno, rankno, contactadno) VALUES (rankurl_seq.nextval, 1, 3);
+INSERT INTO rankurl(rankurlno, rankno, contactadno) VALUES (rankurl_seq.nextval, 1, 4);
+INSERT INTO rankurl(rankurlno, rankno, contactadno) VALUES (rankurl_seq.nextval, 2, 5);
 
 commit;
 

@@ -5,14 +5,12 @@ DROP TABLE contactad;
 /**********************************/
 CREATE TABLE contactad(
 		contactadno                   		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
-        contactadr                          VARCHAR(50)      NOT NULL,
-		rankurlno                           NUMBER(10)		 NULL 
+        contactadr                          VARCHAR(50)      NOT NULL
 );
 
 COMMENT ON TABLE contactad is '접속 주소';
 COMMENT ON COLUMN contactad.contactadno is '접속 주소 번호';
 COMMENT ON COLUMN contactad.contactadr is '접속 주소';
-COMMENT ON COLUMN contactad.rankurlno is '등급별 접근 URL 번호';
 
 DROP SEQUENCE contactad_seq;
 
@@ -24,11 +22,11 @@ CREATE SEQUENCE contactad_seq
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
   
   -- 등록: 1건 이상, adminno, noticecateno 컬럼에 등록되어 있는 값만 사용 가능
-INSERT INTO contactad VALUES (contactad_seq.nextval, 'https://www.naver.com', 1);
-INSERT INTO contactad VALUES (contactad_seq.nextval, 'https://www.google.com', 1);
-INSERT INTO contactad VALUES (contactad_seq.nextval, 'https://www.gmail.com', 1);
-INSERT INTO contactad VALUES (contactad_seq.nextval, 'https://www.daum.net', 1);
-INSERT INTO contactad VALUES (contactad_seq.nextval, 'https://www.youtube.com', 2);
+INSERT INTO contactad(contactadno, contactadr) VALUES (contactad_seq.nextval, 'https://www.naver.com');
+INSERT INTO contactad(contactadno, contactadr) VALUES (contactad_seq.nextval, 'https://www.google.com');
+INSERT INTO contactad(contactadno, contactadr) VALUES (contactad_seq.nextval, 'https://www.gmail.com');
+INSERT INTO contactad(contactadno, contactadr) VALUES (contactad_seq.nextval, 'https://www.daum.net');
+INSERT INTO contactad(contactadno, contactadr) VALUES (contactad_seq.nextval, 'https://www.youtube.com');
 
 commit;
 
