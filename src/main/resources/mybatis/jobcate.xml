@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.jobcate.JobcateDAOInter">
+  
+  <!-- 등록: 추가한 레코드 갯수를 리턴 -->
+  <insert id="create" parameterType="dev.mvc.jobcate.JobcateVO">
+    INSERT INTO jobcate(jobcateno, name, seqno, visible) 
+    VALUES(jobcate_seq.nextval, #{name}, #{seqno}, 'N')
+  </insert>
+  
+  <!-- 조회: 번호로 레코드 조회 -->
+  <select id="read" resultType="dev.mvc.jobcate.JobcateVO" parameterType="int">
+    SELECT jobcateno, name, seqno, visible 
+    FROM jobcate 
+    WHERE jobcateno = #{jobcateno}
+  </select>
+  
+  
+  <!-- 조회: 리스트 목록 -->
+  <select id="list_all" resultType="dev.mvc.jobcate.JobcateVO">
+    SELECT jobcateno, name, seqno, visible 
+    FROM jobcate 
+    ORDER BY seqno ASC
+  </select>
+  
+  <!-- 삭제: 리스트 목록 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM jobcate
+    WHERE jobcateno = #{jobcateno}
+  </delete>
+  
+
+          
+</mapper>

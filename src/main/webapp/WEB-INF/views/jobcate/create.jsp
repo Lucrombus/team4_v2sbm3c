@@ -14,9 +14,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     
 </head> 
- 
+
 <body>
 <%-- <jsp:include page="../menu/top.jsp" flush='false' /> --%>
+<%-- http://localhost:9093/jobcate/create.do --%>
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>카테고리 등록</DIV>
@@ -37,7 +38,7 @@
   
   </FORM>
 </DIV>
- 
+
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
  
