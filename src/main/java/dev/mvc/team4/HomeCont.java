@@ -43,7 +43,6 @@ public class HomeCont {
     ArrayList<JobcateVO> list = this.jobcateProc.list_all();
     mav.addObject("list", list);
     
-    System.out.println("HomeCont의 top.do 컨트롤러 입니다 ->" + list);
     
     mav.setViewName("/menu/top"); // /WEB-INF/views/menu/top.jsp
     
