@@ -13,6 +13,7 @@ public class Guin_cVO {
   private String content;
   private String rdate;
   private String address;
+  private String map;
   private int wage;
   private String day;
   private String period;
@@ -90,6 +91,13 @@ public class Guin_cVO {
   }
   public void setAddress(String address) {
     this.address = address;
+  }
+  
+  public String getMap() {
+    return map;
+  }
+  public void setMap(String map) {
+    this.map = map;
   }
   public int getWage() {
     return wage;

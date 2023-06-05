@@ -13,6 +13,7 @@ CREATE TABLE guin_c(
 		content                       		VARCHAR2(4000)		 NOT NULL,
 		rdate                          		DATE		 NOT NULL,
 		address                       		VARCHAR2(50)		 NOT NULL,
+		map									VARCHAR2(1000)		 NOT NULL,			
 		wage                          		NUMBER(20)		 NOT NULL,
 		day                           		VARCHAR2(50)		 NOT NULL,
 		period                        		VARCHAR2(50)		 NOT NULL,
