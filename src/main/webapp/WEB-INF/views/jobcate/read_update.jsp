@@ -9,6 +9,7 @@
 // 삭제할 카테고리 정보를 읽어옴
 JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
 %>
+
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -19,7 +20,6 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- top 메뉴 drop down 버튼 스크립트를 작동하게 함 -->
     
 </head> 
  
@@ -27,35 +27,18 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
 <%-- <jsp:include page="../menu/top.jsp" flush='false' /> --%>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>전체 카테고리 > 삭제</DIV>
+<DIV class='title_line'>전체 카테고리 > 수정</DIV>
 
 <DIV class='content_body'>
-  <DIV id='panel_delete' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
-    <FORM name='frm_delete' id='frm_delete' method='POST' action='./delete.do'>
-      <input type="hidden" name="jobcateno" value="<%=jobcateVO_read.getJobcateno() %>"> <%-- 삭제할 카테고리 번호 --%>
-
-      <c:choose>
-        <c:when test="${count_by_cateno >= 1 }"> <%-- 자식 레코드가 있는 상황 --%>
-          <div class="msg_warning">
-            관련 자료 ${count_by_cateno } 건이 발견되었습니다.<br>
-            관련 자료와 카테고리를 모두 삭제하시겠습니까?
-          </div>
-            
-          <label>관련 카테고리 이름</label>: <%=jobcateVO_read.getName() %> 
-          <a href="../contents/list_by_cateno.do?cateno=${jobcateVO.cateno }" title="관련 카테고리로 이동"><img src='/cate/images/link.png'></a>
-          &nbsp;      
-          <button type="submit" id='submit' class='btn btn-danger btn-sm' style='height: 28px; margin-bottom: 5px;'>관련 자료와 함게 카테고리 삭제</button>
-          
-        </c:when>
-        <c:otherwise>
-          <div class="msg_warning">카테고리를 삭제하면 복구 할 수 없습니다.</div>
-          <label>카테고리 이름</label>: <%=jobcateVO_read.getName() %>
-      
-          <button type="submit" id='submit' class='btn btn-warning btn-sm' style='height: 28px; margin-bottom: 5px;'>삭제</button>          
-        </c:otherwise>
-      </c:choose>      
-
-      <button type="button" onclick="location.href='/jobcate/list_all.do'" class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>취소</button>
+  <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
+    <FORM name='frm_create' id='frm_create' method='POST' action='./update.do'>
+      <input type="hidden" name="jobcateno" value="<%=jobcateVO_read.getJobcateno() %>">
+      <label>카테고리 이름</label>
+      <input type='text' name='name' value='<%=jobcateVO_read.getName() %>' required="required" style='width: 25%;' autofocus="autofocus">
+      <label>출력 순서</label>
+      <input type='number' name='seqno' value='<%=jobcateVO_read.getSeqno() %>' min='1' required="required" style='width: 5%;'>  
+      <button type="submit" id='submit' class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>수정</button>
+      <button type="button" onclick="location.href='/cate/list_all.do'" class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>취소</button>
     </FORM>
   </DIV>
 
@@ -105,4 +88,3 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
 </body>
  
 </html>
-

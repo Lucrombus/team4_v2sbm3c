@@ -40,5 +40,40 @@ public class JobcateProc implements JobcateProcInter {
     return cnt;
   }
   
+  @Override
+  public int update(JobcateVO jobcateVO){
+    
+    int cnt = this.jobcateDAO.update(jobcateVO);
+    return cnt;
+  }
+  
+  @Override
+  public int update_seqno_increase(int jobcateno){
+    
+    int cnt = this.jobcateDAO.update_seqno_increase(jobcateno);
+    return cnt;
+  }
+  
+  @Override
+  public int update_seqno_decrease(int jobcateno){
+    
+    int cnt = this.jobcateDAO.update_seqno_decrease(jobcateno);
+    return cnt;
+  }
+  
+  @Override
+  public int update_visible_y(int jobcateno){
+    
+    int cnt = this.jobcateDAO.update_visible_y(jobcateno);
+    return cnt;
+  }
+  
+  @Override
+  public int update_visible_n(int jobcateno){
+    
+    int cnt = this.jobcateDAO.update_visible_n(jobcateno);
+    return cnt;
+  }
+  
 
 }

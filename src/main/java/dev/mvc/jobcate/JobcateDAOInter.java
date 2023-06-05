@@ -35,6 +35,40 @@ public interface JobcateDAOInter {
    */
   public int delete(int jobcateno);
   
+  /**
+   * 수정
+   * 
+   * @return 수정된 레코드 갯수 리턴
+   */
+  public int update(JobcateVO jobcateVO);
+  
+  /**
+   * 수정: 출력순서 증가
+   * 
+   * @return 수정된 레코드 갯수 리턴
+   */
+  public int update_seqno_increase(int jobcateno);
+  
+  /**
+   * 수정: 출력순서 감소
+   * 
+   * @return 수정된 레코드 갯수 리턴
+   */
+  public int update_seqno_decrease(int jobcateno);
+  
+  /**
+   * 수정: 공개
+   * 
+   * @return 수정된 레코드 갯수 리턴
+   */
+  public int update_visible_y(int jobcateno);
+  
+  /**
+   * 수정: 비공개
+   * 
+   * @return 수정된 레코드 갯수 리턴
+   */
+  public int update_visible_n(int jobcateno);
   
 
 }

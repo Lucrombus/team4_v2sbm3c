@@ -76,11 +76,11 @@
           <%
           if (jobcateVO.getVisible().equals("Y")) {
           %>
-            <A href="./update_visible_n.do?cateno=<%=jobcateVO.getJobcateno() %>"><IMG src="/cate/images/show.png" class="icon"></A>
+            <A href="./update_visible_n.do?jobcateno=<%=jobcateVO.getJobcateno() %>"><IMG src="/cate/images/show.png" class="icon"></A>
           <%  
           } else { // N
           %>
-            <A href="./update_visible_y.do?cateno=<%=jobcateVO.getJobcateno() %>"><IMG src="/cate/images/hide.png" class="icon"></A>
+            <A href="./update_visible_y.do?jobcateno=<%=jobcateVO.getJobcateno() %>"><IMG src="/cate/images/hide.png" class="icon"></A>
           <%  
           }
           %>
