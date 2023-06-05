@@ -12,6 +12,7 @@ CREATE TABLE gujik_c(
 		rdate                          		DATE		 NOT NULL,
 		gender                        		VARCHAR2(10)		 NOT NULL,
 		age                           		NUMBER(10)		 NOT NULL,
+		experience                          CHAR(1)          NOT NULL,
 		wage_want                     		NUMBER(20)		 NOT NULL,
 		day_want                      		VARCHAR2(50)		 NOT NULL,
 		tel                           		VARCHAR2(50)		 NOT NULL,
