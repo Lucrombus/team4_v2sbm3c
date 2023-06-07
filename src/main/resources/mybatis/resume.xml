@@ -6,43 +6,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <mapper namespace="dev.mvc.jobcate.ResumeDAOInter">
 
-DROP TABLE resume CASCADE CONSTRAINTS;
-DROP SEQUENCE resume_seq;
-
-CREATE TABLE resume(
-    resumeno                          NUMBER(10)     NOT NULL,
-    resumep                           VARCHAR2(100)    NULL ,
-    intro                             VARCHAR2(100)    NULL ,
-    memberno                          NUMBER(10)     NULL 
-);
-
-COMMENT ON TABLE resume is '이력서';
-COMMENT ON COLUMN resume.resumeno is '이력서 번호';
-COMMENT ON COLUMN resume.resumep is '이력서 사진';
-COMMENT ON COLUMN resume.intro is '자기소개';
-COMMENT ON COLUMN resume.memberno is '회원번호';
-
-CREATE SEQUENCE resume_seq
-  START WITH 1                -- 시작 번호
-  INCREMENT BY 1            -- 증가값
-  MAXVALUE 9999999999  -- 최대값: 9999999999 --> NUMBER(10) 대응
-  CACHE 2                        -- 2번은 메모리에서만 계산
-  NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
-
---insert
-INSERT INTO resume(resumeno, resumep, intro, memberno)
-VALUES(resume_seq.nextval, '이력서사진1.jpg', '자기소개test1', 1);
-
---select
-SELECT resumeno, resumep, intro, memberno
-FROM resume;
-
---update
-UPDATE resume SET intro = '자기소개test1수정'
-WHERE resumeno = 1;
-
---delete
-DELETE resume
-WHERE resumeno = 1;
-
+  <!-- 등록: 추가한 레코드 갯수를 리턴 -->
+  <insert id="create" parameterType="dev.mvc.resume.ResumeVO">
+    INSERT INTO resume(resumeno, memberno, resumetitle, resumep, intro, rdate)
+    VALUES(resume_seq.nextval, #{memberno}, #{resumetitle}, #{resumep}, #{intro}, sysdate)
+  </insert>
+  
+  <!-- 조회: 번호로 레코드 조회 -->
+  <select id="read" resultType="dev.mvc.resume.ResumeVO" parameterType="int">
+    SELECT resumeno, memberno, resumetitle, resumep, intro, rdate
+    FROM resume
+    WHERE resumeno = #{resumeno}
+  </select>
+  
+  <!-- 삭제: 번호로 레코드 삭제 -->
+  <delete id="delete" parameterType="int">
+  DELETE resume
+  WHERE resumeno = #{resumeno}
+  </delete>
+  
+  <!-- 수정: 번호로 레코드 수정 -->
+  <update id="update" parameterType="dev.mvc.resume.ResumeVO">
+    UPDATE resume 
+    SET resumetitle = #{resumetitle}, resumep = #{resumep}, intro = #{intro}
+    WHERE resumeno = 1
+  </update>
+  
 </mapper>
