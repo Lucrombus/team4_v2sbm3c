@@ -23,20 +23,20 @@
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>403</x>
-        <y>254</y>
+        <x>267</x>
+        <y>216</y>
       </constraint>
       <sourceConnections/>
       <targetConnections/>
       <error></error>
       <linkedPath></linkedPath>
-      <tableName>jobcate</tableName>
-      <logicalName>업종 카테고리</logicalName>
+      <tableName>message</tableName>
+      <logicalName>쪽지</logicalName>
       <description></description>
       <columns>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>jobcateno</columnName>
-          <logicalName>업종번호</logicalName>
+          <columnName>message.messageno</columnName>
+          <logicalName>쪽지번호</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>NUMBER</name>
             <logicalName>Numeric</logicalName>
@@ -44,54 +44,76 @@
             <type>2</type>
           </columnType>
           <size>10</size>
-          <notNull>true</notNull>
-          <primaryKey>true</primaryKey>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
           <description></description>
           <autoIncrement>false</autoIncrement>
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>name</columnName>
-          <logicalName>업종명</logicalName>
+          <columnName>message.memberno</columnName>
+          <logicalName>보낸 회원번호</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+          <size>10</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>message.receive_memberno</columnName>
+          <logicalName>받는 회원번호</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+          <size>10</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>message.title</columnName>
+          <logicalName>제목</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>VARCHAR2</name>
             <logicalName>String</logicalName>
             <supportSize>true</supportSize>
             <type>12</type>
           </columnType>
-          <size>20</size>
-          <notNull>true</notNull>
+          <size>30</size>
+          <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
           <autoIncrement>false</autoIncrement>
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>seqno</columnName>
-          <logicalName>출력순서</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
-          <size>10</size>
-          <notNull>true</notNull>
+          <columnName>message.content</columnName>
+          <logicalName>내용</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[4]/columnType"/>
+          <size>1000</size>
+          <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
           <autoIncrement>false</autoIncrement>
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>visible</columnName>
-          <logicalName>보기모드</logicalName>
+          <columnName>message.rdate</columnName>
+          <logicalName>날짜</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
-            <name>CHAR</name>
-            <logicalName>Character</logicalName>
-            <supportSize>true</supportSize>
-            <type>1</type>
+            <name>DATE</name>
+            <logicalName>Date</logicalName>
+            <supportSize>false</supportSize>
+            <type>91</type>
           </columnType>
-          <size>1</size>
-          <notNull>true</notNull>
+          <size>10</size>
+          <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
           <autoIncrement>false</autoIncrement>
-          <defaultValue>N</defaultValue>
+          <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
       </columns>
       <indices/>
