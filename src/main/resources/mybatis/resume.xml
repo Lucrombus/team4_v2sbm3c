@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.jobcate.ResumeDAOInter">
+
+  <!-- 등록: 추가한 레코드 갯수를 리턴 -->
+  <insert id="create" parameterType="dev.mvc.resume.ResumeVO">
+    INSERT INTO resume(resumeno, memberno, resumetitle, resumep, intro, rdate)
+    VALUES(resume_seq.nextval, #{memberno}, #{resumetitle}, #{resumep}, #{intro}, sysdate)
+  </insert>
+  
+  <!-- 조회: 번호로 레코드 조회 -->
+  <select id="read" resultType="dev.mvc.resume.ResumeVO" parameterType="int">
+    SELECT resumeno, memberno, resumetitle, resumep, intro, rdate
+    FROM resume
+    WHERE resumeno = #{resumeno}
+  </select>
+  
+  <!-- 삭제: 번호로 레코드 삭제 -->
+  <delete id="delete" parameterType="int">
+  DELETE resume
+  WHERE resumeno = #{resumeno}
+  </delete>
+  
+  <!-- 수정: 번호로 레코드 수정 -->
+  <update id="update" parameterType="dev.mvc.resume.ResumeVO">
+    UPDATE resume 
+    SET resumetitle = #{resumetitle}, resumep = #{resumep}, intro = #{intro}
+    WHERE resumeno = 1
+  </update>
+  
+</mapper>
