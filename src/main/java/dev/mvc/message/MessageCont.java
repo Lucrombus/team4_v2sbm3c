@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class MessageCont {
   
   @Autowired
-  @Qualifier("dev.mvc.Message.MessageProc")
+  @Qualifier("dev.mvc.message.MessageProc")
   private MessageProc MessageProc;
   
   public MessageCont() {
