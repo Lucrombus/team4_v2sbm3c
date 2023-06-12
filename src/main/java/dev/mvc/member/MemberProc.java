@@ -16,7 +16,7 @@ public class MemberProc implements MemberProcInter {
   private MemberDAOInter memberDAO;
   
   public MemberProc(){
-    System.out.println("-> MemberProc created.");
+    System.out.println("");
   }
 
   @Override
@@ -120,10 +120,14 @@ public class MemberProc implements MemberProcInter {
   @Override
   public boolean isAdmin(HttpSession session) {
     boolean admin_sw = false;
+    int rankno = 1;
     if (session != null) {
-      String admin_id = (String)session.getAttribute("admin_id");
+      String id = (String)session.getAttribute("id");
+      if (session.getAttribute("rankno") != null) {
+        rankno = (int)session.getAttribute("rankno");
+      }
       
-      if (admin_id != null) {
+      if (id != null && rankno == 1) {
         admin_sw = true; // 정상적으로 로그인 한 경우
       }
     }

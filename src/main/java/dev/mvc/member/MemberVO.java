@@ -22,7 +22,7 @@ public class MemberVO {
     /** 아이디(이메일) */
     private String id = "";
     /** 패스워드 */
-    private String password = "";
+    private String passwd = "";
     /** 회원 성명 */
     private String name = "";
     /** 전화 번호 */
@@ -39,6 +39,13 @@ public class MemberVO {
     private String birth = "";
     
     
+    
+    public String getPasswd() {
+      return passwd;
+    }
+    public void setPasswd(String passwd) {
+      this.passwd = passwd;
+    }
     public String getExperience() {
       return experience;
     }
@@ -63,6 +70,7 @@ public class MemberVO {
     public void setEducation(String education) {
       this.education = education;
     }
+   
     /** 학력 */
     private String education = "";
 
@@ -86,12 +94,6 @@ public class MemberVO {
     }
     public void setId(String id) {
         this.id = id;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
     }
     public String getName() {
         return name;

@@ -12,26 +12,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
   </select>
   
   <insert id="create" parameterType="dev.mvc.member.MemberVO">
-    INSERT INTO member(memberno, id, password, name, tel, rdate, rankno) 
-    VALUES(member_seq.nextval, #{id}, #{password}, #{name}, #{tel}, sysdate, #{rankno})
+    INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
+    VALUES(member_seq.nextval, #{id}, #{passwd}, #{name}, #{tel}, sysdate, #{rankno}, #{experience}, #{gender}, #{birth}, #{education})
   </insert>
   
   <select id="list" resultType="dev.mvc.member.MemberVO">
-    SELECT memberno, id, password, name, tel, rdate, rankno
+    SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education
     FROM member
     ORDER BY rankno ASC;
   </select>
   
   <!-- memberno로 회원 정보 조회 -->
   <select id="read" resultType="dev.mvc.member.MemberVO" parameterType="int">
-    SELECT memberno, id, password, name, tel, rdate, rankno
+    SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education
     FROM member
     WHERE memberno = #{memberno}
   </select>  
 
   <!-- id로 회원 정보 조회 -->
   <select id="readById" resultType="dev.mvc.member.MemberVO" parameterType="String">
-    SELECT memberno, id, password, name, tel, rdate, rankno
+    SELECT memberno, id, passwd, name, tel, rdate, rankno
     FROM member
     WHERE id = #{id}
   </select>
@@ -52,13 +52,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
   <select id="passwd_check" parameterType="HashMap" resultType="int">
     SELECT COUNT(memberno) as cnt
     FROM member
-    WHERE memberno=#{memberno} AND password=#{password}
+    WHERE memberno=#{memberno} AND passwd=#{passwd}
   </select>
   
   <!-- 패스워드 변경 -->
   <update id="passwd_update" parameterType="HashMap">
     UPDATE member
-    SET password=#{password}
+    SET passwd=#{passwd}
     WHERE memberno=#{memberno}
   </update>
   

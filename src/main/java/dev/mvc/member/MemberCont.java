@@ -115,12 +115,17 @@ public class MemberCont {
    * @return
    */
   @RequestMapping(value="/member/list.do", method=RequestMethod.GET)
-  public ModelAndView list(){
+  public ModelAndView list(HttpSession session){
     ModelAndView mav = new ModelAndView();
-    ArrayList<MemberVO> list = memberProc.list();
-    mav.addObject("list", list);
+    if (this.memberProc.isAdmin(session) == true) {
+      ArrayList<MemberVO> list = memberProc.list();
+      mav.addObject("list", list);
       
-    mav.setViewName("/member/list"); // /webapp/WEB-INF/views/member/list.jsp
+      mav.setViewName("/member/list"); // /webapp/WEB-INF/views/member/list.jsp
+    } else {
+      mav.setViewName("/admin/login_need"); // /WEB-INF/views/admin/login_need.jsp
+    }
+   
     return mav; // forward
   }
   
@@ -135,13 +140,16 @@ public class MemberCont {
     ModelAndView mav = new ModelAndView();
     
     int memberno = 0;
-    if (this.memberProc.isMember(session) || this.memberProc.isAdmin(session)) { 
+    if (this.memberProc.isMember(session) || this.memberProc.isAdmin(session) || this.memberProc.isEnterprise(session)) { 
       // 로그인한 경우
 
       if (this.memberProc.isMember(session)) { // 회원으로 로그인
         memberno = (int)session.getAttribute("memberno");  // 본인의 회원 정보 조회
-        
-      } else if (this.memberProc.isAdmin(session)) { // 관리자로 로그인
+      }
+      else if (this.memberProc.isEnterprise(session)) { // 기업으로 로그인
+          memberno = (int)session.getAttribute("memberno");  // 본인의 회원 정보 조회
+      }
+      else if (this.memberProc.isAdmin(session)) { // 관리자로 로그인
         memberno = Integer.parseInt(request.getParameter("memberno")); // 관리자는 누구나 조회 가능
         
       }
@@ -173,7 +181,7 @@ public class MemberCont {
     
     if (cnt == 1) {
       mav.addObject("code", "update_success");
-      mav.addObject("mname", memberVO.getName());  // 홍길동님(user4) 회원 정보를 변경했습니다.
+      mav.addObject("name", memberVO.getName());  // 홍길동님(user4) 회원 정보를 변경했습니다.
       mav.addObject("id", memberVO.getId());
     } else {
       mav.addObject("code", "update_fail");
@@ -224,7 +232,7 @@ public class MemberCont {
 
     if (cnt == 1) {
       mav.addObject("code", "delete_success");
-      mav.addObject("mname", memberVO.getName());  // 홍길동님(user4) 회원 정보를 변경했습니다.
+      mav.addObject("name", memberVO.getName());  // 홍길동님(user4) 회원 정보를 변경했습니다.
       mav.addObject("id", memberVO.getId());
     } else {
       mav.addObject("code", "delete_fail");
@@ -263,7 +271,7 @@ public class MemberCont {
     ModelAndView mav = new ModelAndView();
     
     MemberVO memberVO = this.memberProc.read(memberno); // 패스워드를 변경하려는 회원 정보를 읽음
-    mav.addObject("mname", memberVO.getName());  
+    mav.addObject("name", memberVO.getName());  
     mav.addObject("id", memberVO.getId());
     
     // 현재 패스워드 검사용 데이터
@@ -333,7 +341,7 @@ public class MemberCont {
 //      MemberVO memberVO = memberProc.readById(id); // 로그인한 회원의 정보 조회
 //      session.setAttribute("memberno", memberVO.getMemberno()); // 세션에 필요한 값 저장
 //      session.setAttribute("id", id);
-//      session.setAttribute("mname", memberVO.getMname());
+//      session.setAttribute("name", memberVO.getMname());
 //      session.setAttribute("grade", memberVO.getGrade());
 //      
 //      mav.setViewName("redirect:/index.do"); // 시작 페이지로 이동  
