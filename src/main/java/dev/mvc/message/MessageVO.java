@@ -2,7 +2,7 @@ package dev.mvc.message;
 
 import java.util.Date;
 
-public class messageVO {
+public class MessageVO {
   
 
     /** 쪽지 번호 */
