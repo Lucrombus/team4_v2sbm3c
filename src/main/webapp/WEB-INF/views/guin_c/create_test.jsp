@@ -9,7 +9,7 @@
 <title>Resort world</title>
 <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <style>
    .ck-editor__editable_inline {
     min-height: 400px;
@@ -19,7 +19,6 @@
 
 var file1 = '';
 var file1saved = '';
-var thumb1 = '';
 var size1 = 0;
 
 </script>
@@ -33,15 +32,15 @@ var size1 = 0;
 
 <DIV class='content_body'>
   <ASIDE class="aside_right"  style="padding-bottom: 10px;">
-    <A href="./list_by_typeno_search_paging.do?typeno=${param.jobcateno }&now_page=1">기본 목록형</A> 
+    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">기본 목록형</A> 
     <span class='menu_divide' >│</span>   
     <A href="javascript:location.reload();">새로고침</A>
 
   </ASIDE>
   
   <DIV style="text-align: right; clear: both; ">  
-    <form name='frm' id='frm' method='get' action='./list_by_typeno_search_paging.do'>
-      <input type='hidden' name='typeno' value='${param.typeno }'>  <%-- 게시판의 구분 --%>
+    <form name='frm' id='frm' method='get' action='./list_by_jobcateno_search_paging.do'>
+      <input type='hidden' name='jobcateno' value='${param.jobcateno }'>  <%-- 게시판의 구분 --%>
       <input type='hidden' name='now_page' value='${param.now_page }'>  <%-- 게시판의 구분 --%>
       
       <c:choose>
@@ -55,7 +54,7 @@ var size1 = 0;
       <button type='submit' class="btn btn-secondary btn-sm">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' class="btn btn-secondary btn-sm"
-                     onclick="location.href='./list_by_cateno_search.do?typeno=${param.typeno}&now_page=1&word='">검색 취소</button>  
+                     onclick="location.href='./list_by_cateno_search.do?jobcateno=${param.jobcateno}&now_page=1&word='">검색 취소</button>  
       </c:if>    
     </form>
   </DIV>
@@ -65,25 +64,62 @@ var size1 = 0;
   
   
   <FORM name='frm' method='POST' action='./create_test.do' enctype="multipart/form-data">
+  
+      <div>
+       <label>브랜드명</label>
+       <input type='text' name='brand' value='CU' required="required" 
+                 class="" style='width: 10%;'>
+                 
+       <label>업체명</label>
+       <input type='text' name='name' value='CU 평양점' required="required" 
+                 class="" style='width: 10%;'>
+     </div>
+     <div>          
+       <label>주소　　</label>
+       <input type='text' name='address' value='평양시 평양동' required="required" 
+                 class="" style='width: 30%;'>
+     </div>
+
+       <div>          
+        <label>전화번호</label>
+       <input type='text' name='tel' value='010-0000-0000' required="required" 
+                 class="" style='width: 20%;'>
+        </div>         
+        <div>          
+        <label>이메일　</label>
+       <input type='text' name='email' value='123@123' required="required" 
+                 class="" style='width: 20%;'>
+        
+       </div>
+      <div>
+       <label>근무기간</label>
+       <input type='text' name='period' value='10년' required="required" 
+                 class="" style='width: 10%;'>
+                 
+       <label>근무요일</label>
+       <input type='text' name='day' value='월화수' required="required" 
+                 class="" style='width: 10%;'>
+
+      </div>
+      <div>
+       <label>시급 (원)</label>
+       <input type='number' name='wage' value='100' required="required"  min="0" step="100"
+                 class="" style='width: 10%;'>
+      </div>
+       <label>썸네일</label>
+       <input type='file' name='file1MF' id='file1MF' 
+                 value='' placeholder="파일 선택">
+    <br>
+
     
-    <c:choose>
-    <c:when test="${param.typeno == 0}">
-    <c:forEach items="${list}" var="typeVO_2">
-    <input type="radio" class="btn-check" name="typeno" id="option${typeVO_2.typeno }" value=${typeVO_2.typeno } autocomplete="off"  required>
-    <label class="btn btn-outline-secondary" for="option${typeVO_2.typeno }">${typeVO_2.name }</label> <%--부트스트랩 프리셋 --%>
-    </c:forEach>
-    </c:when>
-    <c:otherwise>
-    <input type="hidden" name="typeno" value="${param.typeno }">
-    </c:otherwise>
-    </c:choose>
+
     
-    <input type="hidden" name="adminno" value="<%=session.getAttribute("adminno")%>">
-    
+    <input type="hidden" name="memberno" value="1">
     <input type="hidden" name="file1" value="" id="file1">
     <input type="hidden" name="file1saved" value="" id="file1saved">
-    <input type="hidden" name="thumb1" value="" id="thumb1">
     <input type="hidden" name="size1" value=0 id="size1">
+    <input type='hidden' name='jobcateno' value='${param.jobcateno }'> 
+    
     
     
     
@@ -91,22 +127,17 @@ var size1 = 0;
     <div>
     <br>
        <label>제목</label>
-       <input type='text' name='title' value='가을 영화' required="required" 
+       <input type='text' name='title' value='' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
        <label>내용</label>
-       <textarea name='content' required="required" id="editor" > 가을 단풍보며 멍때리기</textarea>
+       <textarea name='content' required="required" id="editor" > </textarea>
     </div>
     <div>
        <label>검색어</label>
-       <input type='text' name='word' value='월터,벤 스틸러,크리스튼위그,휴먼,도전' required="required" 
+       <input type='text' name='word' value='' required="required" 
                  class="form-control" style='width: 100%;'>
-    </div>   
-    <div>
-       <label>이미지</label>
-       <input type='file' class="form-control" name='file1MF' id='file1MF' 
-                 value='' placeholder="파일 선택">
     </div>   
     <div>
        <label>패스워드</label>
@@ -114,9 +145,8 @@ var size1 = 0;
                  class="form-control" style='width: 50%;'>
     </div>   
     <div class="content_body_bottom">
-      <button type="button" onclick="processing();"class="btn btn-primary">적용</button>
       <button type="submit" class="btn btn-primary">등록</button>
-      <button type="button" onclick="location.href='./list_by_typeno_search_paging.do?typeno=${param.typeno}&now_page=${param.now_page }'" class="btn btn-primary">목록</button>
+      <button type="button" onclick="location.href='./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno}&now_page=${param.now_page }'" class="btn btn-primary">목록</button>
     </div>
   
   </FORM>
@@ -125,7 +155,7 @@ var size1 = 0;
   <script src="/ckeditor/ckeditor.js"></script>
   <script>
   CKEDITOR.replace( 'editor', {
-	    filebrowserUploadUrl: '/contents/test.do',
+	    filebrowserUploadUrl: '/guin_c/test.do',
       height: '500px'
 	}).on('fileUploadResponse', function (evt) {
           var xhr = evt.data.fileLoader.xhr;
@@ -136,7 +166,6 @@ var size1 = 0;
 
             file1 = file1  + responseJson.file1 + "---";
             file1saved = file1saved + responseJson.file1saved + "---";
-            thumb1 = thumb1  + responseJson.thumb1 + "---";
             size1 = size1  + responseJson.size1
 
             console.log('사이즈:', size1);
@@ -144,7 +173,6 @@ var size1 = 0;
             
             $("#file1").val(file1); // 업로드된 이미지 정보를 input 태그에 저장
             $("#file1saved").val(file1saved); // 업로드된 이미지 정보를 input 태그에 저장
-            $("#thumb1").val(thumb1); // 업로드된 이미지 정보를 input 태그에 저장
             $("#size").val(size1); // 업로드된 이미지 정보를 input 태그에 저장
           } else {
             console.error('이미지 업로드 실패:', xhr.status);

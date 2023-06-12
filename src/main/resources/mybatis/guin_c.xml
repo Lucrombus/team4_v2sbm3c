@@ -8,10 +8,10 @@
     <insert id="create" parameterType="dev.mvc.guin_c.Guin_cVO">
         INSERT INTO guin_c (guin_cno, jobcateno, memberno, name, brand, title,
         content, rdate, address,
-        wage, day, period, tel, email)
+        wage, day, period, tel, email, thumb1)
         VALUES (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name}, #{brand}, #{title}, 
         #{content}, sysdate, #{address},
-       #{wage}, #{day}, #{period}, #{tel}, #{email})
+       #{wage}, #{day}, #{period}, #{tel}, #{email}, #{thumb1})
     </insert>
 
 
