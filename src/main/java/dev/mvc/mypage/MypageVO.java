@@ -6,16 +6,34 @@ import org.springframework.web.multipart.MultipartFile;
 like_guinno                       NUMBER(10)     NOT NULL,
 memberno                          NUMBER(10)     NOT NULL,
 guin_cno                          NUMBER(10)     NOT NULL
+);
+CREATE TABLE like_gujik(
+    like_gujikno                      NUMBER(10)     NOT NULL,
+    memberno                          NUMBER(10)     NOT NULL,
+    gujik_cno                         NUMBER(10)     NOT NULL
 );*/
 
 public class MypageVO {
   /** 관심구인번호 */
   private int like_guinno;
+  /** 관심구직번호 */
+  private int like_gugicno;
   /** 회원번호 */
   private int memberno;
   /** 구인컨텐츠번호 */
   private int guin_cno;
+  /** 구직컨텐츠번호 */
+  private int gugic_cno;
   
+  /** 관심구인이름 */
+  private String title_like_guin;
+  /** 관심구인내용 */
+  private String detail_like_guin;
+  /** 관심구직이름 */
+  private String title_like_gugic;
+  /** 관심구직내용 */
+  private String detail_like_gugic;
+
   /** 신고번호 */
   private int reportno;
   /** 신고사유 */
@@ -23,18 +41,18 @@ public class MypageVO {
   /** 대상 URL */
   private String targetURL;
   
-  /** 이력서번호 */
-  private int resumeno;
-  /** 대상 URL */
-  private String resumep;
-  /** 대상 URL */
-  private String intro;
   
   public int getLike_guinno() {
     return like_guinno;
   }
   public void setLike_guinno(int like_guinno) {
     this.like_guinno = like_guinno;
+  }
+  public int getLike_gugicno() {
+    return like_gugicno;
+  }
+  public void setLike_gugicno(int like_gugicno) {
+    this.like_gugicno = like_gugicno;
   }
   public int getMemberno() {
     return memberno;
@@ -47,6 +65,36 @@ public class MypageVO {
   }
   public void setGuin_cno(int guin_cno) {
     this.guin_cno = guin_cno;
+  }
+  public int getGugic_cno() {
+    return gugic_cno;
+  }
+  public void setGugic_cno(int gugic_cno) {
+    this.gugic_cno = gugic_cno;
+  }
+  public String getTitle_like_guin() {
+    return title_like_guin;
+  }
+  public void setTitle_like_guin(String title_like_guin) {
+    this.title_like_guin = title_like_guin;
+  }
+  public String getDetail_like_guin() {
+    return detail_like_guin;
+  }
+  public void setDetail_like_guin(String detail_like_guin) {
+    this.detail_like_guin = detail_like_guin;
+  }
+  public String getTitle_like_gugic() {
+    return title_like_gugic;
+  }
+  public void setTitle_like_gugic(String title_like_gugic) {
+    this.title_like_gugic = title_like_gugic;
+  }
+  public String getDetail_like_gugic() {
+    return detail_like_gugic;
+  }
+  public void setDetail_like_gugic(String detail_like_gugic) {
+    this.detail_like_gugic = detail_like_gugic;
   }
   public int getReportno() {
     return reportno;
@@ -66,23 +114,6 @@ public class MypageVO {
   public void setTargetURL(String targetURL) {
     this.targetURL = targetURL;
   }
-  public int getResumeno() {
-    return resumeno;
-  }
-  public void setResumeno(int resumeno) {
-    this.resumeno = resumeno;
-  }
-  public String getResumep() {
-    return resumep;
-  }
-  public void setResumep(String resumep) {
-    this.resumep = resumep;
-  }
-  public String getIntro() {
-    return intro;
-  }
-  public void setIntro(String intro) {
-    this.intro = intro;
-  }
   
+    
 }
