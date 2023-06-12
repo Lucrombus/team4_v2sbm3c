@@ -31,6 +31,40 @@ public class MemberVO {
     private String rdate = "";
     /** 등급 */
     private int rankno = 0;
+    /** 경력 여부 */
+    private String experience = "";
+    /** 성별 */
+    private String gender = "";
+    /** 생년월일 */
+    private String birth = "";
+    
+    
+    public String getExperience() {
+      return experience;
+    }
+    public void setExperience(String experience) {
+      this.experience = experience;
+    }
+    public String getGender() {
+      return gender;
+    }
+    public void setGender(String gender) {
+      this.gender = gender;
+    }
+    public String getBirth() {
+      return birth;
+    }
+    public void setBirth(String birth) {
+      this.birth = birth;
+    }
+    public String getEducation() {
+      return education;
+    }
+    public void setEducation(String education) {
+      this.education = education;
+    }
+    /** 학력 */
+    private String education = "";
 
     /** 등록된 패스워드 */
     private String old_passwd = "";
