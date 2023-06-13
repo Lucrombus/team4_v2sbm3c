@@ -43,6 +43,13 @@ public interface MemberProcInter {
   public MemberVO readById(String id);
   
   /**
+   * memberno로 회원 정보 조회
+   * @param memberno
+   * @return
+   */
+  public MemberVO readByMemberno(int Memberno);
+  
+  /**
    * 로그인 된 회원 계정인지 검사
    * @param session
    * @return true : 사용자

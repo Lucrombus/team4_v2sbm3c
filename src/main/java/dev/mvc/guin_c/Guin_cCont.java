@@ -20,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.jobcate.JobcateProcInter;
 import dev.mvc.jobcate.JobcateVO;
+import dev.mvc.member.MemberProc;
+import dev.mvc.member.MemberProcInter;
+import dev.mvc.member.MemberVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -35,6 +38,10 @@ public class Guin_cCont {
   @Autowired
   @Qualifier("dev.mvc.jobcate.JobcateProc")
   private JobcateProcInter jobcateProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.member.MemberProc")
+  private MemberProcInter memberProc;
   
   public Guin_cCont() {
     System.out.println("Guin_cCont created");
@@ -241,13 +248,13 @@ public class Guin_cCont {
     JobcateVO jobcateVO = jobcateProc.read(guin_cVO.getJobcateno());
     mav.addObject("jobcateVO", jobcateVO);
     
-//    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
-//    Function<Integer, String> f = (memberno) -> {
-//      MemberVO memberVO = MemberProc.read_by_memberno(memberno);
-//      String mname = memberVO.getMname();
-//      return mname;
-//  };
-//    mav.addObject("f", f);
+    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, String> f = (memberno) -> {
+      MemberVO memberVO = memberProc.readByMemberno(memberno);
+      String id = memberVO.getId();
+      return id;
+  };
+    mav.addObject("f", f);
     
     int search_count = guin_cProc.search_count(guin_cVO);
 

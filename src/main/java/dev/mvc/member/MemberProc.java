@@ -50,6 +50,12 @@ public class MemberProc implements MemberProcInter {
   }
   
   @Override
+  public MemberVO readByMemberno(int memberno) {
+    MemberVO memberVO = this.memberDAO.readByMemberno(memberno);
+    return memberVO;
+  }
+  
+  @Override
   public int update(MemberVO memberVO) {
     int cnt = this.memberDAO.update(memberVO);
     return cnt;

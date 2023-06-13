@@ -48,6 +48,13 @@ public interface MemberDAOInter {
   public MemberVO readById(String id);
   
   /**
+   * memberno로 회원 정보 조회
+   * @param memberno
+   * @return
+   */
+  public MemberVO readByMemberno(int Memberno);
+  
+  /**
    * 수정 처리
    * @param memberVO
    * @return
