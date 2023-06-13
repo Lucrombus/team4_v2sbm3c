@@ -51,17 +51,24 @@ public class Guin_cCont {
   // 등록 폼 조회
   // http://localhost:9093/guin_c/create.do
   @RequestMapping(value="/guin_c/create.do", method=RequestMethod.GET)
-  public ModelAndView create(int jobcateno) {
+  public ModelAndView create(int jobcateno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
-    
-  
+
     JobcateVO jobcateVO = this.jobcateProc.read(jobcateno);
     ArrayList<JobcateVO> list = this.jobcateProc.list_all();
     mav.addObject("jobcateVO", jobcateVO);
     mav.addObject("list", list);
     
+    if (this.memberProc.isMember(session) == true) {
+      mav.setViewName("/guin_c/create_test");
+      
+    }else {
+      mav.setViewName("/member/login_need");
+      
+    }
     
-    mav.setViewName("/guin_c/create_test");
+    
+    
     return mav;
   }
   
@@ -86,7 +93,7 @@ public class Guin_cCont {
 //      mav.setViewName("/contents/create_test"); // /webapp/WEB-INF/views/contents/create.jsp
 //
 //    } else {
-//      mav.setViewName("/admin/login_need");
+//      mav.setViewName("/member/login_need");
 //    }
 //
 //    return mav;
@@ -222,7 +229,7 @@ public class Guin_cCont {
     mav.addObject("url", "/contents/msg");
     mav.addObject("jobcateno", guin_cVO.getJobcateno());
     mav.addObject("now_page", guin_cVO.getNow_page());
-    mav.setViewName("redirect:/guin_c/list_by_search_paging.do");
+    mav.setViewName("redirect:/guin_c/list_by_jobcateno_search_paging.do");
 
     return mav; // forward
   }
@@ -288,14 +295,13 @@ public class Guin_cCont {
 
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
-    
-    System.out.println("아이디: " + memberVO.getId());
+     
     
     mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
     mav.addObject("memberVO", memberVO);
 
     JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
-    mav.addObject("jobcateVO ", jobcateVO );
+    mav.addObject("jobcateVO", jobcateVO);
 
     mav.setViewName("/guin_c/read"); // /WEB-INF/views/contents/read.jsp
 

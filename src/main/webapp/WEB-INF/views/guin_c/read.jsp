@@ -30,7 +30,7 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'><A href="./list_by_jobcateno_search_paging.do?jobcateno=${jobcateno }&now_page=1" class='title_link'>${param.jobcateno != 0 ? typeVO.name : "전체목록" } 게시판</A> > ${guin_cVO.title } </DIV>
+<DIV class='title_line'><A href="./list_by_jobcateno_search_paging.do?jobcateno=${jobcateno }&now_page=1" class='title_link'>${param.jobcateno != 0 ? jobcateVO.name : "전체목록" } 구인</A> > ${guin_cVO.title } </DIV>
 <c:if test="${sessionScope.id != null}">
   <A href="./create.do?jobcateno=${param.jobcateno }&now_page=${param.now_page}">등록</A>
   <span class='menu_divide' >│</span>
@@ -89,30 +89,65 @@
   <fieldset class="fieldset_basic">
     <ul>
       <li class="li_none">
-        <DIV style="width: 50%; float: left; margin-right: 10px;">
+        <DIV style="width: 30%; float: left; margin-right: 30px;">
             <c:choose>
               <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
                 <%-- /static/guin_c/storage/ --%>
-                <IMG src="/guin_c/storage/${thumb1 }" style="width: 100%;"> 
+                <IMG src="/contents/storage/${thumb1 }" style="width: 100%;"> 
               </c:when>
               <c:otherwise> <!-- 기본 이미지 출력 -->
                 <IMG src="/contents/images/none1.png" style="width: 100%;"> 
               </c:otherwise>
             </c:choose>
+            
+           
+             
         </DIV>
+        
+        <DIV style="width: 30%; float: left; margin-right: 70px;">
+         <c:choose>
+                <c:when test="${map.trim().length() > 0 }">
+                  <DIV style='width:640px; height: 360px; margin: 0px auto;'>
+                    ${map }
+                  </DIV>
+                </c:when>
+                <c:otherwise>
+                   <IMG src="/contents/images/none1.png" style="width: 100%;"> 
+                </c:otherwise>
+            </c:choose>
+        </DIV>
+        
         <DIV>
-         ${content }
+        <ul class="list-group">
+          <li class="list-group-item">
+          브랜드: ${guin_cVO.brand}
+          </li>
+          <li class="list-group-item">
+          업체명: ${guin_cVO.name}
+          </li >
+          <li class="list-group-item">
+          근무기간: ${guin_cVO.period}
+          </li>
+          <li class="list-group-item">
+          근무요일: ${guin_cVO.day}
+          </li>
+          <li class="list-group-item">
+          시급: ${guin_cVO.wage}&nbsp원
+          </li>
+        </ul>
         </DIV>
       </li>
-
-      <c:if test="${map.trim().length() > 0 }">
-        <li class="li_none" style="clear: both; padding-top: 15px; padding-bottom: 15px;">
-          <DIV style='width:640px; height: 360px; margin: 0px auto;'>
-            ${map }
-          </DIV>
-        </li>
-      </c:if> 
     </ul>
+  </fieldset>
+  
+  <DIV class='menu_line'></DIV>
+  <BR>
+  <fieldset class="fieldset_basic">
+  ${content }
+  <BR>
+  <BR>
+  <BR>
+  <BR>
   </fieldset>
 
 </DIV>
