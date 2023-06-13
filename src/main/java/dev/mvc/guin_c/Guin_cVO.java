@@ -23,7 +23,7 @@ public class Guin_cVO {
   private String file1saved;
   private String thumb1;
   private long size1;
-  private String word;
+  private String word ="";
 
   /**
    * 이미지 파일
