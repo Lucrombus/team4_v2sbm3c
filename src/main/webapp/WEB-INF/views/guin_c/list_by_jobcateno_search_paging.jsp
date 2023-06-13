@@ -20,21 +20,21 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-${param.typeno != 0 ? typeVO.name : "전체보기" } 게시판
+${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 게시판
 </DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right" style="padding-bottom: 10px;">
     <c:if test="${sessionScope.admin_id != null}">
-     <A href="./create.do?typeno=${param.typeno }&now_page=${param.now_page }">등록</A>
+     <A href="./create.do?jobcateno=${param.jobcateno }&now_page=${param.now_page }">등록</A>
      <span class='menu_divide' >│</span>
     </c:if>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
   
   <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_by_typeno_search_paging.do'>
-      <input type='hidden' name='typeno' value='${param.typeno }'>  <%-- 게시판의 구분 --%>
+    <form name='frm' id='frm' method='get' action='./list_by_jobcateno_search_paging.do'>
+      <input type='hidden' name='jobcateno' value='${param.jobcateno }'>  <%-- 게시판의 구분 --%>
       <input type='hidden' name='now_page' value='1'>  <%-- 검색기본 시작 페이지 --%>
       
       <c:choose>
@@ -48,7 +48,7 @@ ${param.typeno != 0 ? typeVO.name : "전체보기" } 게시판
       <button type='submit' class="btn btn-secondary btn-sm">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' class='btn btn-info btn-sm'
-                     onclick="location.href='./list_by_typeno_search_paging.do?typeno=${param.typeno}&now_page=1&word='">검색 취소</button>  
+                     onclick="location.href='./list_by_jobcateno_search_paging.do?typeno=${param.jobcateno}&now_page=1&word='">검색 취소</button>  
       </c:if>    
     </form>
   </DIV>
@@ -78,18 +78,18 @@ ${param.typeno != 0 ? typeVO.name : "전체보기" } 게시판
     </thead>
     
     <tbody>
-      <c:forEach var="contentsVO" items="${list }">
-        <c:set var="title" value="${contentsVO.title }" />
-        <c:set var="content" value="${contentsVO.content }" />
-        <c:set var="typeno" value="${contentsVO.typeno }" />
-        <c:set var="contentsno" value="${contentsVO.contentsno }" />
-        <c:set var="thumb1" value="${contentsVO.thumb1 }" />
-        <c:set var="rdate" value="${contentsVO.rdate }" />
-        <c:set var="adminno" value="${contentsVO.adminno }" />
+      <c:forEach var="guin_cVO" items="${list }">
+        <c:set var="title" value="${guin_cVO.title }" />
+        <c:set var="content" value="${guin_cVO.content }" />
+        <c:set var="jobcateno" value="${guin_cVO.jobcateno }" />
+        <c:set var="guin_cno" value="${guin_cVO.guin_cno }" />
+        <c:set var="thumb1" value="${guin_cVO.thumb1 }" />
+        <c:set var="rdate" value="${guin_cVO.rdate }" />
+        <c:set var="memberno" value="${guin_cVO.memberno }" />
         
         <tr style="height:100px;">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${contentsno}
+          ${guin_cno}
           </td>
           <td style='vertical-align: middle; text-align: center;'>
             <c:choose>
@@ -103,7 +103,7 @@ ${param.typeno != 0 ? typeVO.name : "전체보기" } 게시판
             </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
-            <a href="./read.do?contentsno=${contentsno}&typeno=${param.typeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong> 
+            <a href="./read.do?guin_cno=${guin_cno}&jobcateno=${param.jobcateno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong> 
             <c:choose>
               <c:when test="${content.length() > 160 }">
                   ${content.substring(0, 160)}.....
@@ -116,13 +116,13 @@ ${param.typeno != 0 ? typeVO.name : "전체보기" } 게시판
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
-            <A href="/contents/map.do?typeno=${param.typeno }&contentsno=${contentsno}&now_page=${param.now_page}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
+            <A href="/guin_c/map.do?typeno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
           </td>
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }
           </td>
            <td style='vertical-align: middle; text-align: center;'>
-          ${f.apply(adminno) }
+          ${f.apply(memberno) }
           </td>
         </tr>
         

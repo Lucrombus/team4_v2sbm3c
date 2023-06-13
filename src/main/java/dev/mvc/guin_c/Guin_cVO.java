@@ -23,6 +23,7 @@ public class Guin_cVO {
   private String file1saved;
   private String thumb1;
   private long size1;
+  private String word;
 
   /**
    * 이미지 파일
@@ -153,6 +154,14 @@ public class Guin_cVO {
   public void setSize1(long size1) {
     this.size1 = size1;
   }
+  
+  public String getWord() {
+    return word;
+  }
+  public void setWord(String word) {
+    this.word = word;
+  }
+  
   public MultipartFile getFile1MF() {
     return file1MF;
   }

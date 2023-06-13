@@ -6,13 +6,83 @@
 
     <!-- 등록 -->
     <insert id="create" parameterType="dev.mvc.guin_c.Guin_cVO">
-        INSERT INTO guin_c (guin_cno, jobcateno, memberno, name, brand, title,
-        content, rdate, address,
+        INSERT INTO guin_c
+        (guin_cno, jobcateno, memberno, name, brand, title,
+        content,
+        rdate, address,
         wage, day, period, tel, email, thumb1)
-        VALUES (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name}, #{brand}, #{title}, 
+        VALUES
+        (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name},
+        #{brand}, #{title},
         #{content}, sysdate, #{address},
-       #{wage}, #{day}, #{period}, #{tel}, #{email}, #{thumb1})
+        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{thumb1})
     </insert>
+
+    <!-- 검색 레코드 갯수 -->
+    <select id="search_count" resultType="int"
+        parameterType="dev.mvc.guin_c.Guin_cVO">
+        SELECT COUNT(*) as cnt
+        FROM guin_c
+        <choose>
+            <when
+                test="(word == null or word == '') and (jobcateno != 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리별 목록) -->
+                WHERE jobcateno=#{jobcateno}
+            </when>
+            <when
+                test="(word != null and word != '') and (jobcateno != 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리별 목록) -->
+                WHERE jobcateno=#{jobcateno} AND (UPPER(title) LIKE '%' ||
+                UPPER(#{word}) || '%'
+                OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%'
+                OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+            </when>
+
+            <when
+                test="(word == null or word == '') and (jobcateno == 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (전체목록) -->
+            </when>
+            <when
+                test="(word != null and word != '') and (jobcateno == 0)"> <!-- 검색하는 경우의 레코드 갯수 (전체목록) -->
+                WHERE (UPPER(title) LIKE '%' || UPPER(#{word}) || '%'
+                OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%'
+                OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+            </when>
+        </choose>
+    </select>
+    
+    <!-- 카테고리별 검색 + 페이징 목록 -->
+  <select id="list_by_jobcateno_search_paging" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="dev.mvc.guin_c.Guin_cVO">
+    SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, r
+   FROM (
+              SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, rownum as r
+              FROM (
+                        SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word
+                        FROM guin_c
+                        <choose>
+                           <when test="(word == null or word == '') and (jobcateno != 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리 별) -->
+                            WHERE jobcateno=#{jobcateno}
+                          </when >
+                          <when test="(word != null and word != '') and (jobcateno != 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리 별)-->
+                            WHERE jobcateno=#{jobcateno} AND (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
+                                                                      OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
+                                                                      OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+                          </when>
+                          
+                          <when test="(word == null or word == '') and (jobcateno == 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리 별) -->
+                          </when >
+                          <when test="(word != null and word != '') and (jobcateno == 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리 별)-->
+                            WHERE (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
+                                                OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
+                                                OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+                          </when>
+                        </choose>
+                        ORDER BY guin_cno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+     
+    <!--  1 page: WHERE r >= 1  AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
 
 
 
