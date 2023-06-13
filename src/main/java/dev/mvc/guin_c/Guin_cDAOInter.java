@@ -24,6 +24,12 @@ public interface Guin_cDAOInter {
    */
   public ArrayList<Guin_cVO> list_by_jobcateno_search_paging(Guin_cVO guin_cVO);
   
+  /**
+   * 조회
+   * @return
+   */
+  public Guin_cVO read(int jobcateno);
+  
   
 
 }

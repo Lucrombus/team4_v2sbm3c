@@ -65,7 +65,7 @@
     %>
       <TR>
         <TD class='td_bs'><%= jobcateVO.getSeqno() %></TD>
-        <TD style="text-align:center" ><a href="/contents/list_by_cateno.do?cateno=<%=jobcateVO.getJobcateno() %>&now_page=1"><%=jobcateVO.getName() %></a></TD>
+        <TD style="text-align:center" ><a href="/guin_c/list_by_jobcateno_search_paging.do?jobcateno=<%=jobcateVO.getJobcateno() %>&now_page=1"><%=jobcateVO.getName() %></a></TD>
         <TD style="text-align:center"></TD>
         <TD style="text-align:center">
           <A href="./read_update.do?jobcateno=<%=jobcateVO.getJobcateno() %>" title="수정"><IMG src="/cate/images/update.png" class="icon"></A>

@@ -10,13 +10,23 @@
         (guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, thumb1)
+        wage, day, period, tel, email, word, thumb1)
         VALUES
         (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name},
         #{brand}, #{title},
         #{content}, sysdate, #{address},
-        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{thumb1})
+        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1})
     </insert>
+    
+    <!-- 조회 -->
+    <select id="read" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="int">
+        SELECT guin_cno, jobcateno, memberno, name, brand, title,
+        content,
+        rdate, address,
+        wage, day, period, tel, email, word, thumb1
+        FROM guin_c
+        WHERE guin_cno = #{guin_cno}
+    </select>
 
     <!-- 검색 레코드 갯수 -->
     <select id="search_count" resultType="int"

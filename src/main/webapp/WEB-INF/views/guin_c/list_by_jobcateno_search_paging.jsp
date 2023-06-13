@@ -25,7 +25,7 @@ ${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 게시판
 
 <DIV class='content_body'>
   <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <c:if test="${sessionScope.admin_id != null}">
+    <c:if test="${sessionScope.id != null}">
      <A href="./create.do?jobcateno=${param.jobcateno }&now_page=${param.now_page }">등록</A>
      <span class='menu_divide' >│</span>
     </c:if>
@@ -103,16 +103,7 @@ ${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 게시판
             </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
-            <a href="./read.do?guin_cno=${guin_cno}&jobcateno=${param.jobcateno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong> 
-            <c:choose>
-              <c:when test="${content.length() > 160 }">
-                  ${content.substring(0, 160)}.....
-              </c:when>
-              <c:when test="${content.length() <= 160 }">
-                  ${content}
-              </c:when>
-            </c:choose>
-            
+            <a href="./read.do?guin_cno=${guin_cno}&jobcateno=${param.jobcateno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>

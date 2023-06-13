@@ -18,7 +18,7 @@
                     <c:set var="jobcateno" value="${jobcateVO.jobcateno }" />
                     <c:set var="name" value="${jobcateVO.name }" />
                     <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                      <a class="nav-link" href="/contents/list_by_cateno.do?cateno=${jobcateno }&now_page=1" >${name }</a>
+                      <a class="nav-link" href="/guin_c/list_by_jobcateno_search_paging.do?jobcateno=${jobcateno }&now_page=1" >${name }</a>
                     </li>
                   </c:forEach>
                   

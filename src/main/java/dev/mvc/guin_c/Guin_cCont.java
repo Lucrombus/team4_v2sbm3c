@@ -200,8 +200,8 @@ public class Guin_cCont {
     // --------------------------------------------------------------------------- ---
     // PK의 return
     // ------------------------------------------------------------------------------
-    // System.out.println("--> contentsno: " + contentsVO.getContentsno());
-    // mav.addObject("contentsno", contentsVO.getContentsno()); // redirect
+    // System.out.println("--> guin_cno: " + contentsVO.getContentsno());
+    // mav.addObject("guin_cno", contentsVO.getContentsno()); // redirect
     // parameter 적용
     // ------------------------------------------------------------------------------
 
@@ -222,7 +222,7 @@ public class Guin_cCont {
     mav.addObject("url", "/contents/msg");
     mav.addObject("jobcateno", guin_cVO.getJobcateno());
     mav.addObject("now_page", guin_cVO.getNow_page());
-    mav.setViewName("redirect:/contents/msg.do");
+    mav.setViewName("redirect:/guin_c/list_by_search_paging.do");
 
     return mav; // forward
   }
@@ -276,6 +276,33 @@ public class Guin_cCont {
 
     return mav;
   }
+  
+  /**
+   * 조회
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/guin_c/read.do", method = RequestMethod.GET)
+  public ModelAndView read(int guin_cno) {
+    ModelAndView mav = new ModelAndView();
+
+    Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
+    MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
+    
+    System.out.println("아이디: " + memberVO.getId());
+    
+    mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
+    mav.addObject("memberVO", memberVO);
+
+    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
+    mav.addObject("jobcateVO ", jobcateVO );
+
+    mav.setViewName("/guin_c/read"); // /WEB-INF/views/contents/read.jsp
+
+    return mav;
+  }
+  
+  
   
   
 

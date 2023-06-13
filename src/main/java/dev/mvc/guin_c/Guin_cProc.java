@@ -76,6 +76,14 @@ public class Guin_cProc implements Guin_cProcInter {
     return list;
   }
   
+  @Override
+  public Guin_cVO read(int jobcateno) {
+    Guin_cVO guin_cVO = this.guin_cDAO.read(jobcateno);
+    return guin_cVO;
+    
+  }
+
+  
   
   /**
    * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
