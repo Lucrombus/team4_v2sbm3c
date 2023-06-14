@@ -22,6 +22,32 @@ var file1 = '';
 var file1saved = '';
 var size1 = 0;
 
+function checkLength() { // 입력되는 문자열의 길이를 구해서 오라클 칼럼 용량 초과를 방지
+
+    var title_length = $("#title").val().length;
+    var content_length = CKEDITOR.instances['editor'].getData().length;
+
+    console.log('제목길이'+ title_length);
+    console.log('내용길이'+ content_length);
+
+
+
+	if (document.getElementById("frm").checkValidity()) { // required 옵션 체크하는 함수
+			if (title_length < 30) {
+				if (content_length < 4000) {
+					$("#frm").submit();
+				} else {
+					alert("내용은 1300자 이내로 해주세요");
+				}
+			} else {
+				alert("제목은 30자 이내로 해주세요");
+
+			}
+		} else {
+			alert("입력되지 않은 필수 정보가 있습니다");
+            }
+
+	}
 </script>
 
 </head> 
@@ -40,7 +66,7 @@ var size1 = 0;
   </ASIDE>
   
   <DIV style="text-align: right; clear: both; ">  
-    <form name='frm' id='frm' method='get' action='./list_by_jobcateno_search_paging.do'>
+    <form name='frm' method='get' action='./list_by_jobcateno_search_paging.do'>
       <input type='hidden' name='jobcateno' value='${param.jobcateno }'>  <%-- 게시판의 구분 --%>
       <input type='hidden' name='now_page' value='${param.now_page }'>  <%-- 게시판의 구분 --%>
       
@@ -64,7 +90,7 @@ var size1 = 0;
   
   
   
-  <FORM name='frm' method='POST' action='./create_test.do' enctype="multipart/form-data">
+  <FORM name='frm' id='frm' method='POST' action='./create_test.do' enctype="multipart/form-data">
   
       <div>
        <label>브랜드명</label>
@@ -128,7 +154,7 @@ var size1 = 0;
     <div>
     <br>
        <label>제목</label>
-       <input type='text' name='title' value='' required="required" 
+       <input type='text' name='title' id ='title' value='' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
@@ -141,7 +167,7 @@ var size1 = 0;
                  class="form-control" style='width: 100%;'>
     </div>    
     <div class="content_body_bottom">
-      <button type="submit" class="btn btn-primary">등록</button>
+      <button type="button" onclick="checkLength();" class="btn btn-primary">등록</button>
       <button type="button" onclick="location.href='./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno}&now_page=${param.now_page }'" class="btn btn-primary">목록</button>
     </div>
   
@@ -175,7 +201,6 @@ var size1 = 0;
           }
         });
   </script>
-  
 
   
 </DIV>
