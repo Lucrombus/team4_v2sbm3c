@@ -126,6 +126,12 @@
           업체명: ${guin_cVO.name}
           </li >
           <li class="list-group-item">
+          주소: ${guin_cVO.address}
+          </li >
+           <li class="list-group-item">
+          연락처: ${guin_cVO.tel}
+          </li >
+          <li class="list-group-item">
           근무기간: ${guin_cVO.period}
           </li>
           <li class="list-group-item">
