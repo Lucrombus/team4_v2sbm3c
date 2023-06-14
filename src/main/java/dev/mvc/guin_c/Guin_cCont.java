@@ -72,32 +72,7 @@ public class Guin_cCont {
     return mav;
   }
   
-//  // test 등록 폼
-//  // http://localhost:9091/contents/create.do?typeno=1
-//  @RequestMapping(value = "/contents/test.do", method = RequestMethod.GET)
-//  public ModelAndView test(int typeno, HttpSession session) {
-////  public ModelAndView create(HttpServletRequest request,  int typeno) {
-//    ModelAndView mav = new ModelAndView();
-//    System.out.println(session.getAttribute("adminno"));
-//    
-//    ArrayList<TypeVO> list = this.typeProc.list_all();
-//    mav.addObject("list", list);
-//    
-//
-//    if (this.adminProc.isAdmin(session) == true) {
-//      TypeVO typeVO = this.typeProc.read(typeno);
-//      mav.addObject("typeVO", typeVO);
-////      request.setAttribute("typeVO", typeVO);
-//      
-//
-//      mav.setViewName("/contents/create_test"); // /webapp/WEB-INF/views/contents/create.jsp
-//
-//    } else {
-//      mav.setViewName("/member/login_need");
-//    }
-//
-//    return mav;
-//  }
+
   
   /**
    * 이미지 업로드 반응
@@ -129,6 +104,7 @@ public class Guin_cCont {
     if (size1 > 0) { // 파일 크기 체크
       // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
       file1saved = Upload.saveFileSpring(uploadFile, upDir);
+      
 
     }
 
@@ -304,6 +280,32 @@ public class Guin_cCont {
     mav.addObject("jobcateVO", jobcateVO);
 
     mav.setViewName("/guin_c/read"); // /WEB-INF/views/contents/read.jsp
+    
+
+    return mav;
+  }
+  
+  /**
+   * 수정 폼
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/guin_c/update.do", method = RequestMethod.GET)
+  public ModelAndView update(int guin_cno) {
+    ModelAndView mav = new ModelAndView();
+
+    Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
+    MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
+     
+    
+    mav.addObject("guin_cVO", guin_cVO);
+    mav.addObject("memberVO", memberVO);
+
+    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
+    mav.addObject("jobcateVO", jobcateVO);
+
+    mav.setViewName("/guin_c/update"); // /WEB-INF/views/contents/read.jsp
+    
 
     return mav;
   }

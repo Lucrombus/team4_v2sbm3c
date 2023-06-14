@@ -1,6 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="guin_cno" value="${guin_cVO.guin_cno }" />
+<c:set var="jobcateno" value="${param.jobcateno }" />
+<c:set var="title" value="${guin_cVO.title }" />        
+<c:set var="file1" value="${guin_cVO.file1 }" />
+<c:set var="file1saved" value="${guin_cVO.file1saved }" />
+<c:set var="thumb1" value="${guin_cVO.thumb1 }" />
+<c:set var="content" value="${guin_cVO.content }" />
+<c:set var="rdate" value="${guin_cVO.rdate }" />
+<c:set var="word" value="${guin_cVO.word }" />
+<c:set var="map" value="${guin_cVO.map }" />
+<c:set var="size1_label" value="${guin_cVO.size1_label }" />
+
+
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -21,6 +34,7 @@ var file1 = '';
 var file1saved = '';
 var size1 = 0;
 
+
 </script>
 
 </head> 
@@ -28,14 +42,13 @@ var size1 = 0;
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'><A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1" class='title_link'>${param.jobcateno != 0 ? jobcateVO.name : "전체목록" } 구인</A> > 글 등록 </DIV>
+<DIV class='title_line'><A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1" class='title_link'>${param.jobcateno != 0 ? jobcateVO.name : "전체목록" } 구인 </A> > 글 수정 > ${title } </DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right"  style="padding-bottom: 10px;">
     <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">기본 목록형</A> 
     <span class='menu_divide' >│</span>   
     <A href="javascript:location.reload();">새로고침</A>
-
   </ASIDE>
   
   <DIV style="text-align: right; clear: both; ">  
@@ -67,43 +80,43 @@ var size1 = 0;
   
       <div>
        <label>브랜드명</label>
-       <input type='text' name='brand' value='CU' required="required" 
+       <input type='text' name='brand' value='${guin_cVO.brand}' required="required" 
                  class="" style='width: 10%;'>
                  
        <label>업체명</label>
-       <input type='text' name='name' value='CU 평양점' required="required" 
+       <input type='text' name='name' value='${guin_cVO.name}' required="required" 
                  class="" style='width: 10%;'>
      </div>
      <div>          
        <label>주소　　</label>
-       <input type='text' name='address' value='평양시 평양동' required="required" 
+       <input type='text' name='address' value='${guin_cVO.address}' required="required" 
                  class="" style='width: 30%;'>
      </div>
 
        <div>          
         <label>전화번호</label>
-       <input type='text' name='tel' value='010-0000-0000' required="required" 
+       <input type='text' name='tel' value='${guin_cVO.tel}' required="required" 
                  class="" style='width: 20%;'>
         </div>         
         <div>          
         <label>이메일　</label>
-       <input type='text' name='email' value='123@123' required="required" 
+       <input type='text' name='email' value='${guin_cVO.email}' required="required" 
                  class="" style='width: 20%;'>
         
        </div>
       <div>
        <label>근무기간</label>
-       <input type='text' name='period' value='10년' required="required" 
+       <input type='text' name='period' value='${guin_cVO.period}' required="required" 
                  class="" style='width: 10%;'>
                  
        <label>근무요일</label>
-       <input type='text' name='day' value='월화수' required="required" 
+       <input type='text' name='day' value='${guin_cVO.day}' required="required" 
                  class="" style='width: 10%;'>
 
       </div>
       <div>
        <label>시급 (원)</label>
-       <input type='number' name='wage' value='100' required="required"  min="0" step="100"
+       <input type='number' name='wage' value='${guin_cVO.wage}' required="required"  min="0" step="100"
                  class="" style='width: 10%;'>
       </div>
        <label>썸네일</label>
@@ -120,6 +133,9 @@ var size1 = 0;
     <input type="hidden" name="size1" value=0 id="size1">
     <input type='hidden' name='jobcateno' value='${param.jobcateno }'> 
     
+    <!-- 컨텐트 내용에 있는 줄바꿈 문자를 자바스크립트가 정상적으로 인식하게 하기 위한 중간과정  -->
+    <input type='hidden' name='media' id='media' value='${content }'>
+    
     
     
     
@@ -127,16 +143,16 @@ var size1 = 0;
     <div>
     <br>
        <label>제목</label>
-       <input type='text' name='title' value='' required="required" 
+       <input type='text' name='title' value='${title}' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
        <label>내용</label>
-       <textarea name='content' required="required" id="editor" > </textarea>
+       <textarea name='content' value ='${content}'required="required" id="editor" > </textarea>
     </div>
     <div>
        <label>검색어</label>
-       <input type='text' name='word' value='' required="required" 
+       <input type='text' name='word' value='${word}' required="required" 
                  class="form-control" style='width: 100%;'>
     </div>    
     <div class="content_body_bottom">
@@ -173,6 +189,9 @@ var size1 = 0;
             console.error('이미지 업로드 실패:', xhr.status);
           }
         });
+  var read_content = document.getElementById("media").value
+  console.log(read_content);
+  CKEDITOR.instances['editor'].setData(read_content);
   </script>
   
 

@@ -34,7 +34,7 @@
 <c:if test="${sessionScope.id != null}">
   <A href="./create.do?jobcateno=${param.jobcateno }&now_page=${param.now_page}">등록</A>
   <span class='menu_divide' >│</span>
-  <A href="./update_text.do?guin_cno=${guin_cno}&now_page=${param.now_page}">수정</A>
+  <A href="./update.do?jobcateno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}">수정</A>
   <span class='menu_divide' >│</span>
   <A href="./update_file.do?guin_cno=${guin_cno}&now_page=${param.now_page}">파일 수정</A>  
   <span class='menu_divide' >│</span>
@@ -112,7 +112,7 @@
                   </DIV>
                 </c:when>
                 <c:otherwise>
-                   <IMG src="/contents/images/none1.png" style="width: 100%;"> 
+                   <IMG src="/contents/images/nonemap.png" style="width: 100%;"> 
                 </c:otherwise>
             </c:choose>
         </DIV>
@@ -160,7 +160,7 @@
       <li class="li_none">
         <DIV>
           <c:if test="${thumb1.trim().length() > 0 }">
-            첨부 파일: <A href='/download?dir=/guin_c/storage&filename=${file1saved}&downname=${file1}'>${file1}</A> (${size1_label})  
+            썸네일: <A href='/download?dir=/guin_c/storage&filename=${thumb1}&downname=${thumb1}'>${thumb1}</A> (${size1_label})  
           </c:if>
         </DIV>
       </li>  
