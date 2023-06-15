@@ -14,16 +14,25 @@
             </button>    
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                  <c:forEach var="jobcateVO" items="${list}">
-                    <c:set var="jobcateno" value="${jobcateVO.jobcateno }" />
-                    <c:set var="name" value="${jobcateVO.name }" />
-                    <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                      <a class="nav-link" href="/guin_c/list_by_jobcateno_search_paging.do?jobcateno=${jobcateno }&now_page=1" >${name }</a>
-                    </li>
-                  </c:forEach>
+                 <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">구인</a>
+                      <div class="dropdown-menu">
+                      <c:forEach var="jobcateVO" items="${list}">
+                       <c:set var="jobcateno" value="${jobcateVO.jobcateno }" />
+                       <c:set var="name" value="${jobcateVO.name }" />
+                       <c:set var="visible" value="${jobcateVO.visible }" />
+                       <c:if test="${jobcateVO.visible.equals('Y') }">
+                        <a class="dropdown-item" href="/guin_c/list_by_jobcateno_search_paging.do?jobcateno=${jobcateno }&now_page=1" >${name }</a>
+                       </c:if>
+                       
+                      </c:forEach>
+
+                      </div>
+                  </li>
+                  
                   
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                    <a class="nav-link" href="/jobcate/list_all.do">전체 글 목록</a>
+                    <a class="nav-link" href="/jobcate/list_all.do">구인 카테고리 관리</a>
                   </li>
 
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
