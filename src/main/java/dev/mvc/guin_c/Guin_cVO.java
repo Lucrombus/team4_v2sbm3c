@@ -19,9 +19,10 @@ public class Guin_cVO {
   private String period;
   private String tel;
   private String email;
-  private String file1;
-  private String file1saved;
-  private String thumb1;
+  private String file1 ="";
+  private String file1saved ="";
+  private String thumb1 ="";
+  private String thumb1_origin ="";
   private long size1;
   private String word ="";
 
@@ -147,6 +148,13 @@ public class Guin_cVO {
   }
   public void setThumb1(String thumb1) {
     this.thumb1 = thumb1;
+  }
+  
+  public String getThumb1_origin() {
+    return thumb1_origin;
+  }
+  public void setThumb1_origin(String thumb1_origin) {
+    this.thumb1_origin = thumb1_origin;
   }
   public long getSize1() {
     return size1;

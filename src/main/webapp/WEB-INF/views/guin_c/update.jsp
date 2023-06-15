@@ -23,6 +23,7 @@
 <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- top 메뉴 drop down 버튼 스크립트를 작동하게 함 -->
 <style>
    .ck-editor__editable_inline {
     min-height: 400px;
@@ -30,9 +31,37 @@
 </style>
 <script type="text/javascript"> <!--이미지 리스트를 문자열로 저장하기 위한 초기 스크립트!-->
 
+
 var file1 = '';
 var file1saved = '';
 var size1 = 0;
+
+function checkLength() { // 입력되는 문자열의 길이를 구해서 오라클 칼럼 용량 초과 오류를 방지하는 함수
+
+    var title_length = $("#title").val().length;
+    var content_length = CKEDITOR.instances['editor'].getData().length;
+
+    console.log('제목길이'+ title_length);
+    console.log('내용길이'+ content_length);
+
+
+
+  if (document.getElementById("frm").checkValidity()) { // required 옵션 체크하는 함수
+      if (title_length < 30) {
+        if (content_length < 4000) {
+          $("#frm").submit();
+        } else {
+          alert("내용은 1300자 이내로 해주세요");
+        }
+      } else {
+        alert("제목은 30자 이내로 해주세요");
+
+      }
+    } else {
+      alert("입력되지 않은 필수 정보가 있습니다");
+            }
+
+  }
 
 
 </script>
@@ -52,7 +81,7 @@ var size1 = 0;
   </ASIDE>
   
   <DIV style="text-align: right; clear: both; ">  
-    <form name='frm' id='frm' method='get' action='./list_by_jobcateno_search_paging.do'>
+    <form name='frm' method='get' action='./list_by_jobcateno_search_paging.do'>
       <input type='hidden' name='jobcateno' value='${param.jobcateno }'>  <%-- 게시판의 구분 --%>
       <input type='hidden' name='now_page' value='${param.now_page }'>  <%-- 게시판의 구분 --%>
       
@@ -76,7 +105,7 @@ var size1 = 0;
   
   
   
-  <FORM name='frm' method='POST' action='./create_test.do' enctype="multipart/form-data">
+  <FORM name='frm' id='frm' method='POST' action='./update.do' enctype="multipart/form-data">
   
       <div>
        <label>브랜드명</label>
@@ -126,12 +155,13 @@ var size1 = 0;
 
     
 
-    
+    <input type="hidden" name="guin_cno" value="${guin_cno }">
     <input type="hidden" name="memberno" value="1">
-    <input type="hidden" name="file1" value="" id="file1">
-    <input type="hidden" name="file1saved" value="" id="file1saved">
+    <input type="hidden" name="thumb1" value="${guin_cVO.thumb1 }">
+    <input type="hidden" name="file1" value="${file1 }" id="file1">
+    <input type="hidden" name="file1saved" value="${file1saved }" id="file1saved">
     <input type="hidden" name="size1" value=0 id="size1">
-    <input type='hidden' name='jobcateno' value='${param.jobcateno }'> 
+    <input type='hidden' name='jobcateno' value="${param.jobcateno}"> 
     
     <!-- 컨텐트 내용에 있는 줄바꿈 문자를 자바스크립트가 정상적으로 인식하게 하기 위한 중간과정  -->
     <input type='hidden' name='media' id='media' value='${content }'>
@@ -143,7 +173,7 @@ var size1 = 0;
     <div>
     <br>
        <label>제목</label>
-       <input type='text' name='title' value='${title}' required="required" 
+       <input type='text' name='title' id='title' value='${title}' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
@@ -156,7 +186,7 @@ var size1 = 0;
                  class="form-control" style='width: 100%;'>
     </div>    
     <div class="content_body_bottom">
-      <button type="submit" class="btn btn-primary">등록</button>
+      <button type="button" onclick="checkLength();" class="btn btn-primary">수정</button>
       <button type="button" onclick="location.href='./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno}&now_page=${param.now_page }'" class="btn btn-primary">목록</button>
     </div>
   
@@ -175,16 +205,17 @@ var size1 = 0;
             // JSON 문자열 파싱 후 사용할 코드 작성
             console.log('이미지 업로드 결과:', responseJson.url);
 
-            file1 = file1  + responseJson.file1 + "---";
-            file1saved = file1saved + responseJson.file1saved + "---";
+            file1 = $("#file1").val() + responseJson.file1 + "---";
+            file1saved = $("#file1saved").val() + responseJson.file1saved + "---";
             size1 = size1  + responseJson.size1
 
+            console.log('저장된 이미지:', file1saved);
             console.log('사이즈:', size1);
 
             
             $("#file1").val(file1); // 업로드된 이미지 정보를 input 태그에 저장
             $("#file1saved").val(file1saved); // 업로드된 이미지 정보를 input 태그에 저장
-            $("#size").val(size1); // 업로드된 이미지 정보를 input 태그에 저장
+            $("#size1").val(size1); // 업로드된 이미지 정보를 input 태그에 저장
           } else {
             console.error('이미지 업로드 실패:', xhr.status);
           }

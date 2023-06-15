@@ -47,7 +47,7 @@ ${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 게시판
       <button type='submit' class="btn btn-secondary btn-sm">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' class='btn btn-info btn-sm'
-                     onclick="location.href='./list_by_jobcateno_search_paging.do?typeno=${param.jobcateno}&now_page=1&word='">검색 취소</button>  
+                     onclick="location.href='./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno}&now_page=1&word='">검색 취소</button>  
       </c:if>    
     </form>
   </DIV>
@@ -106,7 +106,7 @@ ${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 게시판
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
-            <A href="/guin_c/map.do?typeno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
+            <A href="/guin_c/map.do?jobcateno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
           </td>
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }

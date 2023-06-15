@@ -10,12 +10,12 @@
         (guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1)
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1)
         VALUES
         (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name},
         #{brand}, #{title},
         #{content}, sysdate, #{address},
-        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1})
+        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1}, #{thumb1_origin}, #{file1}, #{file1saved}, #{size1})
     </insert>
     
     <!-- 조회 -->
@@ -23,10 +23,27 @@
         SELECT guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved
         FROM guin_c
         WHERE guin_cno = #{guin_cno}
     </select>
+    
+     <!-- 수정 -->
+    <update id="update" parameterType="dev.mvc.guin_c.Guin_cVO">
+        UPDATE guin_c
+        SET name = #{name}, brand = #{brand}, title = #{title},
+            content = #{content}, address = #{address}, wage = #{wage},
+            day = #{day}, period = #{period}, tel = #{tel}, email = #{email},
+            word = #{word}, thumb1 = #{thumb1}, thumb1_origin = #{thumb1_origin},
+            file1 = #{file1}, file1saved= #{file1saved}
+        WHERE guin_cno = #{guin_cno}
+    </update>
+    
+    <!-- 삭제 -->
+    <delete id="delete" parameterType="int">
+       DELETE FROM guin_c
+       WHERE guin_cno = #{guin_cno}
+    </delete>
 
     <!-- 검색 레코드 갯수 -->
     <select id="search_count" resultType="int"

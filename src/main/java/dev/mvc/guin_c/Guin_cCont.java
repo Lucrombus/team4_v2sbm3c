@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import dev.mvc.jobcate.JobcateProcInter;
 import dev.mvc.jobcate.JobcateVO;
 import dev.mvc.member.MemberProc;
@@ -147,6 +146,7 @@ public class Guin_cCont {
     // 파일 전송 코드 시작
     // ------------------------------------------------------------------------------
     String thumb1 = "";     // preview image
+    String thumb1_origin = "";     // original image
 
     String upDir =  Contents.getUploadDir();
     System.out.println("-> upDir: " + upDir);
@@ -159,7 +159,7 @@ public class Guin_cCont {
     
     if (thumb1_size1 > 0) { // 파일 크기 체크
       // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
-      thumb1 = Upload.saveFileSpring(mf, upDir); 
+      thumb1_origin = Upload.saveFileSpring(mf, upDir); 
       if (Tool.isImage(thumb1)) { // 이미지인지 검사
         // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
         thumb1 = Tool.preview(upDir, thumb1, 200, 150); 
@@ -171,9 +171,19 @@ public class Guin_cCont {
     // 파일 전송 코드 종료
     // ------------------------------------------------------------------------------
     
-    System.out.println(thumb1);
+    
+    
+    System.out.println("저장할 썸네일" + thumb1);
     guin_cVO.setThumb1(thumb1); // 원본이미지 축소판
-    System.out.println(guin_cVO.getThumb1());
+    System.out.println("저장된 썸네일" + guin_cVO.getThumb1());
+    
+    System.out.println("저장할 썸네일 원본" + thumb1_origin);
+    guin_cVO.setThumb1_origin(thumb1_origin); // 원본이미지
+    System.out.println("저장된 썸네일 원본" + guin_cVO.getThumb1_origin());
+    
+    System.out.println("저장할 사이즈: " + thumb1_size1);
+    guin_cVO.setSize1(thumb1_size1);
+    System.out.println("저장된 사이즈: " + guin_cVO.getSize1());
 
     
 
@@ -308,6 +318,151 @@ public class Guin_cCont {
     
 
     return mav;
+  }
+  
+  /**
+   * 수정 처리
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/guin_c/update.do", method = RequestMethod.POST)
+  public ModelAndView update(Guin_cVO guin_cVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    System.out.println("전달받은 썸네일명: " + guin_cVO.getThumb1());
+
+    // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
+    Guin_cVO guin_cVO_old = guin_cProc.read(guin_cVO.getGuin_cno());
+    
+    
+    
+    // ------------------------------------------------------------------------------
+    // 파일 전송 코드 시작
+    // ------------------------------------------------------------------------------
+    String thumb1_old = guin_cVO_old.getThumb1();     // 원래 이미지
+    String thumb1_old_origin = guin_cVO_old.getThumb1_origin();     // 원래 이미지
+    long thumb1_old_size = guin_cVO_old.getSize1();     // 원래 사이즈
+
+    String thumb1_new = "" ;    // 새로운 이미지
+    String thumb1_new_origin = "" ;    // 새로운 이미지
+
+    String upDir =  Contents.getUploadDir();
+    System.out.println("-> upDir: " + upDir);
+    
+    MultipartFile mf = guin_cVO.getFile1MF();
+    
+    thumb1_new = Tool.getFname(mf.getOriginalFilename()); // 원본 순수 파일명 산출
+    
+    long thumb1_new_size1 = mf.getSize();  // 파일 크기
+    
+    if (thumb1_new_size1 > 0) { // 파일 크기 체크
+      // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
+      Tool.deleteFile(upDir, thumb1_old);
+      Tool.deleteFile(upDir, thumb1_old_origin);
+      thumb1_new = Upload.saveFileSpring(mf, upDir); 
+      if (Tool.isImage(thumb1_new)) { // 이미지인지 검사
+        // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
+        thumb1_new_origin = Tool.preview(upDir, thumb1_new, 200, 150); 
+
+      }
+    }else { // 파일 수정이 없을경우 원래 데이터를 그대로 저장
+      thumb1_new = thumb1_old;
+      thumb1_new_origin = thumb1_old_origin;
+      thumb1_new_size1 = thumb1_old_size;
+    }
+    
+    // ------------------------------------------------------------------------------
+    // 파일 전송 코드 종료
+    // ------------------------------------------------------------------------------
+    
+    System.out.println("저장할 썸네일" + thumb1_new);
+    guin_cVO.setThumb1(thumb1_new); // 원본이미지 축소판
+    System.out.println("저장된 썸네일" + guin_cVO.getThumb1());
+    
+    System.out.println("저장할 썸네일 원본" + thumb1_new_origin);
+    guin_cVO.setThumb1_origin(thumb1_new_origin); // 원본이미지
+    System.out.println("저장된 썸네일 원본" + guin_cVO.getThumb1_origin());
+    
+    System.out.println("저장할 사이즈: " + thumb1_new_size1);
+    guin_cVO.setSize1(thumb1_new_size1);
+    System.out.println("저장된 사이즈: " + guin_cVO.getSize1());
+    
+    
+
+    
+    MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
+    
+    int cnt = this.guin_cProc.update(guin_cVO);
+    
+    
+    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
+    mav.addObject("jobcateno", guin_cVO.getJobcateno());
+    mav.addObject("now_page", guin_cVO.getNow_page());
+    mav.addObject("guin_cno", guin_cVO.getGuin_cno());
+    mav.setViewName("redirect:/guin_c/read.do");
+    
+
+    return mav;
+  }
+  
+  /**
+   * 삭제 폼
+   * @param guin_cno
+   * @return
+   */
+  @RequestMapping(value="/guin_c/delete.do", method=RequestMethod.GET )
+  public ModelAndView read_delete(int guin_cno) { 
+    ModelAndView mav = new  ModelAndView();
+    
+    // 삭제할 정보를 조회하여 확인
+    Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
+    mav.addObject("guin_cVO", guin_cVO);
+    
+    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno());
+    mav.addObject("jobcateVO", jobcateVO);
+    
+    mav.setViewName("/guin_c/delete");  // /webapp/WEB-INF/views/contents/delete.jsp
+    
+    return mav; 
+  }
+  
+  /**
+   * 삭제 처리
+   * @param guin_cno
+   * @return
+   */
+  @RequestMapping(value="/guin_c/delete.do", method=RequestMethod.POST )
+  public ModelAndView delete(int guin_cno) { 
+    ModelAndView mav = new  ModelAndView();
+    
+    // 삭제할 정보를 조회하여 확인
+    Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
+    
+    String file1saved = guin_cVO.getFile1saved();
+    String thumb1 = guin_cVO.getThumb1();
+    String thumb1_origin = guin_cVO.getThumb1_origin();
+    System.out.println("원래 문자열: " + file1saved);
+    
+    String upDir = Contents.getUploadDir();
+    
+    String[] file1saved_list = file1saved.split("---");
+    System.out.println("분할된 리스트: " + file1saved_list);
+   
+    for (String item : file1saved_list) {
+      Tool.deleteFile(upDir, item);  // ckeditor로 저장된 파일삭제
+    }
+    
+    Tool.deleteFile(upDir, thumb1); // 썸네일 삭제
+    Tool.deleteFile(upDir, thumb1_origin); // 썸네일 삭제
+    
+    
+    int cnt = this.guin_cProc.delete(guin_cno);
+    
+    mav.addObject("jobcateno", guin_cVO.getJobcateno());
+    mav.addObject("now_page", guin_cVO.getNow_page());
+    mav.setViewName("redirect:/guin_c/list_by_jobcateno_search_paging.do");  // /webapp/WEB-INF/views/contents/delete.jsp
+    
+    return mav; 
   }
   
   

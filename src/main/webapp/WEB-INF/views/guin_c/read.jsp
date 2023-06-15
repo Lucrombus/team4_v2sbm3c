@@ -20,11 +20,11 @@
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>Resort world</title>
- 
+ <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- top 메뉴 drop down 버튼 스크립트를 작동하게 함 -->
 </head> 
  
 <body>
@@ -93,10 +93,10 @@
             <c:choose>
               <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
                 <%-- /static/guin_c/storage/ --%>
-                <IMG src="/contents/storage/${thumb1 }" style="width: 100%;"> 
+                <IMG src="/contents/storage/${thumb1 }" style="width: 100%; "> 
               </c:when>
               <c:otherwise> <!-- 기본 이미지 출력 -->
-                <IMG src="/contents/images/none1.png" style="width: 100%;"> 
+                <IMG src="/contents/images/none1.png" style="width: 100%; "> 
               </c:otherwise>
             </c:choose>
             
@@ -112,7 +112,7 @@
                   </DIV>
                 </c:when>
                 <c:otherwise>
-                   <IMG src="/contents/images/nonemap.png" style="width: 100%;"> 
+                   <IMG src="/contents/images/nonemap.png" style="width: 100%; "> 
                 </c:otherwise>
             </c:choose>
         </DIV>

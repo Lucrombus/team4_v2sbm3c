@@ -22,7 +22,7 @@ var file1 = '';
 var file1saved = '';
 var size1 = 0;
 
-function checkLength() { // 입력되는 문자열의 길이를 구해서 오라클 칼럼 용량 초과를 방지
+function checkLength() { // 입력되는 문자열의 길이를 구해서 오라클 칼럼 용량 초과 오류를 방지하는 함수
 
     var title_length = $("#title").val().length;
     var content_length = CKEDITOR.instances['editor'].getData().length;
@@ -144,7 +144,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
     <input type="hidden" name="memberno" value="1">
     <input type="hidden" name="file1" value="" id="file1">
     <input type="hidden" name="file1saved" value="" id="file1saved">
-    <input type="hidden" name="size1" value=0 id="size1">
+    <input type="hidden" name="size1" value="0" id="size1">
     <input type='hidden' name='jobcateno' value='${param.jobcateno }'> 
     
     
@@ -190,12 +190,14 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
             file1saved = file1saved + responseJson.file1saved + "---";
             size1 = size1  + responseJson.size1
 
+
+            console.log('file1saved:', file1saved);
             console.log('사이즈:', size1);
 
             
             $("#file1").val(file1); // 업로드된 이미지 정보를 input 태그에 저장
             $("#file1saved").val(file1saved); // 업로드된 이미지 정보를 input 태그에 저장
-            $("#size").val(size1); // 업로드된 이미지 정보를 input 태그에 저장
+            $("#size1").val(size1); // 업로드된 이미지 정보를 input 태그에 저장
           } else {
             console.error('이미지 업로드 실패:', xhr.status);
           }

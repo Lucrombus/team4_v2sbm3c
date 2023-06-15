@@ -30,6 +30,18 @@ public interface Guin_cDAOInter {
    */
   public Guin_cVO read(int jobcateno);
   
+  /**
+   * 수정
+   * @return
+   */
+  public int update(Guin_cVO guin_cVO);
+  
+  /**
+   * 삭제
+   * @return
+   */
+  public int delete(int guin_cno);
+  
   
 
 }
