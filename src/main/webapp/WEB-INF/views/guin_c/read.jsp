@@ -36,11 +36,7 @@
   <span class='menu_divide' >│</span>
   <A href="./update.do?jobcateno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}">수정</A>
   <span class='menu_divide' >│</span>
-  <A href="./update_file.do?guin_cno=${guin_cno}&now_page=${param.now_page}">파일 수정</A>  
-  <span class='menu_divide' >│</span>
   <A href="./map.do?jobcateno=${jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}">지도</A>  
-  <span class='menu_divide' >│</span>
-  <A href="./youtube.do?jobcateno=${jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}">유튜브</A>  
   <span class='menu_divide' >│</span>
   <A href="./delete.do?guin_cno=${guin_cno}&now_page=${param.now_page}&jobcateno=${jobcateno}">삭제</A>  
   <span class='menu_divide' >│</span>

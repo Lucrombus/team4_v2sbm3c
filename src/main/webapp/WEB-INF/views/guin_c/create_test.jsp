@@ -95,43 +95,43 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
       <div>
        <label>브랜드명</label>
        <input type='text' name='brand' value='CU' required="required" 
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' maxlength="16">
                  
        <label>업체명</label>
        <input type='text' name='name' value='CU 평양점' required="required" 
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' maxlength="16">
      </div>
      <div>          
        <label>주소　　</label>
        <input type='text' name='address' value='평양시 평양동' required="required" 
-                 class="" style='width: 30%;'>
+                 class="" style='width: 30%;' maxlength="66">
      </div>
 
        <div>          
         <label>전화번호</label>
        <input type='text' name='tel' value='010-0000-0000' required="required" 
-                 class="" style='width: 20%;'>
+                 class="" style='width: 20%;' maxlength="16">
         </div>         
         <div>          
         <label>이메일　</label>
        <input type='text' name='email' value='123@123' required="required" 
-                 class="" style='width: 20%;'>
+                 class="" style='width: 20%;' maxlength="50" >
         
        </div>
       <div>
        <label>근무기간</label>
        <input type='text' name='period' value='10년' required="required" 
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' maxlength="16">
                  
        <label>근무요일</label>
        <input type='text' name='day' value='월화수' required="required" 
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' maxlength="16">
 
       </div>
       <div>
        <label>시급 (원)</label>
        <input type='number' name='wage' value='100' required="required"  min="0" step="100"
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' max="99999999">
       </div>
        <label>썸네일</label>
        <input type='file' name='file1MF' id='file1MF' 

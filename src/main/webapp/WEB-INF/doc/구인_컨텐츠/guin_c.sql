@@ -9,22 +9,24 @@ CREATE TABLE guin_c(
 		memberno                      		NUMBER(10)		 NOT NULL,  --FK
 		name                          		VARCHAR2(50)		 NOT NULL,
 		brand                         		VARCHAR2(50)		 NOT NULL,
-		title                         		VARCHAR2(50)		 NOT NULL,
+		title                         		VARCHAR2(100)		 NOT NULL,
 		content                       		VARCHAR2(4000)		 NOT NULL,
 		rdate                          		DATE		 NOT NULL,
-		address                       		VARCHAR2(50)		 NOT NULL,
-		map									VARCHAR2(1000)		 NOT NULL,			
+		address                       		VARCHAR2(200)		 NOT NULL,
+        map                                 VARCHAR2(1000)       NULL,
 		wage                          		NUMBER(20)		 NOT NULL,
 		day                           		VARCHAR2(50)		 NOT NULL,
 		period                        		VARCHAR2(50)		 NOT NULL,
 		tel                           		VARCHAR2(50)		 NOT NULL,
 		email                         		VARCHAR2(50)		 NOT NULL,
-		file1                         		VARCHAR2(100)		 NULL ,
-		file1saved                    		VARCHAR2(100)		 NULL ,
+		word                                VARCHAR2(20)         NULL ,
+        file1                         		VARCHAR2(1000)		 NULL ,
+		file1saved                    		VARCHAR2(1000)		 NULL ,
 		thumb1                        		VARCHAR2(100)		 NULL ,
+        thumb1_origin                       VARCHAR2(100)		 NULL ,
 		size1                         		NUMBER(10)		 NULL ,
   FOREIGN KEY (jobcateno) REFERENCES jobcate (jobcateno),
-  FOREIGN KEY (memberno) REFERENCES memberno (member)
+  FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
 
 COMMENT ON TABLE guin_c is '구인 컨텐츠';
@@ -44,7 +46,8 @@ COMMENT ON COLUMN guin_c.tel is '연락처';
 COMMENT ON COLUMN guin_c.email is '이메일';
 COMMENT ON COLUMN guin_c.file1 is '메인 이미지';
 COMMENT ON COLUMN guin_c.file1saved is '실제로 저장된 메인 이미지';
-COMMENT ON COLUMN guin_c.thumb1 is '메인 이미지 프리뷰';
+COMMENT ON COLUMN guin_c.thumb1 is '크기가 바뀐 썸네일 이미지';
+COMMENT ON COLUMN guin_c.thumb1_origin is '썸네일 오리지널 이미지';
 COMMENT ON COLUMN guin_c.size1 is '이미지 용량';
 
 DROP SEQUENCE guin_c_seq;
@@ -60,9 +63,9 @@ CREATE SEQUENCE guin_c_seq
 /**********************************/
 /* INSERT */
 /**********************************/ 
-INSERT INTO guin_c (guin_cno, jobcateno, memberno, name, brand, title, content, rdate, address, 
+INSERT INTO guin_c (guin_cno, jobcateno, memberno, name, brand, title, content, rdate, address, map,
 wage, day, period, tel, email)
-VALUES (guin_c_seq.nextval, 1, 1, 'CU 무슨무슨점', 'CU', '주말 오전 아르바이트 구함', '업무내용은 ~이고 성실하고 오래하실~ 생략', sysdate, '서울시 OO구 OO동 OO로 123-123',
+VALUES (guin_c_seq.nextval, 11, 1, 'CU 무슨무슨점', 'CU', '주말 오전 아르바이트 구함', '업무내용은 ~이고 성실하고 오래하실~ 생략', sysdate, '서울시 OO구 OO동 OO로 123-123', 'nomap',
 8900, '토요일, 일요일', '6개월', '010-1234-1234', 'test123@test.com');
 
 /**********************************/
@@ -93,11 +96,31 @@ DELETE guin_c;  -- 일괄삭제
 DELETE guin_c  -- 특정 레코드 삭제
 WHERE guin_cno = 1;
 
+/**********************************/
+/* 검색 레코드 갯수 */
+/**********************************/ 
+SELECT COUNT(*) AS cnt
+FROM guin_c
+WHERE jobcateno = 1 AND (UPPER(title) LIKE '%' ||UPPER('123') || '%'
+                OR UPPER(content) LIKE '%' || UPPER('123') || '%'
+                OR UPPER(word) LIKE '%' || UPPER('123') || '%');
 
 
-
-
-
+/**********************************/
+/* 검색 리스트 */
+/**********************************/ 
+ SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, r
+   FROM (
+              SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, rownum as r
+              FROM (
+                        SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word
+                        FROM guin_c
+                        WHERE jobcateno=1 AND (UPPER(title) LIKE '%' || UPPER('123') || '%' 
+                                                                      OR UPPER(content) LIKE '%' || UPPER('123') || '%' 
+                                                                      OR UPPER(word) LIKE '%' || UPPER('123') || '%')
+                        ORDER BY jobcateno DESC
+               )
+    )
 
 
 
