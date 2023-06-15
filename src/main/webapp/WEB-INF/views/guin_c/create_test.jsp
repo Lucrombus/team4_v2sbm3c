@@ -18,21 +18,43 @@
 </style>
 <script type="text/javascript"> <!--이미지 리스트를 문자열로 저장하기 위한 초기 스크립트!-->
 
-var file1 = '';
-var file1saved = '';
-var size1 = 0;
+window.addEventListener('beforeunload', function(event) {
+      const confirmationMessage = '정말로 페이지를 떠나시겠습니까?';
+      event.returnValue = confirmationMessage;
 
-function checkLength() { // 입력되는 문자열의 길이를 구해서 오라클 칼럼 용량 초과 오류를 방지하는 함수
+      // 사용자가 나가기 버튼을 눌렀을 때 처리할 코드
+      $(window).on('unload', function() {
+        // 여기에 실행할 코드를 작성합니다.
+        // 페이지를 나가기 전에 수행할 작업을 구현하세요.
 
-    var title_length = $("#title").val().length;
-    var content_length = CKEDITOR.instances['editor'].getData().length;
+        // 예를 들어, AJAX 요청을 보내거나 상태를 서버에 업데이트하는 작업을 수행할 수 있습니다.
+        $.ajax({
+          url: './ajax.do',
+          method: 'POST',
+          data: {value: file1saved},
+          success: function(response) {
+            // 성공적으로 요청이 완료된 후 실행할 작업
+          },
+          error: function(xhr, status, error) {
+            // 요청이 실패한 경우 실행할 작업
+          }
+        });
+      });
+    });
 
-    console.log('제목길이'+ title_length);
-    console.log('내용길이'+ content_length);
+	var file1 = '';
+	var file1saved = '';
+	var size1 = 0;
 
+	function checkLength() { // 입력되는 문자열의 길이를 구해서 오라클 칼럼 용량 초과 오류를 방지하는 함수
 
+		var title_length = $("#title").val().length;
+		var content_length = CKEDITOR.instances['editor'].getData().length;
 
-	if (document.getElementById("frm").checkValidity()) { // required 옵션 체크하는 함수
+		console.log('제목길이' + title_length);
+		console.log('내용길이' + content_length);
+
+		if (document.getElementById("frm").checkValidity()) { // required 옵션 체크하는 함수
 			if (title_length < 30) {
 				if (content_length < 4000) {
 					$("#frm").submit();
@@ -45,7 +67,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
 			}
 		} else {
 			alert("입력되지 않은 필수 정보가 있습니다");
-            }
+		}
 
 	}
 </script>

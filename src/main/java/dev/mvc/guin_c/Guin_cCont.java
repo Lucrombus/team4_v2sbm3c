@@ -207,6 +207,33 @@ public class Guin_cCont {
 
     return mav; // forward
   }
+  
+  /**
+   * 등록 중 submit 하지 않고 페이지를 나갈때 이미 CKEditor를 통해 저장소에 업로드된 이미지를 삭제함
+   * 
+   * @param url
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value= {"/guin_c/ajax.do"}, method=RequestMethod.POST)
+  public String one_ajax(String value) {
+   
+    System.out.println("응답성공 저장하던 이미지 지우자");
+    System.out.println("받은 파일 문자열: "+ value);
+    
+    String upDir = Contents.getUploadDir();
+
+    String[] file1saved_list = value.split("---");
+    System.out.println("분할된 리스트: " + file1saved_list);
+
+    for (String item : file1saved_list) {
+      Tool.deleteFile(upDir, item); // ckeditor로 저장된 파일삭제
+    }
+    
+    
+
+    return "";
+  }
 
   /**
    * 목록 + 검색 + 페이징 지원
@@ -518,5 +545,11 @@ public class Guin_cCont {
 
     return mav; // forward
   }
+  
+ 
+  
+  
+  
+  
 
 }
