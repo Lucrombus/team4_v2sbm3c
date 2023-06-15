@@ -61,6 +61,12 @@
           <LI class='li_none'>
             <span class="span_fail">컨텐츠 삭제에 실패했습니다.</span>
           </LI>                                                                      
+        </c:when>
+        
+        <c:when test="${code == 'member_different'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_success">다른 회원의 글은 수정하거나 삭제 할 수 없습니다</span>
+          </LI> 
         </c:when> 
         
         <c:otherwise>
@@ -80,8 +86,8 @@
             </c:when>
         </c:choose>
         
-        <button type='button' onclick="location.href='./create.do?jobcateno=${jobcateno}'" class="btn btn-info btn-sm">새로운 컨텐츠 등록</button>
-        <button type='button' onclick="location.href='./list_by_jobcateno_search_paging.do?jobcateno=${jobcateno}'" class="btn btn-info btn-sm">목록</button>
+        <button type='button' onclick="location.href='./create.do?jobcateno=${param.jobcateno}&now_page=${param.now_page }'" class="btn btn-info btn-sm">새로운 컨텐츠 등록</button>
+        <button type='button' onclick="location.href='./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno}&now_page=${param.now_page }'" class="btn btn-info btn-sm">목록</button>
       </LI>
     </UL>
   </fieldset>

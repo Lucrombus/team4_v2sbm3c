@@ -25,31 +25,28 @@ import dev.mvc.member.MemberVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
-
-
 @Controller
 public class Guin_cCont {
-  
+
   @Autowired
   @Qualifier("dev.mvc.guin_c.Guin_cProc")
   private Guin_cProcInter guin_cProc;
-  
+
   @Autowired
   @Qualifier("dev.mvc.jobcate.JobcateProc")
   private JobcateProcInter jobcateProc;
-  
+
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
-  
+
   public Guin_cCont() {
     System.out.println("Guin_cCont created");
   }
-  
-  
+
   // 등록 폼 조회
   // http://localhost:9093/guin_c/create.do
-  @RequestMapping(value="/guin_c/create.do", method=RequestMethod.GET)
+  @RequestMapping(value = "/guin_c/create.do", method = RequestMethod.GET)
   public ModelAndView create(int jobcateno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
 
@@ -57,22 +54,18 @@ public class Guin_cCont {
     ArrayList<JobcateVO> list = this.jobcateProc.list_all();
     mav.addObject("jobcateVO", jobcateVO);
     mav.addObject("list", list);
-    
+
     if (this.memberProc.isMember(session) == true) {
       mav.setViewName("/guin_c/create_test");
-      
-    }else {
+
+    } else {
       mav.setViewName("/member/login_need");
-      
+
     }
-    
-    
-    
+
     return mav;
   }
-  
 
-  
   /**
    * 이미지 업로드 반응
    * 
@@ -82,57 +75,49 @@ public class Guin_cCont {
   @RequestMapping(value = "/guin_c/test.do", method = RequestMethod.POST)
   public String test(MultipartRequest request) {
 //    ModelAndView mav = new ModelAndView();
-    
+
     System.out.println("연결성공");
-    
+
     String upDir = Contents.getUploadDir();
     String file1 = ""; // 원본 파일명 image
     String file1saved = ""; // 저장된 파일명, image
-    
+
     MultipartFile uploadFile = request.getFile("upload");
     long size1 = uploadFile.getSize();
     file1 = uploadFile.getOriginalFilename();
-        
+
     System.out.println("원본 파일명: " + file1);
     System.out.println("이미지 용량: " + size1);
-    System.out.println("저장경로: "+ upDir);
-    
+    System.out.println("저장경로: " + upDir);
 
-    
-    
     if (size1 > 0) { // 파일 크기 체크
       // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
       file1saved = Upload.saveFileSpring(uploadFile, upDir);
-      
 
     }
 
     JSONObject json = new JSONObject();
-    
+
 //  mav.addObject("uploaded", true);
 //  mav.addObject("url", upDir+file1saved);
 //  mav.addObject("fileName", file1saved);
-  
-  json.put("file1", file1 );
-  json.put("file1saved", file1saved );
-  json.put("size1", size1 );
-  
-  
-  
-  
-  json.put("uploaded", true);
-  json.put("url", "/contents/storage/"+file1saved);
-  json.put("fileName", file1saved);
-  
-  System.out.println("업로드 성패: " + json.get("uploaded"));
-  System.out.println("업로드 url: " + json.get("url"));
-  System.out.println("업로드 파일네임: " + json.get("fileName"));
-  
-  return json.toString();
 
+    json.put("file1", file1);
+    json.put("file1saved", file1saved);
+    json.put("size1", size1);
+
+    json.put("uploaded", true);
+    json.put("url", "/contents/storage/" + file1saved);
+    json.put("fileName", file1saved);
+
+    System.out.println("업로드 성패: " + json.get("uploaded"));
+    System.out.println("업로드 url: " + json.get("url"));
+    System.out.println("업로드 파일네임: " + json.get("fileName"));
+
+    return json.toString();
 
   }
-  
+
   /**
    * 등록 처리 http://localhost:9091/contents/create.do
    * 
@@ -142,84 +127,87 @@ public class Guin_cCont {
   public ModelAndView create_test(HttpServletRequest request, HttpSession session, Guin_cVO guin_cVO) {
     ModelAndView mav = new ModelAndView();
 
-    // ------------------------------------------------------------------------------
-    // 파일 전송 코드 시작
-    // ------------------------------------------------------------------------------
-    String thumb1 = "";     // preview image
-    String thumb1_origin = "";     // original image
+    if (this.memberProc.isMember(session) == true) {
+      // ------------------------------------------------------------------------------
+      // 파일 전송 코드 시작
+      // ------------------------------------------------------------------------------
+      String thumb1 = ""; // preview image
+      String thumb1_origin = ""; // original image
 
-    String upDir =  Contents.getUploadDir();
-    System.out.println("-> upDir: " + upDir);
-    
-    MultipartFile mf = guin_cVO.getFile1MF();
-    
-    thumb1 = Tool.getFname(mf.getOriginalFilename()); // 원본 순수 파일명 산출
-    
-    long thumb1_size1 = mf.getSize();  // 파일 크기
-    
-    if (thumb1_size1 > 0) { // 파일 크기 체크
-      // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
-      thumb1_origin = Upload.saveFileSpring(mf, upDir); 
-      if (Tool.isImage(thumb1)) { // 이미지인지 검사
-        // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
-        thumb1 = Tool.preview(upDir, thumb1, 200, 150); 
+      String upDir = Contents.getUploadDir();
+      System.out.println("-> upDir: " + upDir);
+
+      MultipartFile mf = guin_cVO.getFile1MF();
+
+      thumb1 = Tool.getFname(mf.getOriginalFilename()); // 원본 순수 파일명 산출
+
+      long thumb1_size1 = mf.getSize(); // 파일 크기
+
+      if (thumb1_size1 > 0) { // 파일 크기 체크
+        // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
+        thumb1_origin = Upload.saveFileSpring(mf, upDir);
+        if (Tool.isImage(thumb1)) { // 이미지인지 검사
+          // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
+          thumb1 = Tool.preview(upDir, thumb1, 200, 150);
+        }
+
       }
-      
-    }   
-    
-    // ------------------------------------------------------------------------------
-    // 파일 전송 코드 종료
-    // ------------------------------------------------------------------------------
-    
-    
-    
-    System.out.println("저장할 썸네일" + thumb1);
-    guin_cVO.setThumb1(thumb1); // 원본이미지 축소판
-    System.out.println("저장된 썸네일" + guin_cVO.getThumb1());
-    
-    System.out.println("저장할 썸네일 원본" + thumb1_origin);
-    guin_cVO.setThumb1_origin(thumb1_origin); // 원본이미지
-    System.out.println("저장된 썸네일 원본" + guin_cVO.getThumb1_origin());
-    
-    System.out.println("저장할 사이즈: " + thumb1_size1);
-    guin_cVO.setSize1(thumb1_size1);
-    System.out.println("저장된 사이즈: " + guin_cVO.getSize1());
 
-    
+      // ------------------------------------------------------------------------------
+      // 파일 전송 코드 종료
+      // ------------------------------------------------------------------------------
 
-    // Call By Reference: 메모리 공유, Hashcode 전달
-    int cnt = this.guin_cProc.create(guin_cVO);
+      System.out.println("저장할 썸네일" + thumb1);
+      guin_cVO.setThumb1(thumb1); // 원본이미지 축소판
+      System.out.println("저장된 썸네일" + guin_cVO.getThumb1());
 
-    // --------------------------------------------------------------------------- ---
-    // PK의 return
-    // ------------------------------------------------------------------------------
-    // System.out.println("--> guin_cno: " + contentsVO.getContentsno());
-    // mav.addObject("guin_cno", contentsVO.getContentsno()); // redirect
-    // parameter 적용
-    // ------------------------------------------------------------------------------
+      System.out.println("저장할 썸네일 원본" + thumb1_origin);
+      guin_cVO.setThumb1_origin(thumb1_origin); // 원본이미지
+      System.out.println("저장된 썸네일 원본" + guin_cVO.getThumb1_origin());
 
-    if (cnt == 1) {
-      mav.addObject("code", "create_success");
-      // typeProc.increaseCnt(contentsVO.getTypeno()); // 글수 증가
+      System.out.println("저장할 사이즈: " + thumb1_size1);
+      guin_cVO.setSize1(thumb1_size1);
+      System.out.println("저장된 사이즈: " + guin_cVO.getSize1());
+
+      // Call By Reference: 메모리 공유, Hashcode 전달
+      int cnt = this.guin_cProc.create(guin_cVO);
+
+      // ---------------------------------------------------------------------------
+      // ---
+      // PK의 return
+      // ------------------------------------------------------------------------------
+      // System.out.println("--> guin_cno: " + contentsVO.getContentsno());
+      // mav.addObject("guin_cno", contentsVO.getContentsno()); // redirect
+      // parameter 적용
+      // ------------------------------------------------------------------------------
+
+      if (cnt == 1) {
+        mav.addObject("code", "create_success");
+        // typeProc.increaseCnt(contentsVO.getTypeno()); // 글수 증가
+      } else {
+        mav.addObject("code", "create_fail");
+      }
+      mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+
+      // System.out.println("--> typeno: " + contentsVO.getTypeno());
+      // redirect시에 hidden tag로 보낸것들이 전달이 안됨으로 request에 다시 저장
+      // mav.addObject("typeno", contentsVO.getTypeno()); // redirect parameter 적용
+      // mav.addObject("url", "/contents/msg"); // msg.jsp, redirect parameter 적용
+      // mav.setViewName("redirect:/contents/msg.do");
+
+      mav.addObject("url", "/contents/msg");
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.setViewName("redirect:/guin_c/list_by_jobcateno_search_paging.do");
+
     } else {
-      mav.addObject("code", "create_fail");
+      mav.setViewName("/member/login_need");
+
     }
-    mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
-
-    // System.out.println("--> typeno: " + contentsVO.getTypeno());
-    // redirect시에 hidden tag로 보낸것들이 전달이 안됨으로 request에 다시 저장
-    // mav.addObject("typeno", contentsVO.getTypeno()); // redirect parameter 적용
-    // mav.addObject("url", "/contents/msg"); // msg.jsp, redirect parameter 적용
-    // mav.setViewName("redirect:/contents/msg.do");
-
-    mav.addObject("url", "/contents/msg");
-    mav.addObject("jobcateno", guin_cVO.getJobcateno());
-    mav.addObject("now_page", guin_cVO.getNow_page());
-    mav.setViewName("redirect:/guin_c/list_by_jobcateno_search_paging.do");
 
     return mav; // forward
   }
-  
+
   /**
    * 목록 + 검색 + 페이징 지원
    * http://localhost:9090/contents/list_by_typeno_search_paging.do?typeno=1&word=스위스&now_page=1
@@ -233,43 +221,48 @@ public class Guin_cCont {
   public ModelAndView list_by_jobcateno_search_paging(Guin_cVO guin_cVO) {
     ModelAndView mav = new ModelAndView();
 
-
     // 검색 목록
     ArrayList<Guin_cVO> list = guin_cProc.list_by_jobcateno_search_paging(guin_cVO);
     mav.addObject("list", list);
 
     JobcateVO jobcateVO = jobcateProc.read(guin_cVO.getJobcateno());
     mav.addObject("jobcateVO", jobcateVO);
-    
+
     // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
     Function<Integer, String> f = (memberno) -> {
       MemberVO memberVO = memberProc.readByMemberno(memberno);
       String id = memberVO.getId();
       return id;
-  };
+    };
     mav.addObject("f", f);
-    
+
     int search_count = guin_cProc.search_count(guin_cVO);
 
     /*
      * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
      * 18 19 20 [다음]
+     * 
      * @param typeno 카테고리번호
+     * 
      * @param search_count 검색(전체) 레코드수
+     * 
      * @param now_page 현재 페이지
+     * 
      * @param word 검색어
+     * 
      * @return 페이징용으로 생성된 HTML/CSS tag 문자열
      */
-    String paging = guin_cProc.pagingBox(guin_cVO.getJobcateno(), search_count, guin_cVO.getNow_page(), guin_cVO.getWord(), "list_by_jobcateno_search_paging.do");     
-    mav.addObject("paging", paging); 
+    String paging = guin_cProc.pagingBox(guin_cVO.getJobcateno(), search_count, guin_cVO.getNow_page(),
+        guin_cVO.getWord(), "list_by_jobcateno_search_paging.do");
+    mav.addObject("paging", paging);
 
     // mav.addObject("now_page", now_page);
-    
-    mav.setViewName("/guin_c/list_by_jobcateno_search_paging");  // /contents/list_by_typeno_search_paging.jsp
+
+    mav.setViewName("/guin_c/list_by_jobcateno_search_paging"); // /contents/list_by_typeno_search_paging.jsp
 
     return mav;
   }
-  
+
   /**
    * 조회
    * 
@@ -281,8 +274,7 @@ public class Guin_cCont {
 
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
-     
-    
+
     mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
     mav.addObject("memberVO", memberVO);
 
@@ -290,183 +282,241 @@ public class Guin_cCont {
     mav.addObject("jobcateVO", jobcateVO);
 
     mav.setViewName("/guin_c/read"); // /WEB-INF/views/contents/read.jsp
-    
 
     return mav;
   }
-  
+
   /**
    * 수정 폼
    * 
    * @return
    */
   @RequestMapping(value = "/guin_c/update.do", method = RequestMethod.GET)
-  public ModelAndView update(int guin_cno) {
+  public ModelAndView update(int guin_cno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
-
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
-    MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
-     
-    
-    mav.addObject("guin_cVO", guin_cVO);
-    mav.addObject("memberVO", memberVO);
 
-    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
-    mav.addObject("jobcateVO", jobcateVO);
+    if (session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
 
-    mav.setViewName("/guin_c/update"); // /WEB-INF/views/contents/read.jsp
-    
+      MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
+
+      mav.addObject("guin_cVO", guin_cVO);
+      mav.addObject("memberVO", memberVO);
+
+      JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
+      mav.addObject("jobcateVO", jobcateVO);
+
+      mav.setViewName("/guin_c/update"); // /WEB-INF/views/contents/read.jsp
+
+    } else {
+      mav.addObject("url", "/guin_c/msg");
+      mav.addObject("code", "member_different");
+      mav.addObject("guin_cno", guin_cVO.getGuin_cno());
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.setViewName("redirect:/guin_c/msg.do");
+
+    }
 
     return mav;
   }
-  
+
   /**
    * 수정 처리
    * 
    * @return
    */
   @RequestMapping(value = "/guin_c/update.do", method = RequestMethod.POST)
-  public ModelAndView update(Guin_cVO guin_cVO) {
+  public ModelAndView update(Guin_cVO guin_cVO, HttpSession session) {
     ModelAndView mav = new ModelAndView();
-    
+
     System.out.println("전달받은 썸네일명: " + guin_cVO.getThumb1());
 
     // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
     Guin_cVO guin_cVO_old = guin_cProc.read(guin_cVO.getGuin_cno());
-    
-    
-    
-    // ------------------------------------------------------------------------------
-    // 파일 전송 코드 시작
-    // ------------------------------------------------------------------------------
-    String thumb1_old = guin_cVO_old.getThumb1();     // 원래 이미지
-    String thumb1_old_origin = guin_cVO_old.getThumb1_origin();     // 원래 이미지
-    long thumb1_old_size = guin_cVO_old.getSize1();     // 원래 사이즈
 
-    String thumb1_new = "" ;    // 새로운 이미지
-    String thumb1_new_origin = "" ;    // 새로운 이미지
+    if (session.getAttribute("memberno").equals(guin_cVO_old.getMemberno())) {
+      // ------------------------------------------------------------------------------
+      // 파일 전송 코드 시작
+      // ------------------------------------------------------------------------------
+      String thumb1_old = guin_cVO_old.getThumb1(); // 원래 이미지
+      String thumb1_old_origin = guin_cVO_old.getThumb1_origin(); // 원래 이미지
+      long thumb1_old_size = guin_cVO_old.getSize1(); // 원래 사이즈
 
-    String upDir =  Contents.getUploadDir();
-    System.out.println("-> upDir: " + upDir);
-    
-    MultipartFile mf = guin_cVO.getFile1MF();
-    
-    thumb1_new = Tool.getFname(mf.getOriginalFilename()); // 원본 순수 파일명 산출
-    
-    long thumb1_new_size1 = mf.getSize();  // 파일 크기
-    
-    if (thumb1_new_size1 > 0) { // 파일 크기 체크
-      // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
-      Tool.deleteFile(upDir, thumb1_old);
-      Tool.deleteFile(upDir, thumb1_old_origin);
-      thumb1_new = Upload.saveFileSpring(mf, upDir); 
-      if (Tool.isImage(thumb1_new)) { // 이미지인지 검사
-        // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
-        thumb1_new_origin = Tool.preview(upDir, thumb1_new, 200, 150); 
+      String thumb1_new = ""; // 새로운 이미지
+      String thumb1_new_origin = ""; // 새로운 이미지
 
+      String upDir = Contents.getUploadDir();
+      System.out.println("-> upDir: " + upDir);
+
+      MultipartFile mf = guin_cVO.getFile1MF();
+
+      thumb1_new = Tool.getFname(mf.getOriginalFilename()); // 원본 순수 파일명 산출
+
+      long thumb1_new_size1 = mf.getSize(); // 파일 크기
+
+      if (thumb1_new_size1 > 0) { // 파일 크기 체크
+        // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
+        Tool.deleteFile(upDir, thumb1_old);
+        Tool.deleteFile(upDir, thumb1_old_origin);
+        thumb1_new = Upload.saveFileSpring(mf, upDir);
+        if (Tool.isImage(thumb1_new)) { // 이미지인지 검사
+          // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
+          thumb1_new_origin = Tool.preview(upDir, thumb1_new, 200, 150);
+
+        }
+      } else { // 파일 수정이 없을경우 원래 데이터를 그대로 저장
+        thumb1_new = thumb1_old;
+        thumb1_new_origin = thumb1_old_origin;
+        thumb1_new_size1 = thumb1_old_size;
       }
-    }else { // 파일 수정이 없을경우 원래 데이터를 그대로 저장
-      thumb1_new = thumb1_old;
-      thumb1_new_origin = thumb1_old_origin;
-      thumb1_new_size1 = thumb1_old_size;
-    }
-    
-    // ------------------------------------------------------------------------------
-    // 파일 전송 코드 종료
-    // ------------------------------------------------------------------------------
-    
-    System.out.println("저장할 썸네일" + thumb1_new);
-    guin_cVO.setThumb1(thumb1_new); // 원본이미지 축소판
-    System.out.println("저장된 썸네일" + guin_cVO.getThumb1());
-    
-    System.out.println("저장할 썸네일 원본" + thumb1_new_origin);
-    guin_cVO.setThumb1_origin(thumb1_new_origin); // 원본이미지
-    System.out.println("저장된 썸네일 원본" + guin_cVO.getThumb1_origin());
-    
-    System.out.println("저장할 사이즈: " + thumb1_new_size1);
-    guin_cVO.setSize1(thumb1_new_size1);
-    System.out.println("저장된 사이즈: " + guin_cVO.getSize1());
-    
-    
 
-    
-    MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
-    
-    int cnt = this.guin_cProc.update(guin_cVO);
-    
-    
-    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
-    mav.addObject("jobcateno", guin_cVO.getJobcateno());
-    mav.addObject("now_page", guin_cVO.getNow_page());
-    mav.addObject("guin_cno", guin_cVO.getGuin_cno());
-    mav.setViewName("redirect:/guin_c/read.do");
-    
+      // ------------------------------------------------------------------------------
+      // 파일 전송 코드 종료
+      // ------------------------------------------------------------------------------
+
+      System.out.println("저장할 썸네일" + thumb1_new);
+      guin_cVO.setThumb1(thumb1_new); // 원본이미지 축소판
+      System.out.println("저장된 썸네일" + guin_cVO.getThumb1());
+
+      System.out.println("저장할 썸네일 원본" + thumb1_new_origin);
+      guin_cVO.setThumb1_origin(thumb1_new_origin); // 원본이미지
+      System.out.println("저장된 썸네일 원본" + guin_cVO.getThumb1_origin());
+
+      System.out.println("저장할 사이즈: " + thumb1_new_size1);
+      guin_cVO.setSize1(thumb1_new_size1);
+      System.out.println("저장된 사이즈: " + guin_cVO.getSize1());
+
+      MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
+
+      int cnt = this.guin_cProc.update(guin_cVO);
+
+      JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.addObject("guin_cno", guin_cVO.getGuin_cno());
+      mav.setViewName("redirect:/guin_c/read.do");
+
+    } else {
+      mav.addObject("url", "/guin_c/msg");
+      mav.addObject("code", "member_different");
+      mav.addObject("guin_cno", guin_cVO.getGuin_cno());
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.setViewName("redirect:/guin_c/msg.do");
+
+    }
 
     return mav;
   }
-  
+
   /**
    * 삭제 폼
+   * 
    * @param guin_cno
    * @return
    */
-  @RequestMapping(value="/guin_c/delete.do", method=RequestMethod.GET )
-  public ModelAndView read_delete(int guin_cno) { 
-    ModelAndView mav = new  ModelAndView();
-    
-    // 삭제할 정보를 조회하여 확인
-    Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
-    mav.addObject("guin_cVO", guin_cVO);
-    
-    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno());
-    mav.addObject("jobcateVO", jobcateVO);
-    
-    mav.setViewName("/guin_c/delete");  // /webapp/WEB-INF/views/contents/delete.jsp
-    
-    return mav; 
-  }
-  
-  /**
-   * 삭제 처리
-   * @param guin_cno
-   * @return
-   */
-  @RequestMapping(value="/guin_c/delete.do", method=RequestMethod.POST )
-  public ModelAndView delete(int guin_cno) { 
-    ModelAndView mav = new  ModelAndView();
-    
+  @RequestMapping(value = "/guin_c/delete.do", method = RequestMethod.GET)
+  public ModelAndView read_delete(int guin_cno, HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+
     // 삭제할 정보를 조회하여 확인
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     
-    String file1saved = guin_cVO.getFile1saved();
-    String thumb1 = guin_cVO.getThumb1();
-    String thumb1_origin = guin_cVO.getThumb1_origin();
-    System.out.println("원래 문자열: " + file1saved);
+    if (session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+      mav.addObject("guin_cVO", guin_cVO);
+
+      JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno());
+      mav.addObject("jobcateVO", jobcateVO);
+
+      mav.setViewName("/guin_c/delete"); // /webapp/WEB-INF/views/contents/delete.jsp
+
     
-    String upDir = Contents.getUploadDir();
-    
-    String[] file1saved_list = file1saved.split("---");
-    System.out.println("분할된 리스트: " + file1saved_list);
-   
-    for (String item : file1saved_list) {
-      Tool.deleteFile(upDir, item);  // ckeditor로 저장된 파일삭제
+
+    } else {
+      mav.addObject("url", "/guin_c/msg");
+      mav.addObject("code", "member_different");
+      mav.addObject("guin_cno", guin_cVO.getGuin_cno());
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.setViewName("redirect:/guin_c/msg.do");
+
     }
     
-    Tool.deleteFile(upDir, thumb1); // 썸네일 삭제
-    Tool.deleteFile(upDir, thumb1_origin); // 썸네일 삭제
     
-    
-    int cnt = this.guin_cProc.delete(guin_cno);
-    
-    mav.addObject("jobcateno", guin_cVO.getJobcateno());
-    mav.addObject("now_page", guin_cVO.getNow_page());
-    mav.setViewName("redirect:/guin_c/list_by_jobcateno_search_paging.do");  // /webapp/WEB-INF/views/contents/delete.jsp
-    
-    return mav; 
+   
+
+    return mav;
   }
+
+  /**
+   * 삭제 처리
+   * 
+   * @param guin_cno
+   * @return
+   */
+  @RequestMapping(value = "/guin_c/delete.do", method = RequestMethod.POST)
+  public ModelAndView delete(int guin_cno, HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+
+    // 삭제할 정보를 조회하여 확인
+    Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
+    
+    if (session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+      String file1saved = guin_cVO.getFile1saved();
+      String thumb1 = guin_cVO.getThumb1();
+      String thumb1_origin = guin_cVO.getThumb1_origin();
+      System.out.println("원래 문자열: " + file1saved);
+
+      String upDir = Contents.getUploadDir();
+
+      String[] file1saved_list = file1saved.split("---");
+      System.out.println("분할된 리스트: " + file1saved_list);
+
+      for (String item : file1saved_list) {
+        Tool.deleteFile(upDir, item); // ckeditor로 저장된 파일삭제
+      }
+
+      Tool.deleteFile(upDir, thumb1); // 썸네일 삭제
+      Tool.deleteFile(upDir, thumb1_origin); // 썸네일 삭제
+
+      int cnt = this.guin_cProc.delete(guin_cno);
+
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.setViewName("redirect:/guin_c/list_by_jobcateno_search_paging.do"); // /webapp/WEB-INF/views/contents/delete.jsp
+   
+    
+
+    } else {
+      mav.addObject("url", "/guin_c/msg");
+      mav.addObject("code", "member_different");
+      mav.addObject("guin_cno", guin_cVO.getGuin_cno());
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.setViewName("redirect:/guin_c/msg.do");
+
+    }
+
   
+
+    return mav;
+  }
+
   
-  
-  
+  /**
+   * 각종 메시지 처리
+   * 
+   * @param url
+   * @return
+   */
+  @RequestMapping(value = "/guin_c/msg.do", method = RequestMethod.GET)
+  public ModelAndView msg(String url) {
+    ModelAndView mav = new ModelAndView();
+
+    mav.setViewName(url); // forward
+
+    return mav; // forward
+  }
 
 }
