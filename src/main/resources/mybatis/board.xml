@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.board.BoardDAOInter">
+
+ <!-- 등록: 추가한 레코드 갯수를 리턴 -->
+  <insert id="create" parameterType="dev.mvc.board.BoardVO">
+    INSERT INTO board(boardno, name, seqno, visible) 
+    VALUES(board_seq.nextval, #{name}, #{seqno}, 'N')
+  </insert>
+  
+  <!-- 조회: 번호로 레코드 조회 -->
+  <select id="read" resultType="dev.mvc.board.BoardVO" parameterType="int">
+    SELECT boardno, name, seqno, visible 
+    FROM board 
+    WHERE boardno = #{boardno}
+  </select>
+  
+  
+  <!-- 조회: 리스트 목록 -->
+  <select id="list_all" resultType="dev.mvc.board.BoardVO">
+    SELECT boardno, name, seqno, visible 
+    FROM board 
+    ORDER BY seqno ASC
+  </select>
+  
+  <!-- 삭제: 번호로 레코드 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM board
+    WHERE boardno = #{boardno}
+  </delete>
+  
+  <!-- 수정: 번호로 레코드 수정 -->
+  <update id="update" parameterType="dev.mvc.board.BoardVO">
+    UPDATE board
+    SET name = #{name}, seqno = #{seqno}
+    WHERE boardno = #{boardno}
+  </update>
+  
+  <!-- 수정: 출력순서 증가 -->
+  <update id="update_seqno_increase" parameterType="int">
+    UPDATE board
+    SET seqno = seqno + 1
+    WHERE boardno = #{boardno}
+  </update>
+  
+  <!-- 수정: 출력순서 감소 -->
+  <update id="update_seqno_decrease" parameterType="int">
+    UPDATE board
+    SET seqno = seqno - 1
+    WHERE boardno = #{boardno}
+  </update>
+  
+   <!-- 수정: 출력모드 공개 -->
+  <update id="update_visible_y" parameterType="int">
+    UPDATE board
+    SET visible = 'Y'
+    WHERE boardno = #{boardno}
+  </update>
+  
+  <!-- 수정: 출력모드 비공개 -->
+  <update id="update_visible_n" parameterType="int">
+    UPDATE board
+    SET visible = 'N'
+    WHERE boardno = #{boardno}
+  </update>
+
+
+
+
+</mapper>
