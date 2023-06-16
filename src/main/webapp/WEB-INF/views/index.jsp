@@ -21,15 +21,15 @@
 <c:import url="/menu/top.do" />
 
   <DIV style='width: 100%; margin: 30px auto; text-align: center;'>
-    <%-- /static/images/resort01.jpg --%>
-    <IMG src='/images/resort01.jpg' style='width: 60%;'>
+    <%-- /static/images/index01.png --%>
+    <IMG src='/images/index01.png' style='width: 7%;'>
   </DIV>
   
   <DIV style='margin: 0px auto; width: 90%;'>
-    <DIV style='float: left; width: 50%;'>
-     </DIV>
-     <DIV style='float: left; width: 50%;'>
-    </DIV>  
+    <DIV style='text-align: center;'>
+      <jsp:include page="./menu/notice.jsp" flush='false' />
+    </DIV> 
+    
   </DIV>
  
   <DIV style='width: 94.8%; margin: 0px auto;'>
