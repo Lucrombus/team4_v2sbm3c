@@ -3,10 +3,10 @@ DROP TABLE member CASCADE CONSTRAINTS;
 /* Table Name: 회원 */
 /**********************************/
 CREATE TABLE member(
-		memberno                            NUMBER(10) NOT NULL,
-		id                                  VARCHAR2(30) NOT NULL,
+		memberno                            NUMBER(10) NOT NULL PRIMARY KEY,
+		id                                  VARCHAR2(30) NOT NULL UNIQUE,
 		passwd                              VARCHAR2(20) NOT NULL,
-		name                               VARCHAR2(20),
+		name                                VARCHAR2(20) NOT NULL,
         tel                                 VARCHAR(14)  NOT NULL,
 		rdate                               DATE NOT NULL,
 		rankno                              NUMBER(10),

@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
   <select id="list" resultType="dev.mvc.member.MemberVO">
     SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education
     FROM member
-    ORDER BY rankno ASC;
+    ORDER BY rankno ASC
   </select>
   
   <!-- memberno로 회원 정보 조회 -->

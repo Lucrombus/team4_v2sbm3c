@@ -117,7 +117,7 @@ public class MemberCont {
   @RequestMapping(value="/member/list.do", method=RequestMethod.GET)
   public ModelAndView list(HttpSession session){
     ModelAndView mav = new ModelAndView();
-    if (this.memberProc.isAdmin(session) == true) {
+    if (this.memberProc.isMember(session) == true) {
       ArrayList<MemberVO> list = memberProc.list();
       mav.addObject("list", list);
       
