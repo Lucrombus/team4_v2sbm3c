@@ -12,6 +12,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     VALUES(resume_seq.nextval, #{memberno}, #{resumetitle}, #{resumep}, #{intro}, sysdate)
   </insert>
   
+  <!-- 조회: 모든 글목록 -->
+  <select id="list_all" resultType="dev.mvc.resume.ResumeVO">
+    SELECT resumeno, memberno, resumetitle, resumep, intro, rdate
+    FROM resume
+    ORDER BY resumeno DESC
+  </select> 
+  
   <!-- 조회: 번호로 레코드 조회 -->
   <select id="read" resultType="dev.mvc.resume.ResumeVO" parameterType="int">
     SELECT resumeno, memberno, resumetitle, resumep, intro, rdate

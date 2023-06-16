@@ -2768,7 +2768,7 @@
   </children>
   <dommains/>
   <dialectName>Oracle</dialectName>
-  <logicalMode>false</logicalMode>
+  <logicalMode>true</logicalMode>
   <jarFile></jarFile>
   <jdbcDriver>sun.jdbc.odbc.JdbcOdbc</jdbcDriver>
   <jdbcUrl></jdbcUrl>
