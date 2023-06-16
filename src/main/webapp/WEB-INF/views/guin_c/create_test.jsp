@@ -164,7 +164,7 @@
       </div>
       <div>
        <label>시급 (원)</label>
-       <input type='number' name='wage' value='100' required="required"  min="0" step="100"
+       <input type='number' name='wage' value='100' required="required"  min="0" 
                  class="" style='width: 10%;' max="9999999">
       </div>
        <label>썸네일</label>
@@ -198,7 +198,7 @@
     <div>
        <label>검색어</label>
        <input type='text' name='word' value='' required="required" 
-                 class="form-control" style='width: 100%;'>
+                 class="form-control" style='width: 100%;' maxlength="33">
     </div>    
     <div class="content_body_bottom">
       <button type="button" onclick="checkLength();" class="btn btn-primary">등록</button>

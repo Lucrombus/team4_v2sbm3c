@@ -76,7 +76,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
   console.log('내용길이' + content_length);
 
   if (document.getElementById("frm").checkValidity()) { // required 옵션 체크하는 함수
-    if (title_length < 30) {
+    if (title_length < 60) {
       if (content_length < 1300) {
         formSubmitted = true;          
         $("#frm").submit();
@@ -84,7 +84,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
         alert("내용은 1300자 이내로 해주세요");
       }
     } else {
-      alert("제목은 30자 이내로 해주세요");
+      alert("제목은 60자 이내로 해주세요");
 
     }
   } else {
@@ -173,7 +173,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
       </div>
       <div>
        <label>시급 (원)</label>
-       <input type='number' name='wage' value='${guin_cVO.wage}' required="required"  min="0" step="100"
+       <input type='number' name='wage' value='${guin_cVO.wage}' required="required"  min="0" 
                  class="" style='width: 10%;'  max="99999999">
       </div>
        <label>썸네일</label>
@@ -211,7 +211,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
     <div>
        <label>검색어</label>
        <input type='text' name='word' value='${word}' required="required" 
-                 class="form-control" style='width: 100%;'>
+                 class="form-control" style='width: 100%;' maxlength="33">
     </div>    
     <div class="content_body_bottom">
       <button type="button" onclick="checkLength();" class="btn btn-primary">수정</button>

@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 게시판
+${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 구인
 </DIV>
 
 <DIV class='content_body'>

@@ -224,15 +224,17 @@ public class Guin_cCont {
     System.out.println("받은 파일 문자열: "+ value);
     
     String upDir = Contents.getUploadDir();
+    
+    if (value.length() > 0) { // 뭐가 있을 때만
 
-    String[] file1saved_list = value.split("---");
-    System.out.println("분할된 리스트: " + file1saved_list);
+      String[] file1saved_list = value.split("---");
+      System.out.println("분할된 리스트: " + file1saved_list);
 
-    for (String item : file1saved_list) {
-      Tool.deleteFile(upDir, item); // ckeditor로 저장된 파일삭제
+      for (String item : file1saved_list) {
+        Tool.deleteFile(upDir, item); // ckeditor로 업로드된 파일삭제
+      }
+      
     }
-    
-    
 
     return "";
   }
@@ -388,10 +390,10 @@ public class Guin_cCont {
         // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
         Tool.deleteFile(upDir, thumb1_old);
         Tool.deleteFile(upDir, thumb1_old_origin);
-        thumb1_new = Upload.saveFileSpring(mf, upDir);
+        thumb1_new_origin = Upload.saveFileSpring(mf, upDir);
         if (Tool.isImage(thumb1_new)) { // 이미지인지 검사
           // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
-          thumb1_new_origin = Tool.preview(upDir, thumb1_new, 200, 150);
+          thumb1_new = Tool.preview(upDir, thumb1_new, 200, 150);
 
         }
       } else { // 파일 수정이 없을경우 원래 데이터를 그대로 저장
