@@ -23,7 +23,7 @@
         SELECT guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map
         FROM guin_c
         WHERE guin_cno = #{guin_cno}
     </select>
@@ -44,6 +44,13 @@
        DELETE FROM guin_c
        WHERE guin_cno = #{guin_cno}
     </delete>
+    
+    <!-- Map 등록, 수정, 삭제 -->
+    <update id="map" parameterType="dev.mvc.guin_c.Guin_cVO">
+    UPDATE guin_c
+    SET map = #{map}
+    WHERE guin_cno = #{guin_cno}
+    </update>
 
     <!-- 검색 레코드 갯수 -->
     <select id="search_count" resultType="int"

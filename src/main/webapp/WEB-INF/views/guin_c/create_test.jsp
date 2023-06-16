@@ -170,6 +170,8 @@
        <label>썸네일</label>
        <input type='file' name='file1MF' id='file1MF' 
                  value='' placeholder="파일 선택">
+                 
+      
     <br>
 
     

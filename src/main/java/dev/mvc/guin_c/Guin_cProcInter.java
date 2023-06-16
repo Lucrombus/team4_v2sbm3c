@@ -3,6 +3,7 @@ package dev.mvc.guin_c;
 import java.util.ArrayList;
 
 
+
 public interface Guin_cProcInter {
   
   /**
@@ -42,6 +43,12 @@ public interface Guin_cProcInter {
    * @return
    */
   public int delete(int guin_cno);
+  
+  /**
+   * 맵
+   * @return
+   */
+  public int map(Guin_cVO guin_cVO);
   
   /** 
    * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 

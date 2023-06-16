@@ -423,7 +423,7 @@ public class Guin_cCont {
       System.out.println("저장된 파일 리스트: " + guin_cVO.getFile1saved());
       
       System.out.println("저장할 파일원본 리스트: " + guin_cVO.getFile1());
-      guin_cVO.setFile1saved(guin_cVO_old.getFile1() + guin_cVO.getFile1()); // 기존 파일리스트와 추가한 파일리스트 합침
+      guin_cVO.setFile1(guin_cVO_old.getFile1() + guin_cVO.getFile1()); // 기존 파일리스트와 추가한 파일리스트 합침
       System.out.println("저장된 파일원본 리스트: " + guin_cVO.getFile1());
 
       MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
@@ -538,6 +538,46 @@ public class Guin_cCont {
     }
 
   
+
+    return mav;
+  }
+  
+  /**
+   * 맵 조회
+   * http://localhost:9091/contents/map.do
+   * @return
+   */
+  @RequestMapping(value="/guin_c/map.do", method=RequestMethod.GET )
+  public ModelAndView map(int guin_cno) {
+    ModelAndView mav = new ModelAndView();
+
+    Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
+    mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
+
+    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); //그룹 정보를 읽기
+    mav.addObject("jobcateVO", jobcateVO); 
+
+    
+    mav.setViewName("/guin_c/map"); // /WEB-INF/views/contents/read.jsp
+        
+    return mav;
+  }
+
+  /**
+   * MAP 등록/수정/삭제 처리 
+   * http://localhost:9091/contents/map.do
+   * @return
+   */
+  @RequestMapping(value = "/guin_c/map.do", method = RequestMethod.POST)
+  public ModelAndView map_update(Guin_cVO guin_cVO) {
+    // System.out.println("-> contentsno: " + contentsno);
+
+    ModelAndView mav = new ModelAndView();
+
+    this.guin_cProc.map(guin_cVO);
+
+    mav.setViewName(
+        "redirect:/guin_c/read.do?jobcateno="+guin_cVO.getJobcateno() + "&now_page=" + guin_cVO.getNow_page()+ "&guin_cno=" + guin_cVO.getGuin_cno());
 
     return mav;
   }

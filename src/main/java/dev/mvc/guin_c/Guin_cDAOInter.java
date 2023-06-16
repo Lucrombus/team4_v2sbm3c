@@ -2,6 +2,7 @@ package dev.mvc.guin_c;
 
 import java.util.ArrayList;
 
+
 public interface Guin_cDAOInter {
   
   /**
@@ -41,6 +42,12 @@ public interface Guin_cDAOInter {
    * @return
    */
   public int delete(int guin_cno);
+  
+  /**
+   * 맵
+   * @return
+   */
+  public int map(Guin_cVO guin_cVO);
   
   
 

@@ -29,6 +29,18 @@ public class Guin_cProc implements Guin_cProcInter {
   }
   
   @Override
+  public int map(Guin_cVO guin_cVO) {
+    
+    String str = guin_cVO.getMap(); // 맵 크기 바꾸기
+    str = str.replaceAll("\"mapWidth\" : \"\\d+\"", "\"mapWidth\" : \"100%\"");
+    str = str.replaceAll("\"mapHeight\" : \"\\d+\"", "\"mapHeight\" : \"200\"");
+    guin_cVO.setMap(str);
+    
+    int cnt = this.guin_cDAO.map(guin_cVO);
+    return cnt;
+  }
+  
+  @Override
   public ArrayList<Guin_cVO> list_by_jobcateno_search_paging(Guin_cVO guin_cVO) {
     /*
      * 예) 페이지당 10개의 레코드 출력 1 page: WHERE r >= 1 AND r <= 10 2 page: WHERE r >= 11
