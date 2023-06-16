@@ -102,30 +102,55 @@
   
   function send() { // 회원 가입 처리
     let id = $('#id').val(); // 태그의 아이디가 'id'인 태그의 값
-    if ($.trim(id).length == 0) { // id를 입력받지 않은 경우
-      $('#modal_title').html('ID 중복 확인'); // 제목
-            
-      $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
-      msg = '· ID를 입력하세요.<br>· ID 입력은 필수 입니다.<br>· ID는 3자이상 권장합니다.'; 
-      $('#modal_content').html(msg);        // 내용
-
-      $('#btn_close').attr("data-focus", "id");  // 닫기 버튼 클릭시 id 입력으로 focus 이동
-      $('#modal_panel').modal();               // 다이얼로그 출력
-      
-      return false; // 가입 중지
-    } 
-         
-    let name = $('#name').val(); // 태그의 아이디가 'id'인 태그의 값
-    if ($.trim(name).length == 0) { // id를 입력받지 않은 경우
-      $('#modal_title').html('이름 입력 누락'); // 제목 
+      if ($.trim(id).length == 0) { // id를 입력받지 않은 경우
+        msg = '· ID를 입력하세요.<br>· ID 입력은 필수 입니다.<br>· ID는 3자이상 권장합니다.';
         
-      $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
-      msg = '· 이름을 입력하세요.<br>· 이름 입력은 필수입니다.';
-      $('#modal_content').html(msg);        // 내용
-      $('#btn_close').attr("data-focus", "name");  // 닫기 버튼 클릭시 name 입력으로 focus 이동
-      $('#modal_panel').modal();               // 다이얼로그 출력
-      return false;
-   } 
+        $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+        $('#modal_title').html('ID 중복 확인'); // 제목 
+        $('#modal_content').html(msg);        // 내용
+        $('#btn_close').attr("data-focus", "id");  // 닫기 버튼 클릭시 id 입력으로 focus 이동
+        $('#modal_panel').modal();               // 다이얼로그 출력
+        return false;
+        } 
+         
+    // 패스워드를 정상적으로 2번 입력했는지 확인
+    if ($('#passwd').val() != $('#passwd2').val()) {
+    	$('#modal_title').html('패스워드 일치 여부  확인'); // 제목 
+
+      
+      $('#modal_content').attr('class', 'alert alert-danger'); // CSS 변경
+      msg = '입력된 패스워드가 일치하지 않습니다.<br>';
+      msg += "패스워드를 다시 입력해주세요.<br>"; 
+      $('#modal_content').html(msg);  // 내용
+      $('#btn_close').attr('data-focus', 'passwd');
+      $('#modal_panel').modal();         // 다이얼로그 출력
+      
+      return false; // submit 중지
+    }
+
+    let name = $('#name').val(); // 태그의 아이디가 'id'인 태그의 값
+      if ($.trim(name).length == 0) { // id를 입력받지 않은 경우
+    	  $('#modal_title').html('이름 입력 누락'); // 제목 
+
+    	  $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+        msg = '· 이름을 입력하세요.<br>· 이름 입력은 필수입니다.';
+        $('#modal_content').html(msg);        // 내용
+        $('#btn_close').attr("data-focus", "name");  // 닫기 버튼 클릭시 name 입력으로 focus 이동
+        $('#modal_panel').modal();               // 다이얼로그 출력
+        return false;
+        } 
+
+    // let tel = $('#tel').val().trim(); // 태그의 아이디가 'id'인 태그의 값
+      // if (tel.length == 0) { // id를 입력받지 않은 경우
+    	  // $('#modal_title').html('전화번호 입력 누락'); // 제목 
+         
+        // $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+        // msg = '· 전화번호를 입력하세요.<br>· 전화번호 입력은 필수입니다.';
+        // $('#modal_content').html(msg);        // 내용
+        // $('#btn_close').attr("data-focus", "tel");  // 닫기 버튼 클릭시 tel 입력으로 focus 이동
+        // $('#modal_panel').modal();               // 다이얼로그 출력
+        // return false;
+        // } 
 
     $('#frm').submit(); // required="required" 작동 안됨.
   }  
@@ -157,7 +182,7 @@
   </div>
   <!-- ******************** Modal 알림창 종료 ******************** -->
 
-  <DIV class='title_line'>회원 정보 조회 및 수정(*: 필수)</DIV>
+  <DIV class='title_line'>회원 가입(*: 필수)</DIV>
 
   <DIV class='content_body'>
 
@@ -172,24 +197,36 @@
   <div class='menu_line'></div>
   
   <div style="width: 60%; margin: 0px auto ">
-  <FORM name='frm' id='frm' method='POST' action='./update.do' class="">
-    <input type="hidden" name ="memberno" value="${memberVO.memberno }">
+  <FORM name='frm' id='frm' method='POST' action='./create.do' class="">
+  
     <div class="form-group"> <%-- 줄이 변경되지 않는 패턴 --%>
       <label>아이디*:
-        <input type='text' class="form-control form-control-sm" name='id' id='id' value='${memberVO.id }' required="required" placeholder="아이디*" autofocus="autofocus">
+        <input type='text' class="form-control form-control-sm" name='id' id='id' value='user1@gmail.com' required="required" placeholder="아이디*" autofocus="autofocus">
       </label>
       <button type='button' id="btn_checkID" onclick="checkID()" class="btn btn-info btn-sm">중복확인</button>
     </div>   
-  
+                
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
+      <label>패스워드*: 
+        <input type='password' class="form-control form-control-sm" name='passwd' id='passwd' value='1234' required="required" placeholder="패스워드*">
+      </label>
+    </div>   
+
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
+      <label>패스워드 확인*: 
+        <input type='password' class="form-control form-control-sm" name='passwd2' id='passwd2' value='1234' required="required" placeholder="패스워드 확인*">
+      </label>
+    </div>   
+    
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
       <label>성명*:
-        <input type='text' class="form-control form-control-sm" name='name' id='name' value='${memberVO.name }' required="required" placeholder="성명*">
+        <input type='text' class="form-control form-control-sm" name='name' id='name' value='하정우' required="required" placeholder="성명*">
       </label>
-    </div>
+    </div>   
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>전화 번호:
-        <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='${memberVO.tel }' required="required" placeholder="전화번호*">
+        <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='010-0000-0000' required="required" placeholder="전화번호*">
       </label>
       예) 010-0000-0000
     </div>   
@@ -212,8 +249,6 @@
         <input type='text' class="form-control form-control-sm" name='education' id='education' value='대졸' required="required" placeholder="학력*">
       </label>
     </div>   
-
-    
 
     <div>
 
@@ -307,7 +342,7 @@
     </div>
     
     <div class="form_input">
-      <button type="button" id='btn_send' onclick="send()" class="btn btn-info btn-sm">저장</button>
+      <button type="button" id='btn_send' onclick="send()" class="btn btn-info btn-sm">가입</button>
       <button type="button" onclick="history.back()" class="btn btn-info btn-sm">취소</button>
     </div>   
   </FORM>

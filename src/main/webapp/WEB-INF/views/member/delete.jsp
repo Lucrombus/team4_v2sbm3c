@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>알바 지옥몬 0.1</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
@@ -36,7 +36,7 @@
    
     <DIV class='message'>
       <FORM name='frm' method='POST' action='./delete.do'>
-        '${memberVO.mname }(${memberVO.id })' 회원을 삭제하면 복구 할 수 없습니다.<br><br>
+        '${memberVO.name }(${memberVO.id })' 회원을 삭제하면 복구 할 수 없습니다.<br><br>
         정말로 삭제하시겠습니까?<br><br>         
         <input type='hidden' name='memberno' value='${memberVO.memberno}'>     
             

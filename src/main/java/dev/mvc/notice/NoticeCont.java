@@ -1,18 +1,18 @@
-package dev.mvc.resume;
+package dev.mvc.notice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ResumeCont {
+public class NoticeCont {
   
   @Autowired
-  @Qualifier("dev.mvc.resume.ResumeProc")
-  private ResumeProcInter resumeProc;
+  @Qualifier("dev.mvc.notice.NoticeProc")
+  private NoticeProcInter noticeProc;
   
-  public ResumeCont() {
-    System.out.println("ResumeCont created");
+  public NoticeCont() {
+    System.out.println("NoticeCont created");
   }
 
   //이력서 등록 폼

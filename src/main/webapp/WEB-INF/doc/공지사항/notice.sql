@@ -44,7 +44,7 @@ COMMENT ON COLUMN notice.YOUTUBE is 'Youtube 영상';
 
 DROP SEQUENCE notice;
 
-CREATE SEQUENCE notice
+CREATE SEQUENCE notice_seq
   START WITH 1                -- 시작 번호
   INCREMENT BY 1            -- 증가값
   MAXVALUE 9999999999  -- 최대값: 9999999999 --> NUMBER(10) 대응
@@ -58,12 +58,22 @@ ALTER TABLE notice ADD CONSTRAINT IDX_notice_FK0 FOREIGN KEY (memberno) REFERENC
 
 
 --insert
-INSERT INTO notice (noticeno, topview, memberno, title, content, RECOM, CNT, REPLYCNT,  
-WORD, rdate, file1, file1saved, thumb1, size1, ,map, Youtube)
-VALUES (notice seq.nextval, 1, 'N', 1, '공지사항제목', '내용', 1, 0, 0, )
+INSERT INTO notice (noticeno, topview, memberno, title, content, RECOM, CNT, 
+        REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube)
+VALUES (notice_seq.nextval, 'N', 1, '공지사항제목', '내용', 1, 0, 0, '검색어1', sysdate, '메인이미지', '실제저장이미지', '메인이미지 썸네일', 0, '지도api', '유튜브소스');
 
 --select
+SELECT noticeno, topview, memberno, title, content, RECOM, CNT, 
+        REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube
+FROM notice
+ORDER BY noticeno DESC;
 
 --update
+UPDATE notice
+SET topview = 'Y' , title = '제목변경1', content = '내용변경1', word = '검색어수정1', file1 = '메인이미지수정1', 
+    file1saved = '실제저장이미지수정1', thumb1 = '메인이미지 썸네일 수정1', map = '지도api수정', youtube = '유튜브소스수정'
+WHERE noticeno = 1;
 
 --delete
+DElETE FROM notice
+WHERE noticeno = 1;

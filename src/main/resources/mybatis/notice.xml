@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.notice.NoticeDAOInter">
+
+    <!-- 등록 -->
+    <insert id="create" parameterType="dev.mvc.notice.NoticeVO">
+        INSERT INTO notice (noticeno, topview, memberno, title, content, RECOM, CNT, 
+                            REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube)
+        VALUES (notice_seq.nextval, #{topview}, #{memberno}, #{title}, #{content}, #{RECOM}, #{CNT}, 
+                            #{REPLYCNT}, #{WORD}, #{rdate}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, #{map}, #{Youtube})
+    </insert>
+    
+    <!-- 조회: 모든 글목록 -->
+    <select id="list_all" resultType="dev.mvc.resume.ResumeVO">
+      SELECT noticeno, topview, memberno, title, content, RECOM, CNT, 
+             REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube
+      FROM notice
+      ORDER BY noticeno DESC
+    </select> 
+      
+    <!-- 조회 -->
+    <select id="read" resultType="dev.mvc.notice.NoticeVO" parameterType="int">
+        SELECT noticeno, topview, memberno, title, content, RECOM, CNT, 
+               REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube
+        FROM notice
+        WHERE noticeno = #{noticeno}
+    </select>
+    
+     <!-- 수정 -->
+    <update id="update" parameterType="dev.mvc.notice.NoticeVO">
+        UPDATE notice
+        SET topview = #{topview} , title = #{title}, content = #{content}, word = #{word}, file1 = #{file1}, 
+            file1saved = #{file1saved}, thumb1 = #{thumb1}, map = #{map}, youtube = #{youtube}
+        WHERE noticeno = #{noticeno}
+    </update>
+    
+    <!-- 삭제 -->
+    <delete id="delete" parameterType="int">
+       DELETE FROM notice
+       WHERE noticeno = #{noticeno}
+    </delete>
+
+    
+
+
+
+</mapper>
