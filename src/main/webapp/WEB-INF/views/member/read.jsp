@@ -185,7 +185,7 @@
       <label>성명*:
         <input type='text' class="form-control form-control-sm" name='name' id='name' value='${memberVO.name }' required="required" placeholder="성명*">
       </label>
-    </div>   
+    </div>
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>전화 번호:
