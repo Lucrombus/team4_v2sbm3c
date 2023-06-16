@@ -39,7 +39,6 @@
   <A href="./map.do?jobcateno=${jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}">지도</A>  
   <span class='menu_divide' >│</span>
   <A href="./delete.do?guin_cno=${guin_cno}&now_page=${param.now_page}&jobcateno=${jobcateno}">삭제</A>  
-  <span class='menu_divide' >│</span>
 </c:if>
 
 <DIV class='content_body'>
@@ -115,25 +114,25 @@
         
         <DIV>
         <ul class="list-group">
-          <li class="list-group-item">
+          <li class="list-group-item" style="font-weight:bold;">
           브랜드: ${guin_cVO.brand}
           </li>
-          <li class="list-group-item">
+          <li class="list-group-item" style="font-weight:bold;">
           업체명: ${guin_cVO.name}
           </li >
-          <li class="list-group-item">
+          <li class="list-group-item" style="font-weight:bold;">
           주소: ${guin_cVO.address}
           </li >
-           <li class="list-group-item">
+           <li class="list-group-item" style="font-weight:bold;">
           연락처: ${guin_cVO.tel}
           </li >
-          <li class="list-group-item">
+          <li class="list-group-item" style="font-weight:bold;">
           근무기간: ${guin_cVO.period}
           </li>
-          <li class="list-group-item">
+          <li class="list-group-item" style="font-weight:bold;">
           근무요일: ${guin_cVO.day}
           </li>
-          <li class="list-group-item">
+          <li class="list-group-item" style="font-weight:bold;">
           시급: ${guin_cVO.wage}&nbsp원
           </li>
         </ul>

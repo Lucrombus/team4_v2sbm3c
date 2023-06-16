@@ -31,8 +31,8 @@ public class Guin_cProc implements Guin_cProcInter {
   @Override
   public int map(Guin_cVO guin_cVO) {
     
-    String str = guin_cVO.getMap(); // 맵 크기 바꾸기
-    str = str.replaceAll("\"mapWidth\" : \"\\d+\"", "\"mapWidth\" : \"100%\"");
+    String str = guin_cVO.getMap(); // 맵 크기 강제고정
+    str = str.replaceAll("\"mapWidth\" : \"\\d+\"", "\"mapWidth\" : \"500\"");
     str = str.replaceAll("\"mapHeight\" : \"\\d+\"", "\"mapHeight\" : \"200\"");
     guin_cVO.setMap(str);
     
