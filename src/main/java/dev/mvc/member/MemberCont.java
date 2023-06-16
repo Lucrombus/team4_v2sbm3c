@@ -31,7 +31,7 @@ public class MemberCont {
     System.out.println("-> MemberCont created.");
   }
   
-  // http://localhost:9091/member/checkID.do?id=user1
+  // http://localhost:9093/member/checkID.do?id=user1
   /**
   * ID 중복 체크, JSON 출력
   * @return
@@ -48,7 +48,7 @@ public class MemberCont {
     return json.toString(); 
   }
 
-  // http://localhost:9091/member/create.do
+  // http://localhost:9093/member/create.do
   /**
   * 등록 폼
   * @return
@@ -345,7 +345,7 @@ public class MemberCont {
 //   * 로그인 폼
 //   * @return
 //   */
-//  // http://localhost:9091/member/login.do 
+//  // http://localhost:9093/member/login.do 
 //  @RequestMapping(value = "/member/login.do", 
 //                             method = RequestMethod.GET)
 //  public ModelAndView login() {
@@ -359,7 +359,7 @@ public class MemberCont {
 //   * 로그인 처리
 //   * @return
 //   */
-//  // http://localhost:9091/member/login.do 
+//  // http://localhost:9093/member/login.do 
 //  @RequestMapping(value = "/member/login.do", 
 //                             method = RequestMethod.POST)
 //  public ModelAndView login_proc(HttpSession session,
@@ -409,7 +409,7 @@ public class MemberCont {
    * 로그인 폼
    * @return
    */
-  // http://localhost:9091/member/login.do 
+  // http://localhost:9093/member/login.do 
   @RequestMapping(value = "/member/login.do", 
                              method = RequestMethod.GET)
   public ModelAndView login_cookie(HttpServletRequest request) {
@@ -466,7 +466,7 @@ public class MemberCont {
    * @param passwd_save 패스워드 Cookie에 저장 여부
    * @return
    */
-   // http://localhost:9091/member/login.do 
+   // http://localhost:9093/member/login.do 
    @RequestMapping(value = "/member/login.do", 
                              method = RequestMethod.POST)
    public ModelAndView login_cookie_proc(
