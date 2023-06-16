@@ -67,6 +67,7 @@ public class Guin_cCont {
   }
 
   /**
+   * AJAX
    * 이미지 업로드 반응
    * 
    * @return
@@ -209,6 +210,7 @@ public class Guin_cCont {
   }
   
   /**
+   * AJAX
    * 등록 중 submit 하지 않고 페이지를 나갈때 이미 CKEditor를 통해 저장소에 업로드된 이미지를 삭제함
    * 
    * @param url
@@ -410,9 +412,17 @@ public class Guin_cCont {
       guin_cVO.setThumb1_origin(thumb1_new_origin); // 원본이미지
       System.out.println("저장된 썸네일 원본" + guin_cVO.getThumb1_origin());
 
-      System.out.println("저장할 사이즈: " + thumb1_new_size1);
+      System.out.println("저장할 썸네일 사이즈: " + thumb1_new_size1);
       guin_cVO.setSize1(thumb1_new_size1);
-      System.out.println("저장된 사이즈: " + guin_cVO.getSize1());
+      System.out.println("저장된 썸네일 사이즈: " + guin_cVO.getSize1());
+      
+      System.out.println("저장할 파일 리스트: " + guin_cVO.getFile1saved());
+      guin_cVO.setFile1saved(guin_cVO_old.getFile1saved() + guin_cVO.getFile1saved()); // 기존 파일리스트와 추가한 파일리스트 합침
+      System.out.println("저장된 파일 리스트: " + guin_cVO.getFile1saved());
+      
+      System.out.println("저장할 파일원본 리스트: " + guin_cVO.getFile1());
+      guin_cVO.setFile1saved(guin_cVO_old.getFile1() + guin_cVO.getFile1()); // 기존 파일리스트와 추가한 파일리스트 합침
+      System.out.println("저장된 파일원본 리스트: " + guin_cVO.getFile1());
 
       MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
 
