@@ -7,7 +7,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>알바지옥몬 1.0</title>
  
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
@@ -66,24 +66,23 @@
    
     <c:forEach var="memberVO" items="${list }">
       <c:set var="memberno" value ="${memberVO.memberno}" />
-      <c:set var="grade" value ="${memberVO.grade}" />
+      <c:set var="rankno" value ="${memberVO.rankno}" />
       <c:set var="id" value ="${memberVO.id}" />
-      <c:set var="mname" value ="${memberVO.mname}" />
+      <c:set var="name" value ="${memberVO.name}" />
       <c:set var="tel" value ="${memberVO.tel}" />
-      <c:set var="address1" value ="${memberVO.address1}" />
-      <c:set var="mdate" value ="${memberVO.mdate}" />
+      <c:set var="rdate" value ="${memberVO.rdate}" />
        
     <TR>
       <TD class='td_basic'>
         <c:choose>
-          <c:when test="${grade >= 1 and grade <= 10}"><img src='/member/images/admin.png' title="관리자" class="icon"></c:when> <%-- static 기준 --%>
-          <c:when test="${grade >= 11 and grade <= 20}"><img src='/member/images/user.png' title="회원" class="icon"></c:when>
-          <c:when test="${grade >= 30 and grade <= 39}"><img src='/member/images/pause.png' title="정지 회원" class="icon"></c:when>
-          <c:when test="${grade >= 40 and grade <= 49}"><img src='/member/images/x.png' title="탈퇴 회원" class="icon"></c:when>
+          <c:when test="${rankno == 1}"><img src='/member/images/admin.png' title="관리자" class="icon"></c:when> <%-- static 기준 --%>
+          <c:when test="${rankno == 2}"><img src='/member/images/user.png' title="개인 회원" class="icon"></c:when>
+          <c:when test="${rankno == 3}"><img src='/member/images/pause.png' title="기업 회원" class="icon"></c:when>
+          <c:when test="${rankno == 4}"><img src='/member/images/x.png' title="탈퇴 회원" class="icon"></c:when>
         </c:choose>  
       </TD>
       <TD class='td_left'><A href="./read.do?memberno=${memberno}">${id}</A></TD>
-      <TD class='td_left'><A href="./read.do?memberno=${memberno}">${mname}</A></TD>
+      <TD class='td_left'><A href="./read.do?memberno=${memberno}">${name}</A></TD>
       <TD class='td_basic'>${tel}</TD>
       <TD class='td_left'>
         <c:choose>

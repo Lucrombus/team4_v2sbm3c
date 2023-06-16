@@ -18,29 +18,40 @@
 </style>
 <script type="text/javascript"> <!--이미지 리스트를 문자열로 저장하기 위한 초기 스크립트!-->
 
-window.addEventListener('beforeunload', function(event) {
-      const confirmationMessage = '정말로 페이지를 떠나시겠습니까?';
-      event.returnValue = confirmationMessage;
 
-      // 사용자가 나가기 버튼을 눌렀을 때 처리할 코드
-      $(window).on('unload', function() {
-        // 여기에 실행할 코드를 작성합니다.
-        // 페이지를 나가기 전에 수행할 작업을 구현하세요.
+	var formSubmitted = false; // 페이지를 나가는 수단이 폼 제출인지 확인하기 위한 변수
 
-        // 예를 들어, AJAX 요청을 보내거나 상태를 서버에 업데이트하는 작업을 수행할 수 있습니다.
-        $.ajax({
-          url: './ajax.do',
-          method: 'POST',
-          data: {value: file1saved},
-          success: function(response) {
-            // 성공적으로 요청이 완료된 후 실행할 작업
-          },
-          error: function(xhr, status, error) {
-            // 요청이 실패한 경우 실행할 작업
-          }
-        });
-      });
-    });
+	window.addEventListener('beforeunload', function(event) {
+
+		if (formSubmitted != true) { //폼 제출로 나가는 경우가 아닐때만
+			const confirmationMessage = '정말로 페이지를 떠나시겠습니까?';
+			event.returnValue = confirmationMessage;
+
+			// 사용자가 나가기 버튼을 눌렀을 때 처리할 코드
+			$(window).on('unload', function() {
+				// 여기에 실행할 코드를 작성합니다.
+				// 페이지를 나가기 전에 수행할 작업을 구현하세요.
+
+				// 예를 들어, AJAX 요청을 보내거나 상태를 서버에 업데이트하는 작업을 수행할 수 있습니다.
+        // 글 등록 작업을 취소하고 나갔을때 이미 업로드한 이미지 문자열 리스트를 전송하여 삭제하는 요청을 보냄
+				$.ajax({
+					url : './ajax.do',
+					method : 'POST',
+					data : {
+						value : file1saved
+					},
+					success : function(response) {
+						// 성공적으로 요청이 완료된 후 실행할 작업
+					},
+					error : function(xhr, status, error) {
+						// 요청이 실패한 경우 실행할 작업
+					}
+				});
+			});
+
+		}
+
+	});
 
 	var file1 = '';
 	var file1saved = '';
@@ -56,7 +67,8 @@ window.addEventListener('beforeunload', function(event) {
 
 		if (document.getElementById("frm").checkValidity()) { // required 옵션 체크하는 함수
 			if (title_length < 30) {
-				if (content_length < 4000) {
+				if (content_length < 1300) {
+					formSubmitted = true;          
 					$("#frm").submit();
 				} else {
 					alert("내용은 1300자 이내로 해주세요");
@@ -152,8 +164,8 @@ window.addEventListener('beforeunload', function(event) {
       </div>
       <div>
        <label>시급 (원)</label>
-       <input type='number' name='wage' value='100' required="required"  min="0" step="100"
-                 class="" style='width: 10%;' max="99999999">
+       <input type='number' name='wage' value='100' required="required"  min="0" 
+                 class="" style='width: 10%;' max="9999999">
       </div>
        <label>썸네일</label>
        <input type='file' name='file1MF' id='file1MF' 
@@ -186,7 +198,7 @@ window.addEventListener('beforeunload', function(event) {
     <div>
        <label>검색어</label>
        <input type='text' name='word' value='' required="required" 
-                 class="form-control" style='width: 100%;'>
+                 class="form-control" style='width: 100%;' maxlength="33">
     </div>    
     <div class="content_body_bottom">
       <button type="button" onclick="checkLength();" class="btn btn-primary">등록</button>

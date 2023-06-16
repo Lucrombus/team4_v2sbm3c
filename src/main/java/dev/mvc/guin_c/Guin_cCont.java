@@ -67,6 +67,7 @@ public class Guin_cCont {
   }
 
   /**
+   * AJAX
    * 이미지 업로드 반응
    * 
    * @return
@@ -209,6 +210,7 @@ public class Guin_cCont {
   }
   
   /**
+   * AJAX
    * 등록 중 submit 하지 않고 페이지를 나갈때 이미 CKEditor를 통해 저장소에 업로드된 이미지를 삭제함
    * 
    * @param url
@@ -222,15 +224,17 @@ public class Guin_cCont {
     System.out.println("받은 파일 문자열: "+ value);
     
     String upDir = Contents.getUploadDir();
+    
+    if (value.length() > 0) { // 뭐가 있을 때만
 
-    String[] file1saved_list = value.split("---");
-    System.out.println("분할된 리스트: " + file1saved_list);
+      String[] file1saved_list = value.split("---");
+      System.out.println("분할된 리스트: " + file1saved_list);
 
-    for (String item : file1saved_list) {
-      Tool.deleteFile(upDir, item); // ckeditor로 저장된 파일삭제
+      for (String item : file1saved_list) {
+        Tool.deleteFile(upDir, item); // ckeditor로 업로드된 파일삭제
+      }
+      
     }
-    
-    
 
     return "";
   }
@@ -386,10 +390,10 @@ public class Guin_cCont {
         // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
         Tool.deleteFile(upDir, thumb1_old);
         Tool.deleteFile(upDir, thumb1_old_origin);
-        thumb1_new = Upload.saveFileSpring(mf, upDir);
+        thumb1_new_origin = Upload.saveFileSpring(mf, upDir);
         if (Tool.isImage(thumb1_new)) { // 이미지인지 검사
           // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
-          thumb1_new_origin = Tool.preview(upDir, thumb1_new, 200, 150);
+          thumb1_new = Tool.preview(upDir, thumb1_new, 200, 150);
 
         }
       } else { // 파일 수정이 없을경우 원래 데이터를 그대로 저장
@@ -410,9 +414,17 @@ public class Guin_cCont {
       guin_cVO.setThumb1_origin(thumb1_new_origin); // 원본이미지
       System.out.println("저장된 썸네일 원본" + guin_cVO.getThumb1_origin());
 
-      System.out.println("저장할 사이즈: " + thumb1_new_size1);
+      System.out.println("저장할 썸네일 사이즈: " + thumb1_new_size1);
       guin_cVO.setSize1(thumb1_new_size1);
-      System.out.println("저장된 사이즈: " + guin_cVO.getSize1());
+      System.out.println("저장된 썸네일 사이즈: " + guin_cVO.getSize1());
+      
+      System.out.println("저장할 파일 리스트: " + guin_cVO.getFile1saved());
+      guin_cVO.setFile1saved(guin_cVO_old.getFile1saved() + guin_cVO.getFile1saved()); // 기존 파일리스트와 추가한 파일리스트 합침
+      System.out.println("저장된 파일 리스트: " + guin_cVO.getFile1saved());
+      
+      System.out.println("저장할 파일원본 리스트: " + guin_cVO.getFile1());
+      guin_cVO.setFile1saved(guin_cVO_old.getFile1() + guin_cVO.getFile1()); // 기존 파일리스트와 추가한 파일리스트 합침
+      System.out.println("저장된 파일원본 리스트: " + guin_cVO.getFile1());
 
       MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
 

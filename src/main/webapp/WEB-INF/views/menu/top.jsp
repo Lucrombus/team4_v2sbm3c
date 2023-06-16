@@ -61,7 +61,7 @@
                   <c:choose>
                     <c:when test="${sessionScope.admin_id == null }">
                       <li class="nav-item">
-                        <a class="nav-link" href="/admin/login.do">관리자 로그인</a>
+                        <a class="nav-link" href="/member/admin_login_form">관리자 로그인</a>
                       </li>
                     </c:when>
                     <c:otherwise>

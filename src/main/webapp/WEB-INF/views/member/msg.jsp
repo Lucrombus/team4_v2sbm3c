@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>알바 지옥몬 0.1</title>
 <%-- /static/css/style.css --%> 
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 
@@ -26,7 +26,7 @@
       <c:choose>
         <c:when test="${param.code == 'create_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">${param.mname }님(${param.id }) 회원 가입을 축하합니다.</span>
+            <span class="span_success">${param.name }님(${param.id }) 회원 가입을 축하합니다.</span>
           </LI>  
           <LI class='li_none'>
             <button type='button' 
@@ -43,7 +43,7 @@
 
         <c:when test="${param.code == 'update_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">${param.mname }님(아이디: ${param.id }) 회원 정보를 변경했습니다.</span>
+            <span class="span_success">${param.name }님(아이디: ${param.id }) 회원 정보를 변경했습니다.</span>
           </LI>
           <LI class='li_none'>
             <button type='button' 
@@ -57,13 +57,13 @@
                 
         <c:when test="${param.code == 'update_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">${param.mname }님(${param.id }) 회원 정보 수정에 실패했습니다.</span>
+            <span class="span_fail">${param.name }님(${param.id }) 회원 정보 수정에 실패했습니다.</span>
           </LI>                                                                      
         </c:when>
         
         <c:when test="${param.code == 'delete_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">${param.mname }님(${param.id }) 회원 정보 삭제에 성공했습니다.</span>
+            <span class="span_success">${param.name }님(${param.id }) 회원 정보 삭제에 성공했습니다.</span>
           </LI>   
           <LI class='li_none'>
             <button type='button' 
@@ -74,13 +74,13 @@
             
         <c:when test="${code == 'delete_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">${param.mname }님(${param.id }) 회원 정보 삭제에 실패했습니다.</span>
+            <span class="span_fail">${param.name }님(${param.id }) 회원 정보 삭제에 실패했습니다.</span>
           </LI>                                                                      
         </c:when> 
         
         <c:when test="${param.code == 'passwd_update_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">${param.mname }님(${param.id }) 패스워드를 변경했습니다.</span>
+            <span class="span_success">${param.name }님(${param.id }) 패스워드를 변경했습니다.</span>
           </LI>   
           <LI class='li_none'>
             <button type='button' 
@@ -91,7 +91,7 @@
         
         <c:when test="${code == 'passwd_update_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">${param.mname }님(${param.id }) 패스워드 변경에 실패했습니다.</span>
+            <span class="span_fail">${param.name }님(${param.id }) 패스워드 변경에 실패했습니다.</span>
           </LI>                                                                      
         </c:when>  
         

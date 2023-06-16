@@ -30,7 +30,38 @@
   }
 </style>
 <script type="text/javascript"> <!--이미지 리스트를 문자열로 저장하기 위한 초기 스크립트!-->
+var formSubmitted = false;
 
+window.addEventListener('beforeunload', function(event) {
+
+  if (formSubmitted != true) {
+    const confirmationMessage = '정말로 페이지를 떠나시겠습니까?';
+    event.returnValue = confirmationMessage;
+
+    // 사용자가 나가기 버튼을 눌렀을 때 처리할 코드
+    $(window).on('unload', function() {
+      // 여기에 실행할 코드를 작성합니다.
+      // 페이지를 나가기 전에 수행할 작업을 구현하세요.
+
+      // 예를 들어, AJAX 요청을 보내거나 상태를 서버에 업데이트하는 작업을 수행할 수 있습니다.
+      $.ajax({
+        url : './ajax.do',
+        method : 'POST',
+        data : {
+          value : file1saved
+        },
+        success : function(response) {
+          // 성공적으로 요청이 완료된 후 실행할 작업
+        },
+        error : function(xhr, status, error) {
+          // 요청이 실패한 경우 실행할 작업
+        }
+      });
+    });
+
+  }
+
+});
 
 var file1 = '';
 var file1saved = '';
@@ -38,32 +69,29 @@ var size1 = 0;
 
 function checkLength() { // 입력되는 문자열의 길이를 구해서 오라클 칼럼 용량 초과 오류를 방지하는 함수
 
-    var title_length = $("#title").val().length;
-    var content_length = CKEDITOR.instances['editor'].getData().length;
+  var title_length = $("#title").val().length;
+  var content_length = CKEDITOR.instances['editor'].getData().length;
 
-    console.log('제목길이'+ title_length);
-    console.log('내용길이'+ content_length);
-
-
+  console.log('제목길이' + title_length);
+  console.log('내용길이' + content_length);
 
   if (document.getElementById("frm").checkValidity()) { // required 옵션 체크하는 함수
-      if (title_length < 30) {
-        if (content_length < 4000) {
-          $("#frm").submit();
-        } else {
-          alert("내용은 1300자 이내로 해주세요");
-        }
+    if (title_length < 60) {
+      if (content_length < 1300) {
+        formSubmitted = true;          
+        $("#frm").submit();
       } else {
-        alert("제목은 30자 이내로 해주세요");
-
+        alert("내용은 1300자 이내로 해주세요");
       }
     } else {
-      alert("입력되지 않은 필수 정보가 있습니다");
-            }
+      alert("제목은 60자 이내로 해주세요");
 
+    }
+  } else {
+    alert("입력되지 않은 필수 정보가 있습니다");
   }
 
-
+}
 </script>
 
 </head> 
@@ -110,43 +138,43 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
       <div>
        <label>브랜드명</label>
        <input type='text' name='brand' value='${guin_cVO.brand}' required="required" 
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' maxlength="16">
                  
        <label>업체명</label>
        <input type='text' name='name' value='${guin_cVO.name}' required="required" 
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' maxlength="16">
      </div>
      <div>          
        <label>주소　　</label>
        <input type='text' name='address' value='${guin_cVO.address}' required="required" 
-                 class="" style='width: 30%;'>
+                 class="" style='width: 30%;' maxlength="66">
      </div>
 
        <div>          
         <label>전화번호</label>
        <input type='text' name='tel' value='${guin_cVO.tel}' required="required" 
-                 class="" style='width: 20%;'>
+                 class="" style='width: 20%;'  maxlength="16">
         </div>         
         <div>          
         <label>이메일　</label>
        <input type='text' name='email' value='${guin_cVO.email}' required="required" 
-                 class="" style='width: 20%;'>
+                 class="" style='width: 20%;' maxlength="50">
         
        </div>
       <div>
        <label>근무기간</label>
        <input type='text' name='period' value='${guin_cVO.period}' required="required" 
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' maxlength="16">
                  
        <label>근무요일</label>
        <input type='text' name='day' value='${guin_cVO.day}' required="required" 
-                 class="" style='width: 10%;'>
+                 class="" style='width: 10%;' maxlength="16">
 
       </div>
       <div>
        <label>시급 (원)</label>
-       <input type='number' name='wage' value='${guin_cVO.wage}' required="required"  min="0" step="100"
-                 class="" style='width: 10%;'>
+       <input type='number' name='wage' value='${guin_cVO.wage}' required="required"  min="0" 
+                 class="" style='width: 10%;'  max="99999999">
       </div>
        <label>썸네일</label>
        <input type='file' name='file1MF' id='file1MF' 
@@ -158,8 +186,8 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
     <input type="hidden" name="guin_cno" value="${guin_cno }">
     <input type="hidden" name="memberno" value="${sessionScope.memberno}">
     <input type="hidden" name="thumb1" value="${guin_cVO.thumb1 }">
-    <input type="hidden" name="file1" value="${file1 }" id="file1">
-    <input type="hidden" name="file1saved" value="${file1saved }" id="file1saved">
+    <input type="hidden" name="file1" value="" id="file1">
+    <input type="hidden" name="file1saved" value="" id="file1saved">
     <input type="hidden" name="size1" value=0 id="size1">
     <input type='hidden' name='jobcateno' value="${param.jobcateno}"> 
     
@@ -183,7 +211,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
     <div>
        <label>검색어</label>
        <input type='text' name='word' value='${word}' required="required" 
-                 class="form-control" style='width: 100%;'>
+                 class="form-control" style='width: 100%;' maxlength="33">
     </div>    
     <div class="content_body_bottom">
       <button type="button" onclick="checkLength();" class="btn btn-primary">수정</button>

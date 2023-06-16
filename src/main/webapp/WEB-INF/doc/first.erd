@@ -2323,7 +2323,7 @@
             <supportSize>true</supportSize>
             <type>12</type>
           </columnType>
-          <size>100</size>
+          <size>200</size>
           <notNull>true</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
@@ -2355,7 +2355,12 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>address</columnName>
           <logicalName>주소</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[6]/columnType"/>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>VARCHAR2</name>
+            <logicalName>String</logicalName>
+            <supportSize>true</supportSize>
+            <type>12</type>
+          </columnType>
           <size>100</size>
           <notNull>true</notNull>
           <primaryKey>false</primaryKey>
@@ -2508,7 +2513,7 @@
             <supportSize>true</supportSize>
             <type>12</type>
           </columnType>
-          <size>20</size>
+          <size>100</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>

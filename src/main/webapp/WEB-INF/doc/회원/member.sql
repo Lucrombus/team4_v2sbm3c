@@ -3,10 +3,10 @@ DROP TABLE member CASCADE CONSTRAINTS;
 /* Table Name: 회원 */
 /**********************************/
 CREATE TABLE member(
-		memberno                            NUMBER(10) NOT NULL,
-		id                                  VARCHAR2(30) NOT NULL,
+		memberno                            NUMBER(10) NOT NULL PRIMARY KEY,
+		id                                  VARCHAR2(30) NOT NULL UNIQUE,
 		passwd                              VARCHAR2(20) NOT NULL,
-		name                               VARCHAR2(20),
+		name                                VARCHAR2(20) NOT NULL,
         tel                                 VARCHAR(14)  NOT NULL,
 		rdate                               DATE NOT NULL,
 		rankno                              NUMBER(10),
@@ -51,6 +51,9 @@ INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, g
 VALUES(member_seq.nextval, 'kd5', 1234, '마길동', '010-2222-2222', sysdate, 2, 'Y', '남성', '19950905', '고졸');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'kd6', 1234, '바길순', '010-4444-4444', sysdate, 2, 'N', '여성', '19700301', '4년제');
+INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
+VALUES(member_seq.nextval, 'kd', 1234, '홍길순', '010-4444-4444', sysdate, 1, 'N', '여성', '19700301', '4년제');
+
 
 
 -- 전체 목록
@@ -58,7 +61,7 @@ SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth
 FROM member
 ORDER BY memberno ASC;
 
-  MEMBERNO ID                             passwd             NAME                 TEL            RDATE                    RANKNO EXPERIENCE GENDER     BIRTH                EDUCATION 
+  MEMBERNO ID                             passwd               NAME                TEL            RDATE                    RANKNO EXPERIENCE GENDER     BIRTH                EDUCATION 
 ---------- ------------------------------ -------------------- -------------------- -------------- -------------------- ---------- ---------- ---------- -------------------- ----------
          1 kd1                            1234                 가길동               010-0000-0000  2023-06--09 09:55:30          1 Y          남성       1999-09--05 12:00:00 고졸      
          2 kd2                            1234                 나길동               010-1234-0000  2023-06--09 09:55:30          2 Y          남성       2000-01--01 12:00:00 2년제     
