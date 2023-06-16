@@ -7,7 +7,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, width=device-width" /> 
-<title>Resort world</title>
+<title>알바 지옥몬 0.1</title>
 
 <link href="/css/style.css" rel="Stylesheet" type="text/css">  <!-- /static -->
 
@@ -183,15 +183,34 @@
   
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
       <label>성명*:
-        <input type='text' class="form-control form-control-sm" name='name' id='name' value='${memberVO.name }' required="required" placeholder="성명">
+        <input type='text' class="form-control form-control-sm" name='name' id='name' value='${memberVO.name }' required="required" placeholder="성명*">
       </label>
     </div>   
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>전화 번호:
-        <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='${memberVO.tel }' required="required" placeholder="전화번호">
+        <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='${memberVO.tel }' required="required" placeholder="전화번호*">
       </label>
       예) 010-0000-0000
+    </div>   
+    
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
+      <label>경력:
+        <input type='text' class="form-control form-control-sm" name='experience' id='experience' value='Y' required="required" placeholder="경력*">
+      </label>
+    </div>   
+    
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
+      <label>생년 월일:
+        <input type='text' class="form-control form-control-sm" name='birth' id='birth' value='20000101' required="required" placeholder="생년월일*">
+      </label>
+      예) 20001027
+    </div>   
+    
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
+      <label>학력:
+        <input type='text' class="form-control form-control-sm" name='education' id='education' value='대졸' required="required" placeholder="학력*">
+      </label>
     </div>   
 
     

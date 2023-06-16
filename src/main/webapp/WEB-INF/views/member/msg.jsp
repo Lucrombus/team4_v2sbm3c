@@ -26,7 +26,7 @@
       <c:choose>
         <c:when test="${param.code == 'create_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">${param.mname }님(${param.id }) 회원 가입을 축하합니다.</span>
+            <span class="span_success">${param.name }님(${param.id }) 회원 가입을 축하합니다.</span>
           </LI>  
           <LI class='li_none'>
             <button type='button' 
