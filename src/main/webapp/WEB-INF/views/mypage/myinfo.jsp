@@ -21,42 +21,39 @@
   <table class="table_myinfo" style='width: 50%;'>
     <tr>
       <th>아이디</th>
-      <td><A href="./passwd_update.do?memberno=${memberno}"></A></td>
+      <td>${id}</td>
     </tr>
     <tr>
-      <th>비밀번호</th>
-      <td>내용</td>
-    </tr>
       <th>성명</th>
-      <td>내용</td>
+      <td>${name}</td>
     </tr>
     </tr>
       <th>성별</th>
-      <td>내용</td>
+      <td>${gender}</td>
     </tr>
     </tr>
       <th>생년월일</th>
-      <td>내용</td>
+      <td>${birth}</td>
     </tr>
     </tr>
       <th>전화번호</th>
-      <td>내용</td>
+      <td>${tel}</td>
     </tr>
     </tr>
       <th>가입일</th>
-      <td>내용</td>
+      <td>${rdate}</td>
     </tr>
     </tr>
       <th>등급</th>
-      <td>내용</td>
+      <td>${rankno}</td>
     </tr>
     </tr>
       <th>학력</th>
-      <td>내용</td>
+      <td>${education}</td>
     </tr>
     </tr>
       <th>경력 여부</th>
-      <td>내용</td>
+      <td>${experience}</td>
     </tr>
     
   </table>

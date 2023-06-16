@@ -88,7 +88,7 @@
   }
   
   .bottom_menu {
-    text-align: center; 
+    text-align: center;
     margin: 20px auto;
     clear: both;  /* 앞쪽 태그의 float 효과를 제거함. */
   }
@@ -274,7 +274,8 @@
   line-height: 1.5;
   border-top: 1px solid #ccc;
   margin: 20px 10px;
-  
+  margin-left:auto;
+  margin-right:auto;
 	}
 	.table_myinfo th {
 	  width: 150px;
