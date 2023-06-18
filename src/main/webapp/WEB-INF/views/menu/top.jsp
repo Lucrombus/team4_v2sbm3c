@@ -14,7 +14,7 @@
             </button>    
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                 <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
+                 <li class="nav-item dropdown"> <%-- 구인 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">구인</a>
                       <div class="dropdown-menu">
                       <c:forEach var="jobcateVO" items="${list}">
@@ -30,9 +30,28 @@
                       </div>
                   </li>
                   
+                  <li class="nav-item dropdown"> <%-- 커뮤니티 서브 메뉴 --%>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">커뮤니티</a>
+                      <div class="dropdown-menu">
+                      <c:forEach var="boardVO" items="${list_board}">
+                       <c:set var="boardno" value="${boardVO.boardno }" />
+                       <c:set var="name" value="${boardVO.name }" />
+                       <c:set var="visible" value="${boardVO.visible }" />
+                       <c:if test="${boardVO.visible.equals('Y') }">
+                        <a class="dropdown-item" href="/board_c/list_by_boardno_search_paging.do?jobcateno=${boardno }&now_page=1" >${name }</a>
+                       </c:if>
+                       
+                      </c:forEach>
+
+                      </div>
+                  </li>
                   
-                  <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>
-                    <a class="nav-link" href="/jobcate/list_all.do">구인 카테고리 관리</a>
+                   <li class="nav-item dropdown"> <%-- 관리자 로그인 확인 필요--%>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">카테고리 관리</a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/jobcate/list_all.do">구인 카테고리</a>
+                        <a class="dropdown-item" href="/board/list_all.do">커뮤니티 카테고리</a>
+                      </div>
                   </li>
 
                   <li class="nav-item"> <%-- 서브 메뉴가 없는 독립메뉴 --%>

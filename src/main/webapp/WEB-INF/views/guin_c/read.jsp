@@ -114,26 +114,26 @@
         
         <DIV>
         <ul class="list-group">
-          <li class="list-group-item" style="font-weight:bold;">
-          브랜드: ${guin_cVO.brand}
+          <li class="list-group-item">
+          <span style="font-weight:bold;">브랜드:</span> ${guin_cVO.brand}
           </li>
-          <li class="list-group-item" style="font-weight:bold;">
-          업체명: ${guin_cVO.name}
+          <li class="list-group-item">
+          <span style="font-weight:bold;">업체명:</span> ${guin_cVO.name}
           </li >
-          <li class="list-group-item" style="font-weight:bold;">
-          주소: ${guin_cVO.address}
+          <li class="list-group-item">
+          <span style="font-weight:bold;">주소:</span> ${guin_cVO.address}
           </li >
-           <li class="list-group-item" style="font-weight:bold;">
-          연락처: ${guin_cVO.tel}
+           <li class="list-group-item">
+          <span style="font-weight:bold;">연락처:</span> ${guin_cVO.tel}
           </li >
-          <li class="list-group-item" style="font-weight:bold;">
-          근무기간: ${guin_cVO.period}
+          <li class="list-group-item">
+          <span style="font-weight:bold;">근무기간:</span> ${guin_cVO.period}
           </li>
-          <li class="list-group-item" style="font-weight:bold;">
-          근무요일: ${guin_cVO.day}
+          <li class="list-group-item">
+          <span style="font-weight:bold;">근무요일:</span> ${guin_cVO.day}
           </li>
-          <li class="list-group-item" style="font-weight:bold;">
-          시급: ${guin_cVO.wage}&nbsp원
+          <li class="list-group-item">
+          <span style="font-weight:bold;">시급:</span> ${guin_cVO.wage}&nbsp원
           </li>
         </ul>
         </DIV>

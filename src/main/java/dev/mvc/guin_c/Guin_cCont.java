@@ -300,8 +300,18 @@ public class Guin_cCont {
    * @return
    */
   @RequestMapping(value = "/guin_c/read.do", method = RequestMethod.GET)
-  public ModelAndView read(int guin_cno) {
+  public ModelAndView read(int guin_cno, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
+    
+    String currentUrl = request.getRequestURL().toString();
+    String queryString = request.getQueryString(); // URL의 쿼리 스트링 파라미터 가져오기
+    
+    if (queryString != null) {
+        currentUrl += "?" + queryString; // URL과 쿼리 스트링 연결
+    }
+    
+    System.out.println(currentUrl);
+    
 
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
@@ -327,7 +337,7 @@ public class Guin_cCont {
     ModelAndView mav = new ModelAndView();
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
 
-    if (session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
 
       MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
 
@@ -366,7 +376,7 @@ public class Guin_cCont {
     // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
     Guin_cVO guin_cVO_old = guin_cProc.read(guin_cVO.getGuin_cno());
 
-    if (session.getAttribute("memberno").equals(guin_cVO_old.getMemberno())) {
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO_old.getMemberno())) {
       // ------------------------------------------------------------------------------
       // 파일 전송 코드 시작
       // ------------------------------------------------------------------------------
@@ -462,7 +472,7 @@ public class Guin_cCont {
     // 삭제할 정보를 조회하여 확인
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     
-    if (session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
       mav.addObject("guin_cVO", guin_cVO);
 
       JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno());
@@ -501,7 +511,7 @@ public class Guin_cCont {
     // 삭제할 정보를 조회하여 확인
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     
-    if (session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
       String file1saved = guin_cVO.getFile1saved();
       String thumb1 = guin_cVO.getThumb1();
       String thumb1_origin = guin_cVO.getThumb1_origin();
@@ -548,40 +558,70 @@ public class Guin_cCont {
    * @return
    */
   @RequestMapping(value="/guin_c/map.do", method=RequestMethod.GET )
-  public ModelAndView map(int guin_cno) {
+  public ModelAndView map(int guin_cno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
-
+    
+    // 삭제할 정보를 조회하여 확인
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
-    mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
+    
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+      mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
 
-    JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); //그룹 정보를 읽기
-    mav.addObject("jobcateVO", jobcateVO); 
+      JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); //그룹 정보를 읽기
+      mav.addObject("jobcateVO", jobcateVO); 
+
+      
+      mav.setViewName("/guin_c/map"); // /WEB-INF/views/contents/read.jsp
+    
+    
+
+    } else {
+      mav.addObject("url", "/guin_c/msg");
+      mav.addObject("code", "member_different");
+      mav.addObject("guin_cno", guin_cVO.getGuin_cno());
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.setViewName("redirect:/guin_c/msg.do");
+
+    }
+    
+    
 
     
-    mav.setViewName("/guin_c/map"); // /WEB-INF/views/contents/read.jsp
+   
         
     return mav;
   }
 
   /**
-   * MAP 등록/수정/삭제 처리 
-   * http://localhost:9091/contents/map.do
+   * MAP 등록/수정/삭제 처리 http://localhost:9091/contents/map.do
+   * 
    * @return
    */
   @RequestMapping(value = "/guin_c/map.do", method = RequestMethod.POST)
-  public ModelAndView map_update(Guin_cVO guin_cVO) {
+  public ModelAndView map_update(Guin_cVO guin_cVO, HttpSession session) {
     // System.out.println("-> contentsno: " + contentsno);
 
     ModelAndView mav = new ModelAndView();
 
-    this.guin_cProc.map(guin_cVO);
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+      this.guin_cProc.map(guin_cVO);
 
-    mav.setViewName(
-        "redirect:/guin_c/read.do?jobcateno="+guin_cVO.getJobcateno() + "&now_page=" + guin_cVO.getNow_page()+ "&guin_cno=" + guin_cVO.getGuin_cno());
+      mav.setViewName("redirect:/guin_c/read.do?jobcateno=" + guin_cVO.getJobcateno() + "&now_page="
+          + guin_cVO.getNow_page() + "&guin_cno=" + guin_cVO.getGuin_cno());
+
+    } else {
+      mav.addObject("url", "/guin_c/msg");
+      mav.addObject("code", "member_different");
+      mav.addObject("guin_cno", guin_cVO.getGuin_cno());
+      mav.addObject("jobcateno", guin_cVO.getJobcateno());
+      mav.addObject("now_page", guin_cVO.getNow_page());
+      mav.setViewName("redirect:/guin_c/msg.do");
+
+    }
 
     return mav;
   }
-
   
   /**
    * 각종 메시지 처리

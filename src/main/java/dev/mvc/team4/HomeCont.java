@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.board.BoardProcInter;
+import dev.mvc.board.BoardVO;
 import dev.mvc.jobcate.JobcateProcInter;
 import dev.mvc.jobcate.JobcateVO;
 
@@ -18,6 +20,10 @@ public class HomeCont {
   @Autowired
   @Qualifier("dev.mvc.jobcate.JobcateProc")  // @Component("dev.mvc.cate.JobcateProc")
   private JobcateProcInter jobcateProc; // CateProc 객체가 자동 생성되어 할당됨.
+  
+  @Autowired
+  @Qualifier("dev.mvc.board.BoardProc")
+  private BoardProcInter boardProc;
   
   public HomeCont() {
     System.out.println("-> HomeCont created.");
@@ -41,7 +47,9 @@ public class HomeCont {
     ModelAndView mav = new ModelAndView();
 
     ArrayList<JobcateVO> list = this.jobcateProc.list_all();
+    ArrayList<BoardVO> list_board = this.boardProc.list_all();
     mav.addObject("list", list);
+    mav.addObject("list_board", list_board);
     
     
     mav.setViewName("/menu/top"); // /WEB-INF/views/menu/top.jsp

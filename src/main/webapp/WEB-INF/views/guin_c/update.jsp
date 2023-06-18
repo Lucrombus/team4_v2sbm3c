@@ -75,7 +75,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
   console.log('제목길이' + title_length);
   console.log('내용길이' + content_length);
 
-  if (document.getElementById("frm").checkValidity()) { // required 옵션 체크하는 함수
+  if (document.getElementById("frm").checkValidity() && content_length > 0) { // required 옵션 체크하는 함수
     if (title_length < 60) {
       if (content_length < 1300) {
         formSubmitted = true;          
