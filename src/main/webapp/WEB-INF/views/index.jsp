@@ -26,9 +26,7 @@
   </DIV>
   
   <DIV style='margin: 0px auto; width: 90%;'>
-    <DIV style='text-align: center;'>
-      <jsp:include page="./menu/notice.jsp" flush='false' />
-    </DIV> 
+    
     
   </DIV>
  

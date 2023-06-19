@@ -5,23 +5,18 @@
 DROP TABLE notice CASCADE CONSTRAINTS;
 
 CREATE TABLE notice(
-		noticeno                      		NUMBER(10)		 NOT NULL,
+		noticeno                      		NUMBER(10)		 NOT NULL  PRIMARY KEY,
 		topview                       		CHAR(1)		 DEFAULT 'N'		 NOT NULL,
 		memberno                      		NUMBER(10)		 NOT NULL,
 		TITLE                         		VARCHAR2(50)		 NOT NULL,
 		CONTENT                       		VARCHAR2(4000)		 NOT NULL,
-		RECOM                         		NUMBER(7)		 NOT NULL,
 		CNT                           		NUMBER(7)		 NOT NULL,
-		REPLYCNT                      		NUMBER(7)		 NOT NULL,
 		WORD                          		VARCHAR2(100)		 NULL ,
 		RDATE                         		DATE		 NOT NULL,
 		FILE1                         		VARCHAR2(100)		 NULL ,
 		FILE1SAVED                    		VARCHAR2(100)		 NULL ,
 		THUMB1                        		VARCHAR2(100)		 NULL ,
-		SIZE1                         		NUMBER(10)		 NULL ,
-		MAP                           		VARCHAR2(1000)		 NULL ,
-		YOUTUBE                       		VARCHAR2(1000)		 NULL ,
-        FOREIGN KEY (memberno) REFERENCES memberno (member)
+		SIZE1                         		NUMBER(10)		 NULL 
 );
 
 COMMENT ON TABLE notice is '공지사항';
@@ -30,19 +25,15 @@ COMMENT ON COLUMN notice.topview is '상단노출여부';
 COMMENT ON COLUMN notice.memberno is '회원 번호';
 COMMENT ON COLUMN notice.TITLE is '제목';
 COMMENT ON COLUMN notice.CONTENT is '내용';
-COMMENT ON COLUMN notice.RECOM is '추천수';
 COMMENT ON COLUMN notice.CNT is '조회수';
-COMMENT ON COLUMN notice.REPLYCNT is '댓글수';
 COMMENT ON COLUMN notice.WORD is '검색어';
 COMMENT ON COLUMN notice.RDATE is '등록일';
 COMMENT ON COLUMN notice.FILE1 is '메인 이미지';
 COMMENT ON COLUMN notice.FILE1SAVED is '실제 저장된 메인 이미지';
 COMMENT ON COLUMN notice.THUMB1 is '메인 이미지 Preview';
 COMMENT ON COLUMN notice.SIZE1 is '메인 이미지 크기';
-COMMENT ON COLUMN notice.MAP is '지도';
-COMMENT ON COLUMN notice.YOUTUBE is 'Youtube 영상';
 
-DROP SEQUENCE notice;
+DROP SEQUENCE notice_seq;
 
 CREATE SEQUENCE notice_seq
   START WITH 1                -- 시작 번호
@@ -52,26 +43,26 @@ CREATE SEQUENCE notice_seq
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
   
 
-/*제약조건 추가*/
-ALTER TABLE notice ADD CONSTRAINT IDX_notice_PK PRIMARY KEY (noticeno);
-ALTER TABLE notice ADD CONSTRAINT IDX_notice_FK0 FOREIGN KEY (memberno) REFERENCES member (memberno);
+--/*제약조건 추가*/
+--ALTER TABLE notice ADD CONSTRAINT IDX_notice_PK PRIMARY KEY (noticeno);
+--ALTER TABLE notice ADD CONSTRAINT IDX_notice_FK0 FOREIGN KEY (memberno) REFERENCES member (memberno);
 
 
 --insert
-INSERT INTO notice (noticeno, topview, memberno, title, content, RECOM, CNT, 
-        REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube)
-VALUES (notice_seq.nextval, 'N', 1, '공지사항제목', '내용', 1, 0, 0, '검색어1', sysdate, '메인이미지', '실제저장이미지', '메인이미지 썸네일', 0, '지도api', '유튜브소스');
+INSERT INTO notice (noticeno, topview, memberno, title, content, CNT, 
+        WORD, rdate, file1, file1saved, thumb1, size1)
+VALUES (notice_seq.nextval, 'N', 1, '공지사항제목', '내용', 0, '검색어1', sysdate, '메인이미지', '실제저장이미지', '메인이미지 썸네일', 0);
 
 --select
-SELECT noticeno, topview, memberno, title, content, RECOM, CNT, 
-        REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube
+SELECT noticeno, topview, memberno, title, content, CNT, 
+       WORD, rdate, file1, file1saved, thumb1, size1
 FROM notice
 ORDER BY noticeno DESC;
 
 --update
 UPDATE notice
 SET topview = 'Y' , title = '제목변경1', content = '내용변경1', word = '검색어수정1', file1 = '메인이미지수정1', 
-    file1saved = '실제저장이미지수정1', thumb1 = '메인이미지 썸네일 수정1', map = '지도api수정', youtube = '유튜브소스수정'
+    file1saved = '실제저장이미지수정1', thumb1 = '메인이미지 썸네일 수정1', size1 = 3
 WHERE noticeno = 1;
 
 --delete

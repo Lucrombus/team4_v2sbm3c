@@ -9,19 +9,13 @@ public class NoticeVO {
   private int memberno;
   private String TITLE;
   private String CONTENT;
-  private int RECOM;
   private int CNT;
-  private int REPLYCNT;
   private String WORD ="";
   private String RDATE;
-  private int wage;
-  private String day;
   private String file1 ="";
   private String file1saved ="";
   private String thumb1 ="";
   private long size1;
-  private String MAP ="";
-  private String YOUTUBE ="";
 
   /**
    * 이미지 파일
@@ -68,23 +62,11 @@ public class NoticeVO {
   public void setCONTENT(String cONTENT) {
     CONTENT = cONTENT;
   }
-  public int getRECOM() {
-    return RECOM;
-  }
-  public void setRECOM(int rECOM) {
-    RECOM = rECOM;
-  }
   public int getCNT() {
     return CNT;
   }
   public void setCNT(int cNT) {
     CNT = cNT;
-  }
-  public int getREPLYCNT() {
-    return REPLYCNT;
-  }
-  public void setREPLYCNT(int rEPLYCNT) {
-    REPLYCNT = rEPLYCNT;
   }
   public String getWORD() {
     return WORD;
@@ -97,18 +79,6 @@ public class NoticeVO {
   }
   public void setRDATE(String rDATE) {
     RDATE = rDATE;
-  }
-  public int getWage() {
-    return wage;
-  }
-  public void setWage(int wage) {
-    this.wage = wage;
-  }
-  public String getDay() {
-    return day;
-  }
-  public void setDay(String day) {
-    this.day = day;
   }
   public String getFile1() {
     return file1;
@@ -133,18 +103,6 @@ public class NoticeVO {
   }
   public void setSize1(long size1) {
     this.size1 = size1;
-  }
-  public String getMAP() {
-    return MAP;
-  }
-  public void setMAP(String mAP) {
-    MAP = mAP;
-  }
-  public String getYOUTUBE() {
-    return YOUTUBE;
-  }
-  public void setYOUTUBE(String yOUTUBE) {
-    YOUTUBE = yOUTUBE;
   }
   public MultipartFile getFile1MF() {
     return file1MF;

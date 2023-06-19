@@ -6,44 +6,19 @@
 
     <!-- 등록 -->
     <insert id="create" parameterType="dev.mvc.notice.NoticeVO">
-        INSERT INTO notice (noticeno, topview, memberno, title, content, RECOM, CNT, 
-                            REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube)
-        VALUES (notice_seq.nextval, #{topview}, #{memberno}, #{title}, #{content}, #{RECOM}, #{CNT}, 
-                            #{REPLYCNT}, #{WORD}, #{rdate}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, #{map}, #{Youtube})
+        INSERT INTO notice (noticeno, topview, memberno, title, content, CNT, 
+                            WORD, rdate, file1, file1saved, thumb1, size1)
+        VALUES (notice_seq.nextval, #{topview}, #{memberno}, #{title}, #{content}, #{CNT}, 
+                            #{WORD}, #{rdate}, #{file1}, #{file1saved}, #{thumb1}, #{size1})
     </insert>
     
-    <!-- 조회: 모든 글목록 -->
-    <select id="list_all" resultType="dev.mvc.resume.ResumeVO">
-      SELECT noticeno, topview, memberno, title, content, RECOM, CNT, 
-             REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube
-      FROM notice
+    <!-- 목록: CateVO 객체를 생성하여 변수에 컬럼의 값을 저장 후, 
+               ArrayList<CateVO> 객체를 생성한후 add까지 자동 진행하여 ArrayList 객체를 return -->
+    <select id="list_all" resultType="dev.mvc.notice.NoticeVO">
+      SELECT noticeno, topview, memberno, title, content, CNT, 
+             WORD, rdate, file1, file1saved, thumb1, size1
+      FROM notice 
       ORDER BY noticeno DESC
-    </select> 
-      
-    <!-- 조회 -->
-    <select id="read" resultType="dev.mvc.notice.NoticeVO" parameterType="int">
-        SELECT noticeno, topview, memberno, title, content, RECOM, CNT, 
-               REPLYCNT, WORD, rdate, file1, file1saved, thumb1, size1, map, Youtube
-        FROM notice
-        WHERE noticeno = #{noticeno}
     </select>
     
-     <!-- 수정 -->
-    <update id="update" parameterType="dev.mvc.notice.NoticeVO">
-        UPDATE notice
-        SET topview = #{topview} , title = #{title}, content = #{content}, word = #{word}, file1 = #{file1}, 
-            file1saved = #{file1saved}, thumb1 = #{thumb1}, map = #{map}, youtube = #{youtube}
-        WHERE noticeno = #{noticeno}
-    </update>
-    
-    <!-- 삭제 -->
-    <delete id="delete" parameterType="int">
-       DELETE FROM notice
-       WHERE noticeno = #{noticeno}
-    </delete>
-
-    
-
-
-
 </mapper>
