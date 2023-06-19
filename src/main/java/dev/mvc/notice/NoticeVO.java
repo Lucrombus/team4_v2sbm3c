@@ -7,11 +7,11 @@ public class NoticeVO {
   private int noticeno;
   private String topview;
   private int memberno;
-  private String TITLE;
-  private String CONTENT;
-  private int CNT;
-  private String WORD ="";
-  private String RDATE;
+  private String title;
+  private String content;
+  private int cnt;
+  private String word ="";
+  private String rdate;
   private String file1 ="";
   private String file1saved ="";
   private String thumb1 ="";
@@ -32,6 +32,7 @@ public class NoticeVO {
   private int now_page = 1;
   
   
+  
   public int getNoticeno() {
     return noticeno;
   }
@@ -50,35 +51,35 @@ public class NoticeVO {
   public void setMemberno(int memberno) {
     this.memberno = memberno;
   }
-  public String getTITLE() {
-    return TITLE;
+  public String getTitle() {
+    return title;
   }
-  public void setTITLE(String tITLE) {
-    TITLE = tITLE;
+  public void setTitle(String title) {
+    this.title = title;
   }
-  public String getCONTENT() {
-    return CONTENT;
+  public String getContent() {
+    return content;
   }
-  public void setCONTENT(String cONTENT) {
-    CONTENT = cONTENT;
+  public void setContent(String content) {
+    this.content = content;
   }
-  public int getCNT() {
-    return CNT;
+  public int getCnt() {
+    return cnt;
   }
-  public void setCNT(int cNT) {
-    CNT = cNT;
+  public void setCnt(int cnt) {
+    this.cnt = cnt;
   }
-  public String getWORD() {
-    return WORD;
+  public String getWord() {
+    return word;
   }
-  public void setWORD(String wORD) {
-    WORD = wORD;
+  public void setWord(String word) {
+    this.word = word;
   }
-  public String getRDATE() {
-    return RDATE;
+  public String getRdate() {
+    return rdate;
   }
-  public void setRDATE(String rDATE) {
-    RDATE = rDATE;
+  public void setRdate(String rdate) {
+    this.rdate = rdate;
   }
   public String getFile1() {
     return file1;

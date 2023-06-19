@@ -5,33 +5,33 @@
 DROP TABLE notice CASCADE CONSTRAINTS;
 
 CREATE TABLE notice(
-		noticeno                      		NUMBER(10)		 NOT NULL  PRIMARY KEY,
+		noticeno                      		NUMBER(10)		 NOT NULL    PRIMARY KEY,
 		topview                       		CHAR(1)		 DEFAULT 'N'		 NOT NULL,
 		memberno                      		NUMBER(10)		 NOT NULL,
-		TITLE                         		VARCHAR2(50)		 NOT NULL,
-		CONTENT                       		VARCHAR2(4000)		 NOT NULL,
-		CNT                           		NUMBER(7)		 NOT NULL,
-		WORD                          		VARCHAR2(100)		 NULL ,
-		RDATE                         		DATE		 NOT NULL,
-		FILE1                         		VARCHAR2(100)		 NULL ,
-		FILE1SAVED                    		VARCHAR2(100)		 NULL ,
-		THUMB1                        		VARCHAR2(100)		 NULL ,
-		SIZE1                         		NUMBER(10)		 NULL 
+		title                         		VARCHAR2(50)		 NOT NULL,
+		content                       		VARCHAR2(4000)		 NOT NULL,
+		cnt                           		NUMBER(7)		 NOT NULL,
+		word                          		VARCHAR2(100)		 NULL ,
+		rdate                         		DATE		 NOT NULL,
+		file1                         		VARCHAR2(100)		 NULL ,
+		file1saved                    		VARCHAR2(100)		 NULL ,
+		thumb1                        		VARCHAR2(100)		 NULL ,
+		size1                         		NUMBER(10)		 NULL 
 );
 
 COMMENT ON TABLE notice is '공지사항';
 COMMENT ON COLUMN notice.noticeno is '공지사항 번호';
 COMMENT ON COLUMN notice.topview is '상단노출여부';
 COMMENT ON COLUMN notice.memberno is '회원 번호';
-COMMENT ON COLUMN notice.TITLE is '제목';
-COMMENT ON COLUMN notice.CONTENT is '내용';
-COMMENT ON COLUMN notice.CNT is '조회수';
-COMMENT ON COLUMN notice.WORD is '검색어';
-COMMENT ON COLUMN notice.RDATE is '등록일';
-COMMENT ON COLUMN notice.FILE1 is '메인 이미지';
-COMMENT ON COLUMN notice.FILE1SAVED is '실제 저장된 메인 이미지';
-COMMENT ON COLUMN notice.THUMB1 is '메인 이미지 Preview';
-COMMENT ON COLUMN notice.SIZE1 is '메인 이미지 크기';
+COMMENT ON COLUMN notice.title is '제목';
+COMMENT ON COLUMN notice.content is '내용';
+COMMENT ON COLUMN notice.cnt is '조회수';
+COMMENT ON COLUMN notice.word is '검색어';
+COMMENT ON COLUMN notice.rdate is '등록일';
+COMMENT ON COLUMN notice.file1 is '메인 이미지';
+COMMENT ON COLUMN notice.file1saved is '실제 저장된 메인 이미지';
+COMMENT ON COLUMN notice.thumb1 is '메인 이미지 Preview';
+COMMENT ON COLUMN notice.size1 is '메인 이미지 크기';
 
 DROP SEQUENCE notice_seq;
 
@@ -68,3 +68,5 @@ WHERE noticeno = 1;
 --delete
 DElETE FROM notice
 WHERE noticeno = 1;
+
+commit;

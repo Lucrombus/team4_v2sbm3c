@@ -41,7 +41,7 @@ public class NoticeCont {
     // public ModelAndView create(HttpServletRequest request, int cateno) {
     ModelAndView mav = new ModelAndView();
 
-    if (this.memberProc.isMember(session) == true) {
+    if (this.memberProc.isMember(session) != true) {
       mav.setViewName("/notice/create"); // /webapp/WEB-INF/views/contents/create.jsp
     } else {
       mav.setViewName("/member/login_need");
@@ -56,7 +56,7 @@ public class NoticeCont {
 
     ModelAndView mav = new ModelAndView();
 
-    if (this.memberProc.isMember(session) == true) {
+    if (this.memberProc.isMember(session) != true) {
       int cnt = this.noticeProc.create(noticeVO);
 
       if (cnt == 1) {

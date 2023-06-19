@@ -30,27 +30,6 @@
     </c:if>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
-  
-  <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_by_boardno_search_paging.do'>
-      <input type='hidden' name='boardno' value='${param.boardno }'>  <%-- 게시판의 구분 --%>
-      <input type='hidden' name='now_page' value='1'>  <%-- 검색기본 시작 페이지 --%>
-      
-      <c:choose>
-        <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
-          <input type='text' name='word' id='word' value='${param.word }' style='width: 20%; ' class='input_word'>
-        </c:when>
-        <c:otherwise> <%-- 검색하지 않는 경우 --%>
-          <input type='text' name='word' id='word' value='' style='width: 20%;'>
-        </c:otherwise>
-      </c:choose>
-      <button type='submit' class="btn btn-secondary btn-sm">검색</button>
-      <c:if test="${param.word.length() > 0 }">
-        <button type='button' class='btn btn-info btn-sm'
-                     onclick="location.href='./list_by_boardno_search_paging.do?boardno=${param.boardno}&now_page=1&word='">검색 취소</button>  
-      </c:if>    
-    </form>
-  </DIV>
 
   <DIV class='menu_line'></DIV>
   
@@ -67,7 +46,7 @@
         <th style='text-align: center;'>번호</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
-        <th style='text-align: center;'>작성자</th>
+        <th style='text-align: center;'>관리자 번호</th>
       </tr>
     
     </thead>
@@ -76,8 +55,7 @@
       <c:forEach var="noticeVO" items="${list }">
         <c:set var="title" value="${noticeVO.title }" />
         <c:set var="content" value="${noticeVO.content }" />
-        <c:set var="boardno" value="${noticeVO.boardno }" />
-        <c:set var="contentsno" value="${noticeVO.contentsno }" />
+        <c:set var="noticeno" value="${noticeVO.noticeno }" />
         <c:set var="rdate" value="${noticeVO.rdate }" />
         <c:set var="memberno" value="${noticeVO.memberno }" />
         
@@ -86,14 +64,14 @@
           ${noticeno}
           </td>
           <td style='vertical-align: middle;'>
-            <a href="./read.do?contentsno=${contentsno}&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+            <a href="./read.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }
           </td>
            <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-          ${f.apply(memberno) }
+          ${memberno }
           </td>
         </tr>
         

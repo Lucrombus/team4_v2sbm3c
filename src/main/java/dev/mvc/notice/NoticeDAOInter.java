@@ -14,7 +14,7 @@ public interface NoticeDAOInter {
   /**
    * 공지사항 전체 목록
    * @param 
-   * @return 전체목록을 ArrayList<ResumeVO>로 리턴
+   * @return 전체목록을 ArrayList<NoticeVO>로 리턴
    */
   public ArrayList<NoticeVO> list_all();
   

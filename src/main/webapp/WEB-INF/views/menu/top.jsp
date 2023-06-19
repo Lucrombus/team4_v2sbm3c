@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                <ul class="navbar-nav mr-auto">
                  <li class="nav-item">
-                    <a class="nav-link" href="/notice/list_all">공지사항</a>
+                    <a class="nav-link" href="/notice/list_all.do">공지사항</a>
                  </li>
                  <li class="nav-item dropdown"> <%-- 구인 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">구인</a>
