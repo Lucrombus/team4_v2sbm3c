@@ -30,7 +30,7 @@ public class MemberProc implements MemberProcInter {
     int cnt = this.memberDAO.create(memberVO);
     return cnt;
   }
-
+  
   @Override
   public ArrayList<MemberVO> list() {
     ArrayList<MemberVO> list = this.memberDAO.list();

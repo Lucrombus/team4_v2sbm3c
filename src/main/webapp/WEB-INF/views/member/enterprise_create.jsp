@@ -197,7 +197,7 @@
   <div class='menu_line'></div>
   
   <div style="width: 60%; margin: 0px auto ">
-  <FORM name='frm' id='frm' method='POST' action='./create.do' class="">
+  <FORM name='frm' id='frm' method='POST' action='./enterprise_create.do' class="">
   
     <div class="form-group"> <%-- 줄이 변경되지 않는 패턴 --%>
       <label>아이디*:
@@ -219,7 +219,7 @@
     </div>   
     
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
-      <label>성명*:
+      <label>기업 이름*:
         <input type='text' class="form-control form-control-sm" name='name' id='name' value='하정우' required="required" placeholder="성명*">
       </label>
     </div>   
@@ -229,6 +229,13 @@
         <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='010-0000-0000' required="required" placeholder="전화번호*">
       </label>
       예) 010-0000-0000
+    </div>   
+    
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
+      <label>성별:
+        <input type='text' class="form-control form-control-sm" name='gender' id='gender' value='남성' required="required" placeholder="성별*">
+      </label>
+      예) 남성 / 여성
     </div>   
     
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>

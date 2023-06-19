@@ -68,34 +68,24 @@
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원</a>
                       <div class="dropdown-menu">
-                          <a class="dropdown-item" href="/member/create.do">회원 가입</a>
+                          <a class="dropdown-item" href="/member/create.do">개인 회원 가입</a>
+                          <a class="dropdown-item" href="/member/enterprise_create.do">기업 회원 가입</a>
                           <a class="dropdown-item" href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a>
-                          <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입 정보</a>
+                          <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입 정보 및 수정</a>
                           <a class="dropdown-item" href="#">아이디 찾기</a>
                           <a class="dropdown-item" href="#">비밀번호 찾기</a>
                           <a class="dropdown-item" href="/member/passwd_update.do?memberno=${sessionScope.memberno } ">비밀번호 변경</a>
-                          <a class="dropdown-item" href="/member/update.do?memberno=${sessionScope.memberno }">회원 정보 수정</a>
                           <a class="dropdown-item" href="#">회원 탈퇴</a>
                       </div>
                   </li>
                   
-                  <c:choose>
-                    <c:when test="${sessionScope.admin_id == null }">
-                      <li class="nav-item">
-                        <a class="nav-link" href="/member/admin_login_form">관리자 로그인</a>
-                      </li>
-                    </c:when>
-                    <c:otherwise>
-                      <li class="nav-item dropdown"> <%-- 관리자 서브 메뉴 --%>
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">관리자</a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href='/cate/list_all.do'>카테고리 전체 목록</a>
-                          <a class="dropdown-item" href='/member/list.do'>회원 목록</a>
-                          <a class="dropdown-item" href='/admin/logout.do'>관리자 ${sessionScope.admin_id } 로그아웃</a>
-                        </div>
-                      </li>
-                    </c:otherwise>
-                  </c:choose>     
+                  
+                  <li class="nav-item dropdown"> <%-- 관리자 서브 메뉴 --%>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">관리자</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href='/member/list.do'>회원 목록</a>
+                    </div>
+                  </li>  
                 </ul>
             </div>    
         </nav>
