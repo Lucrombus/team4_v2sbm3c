@@ -56,7 +56,7 @@ public class ContentsCont {
     mav.addObject("boardVO", boardVO);
     mav.addObject("list", list);
 
-    if (this.memberProc.isMember(session) == true) {
+    if (session.getAttribute("id") != null) {
       mav.setViewName("/contents/create_test");
 
     } else {
@@ -129,7 +129,7 @@ public class ContentsCont {
   public ModelAndView create_test(HttpServletRequest request, HttpSession session, ContentsVO contentsVO) {
     ModelAndView mav = new ModelAndView();
 
-    if (this.memberProc.isMember(session) == true) {
+    if (session.getAttribute("id") != null) {
       // Call By Reference: 메모리 공유, Hashcode 전달
       int cnt = this.contentsProc.create(contentsVO);
 
