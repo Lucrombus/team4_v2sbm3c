@@ -39,7 +39,7 @@
                        <c:set var="name" value="${boardVO.name }" />
                        <c:set var="visible" value="${boardVO.visible }" />
                        <c:if test="${boardVO.visible.equals('Y') }">
-                        <a class="dropdown-item" href="/board_c/list_by_boardno_search_paging.do?jobcateno=${boardno }&now_page=1" >${name }</a>
+                        <a class="dropdown-item" href="/contents/list_by_boardno_search_paging.do?boardno=${boardno }&now_page=1" >${name }</a>
                        </c:if>
                        
                       </c:forEach>

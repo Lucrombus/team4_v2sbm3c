@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.contents.ContentsDAOInter">
+
+    <!-- 등록 -->
+    <insert id="create" parameterType="dev.mvc.contents.ContentsVO">
+        INSERT INTO contents
+        (contentsno, boardno, memberno,title,
+        content,rdate, word, file1, file1saved, size1)
+        VALUES
+        (contents_seq.nextval, #{boardno}, #{memberno}, #{title},
+        #{content}, sysdate, #{word}, #{file1}, #{file1saved}, #{size1})
+    </insert>
+    
+    <!-- 조회 -->
+    <select id="read" resultType="dev.mvc.contents.ContentsVO" parameterType="int">
+        SELECT contentsno, boardno, memberno, title,
+        content, rdate, word, file1, file1saved
+        FROM contents
+        WHERE contentsno = #{contentsno}
+    </select>
+    
+     <!-- 수정 -->
+    <update id="update" parameterType="dev.mvc.contents.ContentsVO">
+        UPDATE contents
+        SET name = #{name}, brand = #{brand}, title = #{title},
+            content = #{content}, address = #{address}, wage = #{wage},
+            day = #{day}, period = #{period}, tel = #{tel}, email = #{email},
+            word = #{word}, thumb1 = #{thumb1}, thumb1_origin = #{thumb1_origin},
+            file1 = #{file1}, file1saved= #{file1saved}
+        WHERE contentsno = #{contentsno}
+    </update>
+    
+    <!-- 삭제 -->
+    <delete id="delete" parameterType="int">
+       DELETE FROM contents
+       WHERE contentsno = #{contentsno}
+    </delete>
+    
+    <!-- Map 등록, 수정, 삭제 -->
+    <update id="map" parameterType="dev.mvc.contents.ContentsVO">
+    UPDATE contents
+    SET map = #{map}
+    WHERE contentsno = #{contentsno}
+    </update>
+
+    <!-- 검색 레코드 갯수 -->
+    <select id="search_count" resultType="int"
+        parameterType="dev.mvc.contents.ContentsVO">
+        SELECT COUNT(*) as cnt
+        FROM contents
+        <choose>
+            <when
+                test="(word == null or word == '') and (boardno != 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리별 목록) -->
+                WHERE boardno=#{boardno}
+            </when>
+            <when
+                test="(word != null and word != '') and (boardno != 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리별 목록) -->
+                WHERE boardno=#{boardno} AND (UPPER(title) LIKE '%' ||
+                UPPER(#{word}) || '%'
+                OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%'
+                OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+            </when>
+
+            <when
+                test="(word == null or word == '') and (boardno == 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (전체목록) -->
+            </when>
+            <when
+                test="(word != null and word != '') and (boardno == 0)"> <!-- 검색하는 경우의 레코드 갯수 (전체목록) -->
+                WHERE (UPPER(title) LIKE '%' || UPPER(#{word}) || '%'
+                OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%'
+                OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+            </when>
+        </choose>
+    </select>
+    
+    <!-- 카테고리별 검색 + 페이징 목록 -->
+  <select id="list_by_boardno_search_paging" resultType="dev.mvc.contents.ContentsVO" parameterType="dev.mvc.contents.ContentsVO">
+    SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word, r
+   FROM (
+              SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word, rownum as r
+              FROM (
+                        SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word
+                        FROM contents
+                        <choose>
+                           <when test="(word == null or word == '') and (boardno != 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리 별) -->
+                            WHERE boardno=#{boardno}
+                          </when >
+                          <when test="(word != null and word != '') and (boardno != 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리 별)-->
+                            WHERE boardno=#{boardno} AND (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
+                                                                      OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
+                                                                      OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+                          </when>
+                          
+                          <when test="(word == null or word == '') and (boardno == 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리 별) -->
+                          </when >
+                          <when test="(word != null and word != '') and (boardno == 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리 별)-->
+                            WHERE (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
+                                                OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
+                                                OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
+                          </when>
+                        </choose>
+                        ORDER BY contentsno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+     
+    <!--  1 page: WHERE r >= 1  AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
+
+
+
+</mapper>
