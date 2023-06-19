@@ -11,7 +11,7 @@ CREATE TABLE member(
 		rdate                               DATE NOT NULL,
 		rankno                              NUMBER(10),
 		experience                          VARCHAR2(10) DEFAULT 'N',
-		gender                              VARCHAR(10) DEFAULT 'N',
+		gender                              VARCHAR(10) DEFAULT  'N',
 		birth                               DATE NOT NULL,
 		education                           VARCHAR(10) DEFAULT '0',
         FOREIGN KEY (rankno) REFERENCES rank (rankno)
@@ -53,6 +53,8 @@ INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, g
 VALUES(member_seq.nextval, 'kd6', 1234, '바길순', '010-4444-4444', sysdate, 2, 'N', '여성', '19700301', '4년제');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'kd', 1234, '홍길순', '010-4444-4444', sysdate, 1, 'N', '여성', '19700301', '4년제');
+INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
+VALUES(member_seq.nextval, 'kd6', 1234, '바길순', '010-4444-4444', sysdate, 3, 'N', '여성', '19700301', '4년제');
 
 
 

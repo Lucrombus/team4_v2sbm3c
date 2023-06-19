@@ -50,7 +50,7 @@ public class MemberCont {
 
   // http://localhost:9093/member/create.do
   /**
-  * 등록 폼
+  * 개인 회원 등록 폼
   * @return
   */
   @RequestMapping(value="/member/create.do", method=RequestMethod.GET )
@@ -60,9 +60,22 @@ public class MemberCont {
    
     return mav; // forward
   }
+  
+  //http://localhost:9093/member/enterprise_create.do
+  /**
+  * 기업 회원 등록 폼
+  * @return
+  */
+ @RequestMapping(value="/member/enterprise_create.do", method=RequestMethod.GET )
+ public ModelAndView enterprise_create() {
+   ModelAndView mav = new ModelAndView();
+   mav.setViewName("/member/enterprise_create"); // /WEB-INF/views/member/enterprise_create.jsp
+  
+   return mav; // forward
+ }
 
   /**
-   * 등록 처리
+   * 개인 회원 등록 처리
    * @param memberVO
    * @return
    */
@@ -97,7 +110,7 @@ public class MemberCont {
   }
   
   /**
-   * 등록 처리
+   * 기업 회원 등록 처리
    * @param memberVO
    * @return
    */
@@ -152,13 +165,13 @@ public class MemberCont {
   @RequestMapping(value="/member/list.do", method=RequestMethod.GET)
   public ModelAndView list(HttpSession session){
     ModelAndView mav = new ModelAndView();
-    if (this.memberProc.isMember(session) == true || this.memberProc.isAdmin(session) == true) {
+    if (this.memberProc.isAdmin(session) == true) {
       ArrayList<MemberVO> list = memberProc.list();
       mav.addObject("list", list);
       
       mav.setViewName("/member/list"); // /webapp/WEB-INF/views/member/list.jsp
     } else {
-      mav.setViewName("/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
+      mav.setViewName("/member/admin_login_need"); // /WEB-INF/views/admin/login_need.jsp
     }
    
     return mav; // forward

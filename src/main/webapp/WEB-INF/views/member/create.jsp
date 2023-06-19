@@ -232,6 +232,13 @@
     </div>   
     
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
+      <label>성별:
+        <input type='text' class="form-control form-control-sm" name='gender' id='gender' value='남성' required="required" placeholder="성별*">
+      </label>
+      예) 남성 / 여성
+    </div>   
+    
+    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>경력:
         <input type='text' class="form-control form-control-sm" name='experience' id='experience' value='Y' required="required" placeholder="경력*">
       </label>
