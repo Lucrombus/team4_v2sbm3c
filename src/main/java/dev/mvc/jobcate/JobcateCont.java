@@ -1,6 +1,7 @@
 package dev.mvc.jobcate;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,12 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.guin_c.Guin_cProcInter;
+
 @Controller
 public class JobcateCont {
 
   @Autowired
   @Qualifier("dev.mvc.jobcate.JobcateProc")
   private JobcateProcInter jobcateProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.guin_c.Guin_cProc")
+  private Guin_cProcInter guin_cProc;
 
   public JobcateCont() {
 
@@ -53,6 +60,14 @@ public class JobcateCont {
     ArrayList<JobcateVO> list = this.jobcateProc.list_all();
 
     ModelAndView mav = new ModelAndView();
+    
+    Function<Integer, Integer> f = (jobcateno) -> {
+      int count = this.guin_cProc.count_by_jobcateno(jobcateno);
+      System.out.println(count);
+      return count;
+    };
+    
+    mav.addObject("f", f);
 
     mav.addObject("list", list);
     mav.setViewName("/jobcate/list_all");

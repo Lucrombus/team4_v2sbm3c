@@ -43,6 +43,12 @@ public interface ContentsDAOInter {
    */
   public int delete(int contentsno);
   
+  /**
+   * 검색된 레코드 갯수 리턴
+   * @return
+   */
+  public int count_by_boardno(int boardno);
+  
   
 
 }

@@ -42,6 +42,12 @@ public interface ContentsProcInter {
    */
   public int delete(int contentsno);
   
+  /**
+   * 검색된 레코드 갯수 리턴
+   * @return
+   */
+  public int count_by_boardno(int boardno);
+  
   
   /** 
    * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 

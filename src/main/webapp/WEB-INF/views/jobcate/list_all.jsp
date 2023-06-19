@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="java.util.function.Function" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dev.mvc.jobcate.JobcateVO" %>
 
@@ -41,6 +41,7 @@
   <TABLE class='table table-hover'>
     <colgroup>
       <col style='width: 10%;'/>
+      <col style='width: 10%;'/>
       <col style='width: 50%;'/>
       <col style='width: 10%;'/>    
       <col style='width: 30%;'/>
@@ -48,6 +49,7 @@
    
     <thead>  
     <TR>
+      <TH class="th_bs">PK</TH>
       <TH class="th_bs">순서</TH>
       <TH class="th_bs">카테고리 이름</TH>
       <TH class="th_bs">자료수</TH>
@@ -58,14 +60,16 @@
     <tbody>
     <%
     ArrayList<JobcateVO> list = (ArrayList<JobcateVO>)request.getAttribute("list");
+    Function<Integer, Integer> f = (Function<Integer, Integer>) request.getAttribute("f");
     
     for (int i=0; i < list.size(); i++) {
       JobcateVO jobcateVO = list.get(i);
     %>
       <TR>
+        <TD class='td_bs'><%= jobcateVO.getJobcateno() %></TD>
         <TD class='td_bs'><%= jobcateVO.getSeqno() %></TD>
         <TD style="text-align:center" ><a href="/guin_c/list_by_jobcateno_search_paging.do?jobcateno=<%=jobcateVO.getJobcateno() %>&now_page=1"><%=jobcateVO.getName() %></a></TD>
-        <TD style="text-align:center"></TD>
+        <TD style="text-align:center"><%=f.apply(jobcateVO.getJobcateno())%></TD>
         <TD style="text-align:center">
           <A href="./read_update.do?jobcateno=<%=jobcateVO.getJobcateno() %>" title="수정"><IMG src="/cate/images/update.png" class="icon"></A>
           <A href="./read_delete.do?jobcateno=<%=jobcateVO.getJobcateno() %>" title="삭제"><IMG src="/cate/images/delete.png" class="icon"></A>

@@ -1,17 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:set var="guin_cno" value="${guin_cVO.guin_cno }" />
-<c:set var="jobcateno" value="${param.jobcateno }" />
-<c:set var="title" value="${guin_cVO.title }" />        
-<c:set var="file1" value="${guin_cVO.file1 }" />
-<c:set var="file1saved" value="${guin_cVO.file1saved }" />
-<c:set var="thumb1" value="${guin_cVO.thumb1 }" />
-<c:set var="content" value="${guin_cVO.content }" />
-<c:set var="rdate" value="${guin_cVO.rdate }" />
-<c:set var="word" value="${guin_cVO.word }" />
-<c:set var="map" value="${guin_cVO.map }" />
-<c:set var="size1_label" value="${guin_cVO.size1_label }" />
+<c:set var="contentsno" value="${contentsVO.contentsno }" />
+<c:set var="boardno" value="${param.boardno }" />
+<c:set var="title" value="${contentsVO.title }" />        
+<c:set var="file1" value="${contentsVO.file1 }" />
+<c:set var="file1saved" value="${contentsVO.file1saved }" />
+<c:set var="content" value="${contentsVO.content }" />
+<c:set var="rdate" value="${contentsVO.rdate }" />
+<c:set var="word" value="${contentsVO.word }" />
+<c:set var="size1_label" value="${contentsVO.size1_label }" />
 
 
 <!DOCTYPE html> 
@@ -99,18 +97,18 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'><A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1" class='title_link'>${param.jobcateno != 0 ? jobcateVO.name : "전체목록" } 구인 </A> > 글 수정 > ${title } </DIV>
+<DIV class='title_line'><A href="./list_by_boardno_search_paging.do?boardno=${param.boardno }&now_page=1" class='title_link'>${param.boardno != 0 ? boardVO.name : "전체목록" } 구인 </A> > 글 수정 > ${title } </DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right"  style="padding-bottom: 10px;">
-    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">기본 목록형</A> 
+    <A href="./list_by_boardno_search_paging.do?boardno=${param.boardno }&now_page=1">기본 목록형</A> 
     <span class='menu_divide' >│</span>   
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>
   
   <DIV style="text-align: right; clear: both; ">  
-    <form name='frm' method='get' action='./list_by_jobcateno_search_paging.do'>
-      <input type='hidden' name='jobcateno' value='${param.jobcateno }'>  <%-- 게시판의 구분 --%>
+    <form name='frm' method='get' action='./list_by_boardno_search_paging.do'>
+      <input type='hidden' name='boardno' value='${param.boardno }'>  <%-- 게시판의 구분 --%>
       <input type='hidden' name='now_page' value='${param.now_page }'>  <%-- 게시판의 구분 --%>
       
       <c:choose>
@@ -124,7 +122,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
       <button type='submit' class="btn btn-secondary btn-sm">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' class="btn btn-secondary btn-sm"
-                     onclick="location.href='./list_by_cateno_search.do?jobcateno=${param.jobcateno}&now_page=1&word='">검색 취소</button>  
+                     onclick="location.href='./list_by_cateno_search.do?boardno=${param.boardno}&now_page=1&word='">검색 취소</button>  
       </c:if>    
     </form>
   </DIV>
@@ -135,61 +133,13 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
   
   <FORM name='frm' id='frm' method='POST' action='./update.do' enctype="multipart/form-data">
   
-      <div>
-       <label>브랜드명</label>
-       <input type='text' name='brand' value='${guin_cVO.brand}' required="required" 
-                 class="" style='width: 10%;' maxlength="16">
-                 
-       <label>업체명</label>
-       <input type='text' name='name' value='${guin_cVO.name}' required="required" 
-                 class="" style='width: 10%;' maxlength="16">
-     </div>
-     <div>          
-       <label>주소　　</label>
-       <input type='text' name='address' value='${guin_cVO.address}' required="required" 
-                 class="" style='width: 30%;' maxlength="66">
-     </div>
 
-       <div>          
-        <label>전화번호</label>
-       <input type='text' name='tel' value='${guin_cVO.tel}' required="required" 
-                 class="" style='width: 20%;'  maxlength="16">
-        </div>         
-        <div>          
-        <label>이메일　</label>
-       <input type='text' name='email' value='${guin_cVO.email}' required="required" 
-                 class="" style='width: 20%;' maxlength="50">
-        
-       </div>
-      <div>
-       <label>근무기간</label>
-       <input type='text' name='period' value='${guin_cVO.period}' required="required" 
-                 class="" style='width: 10%;' maxlength="16">
-                 
-       <label>근무요일</label>
-       <input type='text' name='day' value='${guin_cVO.day}' required="required" 
-                 class="" style='width: 10%;' maxlength="16">
-
-      </div>
-      <div>
-       <label>시급 (원)</label>
-       <input type='number' name='wage' value='${guin_cVO.wage}' required="required"  min="0" 
-                 class="" style='width: 10%;'  max="99999999">
-      </div>
-       <label>썸네일</label>
-       <input type='file' name='file1MF' id='file1MF' 
-                 value='' placeholder="파일 선택">
-    <br>
-
-    
-
-    <input type="hidden" name="guin_cno" value="${guin_cno }">
+    <input type="hidden" name="contentsno" value="${contentsno }">
     <input type="hidden" name="memberno" value="${sessionScope.memberno}">
-    <input type="hidden" name="thumb1" value="${guin_cVO.thumb1 }">
-    <input type="hidden" name="file1" value="${file1 }" id="file1">
-    <input type="hidden" name="file1saved" value="${file1saved }" id="file1saved">
+    <input type="hidden" name="file1" value="${file1}" id="file1">
+    <input type="hidden" name="file1saved" value="${file1saved}" id="file1saved">
     <input type="hidden" name="size1" value=0 id="size1">
-    <input type='hidden' name='jobcateno' value="${param.jobcateno}"> 
+    <input type='hidden' name='boardno' value="${param.boardno}"> 
     
     <!-- 컨텐트 내용에 있는 줄바꿈 문자를 자바스크립트가 정상적으로 인식하게 하기 위한 중간과정  -->
     <input type='hidden' name='media' id='media' value='${content }'>
@@ -215,7 +165,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
     </div>    
     <div class="content_body_bottom">
       <button type="button" onclick="checkLength();" class="btn btn-primary">수정</button>
-      <button type="button" onclick="location.href='./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno}&now_page=${param.now_page }'" class="btn btn-primary">목록</button>
+      <button type="button" onclick="location.href='./list_by_boardno_search_paging.do?boardno=${param.boardno}&now_page=${param.now_page }'" class="btn btn-primary">목록</button>
     </div>
   
   </FORM>
@@ -224,7 +174,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
   <script src="/ckeditor/ckeditor.js"></script>
   <script>
   CKEDITOR.replace( 'editor', {
-	    filebrowserUploadUrl: '/guin_c/test.do',
+	    filebrowserUploadUrl: '/contents/test.do',
       height: '500px'
 	}).on('fileUploadResponse', function (evt) {
           var xhr = evt.data.fileLoader.xhr;

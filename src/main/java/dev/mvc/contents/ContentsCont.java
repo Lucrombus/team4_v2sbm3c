@@ -331,71 +331,9 @@ public class ContentsCont {
   public ModelAndView update(ContentsVO contentsVO, HttpSession session) {
     ModelAndView mav = new ModelAndView();
 
-    System.out.println("전달받은 썸네일명: " + contentsVO.getThumb1());
-
-    // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
     ContentsVO contentsVO_old = contentsProc.read(contentsVO.getContentsno());
 
     if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(contentsVO_old.getMemberno())) {
-      // ------------------------------------------------------------------------------
-      // 파일 전송 코드 시작
-      // ------------------------------------------------------------------------------
-      String thumb1_old = contentsVO_old.getThumb1(); // 원래 이미지
-      String thumb1_old_origin = contentsVO_old.getThumb1_origin(); // 원래 이미지
-      long thumb1_old_size = contentsVO_old.getSize1(); // 원래 사이즈
-
-      String thumb1_new = ""; // 새로운 이미지
-      String thumb1_new_origin = ""; // 새로운 이미지
-
-      String upDir = Contents.getUploadDir();
-      System.out.println("-> upDir: " + upDir);
-
-      MultipartFile mf = contentsVO.getFile1MF();
-
-      thumb1_new = Tool.getFname(mf.getOriginalFilename()); // 원본 순수 파일명 산출
-
-      long thumb1_new_size1 = mf.getSize(); // 파일 크기
-
-      if (thumb1_new_size1 > 0) { // 파일 크기 체크
-        // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
-        Tool.deleteFile(upDir, thumb1_old);
-        Tool.deleteFile(upDir, thumb1_old_origin);
-        thumb1_new_origin = Upload.saveFileSpring(mf, upDir);
-        if (Tool.isImage(thumb1_new)) { // 이미지인지 검사
-          // thumb 이미지 생성후 파일명 리턴됨, width: 200, height: 150
-          thumb1_new = Tool.preview(upDir, thumb1_new, 200, 150);
-
-        }
-      } else { // 파일 수정이 없을경우 원래 데이터를 그대로 저장
-        thumb1_new = thumb1_old;
-        thumb1_new_origin = thumb1_old_origin;
-        thumb1_new_size1 = thumb1_old_size;
-      }
-
-      // ------------------------------------------------------------------------------
-      // 파일 전송 코드 종료
-      // ------------------------------------------------------------------------------
-
-      System.out.println("저장할 썸네일" + thumb1_new);
-      contentsVO.setThumb1(thumb1_new); // 원본이미지 축소판
-      System.out.println("저장된 썸네일" + contentsVO.getThumb1());
-
-      System.out.println("저장할 썸네일 원본" + thumb1_new_origin);
-      contentsVO.setThumb1_origin(thumb1_new_origin); // 원본이미지
-      System.out.println("저장된 썸네일 원본" + contentsVO.getThumb1_origin());
-
-      System.out.println("저장할 썸네일 사이즈: " + thumb1_new_size1);
-      contentsVO.setSize1(thumb1_new_size1);
-      System.out.println("저장된 썸네일 사이즈: " + contentsVO.getSize1());
-      
-      System.out.println("저장할 파일 리스트: " + contentsVO.getFile1saved());
-      contentsVO.setFile1saved(contentsVO_old.getFile1saved() + contentsVO.getFile1saved()); // 기존 파일리스트와 추가한 파일리스트 합침
-      System.out.println("저장된 파일 리스트: " + contentsVO.getFile1saved());
-      
-      System.out.println("저장할 파일원본 리스트: " + contentsVO.getFile1());
-      contentsVO.setFile1(contentsVO_old.getFile1() + contentsVO.getFile1()); // 기존 파일리스트와 추가한 파일리스트 합침
-      System.out.println("저장된 파일원본 리스트: " + contentsVO.getFile1());
-
       MemberVO memberVO = this.memberProc.readByMemberno(contentsVO.getMemberno());
 
       int cnt = this.contentsProc.update(contentsVO);

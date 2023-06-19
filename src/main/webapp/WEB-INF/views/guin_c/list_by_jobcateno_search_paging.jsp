@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 구인
+<A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1" class='title_link'>${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 구인</A>
 </DIV>
 
 <DIV class='content_body'>
@@ -111,7 +111,7 @@ ${param.jobcateno != 0 ? jobcateVO.name : "전체보기" } 구인
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }
           </td>
-           <td style='vertical-align: middle; text-align: center;'>
+           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
           ${f.apply(memberno) }
           </td>
         </tr>

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="java.util.function.Function" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dev.mvc.board.BoardVO" %>
 
@@ -41,6 +41,7 @@
   <TABLE class='table table-hover'>
     <colgroup>
       <col style='width: 10%;'/>
+      <col style='width: 10%;'/>
       <col style='width: 50%;'/>
       <col style='width: 10%;'/>    
       <col style='width: 30%;'/>
@@ -48,6 +49,7 @@
    
     <thead>  
     <TR>
+      <TH class="th_bs">PK</TH>    
       <TH class="th_bs">순서</TH>
       <TH class="th_bs">카테고리 이름</TH>
       <TH class="th_bs">자료수</TH>
@@ -58,14 +60,17 @@
     <tbody>
     <%
     ArrayList<BoardVO> list = (ArrayList<BoardVO>)request.getAttribute("list");
+    Function<Integer, Integer> f = (Function<Integer, Integer>) request.getAttribute("f");
+    
     
     for (int i=0; i < list.size(); i++) {
       BoardVO boardVO = list.get(i);
     %>
       <TR>
+        <TD class='td_bs'><%= boardVO.getBoardno() %></TD>
         <TD class='td_bs'><%= boardVO.getSeqno() %></TD>
-        <TD style="text-align:center" ><a href="/board_c/list_by_boardno_search_paging.do?boardno=<%=boardVO.getBoardno() %>&now_page=1"><%=boardVO.getName() %></a></TD>
-        <TD style="text-align:center"></TD>
+        <TD style="text-align:center" ><a href="/contents/list_by_boardno_search_paging.do?boardno=<%=boardVO.getBoardno() %>&now_page=1"><%=boardVO.getName() %></a></TD>
+        <TD style="text-align:center"><%=f.apply(boardVO.getBoardno())%></TD>
         <TD style="text-align:center">
           <A href="./read_update.do?boardno=<%=boardVO.getBoardno() %>" title="수정"><IMG src="/cate/images/update.png" class="icon"></A>
           <A href="./read_delete.do?boardno=<%=boardVO.getBoardno() %>" title="삭제"><IMG src="/cate/images/delete.png" class="icon"></A>

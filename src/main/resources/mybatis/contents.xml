@@ -25,11 +25,8 @@
      <!-- 수정 -->
     <update id="update" parameterType="dev.mvc.contents.ContentsVO">
         UPDATE contents
-        SET name = #{name}, brand = #{brand}, title = #{title},
-            content = #{content}, address = #{address}, wage = #{wage},
-            day = #{day}, period = #{period}, tel = #{tel}, email = #{email},
-            word = #{word}, thumb1 = #{thumb1}, thumb1_origin = #{thumb1_origin},
-            file1 = #{file1}, file1saved= #{file1saved}
+        SET title = #{title},
+            content = #{content}, word = #{word}, file1 = #{file1}, file1saved= #{file1saved}
         WHERE contentsno = #{contentsno}
     </update>
     
@@ -39,13 +36,6 @@
        WHERE contentsno = #{contentsno}
     </delete>
     
-    <!-- Map 등록, 수정, 삭제 -->
-    <update id="map" parameterType="dev.mvc.contents.ContentsVO">
-    UPDATE contents
-    SET map = #{map}
-    WHERE contentsno = #{contentsno}
-    </update>
-
     <!-- 검색 레코드 갯수 -->
     <select id="search_count" resultType="int"
         parameterType="dev.mvc.contents.ContentsVO">
@@ -112,6 +102,13 @@
           3 page: WHERE r >= 21 AND r <= 30; -->
   </select>
 
+ <!-- 카테고리별 카운트 검색 -->
+  <select id="count_by_boardno" resultType="int" parameterType="int">
+  SELECT COUNT(*)
+  FROM contents
+  WHERE boardno = #{boardno}
+  
+  </select>
 
 
 </mapper>
