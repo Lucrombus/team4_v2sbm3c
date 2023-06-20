@@ -48,9 +48,11 @@
     <colgroup>
       <col style='width: 5%;'/>
       <col style='width: 10%;'/>
+      <col style='width: 10%;'/>
+      <col style='width: 10%;'/>
       <col style='width: 15%;'/>
+      <col style='width: 10%;'/>
       <col style='width: 15%;'/>
-      <col style='width: 30%;'/>
       <col style='width: 15%;'/>
       <col style='width: 10%;'/>
     </colgroup>
@@ -59,7 +61,9 @@
       <TH class='th_bs'>ID</TH>
       <TH class='th_bs'>성명</TH>
       <TH class='th_bs'>전화번호</TH>
-      <TH class='th_bs'>주소</TH>
+      <TH class='th_bs'>경력</TH>
+      <TH class='th_bs'>성별</TH>
+      <TH class='th_bs'>생일</TH>
       <TH class='th_bs'>등록일</TH>
       <TH class='th_bs'>기타</TH>
     </TR>
@@ -70,6 +74,9 @@
       <c:set var="id" value ="${memberVO.id}" />
       <c:set var="name" value ="${memberVO.name}" />
       <c:set var="tel" value ="${memberVO.tel}" />
+      <c:set var="experience" value ="${memberVO.experience}" />
+      <c:set var="gender" value ="${memberVO.gender}" />
+      <c:set var="birth" value ="${memberVO.birth}" />
       <c:set var="rdate" value ="${memberVO.rdate}" />
        
     <TR>
@@ -77,24 +84,18 @@
         <c:choose>
           <c:when test="${rankno == 1}"><img src='/member/images/admin.png' title="관리자" class="icon"></c:when> <%-- static 기준 --%>
           <c:when test="${rankno == 2}"><img src='/member/images/user.png' title="개인 회원" class="icon"></c:when>
-          <c:when test="${rankno == 3}"><img src='/member/images/pause.png' title="기업 회원" class="icon"></c:when>
+          <c:when test="${rankno == 3}"><img src='/member/images/enterprise.png' title="기업 회원" class="icon"></c:when>
           <c:when test="${rankno == 4}"><img src='/member/images/x.png' title="탈퇴 회원" class="icon"></c:when>
         </c:choose>  
       </TD>
       <TD class='td_left'><A href="./read.do?memberno=${memberno}">${id}</A></TD>
       <TD class='td_left'><A href="./read.do?memberno=${memberno}">${name}</A></TD>
       <TD class='td_basic'>${tel}</TD>
-      <TD class='td_left'>
-        <c:choose>
-          <c:when test="${address1.length() > 15 }"> <%-- 긴 주소 처리 --%>
-            ${address1.substring(0, 15) }...
-          </c:when>
-          <c:otherwise>
-            ${address1}
-          </c:otherwise>
-        </c:choose>
+      <TD class='td_basic'>${experience}</TD>
+      <TD class='td_basic'>${gender}</TD>
+      <TD class='td_basic'>${birth}</TD>
+      <TD class='td_basic'>${rdate.substring(0, 10)}</TD> <%-- 년월일 --%>
       </TD>
-      <TD class='td_basic'>${mdate.substring(0, 10)}</TD> <%-- 년월일 --%>
       <TD class='td_basic'>
         <A href="./passwd_update.do?memberno=${memberno}"><IMG src='/member/images/passwd.png' title='패스워드 변경' class="icon"></A>
         <A href="./read.do?memberno=${memberno}"><IMG src='/member/images/update.png' title='수정' class="icon"></A>

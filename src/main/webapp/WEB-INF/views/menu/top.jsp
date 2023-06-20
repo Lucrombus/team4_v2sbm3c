@@ -89,7 +89,7 @@
                   </c:if>
                   <c:if test="${sessionScope.rankno == 1}">
                     <li class="nav-item dropdown"> <%-- 관리자 로그인 확인 필요--%>
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">관리자 전용</a>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원 관리</a>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href="/member/list.do">회원 목록</a>
                       </div>
