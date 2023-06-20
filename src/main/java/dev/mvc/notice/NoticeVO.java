@@ -7,21 +7,15 @@ public class NoticeVO {
   private int noticeno;
   private String topview;
   private int memberno;
-  private String TITLE;
-  private String CONTENT;
-  private int RECOM;
-  private int CNT;
-  private int REPLYCNT;
-  private String WORD ="";
-  private String RDATE;
-  private int wage;
-  private String day;
+  private String title;
+  private String content;
+  private int cnt;
+  private String word ="";
+  private String rdate;
   private String file1 ="";
   private String file1saved ="";
   private String thumb1 ="";
   private long size1;
-  private String MAP ="";
-  private String YOUTUBE ="";
 
   /**
    * 이미지 파일
@@ -36,6 +30,7 @@ public class NoticeVO {
   private int start_num;
   private int end_num;
   private int now_page = 1;
+  
   
   
   public int getNoticeno() {
@@ -56,59 +51,35 @@ public class NoticeVO {
   public void setMemberno(int memberno) {
     this.memberno = memberno;
   }
-  public String getTITLE() {
-    return TITLE;
+  public String getTitle() {
+    return title;
   }
-  public void setTITLE(String tITLE) {
-    TITLE = tITLE;
+  public void setTitle(String title) {
+    this.title = title;
   }
-  public String getCONTENT() {
-    return CONTENT;
+  public String getContent() {
+    return content;
   }
-  public void setCONTENT(String cONTENT) {
-    CONTENT = cONTENT;
+  public void setContent(String content) {
+    this.content = content;
   }
-  public int getRECOM() {
-    return RECOM;
+  public int getCnt() {
+    return cnt;
   }
-  public void setRECOM(int rECOM) {
-    RECOM = rECOM;
+  public void setCnt(int cnt) {
+    this.cnt = cnt;
   }
-  public int getCNT() {
-    return CNT;
+  public String getWord() {
+    return word;
   }
-  public void setCNT(int cNT) {
-    CNT = cNT;
+  public void setWord(String word) {
+    this.word = word;
   }
-  public int getREPLYCNT() {
-    return REPLYCNT;
+  public String getRdate() {
+    return rdate;
   }
-  public void setREPLYCNT(int rEPLYCNT) {
-    REPLYCNT = rEPLYCNT;
-  }
-  public String getWORD() {
-    return WORD;
-  }
-  public void setWORD(String wORD) {
-    WORD = wORD;
-  }
-  public String getRDATE() {
-    return RDATE;
-  }
-  public void setRDATE(String rDATE) {
-    RDATE = rDATE;
-  }
-  public int getWage() {
-    return wage;
-  }
-  public void setWage(int wage) {
-    this.wage = wage;
-  }
-  public String getDay() {
-    return day;
-  }
-  public void setDay(String day) {
-    this.day = day;
+  public void setRdate(String rdate) {
+    this.rdate = rdate;
   }
   public String getFile1() {
     return file1;
@@ -133,18 +104,6 @@ public class NoticeVO {
   }
   public void setSize1(long size1) {
     this.size1 = size1;
-  }
-  public String getMAP() {
-    return MAP;
-  }
-  public void setMAP(String mAP) {
-    MAP = mAP;
-  }
-  public String getYOUTUBE() {
-    return YOUTUBE;
-  }
-  public void setYOUTUBE(String yOUTUBE) {
-    YOUTUBE = yOUTUBE;
   }
   public MultipartFile getFile1MF() {
     return file1MF;

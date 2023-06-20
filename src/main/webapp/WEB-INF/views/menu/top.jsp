@@ -10,11 +10,15 @@
     <div class="header">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="/">알바지옥몬 0.1</a>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle Navigation">
               <span class="navbar-toggler-icon"></span>
             </button>    
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
+               <ul class="navbar-nav mr-auto">
+                 <li class="nav-item">
+                    <a class="nav-link" href="/notice/list_all.do">공지사항</a>
+                 </li>
                  <li class="nav-item dropdown"> <%-- 구인 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">구인</a>
                       <div class="dropdown-menu">
@@ -53,9 +57,8 @@
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href='/member/logout.do'>로그아웃</a>
                         <a class="dropdown-item" href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a>
-                        <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입 정보</a>
+                        <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입정보 수정</a>
                         <a class="dropdown-item" href="/member/passwd_update.do?memberno=${sessionScope.memberno } ">비밀번호 변경</a>
-                        <a class="dropdown-item" href="/member/update.do?memberno=${sessionScope.memberno }">회원 정보 수정</a>
                         <a class="dropdown-item" href="#">회원 탈퇴</a>
                       </div>
                   </li>
@@ -65,21 +68,13 @@
                   <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원</a>
                       <div class="dropdown-menu">
-<<<<<<< HEAD
+                          <a class="dropdown-item" href="/member/login.do">로그인</a>
                           <a class="dropdown-item" href="/member/create.do">개인 회원 가입</a>
                           <a class="dropdown-item" href="/member/enterprise_create.do">기업 회원 가입</a>
-                          <a class="dropdown-item" href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a>
-                          <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입 정보 및 수정</a>
                           <a class="dropdown-item" href="#">아이디 찾기</a>
                           <a class="dropdown-item" href="#">비밀번호 찾기</a>
                           <a class="dropdown-item" href="/member/passwd_update.do?memberno=${sessionScope.memberno } ">비밀번호 변경</a>
                           <a class="dropdown-item" href="#">회원 탈퇴</a>
-=======
-                          <a class="dropdown-item" href="/member/login.do">로그인</a>
-                          <a class="dropdown-item" href="/member/create.do">회원 가입</a>
-                          <a class="dropdown-item" href="#">아이디 찾기</a>
-                          <a class="dropdown-item" href="#">비밀번호 찾기</a>
->>>>>>> a20c12bb085a51142e21b560ebdeb92a94754adc
                       </div>
                   </li>
                   </c:if>
@@ -94,23 +89,15 @@
                   </c:if>
                   <c:if test="${sessionScope.rankno == 1}">
                     <li class="nav-item dropdown"> <%-- 관리자 로그인 확인 필요--%>
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원 관리</a>
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">관리자 전용</a>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/member/list.do">회원목록</a>
+                        <a class="dropdown-item" href="/member/list.do">회원 목록</a>
                       </div>
                     </li>
                   </c:if>
-                  
-<<<<<<< HEAD
-                  
-                  <li class="nav-item dropdown"> <%-- 관리자 서브 메뉴 --%>
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">관리자</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href='/member/list.do'>회원 목록</a>
                     </div>
-                  </li>  
-=======
->>>>>>> a20c12bb085a51142e21b560ebdeb92a94754adc
+                  </li>
+                 </c:if>  
                 </ul>
             </div>    
         </nav>
