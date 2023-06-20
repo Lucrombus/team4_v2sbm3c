@@ -16,44 +16,63 @@
 </head> 
  
 <body>
-  <c:import url="/menu/top.do" />
+<c:import url="/menu/top.do" />
+  
+  <c:forEach var="memberVO" items="${list }">
+      <c:set var="memberno" value ="${memberVO.memberno}" />
+      <c:set var="rankno" value ="${memberVO.rankno}" />
+      <c:set var="id" value ="${memberVO.id}" />
+      <c:set var="name" value ="${memberVO.name}" />
+      <c:set var="tel" value ="${memberVO.tel}" />
+      <c:set var="experience" value ="${memberVO.experience}" />
+      <c:set var="gender" value ="${memberVO.gender}" />
+      <c:set var="birth" value ="${memberVO.birth}" />
+      <c:set var="rdate" value ="${memberVO.rdate}" />
+  </c:forEach>
+  
   <DIV class='title_line'>내 정보</DIV>
   <table class="table_myinfo" style='width: 50%;'>
     <tr>
       <th>아이디</th>
-      <td>${id}</td>
+      <td>${memberVO.id}</td>
     </tr>
     <tr>
       <th>성명</th>
-      <td>${name}</td>
+      <td>${memberVO.name}</td>
     </tr>
     </tr>
       <th>성별</th>
-      <td>${gender}</td>
+      <td>${memberVO.gender}</td>
     </tr>
     </tr>
       <th>생년월일</th>
-      <td>${birth}</td>
+      <td>${memberVO.birth.substring(0, 10)}</td>
     </tr>
     </tr>
       <th>전화번호</th>
-      <td>${tel}</td>
+      <td>${memberVO.tel}</td>
     </tr>
     </tr>
       <th>가입일</th>
-      <td>${rdate}</td>
+      <td>${memberVO.rdate.substring(0, 10)}</td>
     </tr>
     </tr>
       <th>등급</th>
-      <td>${rankno}</td>
+      <td>
+        <c:choose>
+          <c:when test="${memberVO.rankno == 1}">관리자</c:when> <%-- static 기준 --%>
+          <c:when test="${memberVO.rankno == 2}">개인 회원</c:when>
+          <c:when test="${memberVO.rankno == 3}">기업 회원</c:when>
+        </c:choose>
+      </td>
     </tr>
     </tr>
       <th>학력</th>
-      <td>${education}</td>
+      <td>${memberVO.education}</td>
     </tr>
     </tr>
       <th>경력 여부</th>
-      <td>${experience}</td>
+      <td>${memberVO.experience}</td>
     </tr>
   </table>
   

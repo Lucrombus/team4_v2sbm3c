@@ -202,7 +202,8 @@ public class Guin_cCont {
       mav.setViewName("redirect:/guin_c/list_by_jobcateno_search_paging.do");
 
     } else {
-      mav.setViewName("/member/login_need");
+      mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
+      mav.setViewName("redirect:/contents/msg.do"); 
 
     }
 

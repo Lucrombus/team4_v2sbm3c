@@ -5,7 +5,9 @@ public class ReplyVO {
   private int replyno;
   private int contentsno;
   private int memberno;
+  private String reply_content;
   private String rdate;
+  
   
   
   public int getReplyno() {
@@ -25,6 +27,13 @@ public class ReplyVO {
   }
   public void setMemberno(int memberno) {
     this.memberno = memberno;
+  }
+
+  public String getReply_content() {
+    return reply_content;
+  }
+  public void setReply_content(String reply_content) {
+    this.reply_content = reply_content;
   }
   public String getRdate() {
     return rdate;

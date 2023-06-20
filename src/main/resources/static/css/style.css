@@ -489,8 +489,8 @@
   .hover {
     cursor: pointer;
   }
-  
-  
 
-  
-  
+  .reply-count {
+    font-size: 14px;
+    color: #A4A4A4;
+  }

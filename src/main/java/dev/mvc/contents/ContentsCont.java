@@ -23,6 +23,8 @@ import dev.mvc.board.BoardVO;
 import dev.mvc.member.MemberProc;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
+import dev.mvc.reply.ReplyProcInter;
+import dev.mvc.reply.ReplyVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -40,6 +42,10 @@ public class ContentsCont {
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.reply.ReplyProc")
+  private ReplyProcInter replyProc;
 
   public ContentsCont() {
     System.out.println("ContentsCont created");
@@ -55,6 +61,8 @@ public class ContentsCont {
     ArrayList<BoardVO> list = this.boardProc.list_all();
     mav.addObject("boardVO", boardVO);
     mav.addObject("list", list);
+    
+
 
     if (session.getAttribute("id") != null) {
       mav.setViewName("/contents/create_test");
@@ -121,7 +129,7 @@ public class ContentsCont {
   }
 
   /**
-   * 등록 처리 http://localhost:9091/contents/create.do
+   * 등록 처리 http://localhost:9093/contents/create.do
    * 
    * @return
    */
@@ -162,7 +170,8 @@ public class ContentsCont {
       mav.setViewName("redirect:/contents/list_by_boardno_search_paging.do");
 
     } else {
-      mav.setViewName("/member/login_need");
+      mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
+      mav.setViewName("redirect:/contents/msg.do"); 
 
     }
 
@@ -226,6 +235,13 @@ public class ContentsCont {
       return id;
     };
     mav.addObject("f", f);
+    
+    // 컨텐츠 번호로 댓글 갯수를 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, Integer> f2 = (contentsno) -> {
+      int cnt = this.replyProc.count_by_contentsno(contentsno);
+      return cnt;
+    };
+    mav.addObject("f2", f2);
 
     int search_count = contentsProc.search_count(contentsVO);
 
@@ -263,21 +279,34 @@ public class ContentsCont {
   public ModelAndView read(int contentsno, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
     
-    String currentUrl = request.getRequestURL().toString();
-    String queryString = request.getQueryString(); // URL의 쿼리 스트링 파라미터 가져오기
+//    주소창의 URL 따는 코드
+//    String currentUrl = request.getRequestURL().toString();
+//    String queryString = request.getQueryString(); // URL의 쿼리 스트링 파라미터 가져오기
+//    
+//    if (queryString != null) {
+//        currentUrl += "?" + queryString; // URL과 쿼리 스트링 연결
+//    }
+//    
+//    System.out.println(currentUrl);
     
-    if (queryString != null) {
-        currentUrl += "?" + queryString; // URL과 쿼리 스트링 연결
-    }
     
-    System.out.println(currentUrl);
-    
-
     ContentsVO contentsVO = this.contentsProc.read(contentsno);
     MemberVO memberVO = this.memberProc.readByMemberno(contentsVO.getMemberno());
+    ArrayList<ReplyVO> reply_list = this.replyProc.list_by_contentsno(contentsno);
+    int reply_count = this.replyProc.count_by_contentsno(contentsno);
 
     mav.addObject("contentsVO", contentsVO); // request.setAttribute("contentsVO", contentsVO);
     mav.addObject("memberVO", memberVO);
+    mav.addObject("reply_list", reply_list);
+    mav.addObject("reply_count", reply_count);
+    
+    Function<Integer, String> f = (memberno) -> {
+      MemberVO memberVO_replyer = memberProc.readByMemberno(memberno);
+      String id = memberVO_replyer.getId();
+      return id;
+    };
+    
+    mav.addObject("f", f);
 
     BoardVO boardVO = this.boardProc.read(contentsVO.getBoardno()); // 그룹 정보를 읽기
     mav.addObject("boardVO", boardVO);
@@ -426,8 +455,11 @@ public class ContentsCont {
 
       Tool.deleteFile(upDir, thumb1); // 썸네일 삭제
       Tool.deleteFile(upDir, thumb1_origin); // 썸네일 삭제
-
+      
+      
+      int cnt_reply = this.replyProc.delete_by_contentsno(contentsno); // FK 참조 관계로 자식테이블인 댓글부터 삭제해야 함
       int cnt = this.contentsProc.delete(contentsno);
+      
 
       mav.addObject("boardno", contentsVO.getBoardno());
       mav.addObject("now_page", contentsVO.getNow_page());

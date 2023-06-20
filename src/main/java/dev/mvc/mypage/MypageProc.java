@@ -112,4 +112,9 @@ public class MypageProc implements MypageProcInter {
     return cnt;
   }
   
+  @Override
+  public MypageVO report(int reportno) {
+    MypageVO mypageVO = this.mypageDAO.report(reportno);
+    return mypageVO;
+  }
 }

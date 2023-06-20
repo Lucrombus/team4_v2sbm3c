@@ -1,4 +1,4 @@
-package dev.mvc.Report;
+package dev.mvc.report;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +14,7 @@ public class reportVO {
     /** 대상 URL */
     private String targetURL;
     /** 컨텐츠 번호 */
-    private int contentsno ;
+    private int contentsno;
    
     public int getreportno() {
         return reportno;

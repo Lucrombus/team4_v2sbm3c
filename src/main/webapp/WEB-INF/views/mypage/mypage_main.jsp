@@ -25,7 +25,9 @@
     <br><br>
     <button type='button' onclick="location.href='/mypage/list_like_gugik.do'" class="btn btn-info">나의 관심 구직 목록</button>
     <br><br>
-    <button type='button' onclick="location.href='/mypage/report.do'" class="btn btn-info">신고 및 문의</button>
+    <button type='button' onclick="location.href='/mypage/report.do'" class="btn btn-info">내 신고 내역</button>
+    <br><br>
+    <button type='button' onclick="location.href='/mypage/inquiry.do'" class="btn btn-info">문의 하기</button>
     <br><br>
     <button type='button' onclick="location.href='/resume/create.do'" class="btn btn-info">내 이력서</button>     
   </DIV>

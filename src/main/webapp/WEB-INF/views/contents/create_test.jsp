@@ -123,7 +123,6 @@
   <DIV class='menu_line'></DIV>
   
   
-  
   <FORM name='frm' id='frm' method='POST' action='./create_test.do' enctype="multipart/form-data">
 
     <input type="hidden" name="memberno" value="${sessionScope.memberno}">
@@ -191,6 +190,7 @@
 
   
 </DIV>
+
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
