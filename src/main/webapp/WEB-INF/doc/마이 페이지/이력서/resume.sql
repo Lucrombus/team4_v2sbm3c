@@ -1,30 +1,38 @@
 /**********************************/
 /* Table Name: 이력서 */
 /**********************************/
+DROP TABLE resume CASCADE CONSTRAINTS;
+
 CREATE TABLE resume(
-    resumeno                          NUMBER(10)     NOT NULL,
-    memberno                          NUMBER(10)     NOT NULL,
-    resumetitle                       VARCHAR2(50)     NOT NULL,
-    resumep                           VARCHAR2(100)    NOT NULL,
-    rdate                             DATE     NOT NULL,
-    intro                             VARCHAR2(4000)     NOT NULL,
-    tel                               VARCHAR2(50)     NOT NULL,
-    address                           VARCHAR2(100)    NULL ,
-    career                            VARCHAR2(2000)     NULL ,
-    skills                            VARCHAR2(2000)     NULL ,
-    langskill                         VARCHAR2(500)    NULL ,
-    project                           VARCHAR2(4000)     NULL ,
-    award                             VARCHAR2(500)    NULL ,
-    volunteer                         VARCHAR2(2000)     NULL ,
-    url                               VARCHAR2(800)    NULL ,
-    etc                               VARCHAR2(2000)     NULL 
+		resumeno                      		NUMBER(10)		 NOT NULL   PRIMARY KEY,
+		memberno                      		NUMBER(10)		 NOT NULL,
+		resumetitle                   		VARCHAR2(50)		 NOT NULL,
+		file1                         		VARCHAR2(1000)		 NOT NULL,
+		file1saved                    		VARCHAR2(1000)		 NULL ,
+		thumb1                        		VARCHAR2(100)		 NULL ,
+		size1                         		NUMBER(10)		 NULL ,
+		rdate                         		DATE		 NOT NULL,
+		intro                         		VARCHAR2(4000)		 NOT NULL,
+		tel                           		VARCHAR2(50)		 NOT NULL,
+		address                       		VARCHAR2(100)		 NULL ,
+		career                        		VARCHAR2(2000)		 NULL ,
+		skills                        		VARCHAR2(2000)		 NULL ,
+		langskill                     		VARCHAR2(500)		 NULL ,
+		project                       		VARCHAR2(4000)		 NULL ,
+		award                         		VARCHAR2(500)		 NULL ,
+		volunteer                     		VARCHAR2(2000)		 NULL ,
+		url                           		VARCHAR2(800)		 NULL ,
+		etc                           		VARCHAR2(2000)		 NULL 
 );
 
 COMMENT ON TABLE resume is '이력서';
 COMMENT ON COLUMN resume.resumeno is '이력서 번호';
 COMMENT ON COLUMN resume.memberno is '회원번호';
 COMMENT ON COLUMN resume.resumetitle is '이력서 제목';
-COMMENT ON COLUMN resume.resumep is '이력서 사진';
+COMMENT ON COLUMN resume.file1 is '이력서 사진';
+COMMENT ON COLUMN resume.file1saved is '실제 저장된 이력서 사진';
+COMMENT ON COLUMN resume.thumb1 is '이력서 사진 썸네일';
+COMMENT ON COLUMN resume.size1 is '사진 크기';
 COMMENT ON COLUMN resume.rdate is '이력서 등록일';
 COMMENT ON COLUMN resume.intro is '자기소개';
 COMMENT ON COLUMN resume.tel is '연락처';
