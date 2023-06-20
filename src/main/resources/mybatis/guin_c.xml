@@ -117,6 +117,14 @@
           2 page: WHERE r >= 11 AND r <= 20;
           3 page: WHERE r >= 21 AND r <= 30; -->
   </select>
+  
+   <!-- 카테고리별 카운트 검색 -->
+  <select id="count_by_jobcateno" resultType="int" parameterType="int">
+  SELECT COUNT(*)
+  FROM guin_c
+  WHERE jobcateno = #{jobcateno}
+  
+  </select>
 
 
 

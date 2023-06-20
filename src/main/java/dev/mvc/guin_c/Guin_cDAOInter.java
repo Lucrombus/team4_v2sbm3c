@@ -49,6 +49,12 @@ public interface Guin_cDAOInter {
    */
   public int map(Guin_cVO guin_cVO);
   
+  /**
+   * 검색된 레코드 갯수 리턴
+   * @return
+   */
+  public int count_by_jobcateno(int jobcateno);
+  
   
 
 }

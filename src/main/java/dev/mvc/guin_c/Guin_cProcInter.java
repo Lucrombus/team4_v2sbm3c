@@ -50,6 +50,12 @@ public interface Guin_cProcInter {
    */
   public int map(Guin_cVO guin_cVO);
   
+  /**
+   * 검색된 레코드 갯수 리턴
+   * @return
+   */
+  public int count_by_jobcateno(int jobcateno);
+  
   /** 
    * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 
    * 현재 페이지: 11 / 22   [이전] 11 12 13 14 15 16 17 18 19 20 [다음] 

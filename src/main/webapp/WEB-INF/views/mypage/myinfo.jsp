@@ -55,8 +55,13 @@
       <th>경력 여부</th>
       <td>${experience}</td>
     </tr>
-    
   </table>
+  
+  <div style=" text-align: center;">
+    <button type='button' onclick="location.href='/member/read.do?memberno=${sessionScope.memberno }'" class="btn btn-info">수정하기</button>
+    <button type='button' onclick="location.href='/mypage/mypage_main.do?memberno=${memberno }'" class="btn btn-info">뒤로가기</button>
+  </div>
+    
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
  

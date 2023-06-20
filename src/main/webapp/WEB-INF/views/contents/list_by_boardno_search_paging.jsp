@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-${param.boardno != 0 ? boardVO.name : "전체보기" } 게시판
+<A href="./list_by_boardno_search_paging.do?boardno=${param.boardno }&now_page=1" class='title_link'>${param.boardno != 0 ? boardVO.name : "전체보기" } 게시판 </a>
 </DIV>
 
 <DIV class='content_body'>
@@ -92,7 +92,7 @@ ${param.boardno != 0 ? boardVO.name : "전체보기" } 게시판
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }
           </td>
-           <td style='vertical-align: middle; text-align: center;'>
+           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
           ${f.apply(memberno) }
           </td>
         </tr>

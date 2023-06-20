@@ -55,7 +55,7 @@ public class Guin_cCont {
     mav.addObject("jobcateVO", jobcateVO);
     mav.addObject("list", list);
 
-    if (this.memberProc.isMember(session) == true) {
+    if (session.getAttribute("id") != null) {
       mav.setViewName("/guin_c/create_test");
 
     } else {
@@ -128,7 +128,7 @@ public class Guin_cCont {
   public ModelAndView create_test(HttpServletRequest request, HttpSession session, Guin_cVO guin_cVO) {
     ModelAndView mav = new ModelAndView();
 
-    if (this.memberProc.isMember(session) == true) {
+    if (session.getAttribute("id") != null) {
       // ------------------------------------------------------------------------------
       // 파일 전송 코드 시작
       // ------------------------------------------------------------------------------

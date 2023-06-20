@@ -1,6 +1,7 @@
 package dev.mvc.board;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,12 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.contents.ContentsProcInter;
+
 @Controller
 public class BoardCont {
 
   @Autowired
   @Qualifier("dev.mvc.board.BoardProc")
   private BoardProcInter boardProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.contents.ContentsProc")
+  private ContentsProcInter contentsProc;
 
   public BoardCont() {
 
@@ -53,9 +60,19 @@ public class BoardCont {
     ArrayList<BoardVO> list = this.boardProc.list_all();
 
     ModelAndView mav = new ModelAndView();
+    
+    Function<Integer, Integer> f = (boardno) -> {
+      int count = this.contentsProc.count_by_boardno(boardno);
+      System.out.println(count);
+      return count;
+    };
+    
+    mav.addObject("f", f);
 
     mav.addObject("list", list);
     mav.setViewName("/board/list_all");
+    
+    
 
     return mav;
 
