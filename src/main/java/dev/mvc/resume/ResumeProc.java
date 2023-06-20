@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import dev.mvc.notice.NoticeVO;
 
 @Component("dev.mvc.resume.ResumeProc")
 public class ResumeProc implements ResumeProcInter {
@@ -21,8 +20,8 @@ public class ResumeProc implements ResumeProcInter {
   }
   
   @Override
-  public ArrayList<ResumeVO> list_all() {
-    ArrayList<ResumeVO> list = this.resumeDAO.list_all();
+  public ArrayList<ResumeVO> list_all(int memberno) {
+    ArrayList<ResumeVO> list = this.resumeDAO.list_all(memberno);
     return list;
   }
   

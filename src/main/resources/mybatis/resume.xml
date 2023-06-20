@@ -8,20 +8,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 등록: 추가한 레코드 갯수를 리턴 -->
   <insert id="create" parameterType="dev.mvc.resume.ResumeVO">
-    INSERT INTO resume(resumeno, memberno, resumetitle, resumep, intro, rdate)
-    VALUES(resume_seq.nextval, #{memberno}, #{resumetitle}, #{resumep}, #{intro}, sysdate)
+    INSERT INTO resume(resumeno, memberno, title, file1, file1saved, thumb1, size1, rdate, 
+                      intro, tel, address, career, skills, langskill, wantjob)
+    VALUES(resume_seq.nextval, #{memberno}, #{title}, #{file1}, #{file1saved}, #{thumb1}, #{size1}, sysdate,
+           #{intro}, #{tel}, #{address}, #{career}, #{skills}, #{langskill}, #{wantjob})
   </insert>
   
-  <!-- 조회: 모든 글목록 -->
-  <select id="list_all" resultType="dev.mvc.resume.ResumeVO">
-    SELECT resumeno, memberno, resumetitle, resumep, intro, rdate
+  <!-- 조회: 회원 본인 글목록 -->
+  <select id="list_all" resultType="dev.mvc.resume.ResumeVO" parameterType="int">
+    SELECT resumeno, memberno, title, file1, file1saved, thumb1, size1, rdate, 
+           intro, tel, address, career, skills, langskill, wantjob
     FROM resume
+    WHERE memberno = #{memberno}
     ORDER BY resumeno DESC
   </select> 
   
   <!-- 조회: 번호로 레코드 조회 -->
   <select id="read" resultType="dev.mvc.resume.ResumeVO" parameterType="int">
-    SELECT resumeno, memberno, resumetitle, resumep, intro, rdate
+    SELECT resumeno, memberno, title, file1, file1saved, thumb1, size1, rdate, 
+           intro, tel, address, career, skills, langskill, wantjob
     FROM resume
     WHERE resumeno = #{resumeno}
   </select>
@@ -35,7 +40,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 수정: 번호로 레코드 수정 -->
   <update id="update" parameterType="dev.mvc.resume.ResumeVO">
     UPDATE resume 
-    SET resumetitle = #{resumetitle}, resumep = #{resumep}, intro = #{intro}
+    SET  title = #{title}, file1 = #{file1}, file1saved = #{file1saved}, thumb1=#{thumb1}, size1=#{size1}, 
+         intro = #{intro}, tel = {tel}, address = {address}, career = #{career}, 
+         skills = #{skills}, langskill = #{langskill}, wantjob = #{wantjob}
     WHERE resumeno = #{resumeno}
   </update>
   

@@ -110,16 +110,6 @@ public class NoticeCont {
       // mav.addObject("contentsno", contentsVO.getContentsno()); // redirect parameter 적용
       // ------------------------------------------------------------------------------
 
-      if (cnt == 1) {
-        mav.addObject("code", "create_success");
-        //mav.setViewName("redirect:/notice/list_all.do"); // 목록으로 자동 이동
-      } else {
-        mav.addObject("code", "create_fail");
-        //mav.setViewName("/notice/msg"); // /WEB-INF/views/cate/msg.jsp // 등록 실패 메시지 출력
-      }
-      mav.addObject("cnt", cnt);
-      
-      mav.addObject("url", "/notice/msg");
       mav.setViewName("redirect:/notice/list_all.do");
       
     } else {

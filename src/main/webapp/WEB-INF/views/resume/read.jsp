@@ -2,15 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="noticeno" value="${noticeVO.noticeno }" />
-<c:set var="title" value="${noticeVO.title }" />        
-<c:set var="file1" value="${noticeVO.file1 }" />
-<c:set var="file1saved" value="${noticeVO.file1saved }" />
-<c:set var="thumb1" value="${noticeVO.thumb1 }" />
-<c:set var="content" value="${noticeVO.content }" />
-<c:set var="word" value="${noticeVO.word }" />
-<c:set var="size1_label" value="${noticeVO.size1_label }" />
-<c:set var="rdate" value="${noticeVO.rdate.substring(0, 16) }" />
+<c:set var="resumeno" value="${resumeVO.resumeno }" />
+<c:set var="title" value="${resumeVO.title }" />        
+<c:set var="file1" value="${resumeVO.file1 }" />
+<c:set var="file1saved" value="${resumeVO.file1saved }" />
+<c:set var="thumb1" value="${resumeVO.thumb1 }" />
+<c:set var="intro" value="${resumeVO.intro }" />
+
+<c:set var="size1_label" value="${resumeVO.size1_label }" />
+<c:set var="rdate" value="${resumeVO.rdate.substring(0, 16) }" />
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -48,25 +48,6 @@
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
   
-  <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_all.do'>
-      <input type='hidden' name='now_page' value='1'>  <%-- 검색기본 시작 페이지 --%>
-      
-      <c:choose>
-        <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
-          <input type='text' name='word' id='word' value='${param.word }' style='width: 20%; ' class='input_word'>
-        </c:when>
-        <c:otherwise> <%-- 검색하지 않는 경우 --%>
-          <input type='text' name='word' id='word' value='' style='width: 20%;'>
-        </c:otherwise>
-      </c:choose>
-      <button type='submit' class="btn btn-secondary btn-sm">검색</button>
-      <c:if test="${param.word.length() > 0 }">
-        <button type='button' class='btn btn-info btn-sm'
-                     onclick="location.href='./list_all.do?now_page=1&word='">검색 취소</button>  
-      </c:if>    
-    </form>
-  </DIV>
   
   <DIV class='menu_line'></DIV>
 
@@ -77,15 +58,15 @@
           <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
               <%-- /static/notice/storage/ --%>
-              <img src="/notice/storage/${file1saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/notice/storage/${file1saved }" style='width: 20%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/notice/images/none1.png" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/notice/images/none1.png" style='width: 20%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
             </c:otherwise>
           </c:choose>
 
           <span style="font-size: 1.5em; font-weight: bold;">${title }</span><br>
-          <div style="font-size: 1em;">${id } / ${rdate }</div><br>
+          <div style="font-size: 1em;">이름 : ${name } / ${rdate }</div><br>
           ${content }
         </DIV>
       </li>

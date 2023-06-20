@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all.do?now_page=1" class='title_link'>공지사항 </a>
+<A href="./list_all.do?now_page=1" class='title_link'>이력서 </a>
 </DIV>
 
 <DIV class='content_body'>
@@ -30,26 +30,6 @@
     </c:if>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
-
-  <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_all.do'>
-      <input type='hidden' name='now_page' value='1'>  <%-- 검색기본 시작 페이지 --%>
-      
-      <c:choose>
-        <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
-          <input type='text' name='word' id='word' value='${param.word }' style='width: 20%; ' class='input_word'>
-        </c:when>
-        <c:otherwise> <%-- 검색하지 않는 경우 --%>
-          <input type='text' name='word' id='word' value='' style='width: 20%;'>
-        </c:otherwise>
-      </c:choose>
-      <button type='submit' class="btn btn-secondary btn-sm">검색</button>
-      <c:if test="${param.word.length() > 0 }">
-        <button type='button' class='btn btn-info btn-sm'
-                     onclick="location.href='./list_all.do?now_page=1&word='">검색 취소</button>  
-      </c:if>    
-    </form>
-  </DIV>
 
   <DIV class='menu_line'></DIV>
   
@@ -66,33 +46,34 @@
         <th style='text-align: center;'>번호</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
-        <th style='text-align: center;'>작성자</th>
+        <th style='text-align: center;'>희망업종</th>
       </tr>
     
     </thead>
     
     <tbody>
-      <c:forEach var="noticeVO" items="${list }">
-        <c:set var="title" value="${noticeVO.title }" />
-        <c:set var="content" value="${noticeVO.content }" />
-        <c:set var="noticeno" value="${noticeVO.noticeno }" />
-        <c:set var="rdate" value="${noticeVO.rdate }" />
-        <c:set var="memberno" value="${noticeVO.memberno }" />
+      <c:forEach var="resumeVO" items="${list }">
+        <c:set var="title" value="${resumeVO.title }" />
+        <c:set var="intro" value="${resumeVO.intro }" />
+        <c:set var="resumeno" value="${resumeVO.resumeno }" />
+        <c:set var="rdate" value="${resumeVO.rdate }" />
+        <c:set var="memberno" value="${resumeVO.memberno }" />
+        <c:set var="wantjob" value="${resumeVO.wantjob }" />
 
         
         <tr style="height:50px;">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${noticeno}
+          ${resumeno}
           </td>
           <td style='vertical-align: middle;'>
-            <a href="./read.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+            <a href="./read.do?resumeno=${resumeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }
           </td>
            <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-          ${f.apply(memberno) }
+          ${wantjob }
           </td>
         </tr>
         

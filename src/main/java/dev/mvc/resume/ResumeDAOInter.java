@@ -2,7 +2,6 @@ package dev.mvc.resume;
 
 import java.util.ArrayList;
 
-import dev.mvc.notice.NoticeVO;
 
 public interface ResumeDAOInter {
   
@@ -18,7 +17,7 @@ public interface ResumeDAOInter {
    * @param 
    * @return 전체목록을 ArrayList<NoticeVO>로 리턴
    */
-  public ArrayList<ResumeVO> list_all();
+  public ArrayList<ResumeVO> list_all(int memberno);
   
   /**
    * 이력서 조회
