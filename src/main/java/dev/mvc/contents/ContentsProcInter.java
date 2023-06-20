@@ -6,7 +6,7 @@ public interface ContentsProcInter {
   
   /**
    * 등록
-   * @param NoticeVO
+   * @param ContentsVO
    * @return
    */
   public int create(ContentsVO contentsVO);
