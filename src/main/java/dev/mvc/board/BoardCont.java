@@ -87,6 +87,14 @@ public class BoardCont {
     BoardVO boardVO = this.boardProc.read(boardno);
 
     ModelAndView mav = new ModelAndView();
+    
+    Function<Integer, Integer> f = (boardno_read) -> {
+      int count = this.contentsProc.count_by_boardno(boardno_read);
+      System.out.println(count);
+      return count;
+    };
+    
+    mav.addObject("f", f);
 
     mav.addObject("list", list);
     mav.addObject("boardVO", boardVO);
@@ -119,6 +127,14 @@ public class BoardCont {
     BoardVO boardVO = this.boardProc.read(boardno);
 
     ModelAndView mav = new ModelAndView();
+    
+    Function<Integer, Integer> f = (boardno_read) -> {
+      int count = this.contentsProc.count_by_boardno(boardno_read);
+      System.out.println(count);
+      return count;
+    };
+    
+    mav.addObject("f", f);
 
     mav.addObject("list", list);
     mav.addObject("boardVO", boardVO);

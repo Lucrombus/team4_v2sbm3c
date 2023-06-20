@@ -23,7 +23,7 @@
 <%-- <jsp:include page="../menu/top.jsp" flush='false' /> --%>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>전체 카테고리</DIV>
+<DIV class='title_line'>구인 카테고리</DIV>
 
 <DIV class='content_body'>
   <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>

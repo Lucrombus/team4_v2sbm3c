@@ -85,10 +85,20 @@ public class JobcateCont {
     JobcateVO jobcateVO = this.jobcateProc.read(jobcateno);
 
     ModelAndView mav = new ModelAndView();
+    
+    Function<Integer, Integer> f = (jobcateno_read) -> {
+      int count = this.guin_cProc.count_by_jobcateno(jobcateno_read);
+      System.out.println(count);
+      return count;
+    };
+    
+    mav.addObject("f", f);
 
     mav.addObject("list", list);
     mav.addObject("jobcateVO", jobcateVO);
     mav.setViewName("/jobcate/read_delete");
+    
+    
 
     return mav;
 
@@ -117,6 +127,14 @@ public class JobcateCont {
     JobcateVO jobcateVO = this.jobcateProc.read(jobcateno);
 
     ModelAndView mav = new ModelAndView();
+    
+    Function<Integer, Integer> f = (jobcateno_read) -> {
+      int count = this.guin_cProc.count_by_jobcateno(jobcateno_read);
+      System.out.println(count);
+      return count;
+    };
+    
+    mav.addObject("f", f);
 
     mav.addObject("list", list);
     mav.addObject("jobcateVO", jobcateVO);

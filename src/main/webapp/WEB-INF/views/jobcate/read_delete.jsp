@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="java.util.function.Function" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dev.mvc.jobcate.JobcateVO" %>
 
@@ -17,7 +17,8 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
 <title>Resort world</title>
 <link rel="shortcut icon" href="/images/star.png" /> <%-- /static 기준 --%>
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
- 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- top 메뉴 drop down 버튼 스크립트를 작동하게 함 -->
     
@@ -27,7 +28,7 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
 <%-- <jsp:include page="../menu/top.jsp" flush='false' /> --%>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>전체 카테고리 > 삭제</DIV>
+<DIV class='title_line'>구인 카테고리 > 삭제</DIV>
 
 <DIV class='content_body'>
   <DIV id='panel_delete' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
@@ -62,6 +63,7 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
   <TABLE class='table table-hover'>
     <colgroup>
       <col style='width: 10%;'/>
+      <col style='width: 10%;'/>
       <col style='width: 50%;'/>
       <col style='width: 10%;'/>    
       <col style='width: 30%;'/>
@@ -69,6 +71,7 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
    
     <thead>  
     <TR>
+      <TH class="th_bs">PK</TH>
       <TH class="th_bs">순서</TH>
       <TH class="th_bs">카테고리 이름</TH>
       <TH class="th_bs">자료수</TH>
@@ -79,14 +82,16 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
     <tbody>
     <%
     ArrayList<JobcateVO> list = (ArrayList<JobcateVO>)request.getAttribute("list");
+    Function<Integer, Integer> f = (Function<Integer, Integer>) request.getAttribute("f");
     
     for (int i=0; i < list.size(); i++) {
       JobcateVO jobcateVO = list.get(i);
     %>
       <TR>
+        <TD class='td_bs'><%= jobcateVO.getJobcateno() %></TD>
         <TD class='td_bs' style="text-align:center"><%= jobcateVO.getSeqno() %></TD>
         <TD style="text-align:center" ><%=jobcateVO.getName() %></TD>
-        <TD class='td_bs' style="text-align:center"></TD>
+        <TD style="text-align:center"><%=f.apply(jobcateVO.getJobcateno())%></TD>
         <TD style="text-align:center">
           <A href="./read_update.do?jobcateno=<%=jobcateVO.getJobcateno() %>" title="수정"><IMG src="/cate/images/update.png" class="icon"></A>
           <A href="./read_delete.do?jobcateno=<%=jobcateVO.getJobcateno() %>" title="삭제"><IMG src="/cate/images/delete.png" class="icon"></A>
