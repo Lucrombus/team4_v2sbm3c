@@ -74,4 +74,10 @@ public interface MypageProcInter {
    */
   public int delete_like_gugik(int like_gugikno);
   
+  /**
+   * 신고 및 문의
+   * @param report
+   * @return
+   */
+  public MypageVO report(int reportno);
 }

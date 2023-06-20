@@ -12,6 +12,22 @@ import org.springframework.web.multipart.MultipartFile;
 //     memberno                          NUMBER(10)     NOT NULL,
 //     gujik_cno                         NUMBER(10)     NOT NULL
 // );
+// CREATE TABLE report(
+//     reportno                          NUMBER(10)     NOT NULL,
+//     memberno                          NUMBER(10)     NOT NULL,
+//     reason                            VARCHAR2(100)    NULL ,
+//     targetURL                         VARCHAR2(100)    NULL ,
+//     contentsno                        NUMBER(10)     NULL 
+// );
+// CREATE TABLE inquiry(
+//     inquiryno                         NUMBER(10)     NOT NULL    PRIMARY KEY,
+//     memberno                          INTEGER(10)    NOT NULL,
+//     inquiryReason                     VARCHAR2(100)    NOT NULL ,
+//     targetURL                         VARCHAR2(100)  NOT NULL ,
+//     contentsno                        NUMBER(10)     NOT NULL ,
+//   FOREIGN KEY (memberno) REFERENCES member (memberno),
+//   FOREIGN KEY (contentsno) REFERENCES contents (contentsno)
+// );
 
 public class MypageVO {
   /** 관심구인번호 */
@@ -33,13 +49,20 @@ public class MypageVO {
   private String title_like_gugik;
   /** 관심구직내용 */
   private String detail_like_gugik;
-
+  
+  /** 문의번호 */
+  private int inquiryno;
+  /** 문의사유 */
+  private int inquiryReason;
+  
   /** 신고번호 */
   private int reportno;
   /** 신고사유 */
   private String reason;
   /** 대상 URL */
   private String targetURL;
+  /** 컨텐츠 번호 */
+  private int contentsno;
   
   
   public int getLike_guinno() {
@@ -113,6 +136,12 @@ public class MypageVO {
   }
   public void setTargetURL(String targetURL) {
     this.targetURL = targetURL;
+  }
+  public int getContentsno() {
+    return contentsno;
+  }
+  public void setContentsno(int contentsno) {
+    this.contentsno = contentsno;
   }
   
   

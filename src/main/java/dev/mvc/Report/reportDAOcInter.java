@@ -1,4 +1,4 @@
-package dev.mvc.Report;
+package dev.mvc.report;
 
 public interface reportDAOcInter {
 
