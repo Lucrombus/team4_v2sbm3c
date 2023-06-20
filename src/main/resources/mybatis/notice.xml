@@ -21,4 +21,33 @@
       ORDER BY noticeno DESC
     </select>
     
+    <!-- 일반적인 조회 -->
+    <select id="read" resultType="dev.mvc.notice.NoticeVO" parameterType="int">
+      SELECT noticeno, topview, memberno, title, content, cnt, 
+             word, rdate, file1, file1saved, thumb1, size1
+      FROM notice 
+      WHERE noticeno = #{noticeno}
+    </select>
+    
+    <!-- 글 수정 -->
+    <update id="update_text" parameterType="dev.mvc.notice.NoticeVO">
+      UPDATE notice
+      SET topview=#{topview}, title=#{title}, content=#{content},  word=#{word} 
+      WHERE noticeno = #{noticeno}
+    </update>
+    
+    <!-- 파일 수정 -->
+    <update id="update_file" parameterType="dev.mvc.notice.NoticeVO">
+      UPDATE notice
+      SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
+      WHERE noticeno = #{noticeno}
+    </update>
+    
+    <!-- 글 삭제 -->
+    <delete id="delete" parameterType="int">
+      DELETE FROM notice
+      WHERE noticeno=#{noticeno}
+    </delete>
+
+    
 </mapper>

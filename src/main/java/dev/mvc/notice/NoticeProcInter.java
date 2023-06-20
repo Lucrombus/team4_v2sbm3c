@@ -22,13 +22,19 @@ public interface NoticeProcInter {
    * 공지사항 조회
    * @return
    */
-  public NoticeVO read(int jobcateno);
+  public NoticeVO read(int noticeno);
   
   /**
-   * 공지사항 수정
+   * 공지사항 글 수정
    * @return
    */
-  public int update(NoticeVO noticeVO);
+  public int update_text(NoticeVO noticeVO);
+  
+  /**
+   * 공지사항 파일 수정
+   * @return
+   */
+  public int update_file(NoticeVO noticeVO);
   
   /**
    * 공지사항 삭제

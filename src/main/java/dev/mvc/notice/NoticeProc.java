@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import dev.mvc.contents.ContentsVO;
 import dev.mvc.jobcate.JobcateVO;
 import dev.mvc.resume.ResumeVO;
 import dev.mvc.tool.Tool;
@@ -29,21 +30,27 @@ public class NoticeProc implements NoticeProcInter {
   }
   
   @Override
-  public NoticeVO read(int jobcateno) {
-    NoticeVO noticeVO = this.noticeDAO.read(jobcateno);
+  public NoticeVO read(int noticeno) {
+    NoticeVO noticeVO = this.noticeDAO.read(noticeno);
     return noticeVO;
     
   }
   
   @Override
-  public int update(NoticeVO noticeVO) {
-    int cnt = this.noticeDAO.update(noticeVO);
+  public int update_text(NoticeVO noticeVO) {
+    int cnt = this.noticeDAO.update_text(noticeVO);
     return cnt;
   }
-  
+
   @Override
-  public int delete(int guin_cno) {
-    int cnt = this.noticeDAO.delete(guin_cno);
+  public int update_file(NoticeVO noticeVO) {
+      int cnt = this.noticeDAO.update_file(noticeVO);
+      return cnt;
+  }
+
+  @Override
+  public int delete(int noticeno) {
+    int cnt = this.noticeDAO.delete(noticeno);
     return cnt;
   }
 

@@ -36,7 +36,7 @@ public class NoticeCont {
     System.out.println("NoticeCont created");
   }
 
-  // 등록 폼
+  // 공지사항 등록 폼
   // http://localhost:9093/notice/create.do
   @RequestMapping(value = "/notice/create.do", method = RequestMethod.GET)
   public ModelAndView create(HttpSession session) {
@@ -44,7 +44,7 @@ public class NoticeCont {
     ModelAndView mav = new ModelAndView();
 
     if (this.memberProc.isMember(session) != true) {
-      mav.setViewName("/notice/create"); // /webapp/WEB-INF/views/contents/create.jsp
+      mav.setViewName("/notice/create"); // /webapp/WEB-INF/views/notice/create.jsp
     } else {
       mav.setViewName("/member/login_need");
     }
@@ -52,7 +52,7 @@ public class NoticeCont {
     return mav;
   }
 
-  // 등록 처리
+  // 공지사항 등록 처리
   @RequestMapping(value = "/notice/create.do", method = RequestMethod.POST)
   public ModelAndView create(HttpServletRequest request, HttpSession session, NoticeVO noticeVO) {
 
@@ -66,7 +66,7 @@ public class NoticeCont {
       String file1saved = "";   // 저장된 파일명, image
       String thumb1 = "";     // preview image
 
-      String upDir =  Contents.getUploadDir();
+      String upDir =  Notice.getUploadDir();
       System.out.println("-> upDir: " + upDir);
       
       // 전송 파일이 없어도 file1MF 객체가 생성됨.
@@ -123,14 +123,14 @@ public class NoticeCont {
       mav.setViewName("redirect:/notice/list_all.do");
       
     } else {
-      mav.setViewName("/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
+      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
     }
 
     return mav;
   }
 
-  // 리스트 조회
-  //http://localhost:9093/notice/list_all.do
+   // 공지사항 리스트 조회
+   //http://localhost:9093/notice/list_all.do
    @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
    public ModelAndView list_all() {
      ModelAndView mav = new ModelAndView();
@@ -139,7 +139,7 @@ public class NoticeCont {
      ArrayList<NoticeVO> list = this.noticeProc.list_all();
      mav.addObject("list", list);
      
-  // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+     // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
      Function<Integer, String> f = (memberno) -> {
        MemberVO memberVO = memberProc.readByMemberno(memberno);
        String id = memberVO.getId();
@@ -149,14 +149,207 @@ public class NoticeCont {
      
      return mav;
    }
-  // 조회
+   
+   // 공지사항 조회
+   @RequestMapping(value="/notice/read.do", method=RequestMethod.GET )
+   public ModelAndView read(int noticeno) {
+     ModelAndView mav = new ModelAndView();
 
-  // 삭제 폼
+     NoticeVO noticeVO = this.noticeProc.read(noticeno);
+     
+     String title = noticeVO.getTitle();
+     String content = noticeVO.getContent();
+     
+     title = Tool.convertChar(title);  // 특수 문자 처리
+     content = Tool.convertChar(content); 
+     
+     noticeVO.setTitle(title);
+     noticeVO.setContent(content);  
+     
+     long size1 = noticeVO.getSize1();
+     noticeVO.setSize1_label(Tool.unit(size1));    
+     
+     mav.addObject("noticeVO", noticeVO); // request.setAttribute("noticeVO", noticeVO);
+     
+     // 회원 번호: admino -> AdminVO -> name
+     String name = this.memberProc.read(noticeVO.getMemberno()).getName();
+     mav.addObject("name", name);
 
-  // 삭제 처리
+     mav.setViewName("/notice/read"); // /WEB-INF/views/notice/read.jsp
+         
+     return mav;
+   }
+   
+   // 공지사항 글 수정 폼
+   @RequestMapping(value = "/notice/update_text.do", method = RequestMethod.GET)
+   public ModelAndView update_text(int noticeno) {
+     ModelAndView mav = new ModelAndView();
+     
+     NoticeVO noticeVO = this.noticeProc.read(noticeno);
+     mav.addObject("noticeVO", noticeVO);
+     
+     mav.setViewName("/notice/update_text"); // /WEB-INF/views/contents/update_text.jsp
+     // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
+     // mav.addObject("content", content);
 
-  // 수정 폼
+     return mav; // forward
+   }
 
-  // 수정 처리
+   // 수정 처리
+   @RequestMapping(value = "/notice/update_text.do", method = RequestMethod.POST)
+   public ModelAndView update_text(HttpSession session, NoticeVO noticeVO) {
+     ModelAndView mav = new ModelAndView();
+     
+     if (session.getAttribute("memberno") != null) { // 관리자 로그인
+       int cnt = this.noticeProc.update_text(noticeVO);  
+       
+       mav.addObject("noticeno", noticeVO.getNoticeno());
+       mav.setViewName("redirect:/notice/read.do");
+     } else { // 정상적인 로그인이 아닌 경우
+       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+     }
+     
+     mav.addObject("now_page", noticeVO.getNow_page()); // POST -> GET: 데이터 분실이 발생함으로 다시한번 데이터 저장 ★
+     
+     // URL에 파라미터의 전송
+     // mav.setViewName("redirect:/notice/read.do?noticeno=" + noticeVO.getContentsno());             
+     
+     return mav; // forward
+   }
+   
+   // 파일 수정 폼
+   @RequestMapping(value = "/notice/update_file.do", method = RequestMethod.GET)
+   public ModelAndView update_file(int noticeno) {
+     ModelAndView mav = new ModelAndView();
+     
+     NoticeVO noticeVO = this.noticeProc.read(noticeno);
+     mav.addObject("noticeVO", noticeVO);
+     
+     mav.setViewName("/notice/update_file"); // /WEB-INF/views/contents/update_file.jsp
+
+     return mav; // forward
+   }
+   
+   // 파일 수정 처리 
+   @RequestMapping(value = "/notice/update_file.do", method = RequestMethod.POST)
+   public ModelAndView update_file(HttpSession session, NoticeVO noticeVO) {
+     ModelAndView mav = new ModelAndView();
+     
+     if (session.getAttribute("memberno") != null) {
+       // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
+       NoticeVO noticeVO_old = noticeProc.read(noticeVO.getNoticeno());
+       
+       // -------------------------------------------------------------------
+       // 파일 삭제 시작
+       // -------------------------------------------------------------------
+       String file1saved = noticeVO_old.getFile1saved();  // 실제 저장된 파일명
+       String thumb1 = noticeVO_old.getThumb1();       // 실제 저장된 preview 이미지 파일명
+       long size1 = 0;
+          
+       String upDir =  Notice.getUploadDir(); // C:/kd/deploy/team4_v2sbm3c/notice/storage/
+       
+       Tool.deleteFile(upDir, file1saved);  // 실제 저장된 파일삭제
+       Tool.deleteFile(upDir, thumb1);     // preview 이미지 삭제
+       // -------------------------------------------------------------------
+       // 파일 삭제 종료
+       // -------------------------------------------------------------------
+           
+       // -------------------------------------------------------------------
+       // 파일 전송 시작
+       // -------------------------------------------------------------------
+       String file1 = "";          // 원본 파일명 image
+
+       // 전송 파일이 없어도 file1MF 객체가 생성됨.
+       // <input type='file' class="form-control" name='file1MF' id='file1MF' 
+       //           value='' placeholder="파일 선택">
+       MultipartFile mf = noticeVO.getFile1MF();
+           
+       file1 = mf.getOriginalFilename(); // 원본 파일명
+       size1 = mf.getSize();  // 파일 크기
+           
+       if (size1 > 0) { // 폼에서 새롭게 올리는 파일이 있는지 파일 크기로 체크 ★
+         // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
+         file1saved = Upload.saveFileSpring(mf, upDir); 
+         
+         if (Tool.isImage(file1saved)) { // 이미지인지 검사
+           // thumb 이미지 생성후 파일명 리턴됨, width: 250, height: 200
+           thumb1 = Tool.preview(upDir, file1saved, 250, 200); 
+         }
+         
+       } else { // 파일이 삭제만 되고 새로 올리지 않는 경우
+         file1="";
+         file1saved="";
+         thumb1="";
+         size1=0;
+       }
+           
+       noticeVO.setFile1(file1);
+       noticeVO.setFile1saved(file1saved);
+       noticeVO.setThumb1(thumb1);
+       noticeVO.setSize1(size1);
+       // -------------------------------------------------------------------
+       // 파일 전송 코드 종료
+       // -------------------------------------------------------------------
+           
+       this.noticeProc.update_file(noticeVO); // Oracle 처리
+
+       mav.addObject("noticeno", noticeVO.getNoticeno());
+       mav.setViewName("redirect:/notice/read.do"); // request -> param으로 접근 전환
+                 
+     } else {
+       
+       mav.setViewName("/member/login_need"); // GET
+     }
+
+     // redirect하게되면 전부 데이터가 삭제됨으로 mav 객체에 다시 저장
+     mav.addObject("now_page", noticeVO.getNow_page());
+     
+     return mav; // forward
+   }   
+
+   // 삭제 폼
+   @RequestMapping(value="/notice/delete.do", method=RequestMethod.GET )
+   public ModelAndView delete(int noticeno) { 
+     ModelAndView mav = new  ModelAndView();
+     
+     // 삭제할 정보를 조회하여 확인
+     NoticeVO noticeVO = this.noticeProc.read(noticeno);
+     mav.addObject("noticeVO", noticeVO);
+     
+     mav.setViewName("/notice/delete");  // /webapp/WEB-INF/views/notice/delete.jsp
+     
+     return mav; 
+   }
+
+   // 삭제 처리
+   @RequestMapping(value = "/notice/delete.do", method = RequestMethod.POST)
+   public ModelAndView delete(NoticeVO noticeVO) {
+     ModelAndView mav = new ModelAndView();
+     
+     // -------------------------------------------------------------------
+     // 파일 삭제 시작
+     // -------------------------------------------------------------------
+     // 삭제할 파일 정보를 읽어옴.
+     NoticeVO noticeVO_read = noticeProc.read(noticeVO.getNoticeno());
+         
+     String file1saved = noticeVO.getFile1saved();
+     String thumb1 = noticeVO.getThumb1();
+     
+     String uploadDir = Notice.getUploadDir();
+     Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
+     Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
+     // -------------------------------------------------------------------
+     // 파일 삭제 종료
+     // -------------------------------------------------------------------
+         
+     this.noticeProc.delete(noticeVO.getNoticeno()); // DBMS 삭제
+     
+    
+     mav.setViewName("redirect:/notice/list_all.do"); 
+     
+     return mav;
+   }   
+
+
 
 }
