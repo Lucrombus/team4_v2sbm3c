@@ -23,6 +23,20 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- top 메뉴 drop down 버튼 스크립트를 작동하게 함 -->
+<script type="text/javascript">
+
+	function confirmClick(event) {
+		var result = confirm("댓글을 삭제하시겠습니까?");
+		if (result) {
+			return true;
+
+		} else {
+			event.preventDefault(); // 기본 동작(링크 이동) 막기
+			return false;
+		}
+	}
+</script>
+
 </head> 
  
 <body>
@@ -83,15 +97,65 @@
   <BR>
   <BR>
   </fieldset>
-
-</DIV>
-<DIV style="text-align: right;">
+  
+  <DIV style="text-align: right;">
  <li class="li_none">
         <DIV style='text-decoration: none;'>
           검색어(키워드): ${word }
         </DIV>
       </li>
+  </DIV>
+  
+  <DIV class='menu_line'></DIV>
+  
+  <BR>
+ 
+  <DIV class='reply-div'> <!-- 댓글 -->
+  <label style='font-size:15px; font-weight:bold;'>댓글목록</label>
+  
+  <table class="table" style="width:100%;">
+   <colgroup>
+      <col style="width: 8%;"></col>
+      <col style="width: 80%;"></col>
+      <col style="width: 8%;"></col>
+      <col style="width: 4%;"></col>
+   </colgroup>
+      <c:forEach var="replyVO" items="${reply_list }">
+      <c:set var="memberno" value="${replyVO.memberno }" />
+      <tr>
+      <td>${f.apply(memberno) }</td>
+      <td>${replyVO.reply_content }</td>
+      <td style="font-size:13px; vertical-align: middle;">${replyVO.rdate }</td>
+      <td>
+      <a href="/reply/delete.do?contentsno=${param.contentsno }&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}&replyno=${replyVO.replyno}"><IMG src="/cate/images/delete.png" class="icon" 
+      onclick="confirmClick(event)"></a>
+      </td>
+      </tr>
+      </c:forEach>
+  </table>
+  
+  
+
+  
+  <form name='frm2' id='frm2' method='post' action='/reply/create.do'>
+      <input type="hidden" name="contentsno" value="${param.contentsno }" >
+      <input type="hidden" name="boardno" value="${param.boardno}" >
+      <input type="hidden" name="now_page" value="${param.now_page}" >
+      <input type="hidden" name="word" value="${param.word}" >
+      <textarea name="reply_content" class="form-control" placeholder="댓글입력" id="reply_content" style="height: 100px" required="required"  maxlength="100"></textarea>
+      <BR>
+      <div style="text-align:right;">
+      <button type='submit' class="btn btn-dark btn-sm">댓글 등록</button>
+      </div>
+      
+  </form>
+  
+  </DIV> <!-- 댓글 -->
+
 </DIV>
+
+
+
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

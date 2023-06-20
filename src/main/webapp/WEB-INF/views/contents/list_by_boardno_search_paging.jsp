@@ -86,7 +86,7 @@
           ${contentsno}
           </td>
           <td style='vertical-align: middle;'>
-            <a href="./read.do?contentsno=${contentsno}&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+            <a href="./read.do?contentsno=${contentsno}&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  [${f2.apply(contentsno)}]
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
