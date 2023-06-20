@@ -83,8 +83,7 @@ public class MypageCont {
         memberno = (int)session.getAttribute("memberno");  // 본인의 회원 정보 조회
       }
       else if (this.memberProc.isAdmin(session)) { // 관리자로 로그인
-        memberno = Integer.parseInt(request.getParameter("memberno")); // 관리자는 누구나 조회 가능
-        
+        memberno = (int)session.getAttribute("memberno"); // 관리자는 누구나 조회 가능
       }
       
       MemberVO memberVO = this.memberProc.read(memberno);
