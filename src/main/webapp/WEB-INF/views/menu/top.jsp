@@ -96,8 +96,7 @@
                     </li>
                   </c:if>
                     </div>
-                  </li>
-                 </c:if>  
+                  </li>  
                 </ul>
             </div>    
         </nav>
