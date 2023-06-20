@@ -93,7 +93,7 @@
       <TD class='td_basic'>${tel}</TD>
       <TD class='td_basic'>${experience}</TD>
       <TD class='td_basic'>${gender}</TD>
-      <TD class='td_basic'>${birth}</TD>
+      <TD class='td_basic'>${birth.substring(0, 10)}</TD>
       <TD class='td_basic'>${rdate.substring(0, 10)}</TD> <%-- 년월일 --%>
       </TD>
       <TD class='td_basic'>

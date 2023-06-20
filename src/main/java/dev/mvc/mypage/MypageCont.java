@@ -129,4 +129,17 @@ public class MypageCont {
     
     return mav;
   }
+  
+  /**
+   * 신고 및 문의, http://localhost:9093/mypage/report.do
+   * @return
+   */
+  @RequestMapping(value="/mypage/report.do", method=RequestMethod.GET )
+  public ModelAndView report() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/mypage/report"); // /WEB-INF/views/mypage/report.jsp
+   
+    return mav;
+  }
+  
 }

@@ -129,7 +129,7 @@ public class ContentsCont {
   }
 
   /**
-   * 등록 처리 http://localhost:9091/contents/create.do
+   * 등록 처리 http://localhost:9093/contents/create.do
    * 
    * @return
    */

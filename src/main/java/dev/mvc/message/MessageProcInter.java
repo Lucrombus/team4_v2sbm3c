@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import dev.mvc.Report.reportVO;
+import dev.mvc.report.reportVO;
 
 public interface MessageProcInter {
 //  /**
