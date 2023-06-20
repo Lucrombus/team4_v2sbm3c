@@ -41,5 +41,12 @@ public interface ReplyDAOInter {
    */
   public int delete(int replyno);
   
+  /**
+   * 컨텐츠 번호로 댓글 전부 삭제
+   * @param int
+   * @return
+   */
+  public int delete_by_contentsno(int contentsno);
+  
 
 }

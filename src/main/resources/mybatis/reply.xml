@@ -32,10 +32,16 @@
   WHERE contentsno = #{contentsno}
   </select>
   
-  <!-- 삭제: 삭제한 레코드 갯수를 리턴 -->
+  <!-- 삭제: 댓글번호로 댓글삭제 -->
   <delete id="delete" parameterType="int">
   DELETE FROM reply
   WHERE replyno = #{replyno}
+  </delete>
+  
+    <!-- 삭제: 컨텐츠 번호로 댓글 전부 삭제 -->
+  <delete id="delete_by_contentsno" parameterType="int">
+  DELETE FROM reply
+  WHERE contentsno = #{contentsno}
   </delete>
   
 

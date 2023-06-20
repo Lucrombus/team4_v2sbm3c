@@ -111,7 +111,7 @@
   <BR>
  
   <DIV class='reply-div'> <!-- 댓글 -->
-  <label style='font-size:15px; font-weight:bold;'>댓글목록</label>
+  <label style='font-size:15px; font-weight:bold;'>댓글목록</label> <span class='reply-count'>[${reply_count }]</span>
   
   <table class="table" style="width:100%;">
    <colgroup>

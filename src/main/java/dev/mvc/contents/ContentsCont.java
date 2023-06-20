@@ -63,6 +63,7 @@ public class ContentsCont {
     mav.addObject("list", list);
     
 
+
     if (session.getAttribute("id") != null) {
       mav.setViewName("/contents/create_test");
 
@@ -288,14 +289,16 @@ public class ContentsCont {
 //    
 //    System.out.println(currentUrl);
     
-
+    
     ContentsVO contentsVO = this.contentsProc.read(contentsno);
     MemberVO memberVO = this.memberProc.readByMemberno(contentsVO.getMemberno());
     ArrayList<ReplyVO> reply_list = this.replyProc.list_by_contentsno(contentsno);
+    int reply_count = this.replyProc.count_by_contentsno(contentsno);
 
     mav.addObject("contentsVO", contentsVO); // request.setAttribute("contentsVO", contentsVO);
     mav.addObject("memberVO", memberVO);
     mav.addObject("reply_list", reply_list);
+    mav.addObject("reply_count", reply_count);
     
     Function<Integer, String> f = (memberno) -> {
       MemberVO memberVO_replyer = memberProc.readByMemberno(memberno);
@@ -452,8 +455,11 @@ public class ContentsCont {
 
       Tool.deleteFile(upDir, thumb1); // 썸네일 삭제
       Tool.deleteFile(upDir, thumb1_origin); // 썸네일 삭제
-
+      
+      
+      int cnt_reply = this.replyProc.delete_by_contentsno(contentsno); // FK 참조 관계로 자식테이블인 댓글부터 삭제해야 함
       int cnt = this.contentsProc.delete(contentsno);
+      
 
       mav.addObject("boardno", contentsVO.getBoardno());
       mav.addObject("now_page", contentsVO.getNow_page());

@@ -45,5 +45,12 @@ public class ReplyProc implements ReplyProcInter {
     int cnt = this.replyDAO.delete(replyno);
     return cnt;
   }
+  
+  @Override
+  public int delete_by_contentsno(int contentsno) {
+    
+    int cnt = this.replyDAO.delete_by_contentsno(contentsno);
+    return cnt;
+  }
 
 }
