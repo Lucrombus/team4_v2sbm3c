@@ -23,7 +23,11 @@
 <DIV class='content_body'>
   
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
-
+    <input type="hidden" name="memberno" value="${sessionScope.memberno}">
+    <input type="hidden" name="file1" value="" id="file1">
+    <input type="hidden" name="file1saved" value="" id="file1saved">
+    <input type="hidden" name="size1" value="0" id="size1">
+    
     <div>
        <label>제목</label>
        <input type='text' name='title' value='' required="required" 
@@ -38,6 +42,11 @@
        <input type='text' name='word' value='' required="required" 
                  class="form-control" style='width: 100%;'>
     </div>     
+    <div>
+       <label>이미지</label>
+       <input type='file' class="form-control" name='file1MF' id='file1MF' 
+                 value='' placeholder="파일 선택">
+    </div>  
     <div>
        <label>패스워드</label>
        <input type='password' name='passwd' value='' required="required" 

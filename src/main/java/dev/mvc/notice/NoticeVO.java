@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class NoticeVO {
 
   private int noticeno;
-  private String topview;
+  private String topview="N";
   private int memberno;
   private String title;
   private String content;

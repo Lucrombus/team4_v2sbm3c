@@ -31,6 +31,26 @@
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
 
+  <DIV style="text-align: right; clear: both;">  
+    <form name='frm' id='frm' method='get' action='./list_all.do'>
+      <input type='hidden' name='now_page' value='1'>  <%-- 검색기본 시작 페이지 --%>
+      
+      <c:choose>
+        <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
+          <input type='text' name='word' id='word' value='${param.word }' style='width: 20%; ' class='input_word'>
+        </c:when>
+        <c:otherwise> <%-- 검색하지 않는 경우 --%>
+          <input type='text' name='word' id='word' value='' style='width: 20%;'>
+        </c:otherwise>
+      </c:choose>
+      <button type='submit' class="btn btn-secondary btn-sm">검색</button>
+      <c:if test="${param.word.length() > 0 }">
+        <button type='button' class='btn btn-info btn-sm'
+                     onclick="location.href='./list_all.do?now_page=1&word='">검색 취소</button>  
+      </c:if>    
+    </form>
+  </DIV>
+
   <DIV class='menu_line'></DIV>
   
   <table class="table table-striped" style='width: 100%;'>
@@ -46,7 +66,7 @@
         <th style='text-align: center;'>번호</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
-        <th style='text-align: center;'>관리자 번호</th>
+        <th style='text-align: center;'>작성자</th>
       </tr>
     
     </thead>
@@ -58,6 +78,7 @@
         <c:set var="noticeno" value="${noticeVO.noticeno }" />
         <c:set var="rdate" value="${noticeVO.rdate }" />
         <c:set var="memberno" value="${noticeVO.memberno }" />
+
         
         <tr style="height:50px;">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
@@ -71,7 +92,7 @@
           ${rdate }
           </td>
            <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-          ${memberno }
+          ${f.apply(memberno) }
           </td>
         </tr>
         
