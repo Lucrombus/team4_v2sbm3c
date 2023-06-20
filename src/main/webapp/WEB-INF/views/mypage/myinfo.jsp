@@ -46,7 +46,7 @@
     </tr>
     </tr>
       <th>생년월일</th>
-      <td>${memberVO.birth}</td>
+      <td>${memberVO.birth.substring(0, 10)}</td>
     </tr>
     </tr>
       <th>전화번호</th>
@@ -54,7 +54,7 @@
     </tr>
     </tr>
       <th>가입일</th>
-      <td>${memberVO.rdate}</td>
+      <td>${memberVO.rdate.substring(0, 10)}</td>
     </tr>
     </tr>
       <th>등급</th>
