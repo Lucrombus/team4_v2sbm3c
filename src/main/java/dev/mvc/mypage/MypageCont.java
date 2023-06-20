@@ -69,10 +69,33 @@ public class MypageCont {
   * @return
   */
   @RequestMapping(value="/mypage/myinfo.do", method=RequestMethod.GET )
-  public ModelAndView myinfo() {
+  public ModelAndView myinfo(HttpSession session, HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/mypage/myinfo"); // myinfo.jsp
     
+    int memberno = 0;
+    if (this.memberProc.isMember(session) || this.memberProc.isAdmin(session) || this.memberProc.isEnterprise(session)) { 
+      // 로그인한 경우
+
+      if (this.memberProc.isMember(session)) { // 회원으로 로그인
+        memberno = (int)session.getAttribute("memberno");  // 본인의 회원 정보 조회
+      }
+      else if (this.memberProc.isEnterprise(session)) { // 기업으로 로그인
+        memberno = (int)session.getAttribute("memberno");  // 본인의 회원 정보 조회
+      }
+      else if (this.memberProc.isAdmin(session)) { // 관리자로 로그인
+        memberno = Integer.parseInt(request.getParameter("memberno")); // 관리자는 누구나 조회 가능
+        
+      }
+      
+      MemberVO memberVO = this.memberProc.read(memberno);
+      mav.addObject("memberVO", memberVO);
+      mav.setViewName("/mypage/myinfo"); // /WEB-INF/views/mypage/mypage_main.jsp
+      
+    } else {
+      // 로그인을 하지 않은 경우
+      mav.setViewName("/member/login_need"); // /webapp/WEB-INF/views/member/login_need.jsp
+    }
+   
     return mav;
   }
   
