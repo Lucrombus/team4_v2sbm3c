@@ -18,7 +18,7 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>공지사항 > 새 공지사항 등록</DIV>
+<DIV class='title_line'>이력서 > 새 이력서 등록</DIV>
 
 <DIV class='content_body'>
   
@@ -34,16 +34,16 @@
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
-       <label>내용</label>
+       <label>자기소개서</label>
        <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
     </div>
     <div>
-       <label>검색어</label>
+       <label>희망 직종</label>
        <input type='text' name='word' value='' required="required" 
                  class="form-control" style='width: 100%;'>
     </div>     
     <div>
-       <label>이미지</label>
+       <label>증명사진</label>
        <input type='file' class="form-control" name='file1MF' id='file1MF' 
                  value='' placeholder="파일 선택">
     </div>  

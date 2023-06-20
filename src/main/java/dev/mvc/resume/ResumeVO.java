@@ -1,5 +1,7 @@
 package dev.mvc.resume;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ResumeVO {
 
 //  CREATE TABLE resume(
@@ -24,6 +26,21 @@ public class ResumeVO {
   private String intro;
   /** 이력서 등록일 */
   private String rdate;
+  
+  /**
+   * 이미지 파일
+   * <input type='file' class="form-control" name='file1MF' id='file1MF' value=''
+   * placeholder="파일 선택">
+   */
+  private MultipartFile file1MF;
+
+  /** 메인 이미지 크기 단위, 파일 크기 */
+  private String size1_label = "";
+
+  private int start_num;
+  private int end_num;
+  private int now_page = 1;
+  
   
   
   public int getResumeno() {

@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <update id="update" parameterType="dev.mvc.resume.ResumeVO">
     UPDATE resume 
     SET resumetitle = #{resumetitle}, resumep = #{resumep}, intro = #{intro}
-    WHERE resumeno = 1
+    WHERE resumeno = #{resumeno}
   </update>
   
 </mapper>
