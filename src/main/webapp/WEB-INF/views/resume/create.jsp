@@ -18,16 +18,13 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>이력서 > 새 이력서 등록</DIV>
+<DIV class='title_line'>
+<A href="./list_all.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>이력서 </a> > 새 이력서 등록</DIV>
 
 <DIV class='content_body'>
   
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
-    <input type="hidden" name="memberno" value="${sessionScope.memberno}">
-    <input type="hidden" name="name" value="${member.name}">
-    <input type="hidden" name="gender" value="${member.gender}">
-    <input type="hidden" name="birth" value="${member.birth}">
-    <input type="hidden" name="education" value="${member.education}">
+    <input type="hidden" name="memberno" value="${sessionScope.memberno}"> <!-- 세션 멤버번호 -->
     <input type="hidden" name="file1" value="" id="file1">
     <input type="hidden" name="file1saved" value="" id="file1saved">
     <input type="hidden" name="size1" value="0" id="size1">
@@ -75,7 +72,7 @@
     <br>
     <div>
        <label>연락처</label>
-       <input type='text' name='tel' value='010' required="required" 
+       <input type='text' name='tel' value='' required="required" 
                   class="form-control" style='width: 100%;'></textarea>
     </div>
     <div>

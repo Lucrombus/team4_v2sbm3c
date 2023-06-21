@@ -67,7 +67,7 @@ SET title = '제목1수정', intro = '자기소개1수정'
 WHERE resumeno = 1;
 
 --delete
-DELETE resume
+DELETE FROM resume
 WHERE resumeno = 1;
 
 commit;
