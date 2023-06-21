@@ -26,6 +26,19 @@ public class NoticeProc implements NoticeProcInter {
   @Override
   public ArrayList<NoticeVO> list_all() {
     ArrayList<NoticeVO> list = this.noticeDAO.list_all();
+    
+    // for문을 사용하여 객체를 추출, Call By Reference 기반의 원본 객체 값 변경
+    for (NoticeVO noticeVO : list) {
+      String title = noticeVO.getTitle();
+      String content = noticeVO.getContent();
+      
+      title = Tool.convertChar(title);  // 특수 문자 처리
+      content = Tool.convertChar(content); 
+      
+      noticeVO.setTitle(title);
+      noticeVO.setContent(content);  
+    }
+    
     return list;
   }
   

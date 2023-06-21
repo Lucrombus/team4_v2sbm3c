@@ -44,7 +44,7 @@ public class ResumeCont {
     ModelAndView mav = new ModelAndView();
 
     if (this.memberProc.isMember(session)) { //회원일 경우
-      mav.setViewName("/resume/create"); // /webapp/WEB-INF/views/notice/create.jsp
+      mav.setViewName("/resume/create"); // /webapp/WEB-INF/views/resume/create.jsp
     } else {
       mav.setViewName("/member/login_need");
     }
@@ -66,7 +66,7 @@ public class ResumeCont {
       String file1saved = ""; // 저장된 파일명, image
       String thumb1 = ""; // preview image
 
-      String upDir = Notice.getUploadDir();
+      String upDir = Resume.getUploadDir();
       System.out.println("-> upDir: " + upDir);
 
       // 전송 파일이 없어도 file1MF 객체가 생성됨.
@@ -163,7 +163,7 @@ public class ResumeCont {
     mav.addObject("name", name);
     mav.addObject("gender", gender);
 
-    mav.setViewName("/resume/read"); // /WEB-INF/views/notice/read.jsp
+    mav.setViewName("/resume/read"); // /WEB-INF/views/resume/read.jsp
         
     return mav;
   }
@@ -200,7 +200,7 @@ public class ResumeCont {
     mav.addObject("now_page", resumeVO.getNow_page()); // POST -> GET: 데이터 분실이 발생함으로 다시한번 데이터 저장 ★
     
     // URL에 파라미터의 전송
-    // mav.setViewName("redirect:/notice/read.do?noticeno=" + noticeVO.getContentsno());             
+    // mav.setViewName("redirect:/resume/read.do?resumeno=" + resumeVO.getContentsno());             
     
     return mav; // forward
   }
@@ -234,7 +234,7 @@ public class ResumeCont {
       String thumb1 = resumeVO_old.getThumb1();       // 실제 저장된 preview 이미지 파일명
       long size1 = 0;
          
-      String upDir =  Notice.getUploadDir(); // C:/kd/deploy/team4_v2sbm3c/notice/storage/
+      String upDir =  Resume.getUploadDir(); // C:/kd/deploy/team4_v2sbm3c/resume/storage/
       
       Tool.deleteFile(upDir, file1saved);  // 실제 저장된 파일삭제
       Tool.deleteFile(upDir, thumb1);     // preview 이미지 삭제
@@ -323,7 +323,7 @@ public class ResumeCont {
     String file1saved = resumeVO.getFile1saved();
     String thumb1 = resumeVO.getThumb1();
     
-    String uploadDir = Notice.getUploadDir();
+    String uploadDir = Resume.getUploadDir();
     Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
     Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
     // -------------------------------------------------------------------

@@ -47,6 +47,11 @@
        <input type='file' class="form-control" name='file1MF' id='file1MF' 
                  value='' placeholder="파일 선택">
     </div>  
+    <div>
+       <label>상단 노출 여부
+       <input type='checkbox' name='topview' value='Y' 
+                 class="form-control" style='width: 100%;'></label>
+    </div>  
     
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">등록</button>

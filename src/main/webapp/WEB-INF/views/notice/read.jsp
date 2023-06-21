@@ -99,7 +99,7 @@
       <li class="li_none">
         <DIV>
           <c:if test="${file1.trim().length() > 0 }"> <%-- ServletRegister.java: registrationBean.addUrlMappings("/download"); --%>
-            첨부 파일: <a href='/download?dir=/notice/storage&filename=${file1saved}&downname=${file1}'>${file1}</a> (${size1_label})  
+            첨부 파일: <a href='/download?dir=/contents/storage&filename=${file1saved}&downname=${file1}'>${file1}</a> (${size1_label})  
           </c:if>
         </DIV>
       </li>   
