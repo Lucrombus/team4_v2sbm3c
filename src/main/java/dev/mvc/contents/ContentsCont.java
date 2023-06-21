@@ -306,10 +306,9 @@ public class ContentsCont {
     mav.addObject("reply_count", reply_count);
     
     // memberno로 id 구하는 메소드를 람다식으로 객체화 후 페이지에 전달
-    Function<Integer, String> f = (memberno) -> {
+    Function<Integer, MemberVO> f = (memberno) -> {
       MemberVO memberVO_replyer = this.memberProc.readByMemberno(memberno);
-      String id = memberVO_replyer.getId();
-      return id;
+      return memberVO_replyer;
     };
     
     mav.addObject("f", f);

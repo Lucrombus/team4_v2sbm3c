@@ -77,7 +77,8 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
 
 	      }
 
-      function send(){ // 댓글 작성전 로그인 했는지 확인
+      function send(){ // 댓글을 작성했는지 확인하고 댓글 작성전 로그인 했는지 확인
+    	  if (document.getElementById("frm2").checkValidity()) {
           if (${sessionScope.memberno != null}){
               $("#frm2").submit();
 
@@ -86,7 +87,10 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
                   
                   }
           
-          }
+          }else {
+        	  alert("댓글 내용을 입력해 주세요");
+              }
+      }
 </script>
 
 </head> 
@@ -176,7 +180,14 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
       <c:forEach var="replyVO" items="${reply_list }">
       <c:set var="memberno" value="${replyVO.memberno }" />
       <tr>
-      <td>${f.apply(memberno) }</td>
+      <td>
+      <c:choose>
+          <c:when test="${f.apply(memberno).rankno == 1}"><img src='/member/images/admin.png' title="관리자" class="icon"></c:when> <%-- static 기준 --%>
+          <c:when test="${f.apply(memberno).rankno == 2}"><img src='/member/images/user.png' title="개인 회원" class="icon"></c:when>
+          <c:when test="${f.apply(memberno).rankno == 3}"><img src='/member/images/enterprise.png' title="기업 회원" class="icon"></c:when>
+          <c:when test="${f.apply(memberno).rankno == 4}"><img src='/member/images/x.png' title="탈퇴 회원" class="icon"></c:when>
+        </c:choose>  ${f.apply(memberno).id }
+      </td>
       <td>${replyVO.reply_content }</td>
       <td><a href="#"><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)"></a> +${f2.apply(replyVO.replyno) } </td>
       <td style="font-size:13px; vertical-align: middle;">${replyVO.rdate }</td>
