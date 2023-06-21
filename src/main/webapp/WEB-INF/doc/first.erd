@@ -613,7 +613,7 @@
                                     <targetConnections/>
                                     <error></error>
                                     <linkedPath></linkedPath>
-                                    <tableName>content_report</tableName>
+                                    <tableName>report_c</tableName>
                                     <logicalName>컨텐츠 신고</logicalName>
                                     <description></description>
                                     <columns>
@@ -1918,7 +1918,7 @@
                               <targetConnections/>
                               <error></error>
                               <linkedPath></linkedPath>
-                              <tableName>member_report</tableName>
+                              <tableName>report_m</tableName>
                               <logicalName>회원 신고</logicalName>
                               <description></description>
                               <columns>
