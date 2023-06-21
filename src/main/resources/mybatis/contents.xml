@@ -48,8 +48,7 @@
             </when>
             <when
                 test="(word != null and word != '') and (boardno != 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리별 목록) -->
-                WHERE boardno=#{boardno} AND (UPPER(title) LIKE '%' ||
-                UPPER(#{word}) || '%'
+                WHERE boardno=#{boardno} AND (UPPER(title) LIKE '%' || UPPER(#{word}) || '%'
                 OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%'
                 OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
             </when>
