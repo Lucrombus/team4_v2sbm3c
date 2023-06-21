@@ -4,6 +4,7 @@
 //  CREATE TABLE inquiry(
 //      inquiryno                          NUMBER(10)     NOT NULL    PRIMARY KEY,
 //      memberno                        INTEGER(10)    NOT NULL,
+//      inquiryTitle                       VARCHAR2(20) NOT NULL ,
 //      inquiryReason                    VARCHAR2(100)  NOT NULL ,
 //      contentsno                        NUMBER(10)     NOT NULL ,
 //    FOREIGN KEY (memberno) REFERENCES member (memberno),
@@ -20,7 +21,9 @@ public class InquiryVO {
   private int inquiryno;
   /** 회원번호(신고자) */
   private int memberno;
-  /** 문의 번호 */
+  /** 문의 제목 */
+  private String inquiryTitle;
+  /** 문의 내용 */
   private String inquiryReason;
   /** 컨텐츠 번호 */
   private int contentsno;

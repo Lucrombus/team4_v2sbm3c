@@ -29,7 +29,7 @@
     <br><br>
     <button type='button' onclick="location.href='/mypage/inquiry.do'" class="btn btn-info">문의 하기</button>
     <br><br>
-    <button type='button' onclick="location.href='/resume/create.do'" class="btn btn-info">내 이력서</button>     
+    <button type='button' onclick="location.href='/resume/list_all.do?memberno=${memberno}'" class="btn btn-info">내 이력서</button>     
   </DIV>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />

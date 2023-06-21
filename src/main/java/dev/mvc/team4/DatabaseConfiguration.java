@@ -29,7 +29,11 @@ import com.zaxxer.hikari.HikariDataSource;
                            "dev.mvc.notice",
                            "dev.mvc.contents",
                            "dev.mvc.reply",
+<<<<<<< Updated upstream
                            "dev.mvc.like_reply"
+=======
+                           "dev.mvc.inquiry"
+>>>>>>> Stashed changes
                            }) // DAO interface를 찾는 위치
 public class DatabaseConfiguration {
     
