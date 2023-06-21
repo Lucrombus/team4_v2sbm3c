@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="dev.mvc.like_reply.Like_replyDAOInter">
+<mapper namespace="dev.mvc.reply.ReplyDAOInter">
 
  <!-- 등록: 추가한 레코드 갯수를 리턴 -->
-  <insert id="create" parameterType="dev.mvc.like_reply.Like_replyVO">
+  <insert id="create" parameterType="dev.mvc.reply.ReplyVO">
   INSERT INTO reply (replyno, contentsno, memberno, reply_content, rdate)
   VALUES (reply_seq.nextval, #{contentsno}, #{memberno}, #{reply_content}, sysdate)
   </insert>
-  
+
      <!-- 조회: 댓글 번호별 댓글 조회 -->
-  <select id="read" resultType="dev.mvc.like_reply.Like_replyVO" parameterType="int">
+  <select id="read" resultType="dev.mvc.reply.ReplyVO" parameterType="int">
   SELECT replyno, memberno, contentsno, reply_content, rdate
   FROM reply
   WHERE replyno = #{replyno}
   </select>
-  
+
+   <!-- 조회: 컨텐츠 번호별 댓글 리스트 -->
+  <select id="list_by_contentsno" resultType="dev.mvc.reply.ReplyVO" parameterType="int">
+  SELECT replyno, memberno, contentsno, reply_content, rdate
+  FROM reply
+  WHERE contentsno = #{contentsno}
+  ORDER BY rdate ASC
+  </select>
+
+     <!-- 조회: 컨텐츠 번호별 댓글 갯수 -->
+  <select id="count_by_contentsno" resultType="int" parameterType="int">
+  SELECT COUNT(*)
+  FROM reply
+  WHERE contentsno = #{contentsno}
+  </select>
+
+  <!-- 삭제: 댓글번호로 댓글삭제 -->
+  <delete id="delete" parameterType="int">
+  DELETE FROM reply
+  WHERE replyno = #{replyno}
+  </delete>
+
+    <!-- 삭제: 컨텐츠 번호로 댓글 전부 삭제 -->
+  <delete id="delete_by_contentsno" parameterType="int">
+  DELETE FROM reply
+  WHERE contentsno = #{contentsno}
+  </delete>
+
 
 
 
