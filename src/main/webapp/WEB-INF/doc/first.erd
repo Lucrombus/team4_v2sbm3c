@@ -818,7 +818,11 @@
                                       </net.java.amateras.db.visual.model.ColumnModel>
                                     </columns>
                                     <indices/>
-                                    <backgroundColor reference="../../../net.java.amateras.db.visual.model.ForeignKeyModel[2]/source/backgroundColor"/>
+                                    <backgroundColor>
+                                      <red>255</red>
+                                      <green>128</green>
+                                      <blue>255</blue>
+                                    </backgroundColor>
                                     <sql></sql>
                                   </source>
                                   <target class="net.java.amateras.db.visual.model.TableModel" reference="../../.."/>
@@ -2635,7 +2639,7 @@
       <targetConnections/>
       <error></error>
       <linkedPath></linkedPath>
-      <tableName>Park</tableName>
+      <tableName>박찬호</tableName>
       <logicalName>박찬호</logicalName>
       <description></description>
       <columns/>
@@ -2667,7 +2671,7 @@
       <targetConnections/>
       <error></error>
       <linkedPath></linkedPath>
-      <tableName>Choi</tableName>
+      <tableName>최명훈</tableName>
       <logicalName>최명훈</logicalName>
       <description></description>
       <columns/>
@@ -2692,38 +2696,6 @@
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>26</x>
-        <y>228</y>
-      </constraint>
-      <sourceConnections/>
-      <targetConnections/>
-      <error></error>
-      <linkedPath></linkedPath>
-      <tableName>Lim</tableName>
-      <logicalName>임준혁</logicalName>
-      <description></description>
-      <columns/>
-      <indices/>
-      <backgroundColor>
-        <red>255</red>
-        <green>128</green>
-        <blue>64</blue>
-      </backgroundColor>
-      <sql></sql>
-    </net.java.amateras.db.visual.model.TableModel>
-    <net.java.amateras.db.visual.model.TableModel>
-      <listeners serialization="custom">
-        <java.beans.PropertyChangeSupport>
-          <default>
-            <source class="net.java.amateras.db.visual.model.TableModel" reference="../../../.."/>
-            <propertyChangeSupportSerializedDataVersion>2</propertyChangeSupportSerializedDataVersion>
-          </default>
-          <null/>
-        </java.beans.PropertyChangeSupport>
-      </listeners>
-      <constraint>
-        <height>-1</height>
-        <width>-1</width>
         <x>27</x>
         <y>101</y>
       </constraint>
@@ -2731,7 +2703,7 @@
       <targetConnections/>
       <error></error>
       <linkedPath></linkedPath>
-      <tableName>Yoon</tableName>
+      <tableName>윤재석</tableName>
       <logicalName>윤재석</logicalName>
       <description></description>
       <columns/>
@@ -2764,7 +2736,7 @@
       <targetConnections/>
       <error></error>
       <linkedPath></linkedPath>
-      <tableName>Hong</tableName>
+      <tableName>홍영서</tableName>
       <logicalName>홍영서</logicalName>
       <description></description>
       <columns/>
@@ -2796,7 +2768,7 @@
       <targetConnections/>
       <error></error>
       <linkedPath></linkedPath>
-      <tableName>Yoo</tableName>
+      <tableName>유원진</tableName>
       <logicalName>유원진</logicalName>
       <description></description>
       <columns/>
@@ -2829,7 +2801,7 @@
       <targetConnections/>
       <error></error>
       <linkedPath></linkedPath>
-      <tableName>Kim</tableName>
+      <tableName>김준범</tableName>
       <logicalName>김준범</logicalName>
       <description></description>
       <columns/>
@@ -2845,7 +2817,7 @@
   </children>
   <dommains/>
   <dialectName>Oracle</dialectName>
-  <logicalMode>true</logicalMode>
+  <logicalMode>false</logicalMode>
   <jarFile></jarFile>
   <jdbcDriver>sun.jdbc.odbc.JdbcOdbc</jdbcDriver>
   <jdbcUrl></jdbcUrl>
