@@ -31,19 +31,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE resumeno = #{resumeno}
   </select>
   
-  <!-- 삭제: 번호로 레코드 삭제 -->
-  <delete id="delete" parameterType="int">
-  DELETE resume
-  WHERE resumeno = #{resumeno}
-  </delete>
-  
   <!-- 수정: 번호로 레코드 수정 -->
-  <update id="update" parameterType="dev.mvc.resume.ResumeVO">
+  <update id="update_text" parameterType="dev.mvc.resume.ResumeVO">
     UPDATE resume 
-    SET  title = #{title}, file1 = #{file1}, file1saved = #{file1saved}, thumb1=#{thumb1}, size1=#{size1}, 
-         intro = #{intro}, tel = {tel}, address = {address}, career = #{career}, 
+    SET  title = #{title}, intro = #{intro}, tel = #{tel}, address = #{address}, career = #{career}, 
          skills = #{skills}, langskill = #{langskill}, wantjob = #{wantjob}
     WHERE resumeno = #{resumeno}
   </update>
+  
+  <!-- 파일 수정 -->
+  <update id="update_file" parameterType="dev.mvc.resume.ResumeVO">
+    UPDATE resume
+    SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
+    WHERE resumeno = #{resumeno}
+  </update>
+  
+  <!-- 삭제: 번호로 레코드 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM resume
+    WHERE resumeno = #{resumeno}
+  </delete>
+  
+  
   
 </mapper>

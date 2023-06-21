@@ -110,8 +110,9 @@ public class ResumeCont {
       // mav.addObject("contentsno", contentsVO.getContentsno()); // redirect parameter 적용
       // ------------------------------------------------------------------------------
 
+      mav.addObject("memberno", memberno);
       mav.setViewName("redirect:/resume/list_all.do");
-
+      
     } else {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
     }
@@ -158,19 +159,185 @@ public class ResumeCont {
     
     // 회원 번호: admino -> AdminVO -> name
     String name = this.memberProc.read(resumeVO.getMemberno()).getName();
+    String gender = this.memberProc.read(resumeVO.getMemberno()).getGender();
     mav.addObject("name", name);
+    mav.addObject("gender", gender);
 
     mav.setViewName("/resume/read"); // /WEB-INF/views/notice/read.jsp
         
     return mav;
   }
 
-  // 이력서 삭제 폼
+  // 이력서 글 수정 폼
+  @RequestMapping(value = "/resume/update_text.do", method = RequestMethod.GET)
+  public ModelAndView update_text(int resumeno) {
+    ModelAndView mav = new ModelAndView();
+    
+    ResumeVO resumeVO = this.resumeProc.read(resumeno);
+    mav.addObject("resumeVO", resumeVO);
+    
+    mav.setViewName("/resume/update_text"); // /WEB-INF/views/contents/update_text.jsp
+    // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
+    // mav.addObject("content", content);
 
-  // 이력서 삭제 처리
+    return mav; // forward
+  }
 
-  // 이력서 수정 폼
+  // 이력서 글 수정 처리
+  @RequestMapping(value = "/resume/update_text.do", method = RequestMethod.POST)
+  public ModelAndView update_text(HttpSession session, ResumeVO resumeVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (this.memberProc.isMember(session)) { // 관리자 로그인
+      int cnt = this.resumeProc.update_text(resumeVO);  
+      
+      mav.addObject("resumeno", resumeVO.getResumeno());
+      mav.setViewName("redirect:/resume/read.do");
+    } else { // 정상적인 로그인이 아닌 경우
+      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+    }
+    
+    mav.addObject("now_page", resumeVO.getNow_page()); // POST -> GET: 데이터 분실이 발생함으로 다시한번 데이터 저장 ★
+    
+    // URL에 파라미터의 전송
+    // mav.setViewName("redirect:/notice/read.do?noticeno=" + noticeVO.getContentsno());             
+    
+    return mav; // forward
+  }
+  
+  // 이력서 파일 수정 폼
+  @RequestMapping(value = "/resume/update_file.do", method = RequestMethod.GET)
+  public ModelAndView update_file(int resumeno) {
+    ModelAndView mav = new ModelAndView();
+    
+    ResumeVO resumeVO = this.resumeProc.read(resumeno);
+    mav.addObject("resumeVO", resumeVO);
+    
+    mav.setViewName("/resume/update_file"); // /WEB-INF/views/contents/update_file.jsp
 
-  // 이력서 수정 처리
+    return mav; // forward
+  }
+  
+  // 이력서 파일 수정 처리
+  @RequestMapping(value = "/resume/update_file.do", method = RequestMethod.POST)
+  public ModelAndView update_file(HttpSession session, ResumeVO resumeVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (this.memberProc.isMember(session)) {
+      // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
+      ResumeVO resumeVO_old = resumeProc.read(resumeVO.getResumeno());
+      
+      // -------------------------------------------------------------------
+      // 파일 삭제 시작
+      // -------------------------------------------------------------------
+      String file1saved = resumeVO_old.getFile1saved();  // 실제 저장된 파일명
+      String thumb1 = resumeVO_old.getThumb1();       // 실제 저장된 preview 이미지 파일명
+      long size1 = 0;
+         
+      String upDir =  Notice.getUploadDir(); // C:/kd/deploy/team4_v2sbm3c/notice/storage/
+      
+      Tool.deleteFile(upDir, file1saved);  // 실제 저장된 파일삭제
+      Tool.deleteFile(upDir, thumb1);     // preview 이미지 삭제
+      // -------------------------------------------------------------------
+      // 파일 삭제 종료
+      // -------------------------------------------------------------------
+          
+      // -------------------------------------------------------------------
+      // 파일 전송 시작
+      // -------------------------------------------------------------------
+      String file1 = "";          // 원본 파일명 image
+
+      // 전송 파일이 없어도 file1MF 객체가 생성됨.
+      // <input type='file' class="form-control" name='file1MF' id='file1MF' 
+      //           value='' placeholder="파일 선택">
+      MultipartFile mf = resumeVO.getFile1MF();
+          
+      file1 = mf.getOriginalFilename(); // 원본 파일명
+      size1 = mf.getSize();  // 파일 크기
+          
+      if (size1 > 0) { // 폼에서 새롭게 올리는 파일이 있는지 파일 크기로 체크 ★
+        // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
+        file1saved = Upload.saveFileSpring(mf, upDir); 
+        
+        if (Tool.isImage(file1saved)) { // 이미지인지 검사
+          // thumb 이미지 생성후 파일명 리턴됨, width: 250, height: 200
+          thumb1 = Tool.preview(upDir, file1saved, 250, 200); 
+        }
+        
+      } else { // 파일이 삭제만 되고 새로 올리지 않는 경우
+        file1="";
+        file1saved="";
+        thumb1="";
+        size1=0;
+      }
+          
+      resumeVO.setFile1(file1);
+      resumeVO.setFile1saved(file1saved);
+      resumeVO.setThumb1(thumb1);
+      resumeVO.setSize1(size1);
+      // -------------------------------------------------------------------
+      // 파일 전송 코드 종료
+      // -------------------------------------------------------------------
+          
+      this.resumeProc.update_file(resumeVO); // Oracle 처리
+
+      mav.addObject("resumeno", resumeVO.getResumeno());
+      mav.setViewName("redirect:/resume/read.do"); // request -> param으로 접근 전환
+                
+    } else {
+      
+      mav.setViewName("/member/login_need"); // GET
+    }
+
+    // redirect하게되면 전부 데이터가 삭제됨으로 mav 객체에 다시 저장
+    mav.addObject("now_page", resumeVO.getNow_page());
+    
+    return mav; // forward
+  }   
+  
+  //삭제 폼
+  @RequestMapping(value="/resume/delete.do", method=RequestMethod.GET )
+  public ModelAndView delete(int resumeno) { 
+    ModelAndView mav = new  ModelAndView();
+    
+    // 삭제할 정보를 조회하여 확인
+    ResumeVO resumeVO = this.resumeProc.read(resumeno);
+    mav.addObject("resumeVO", resumeVO);
+    
+    mav.setViewName("/resume/delete");  // /webapp/WEB-INF/views/resume/delete.jsp
+    
+    return mav; 
+  }
+
+  // 삭제 처리
+  @RequestMapping(value = "/resume/delete.do", method = RequestMethod.POST)
+  public ModelAndView delete(HttpSession session, ResumeVO resumeVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    // -------------------------------------------------------------------
+    // 파일 삭제 시작
+    // -------------------------------------------------------------------
+    // 삭제할 파일 정보를 읽어옴.
+    ResumeVO resumeVO_read = resumeProc.read(resumeVO.getResumeno());
+        
+    String file1saved = resumeVO.getFile1saved();
+    String thumb1 = resumeVO.getThumb1();
+    
+    String uploadDir = Notice.getUploadDir();
+    Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
+    Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
+    // -------------------------------------------------------------------
+    // 파일 삭제 종료
+    // -------------------------------------------------------------------
+        
+    this.resumeProc.delete(resumeVO.getResumeno()); // DBMS 삭제
+    
+    int memberno = (int) session.getAttribute("memberno");
+    mav.addObject("memberno", memberno);
+    mav.addObject("now_page", resumeVO.getNow_page());
+    mav.setViewName("redirect:/resume/list_all.do"); // request -> param으로 접근 전환
+    
+    return mav;
+  }   
 
 }

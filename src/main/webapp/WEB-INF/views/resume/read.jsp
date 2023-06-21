@@ -8,7 +8,12 @@
 <c:set var="file1saved" value="${resumeVO.file1saved }" />
 <c:set var="thumb1" value="${resumeVO.thumb1 }" />
 <c:set var="intro" value="${resumeVO.intro }" />
-
+<c:set var="tel" value="${resumeVO.tel }" />
+<c:set var="address" value="${resumeVO.address }" />
+<c:set var="career" value="${resumeVO.career }" />
+<c:set var="skills" value="${resumeVO.skills }" />
+<c:set var="langskill" value="${resumeVO.langskill }" />
+<c:set var="wantjob" value="${resumeVO.wantjob }" />
 <c:set var="size1_label" value="${resumeVO.size1_label }" />
 <c:set var="rdate" value="${resumeVO.rdate.substring(0, 16) }" />
  
@@ -29,7 +34,9 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'><A href="./list_by_cateno.do?cateno=${cateno }" class='title_link'>${cateVO.name }</A></DIV>
+<DIV class='title_line'>
+<A href="./list_all.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>이력서 </a> > 
+<A href="./read.do?resumeno=${resumeno }" class='title_link'>${title }</A></DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
@@ -37,11 +44,11 @@
     <c:if test="${sessionScope.id != null}">
       <A href="./create.do">등록</A>
       <span class='menu_divide' >│</span>
-      <A href="./update_text.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word }">글 수정</A>
+      <A href="./update_text.do?resumeno=${resumeno}">글 수정</A>
       <span class='menu_divide' >│</span>
-      <A href="./update_file.do?noticeno=${noticeno}&now_page=${param.now_page}">파일 수정</A>  
+      <A href="./update_file.do?resumeno=${resumeno}">파일 수정</A>  
       <span class='menu_divide' >│</span>
-      <A href="./delete.do?noticeno=${noticeno}&now_page=${param.now_page}">삭제</A>  
+      <A href="./delete.do?resumeno=${resumeno}">삭제</A>  
       <span class='menu_divide' >│</span>
     </c:if>
 
@@ -57,30 +64,37 @@
         <DIV style="width: 100%; word-break: break-all;">
           <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
-              <%-- /static/notice/storage/ --%>
-              <img src="/notice/storage/${file1saved }" style='width: 20%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <%-- /static/resume/storage/ --%>
+              <img src="/resume/storage/${file1saved }" style='width: 20%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/notice/images/none1.png" style='width: 20%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/resume/images/none1.png" style='width: 20%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
             </c:otherwise>
           </c:choose>
 
           <span style="font-size: 1.5em; font-weight: bold;">${title }</span><br>
-          <div style="font-size: 1em;">이름 : ${name } / ${rdate }</div><br>
-          ${content }
+          <div style="font-size: 1em;">📆 작성일자 : ${rdate }</div><br>
+          <div style="font-size: 1em;">👨‍🦲 이름 : ${name }</div><br>
+          <div style="font-size: 1em;">📞 전화번호 : ${tel }</div><br>
+          <div style="font-size: 1em;">🌏 주소 : ${address }</div><br>
+          <div style="font-size: 1em;">🚻 성별 : ${gender }</div><br>
         </DIV>
       </li>
       
-      <li class="li_none" style="clear: both;">
-        <DIV style='text-decoration: none;'>
-          <br>
-          검색어(키워드): ${word }
-        </DIV>
+      <li class="li_none">
+        <div style="font-size: 1em;">👨‍🔧 희망직종 : ${wantjob }</div><br>
+        <div style="font-size: 1em;">💪 경력 : ${career }</div><br>
+        <div style="font-size: 1em;">🦾 보유기술(자격증) : ${skills }</div><br>
+        <div style="font-size: 1em;">👄 언어능력 : ${langskill }</div><br>
+        😊 자기소개<br>${intro }
       </li>
+      
+      <div class='menu_line'></div>
+      
       <li class="li_none">
         <DIV>
           <c:if test="${file1.trim().length() > 0 }"> <%-- ServletRegister.java: registrationBean.addUrlMappings("/download"); --%>
-            첨부 파일: <a href='/download?dir=/notice/storage&filename=${file1saved}&downname=${file1}'>${file1}</a> (${size1_label})  
+            첨부 파일: <a href='/download?dir=/resume/storage&filename=${file1saved}&downname=${file1}'>${file1}</a> (${size1_label})  
           </c:if>
         </DIV>
       </li>   

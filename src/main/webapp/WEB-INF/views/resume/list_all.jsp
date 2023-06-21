@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all.do?now_page=1" class='title_link'>이력서 </a>
+<A href="./list_all.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>이력서 </a>
 </DIV>
 
 <DIV class='content_body'>
@@ -66,7 +66,7 @@
           ${resumeno}
           </td>
           <td style='vertical-align: middle;'>
-            <a href="./read.do?resumeno=${resumeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+            <a href="./read.do?resumeno=${resumeno}"><strong>${title}</strong>  
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>

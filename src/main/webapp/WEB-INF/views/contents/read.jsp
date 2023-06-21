@@ -35,6 +35,39 @@
 			return false;
 		}
 	}
+
+
+
+
+	  function gaechu(image) {
+	      var dataToSend = {replyno: $(image).data("value")};
+        console.log("클릭한 댓글의 데이터: " + dataToSend.replyno);
+
+        if (${sessionScope.id != null}){
+        	$.ajax({                // 자바스크립트 객체 표기법: {, }  
+                url: "/like_reply/gaechu_ajax.do", // form action 기능을 함.
+                type: "post",          // form method 기능을 함.
+                cache: false,         // 응답 결과 임시 저장 취소
+                async: true,          // true: 비동기 통신 (권장), false: 동기 통신
+                dataType: "json",     // 서버로부터의 응답 형식: json, html, xml..., JSON.parse() 자동 처리
+                data: dataToSend,         // 서버로 보내는 데이터, id=user1&passwd=1234
+                success: function(rdata) { // 응답 성공
+                  if (rdata.result == "성공") {
+                    window.location.reload();
+                  } else {
+                    alert("이미 추천한 댓글입니다");  
+                  }
+                      
+                },
+                error: function(request, status, error) {
+                }   
+              });
+
+            }else{
+            	alert("로그인을 하십시오")
+                }
+
+	      }
 </script>
 
 </head> 
@@ -116,7 +149,8 @@
   <table class="table" style="width:100%;">
    <colgroup>
       <col style="width: 8%;"></col>
-      <col style="width: 80%;"></col>
+      <col style="width: 75%;"></col>
+      <col style="width: 5%;"></col>
       <col style="width: 8%;"></col>
       <col style="width: 4%;"></col>
    </colgroup>
@@ -125,6 +159,7 @@
       <tr>
       <td>${f.apply(memberno) }</td>
       <td>${replyVO.reply_content }</td>
+      <td><a href="#"><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)"></a> +${f2.apply(replyVO.replyno) } </td>
       <td style="font-size:13px; vertical-align: middle;">${replyVO.rdate }</td>
       <td>
       <a href="/reply/delete.do?contentsno=${param.contentsno }&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}&replyno=${replyVO.replyno}"><IMG src="/cate/images/delete.png" class="icon" 

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.board.BoardProcInter;
 import dev.mvc.board.BoardVO;
+import dev.mvc.like_reply.Like_replyProcInter;
 import dev.mvc.member.MemberProc;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
@@ -46,6 +47,10 @@ public class ContentsCont {
   @Autowired
   @Qualifier("dev.mvc.reply.ReplyProc")
   private ReplyProcInter replyProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.like_reply.Like_replyProc")
+  private Like_replyProcInter like_replyProc;
 
   public ContentsCont() {
     System.out.println("ContentsCont created");
@@ -300,13 +305,22 @@ public class ContentsCont {
     mav.addObject("reply_list", reply_list);
     mav.addObject("reply_count", reply_count);
     
+    // memberno로 id 구하는 메소드를 람다식으로 객체화 후 페이지에 전달
     Function<Integer, String> f = (memberno) -> {
-      MemberVO memberVO_replyer = memberProc.readByMemberno(memberno);
+      MemberVO memberVO_replyer = this.memberProc.readByMemberno(memberno);
       String id = memberVO_replyer.getId();
       return id;
     };
     
     mav.addObject("f", f);
+    
+    // replyno로 좋아요 갯수 구하는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, Integer> f2 = (replyno) -> {
+      int cnt = this.like_replyProc.count_by_replyno(replyno);
+      return cnt;
+    };
+    
+    mav.addObject("f2", f2);
 
     BoardVO boardVO = this.boardProc.read(contentsVO.getBoardno()); // 그룹 정보를 읽기
     mav.addObject("boardVO", boardVO);
