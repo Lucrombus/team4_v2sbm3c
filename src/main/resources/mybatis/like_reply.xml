@@ -17,12 +17,18 @@
   WHERE replyno = #{replyno} AND memberno = #{memberno}
   </select>
   
-    <!-- 조회: 특정 댓글에 대한 총 좋아요 수-->
+  <!-- 조회: 특정 댓글에 대한 총 좋아요 수-->
   <select id="count_by_replyno" resultType="int" parameterType="int">
   SELECT COUNT(*) as cnt
   FROM like_reply
   WHERE replyno = #{replyno}
   </select>
+  
+  <!-- 삭제: replyno로 댓글 좋아요 삭제-->
+  <delete id="delete_by_replyno" parameterType="int">
+  DELETE FROM like_reply
+  WHERE replyno = #{replyno}
+  </delete>
   
 
 

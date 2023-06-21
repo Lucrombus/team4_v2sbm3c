@@ -30,6 +30,13 @@ public class Like_replyProc implements Like_replyProcInter {
     int cnt = this.like_replyDAO.count_by_replyno(replyno); 
     return cnt;
   }
+  
+  @Override
+  public int delete_by_replyno(int replyno) { 
+    
+    int cnt = this.like_replyDAO.delete_by_replyno(replyno); 
+    return cnt;
+  }
 
 
 }

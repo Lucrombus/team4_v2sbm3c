@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.board.BoardVO;
 import dev.mvc.contents.ContentsVO;
+import dev.mvc.like_reply.Like_replyProcInter;
 
 
 @Controller
@@ -19,6 +20,10 @@ public class ReplyCont {
   @Autowired
   @Qualifier("dev.mvc.reply.ReplyProc")
   private ReplyProcInter replyProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.like_reply.Like_replyProc")
+  private Like_replyProcInter like_replyProc;
   
   public ReplyCont() {
     System.out.println("Reply Cont created");
@@ -62,7 +67,10 @@ public class ReplyCont {
     ReplyVO replyVO = this.replyProc.read(replyno);
     
     if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(replyVO.getMemberno())) {
+      
+      int cnt_like = this.like_replyProc.delete_by_replyno(replyno);
       int cnt = this.replyProc.delete(replyno);
+      
       
       mav.addObject("contentsno", contentsVO.getContentsno());
       mav.addObject("boardno", contentsVO.getBoardno());

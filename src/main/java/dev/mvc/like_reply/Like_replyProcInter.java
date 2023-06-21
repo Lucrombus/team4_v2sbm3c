@@ -25,5 +25,13 @@ public interface Like_replyProcInter {
    * @return 특정 replyno에 달린 총 좋아요 수
    */
   public int count_by_replyno(int replyno);
+  
+  /**
+   * 삭제
+   * 
+   * @param int replyno
+   * @return replyno로 댓글에 달린 좋아요 삭제
+   */
+  public int delete_by_replyno(int replyno);
 
 }
