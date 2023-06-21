@@ -1,5 +1,5 @@
 package dev.mvc.inquiry;
- 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,45 +18,89 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.board.BoardVO;
+import dev.mvc.contents.Contents;
 import dev.mvc.contents.ContentsProcInter;
 import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberProcInter;
+import dev.mvc.member.MemberVO;
+import dev.mvc.tool.Tool;
+import dev.mvc.tool.Upload;
 
- 
 @Controller
 public class InquiryCont {
   @Autowired
   @Qualifier("dev.mvc.inquiry.InquiryProc")
   private InquiryProcInter inquiryProc;
   
-  @Qualifier("dev.mvc.contents.ContentsProc")
-  private ContentsProcInter contentsProc;
-  
+  @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
-  
-  public InquiryCont(){
+
+  public InquiryCont() {
     System.out.println("-> InquiryCont created.");
   }
 
   // http://localhost:9093/inquiry/create.do?contentsno=3
   /**
-  * 문의 글 등록
-  * @return
-  */
-  @RequestMapping(value="/inquiry/create.do", method=RequestMethod.GET )
-  public ModelAndView create(int contentsno) {
+   * 문의 글 등록
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/inquiry/create.do", method = RequestMethod.GET)
+  public ModelAndView create(HttpSession session, int memberno) {
     ModelAndView mav = new ModelAndView();
     
-    ContentsVO contentsVO = this.contentsProc.read(contentsno);
-    mav.addObject("contentsVO", contentsVO);
-    // request.setAttribute("contentsVO", contentsVO);
+    MemberVO memberVO = this.memberProc.read(memberno);
     
-    mav.setViewName("/inquiry/create"); // /WEB-INF/views/inquiry/create.jsp
-   
+    if (this.memberProc.isMember(session) || this.memberProc.isAdmin(session) || this.memberProc.isEnterprise(session)) {
+      mav.addObject("memberno", memberno);
+      mav.setViewName("/inquiry/create"); // /WEB-INF/views/inquiry/create.jsp
+    } else {
+      mav.setViewName("/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
+    }
+    
     return mav; // forward
   }
-  
+
+  /**
+   * 등록 처리 http://localhost:9093/inquiry/create.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/inquiry/create.do", method = RequestMethod.POST)
+  public ModelAndView create(HttpServletRequest request, HttpSession session, InquiryVO inquiryVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (session.getAttribute("id") != null) {
+      int cnt = this.inquiryProc.create(inquiryVO); 
+      
+      // ------------------------------------------------------------------------------
+      // PK의 return
+      // ------------------------------------------------------------------------------
+      // System.out.println("--> contentsno: " + contentsVO.getContentsno());
+      // mav.addObject("contentsno", contentsVO.getContentsno()); // redirect parameter 적용
+      // ------------------------------------------------------------------------------
+      
+      if (cnt == 1) {
+          mav.addObject("code", "create_success");
+          // cateProc.increaseCnt(contentsVO.getCateno()); // 글수 증가
+      } else {
+          mav.addObject("code", "create_fail");
+      }
+      mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+      
+      mav.addObject("url", "/inquiry/msg"); // msg.jsp, redirect parameter 적용
+      mav.setViewName("redirect:/contents/msg.do"); 
+
+    } else {
+      mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
+      mav.setViewName("redirect:/contents/msg.do"); 
+    }
+    
+    return mav; // forward
+  }
 }

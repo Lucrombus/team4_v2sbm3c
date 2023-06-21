@@ -4,11 +4,13 @@
 //  CREATE TABLE inquiry(
 //      inquiryno                          NUMBER(10)     NOT NULL    PRIMARY KEY,
 //      memberno                        INTEGER(10)    NOT NULL,
-//      inquiryTitle                       VARCHAR2(20) NOT NULL ,
+//      inquiryTitle                       VARCHAR2(50) NOT NULL ,
 //      inquiryReason                    VARCHAR2(100)  NOT NULL ,
 //      contentsno                        NUMBER(10)     NOT NULL ,
+//      boardno                           NUMBER(10)     NOT NULL ,
 //    FOREIGN KEY (memberno) REFERENCES member (memberno),
-//    FOREIGN KEY (contentsno) REFERENCES contents (contentsno)
+//    FOREIGN KEY (contentsno) REFERENCES contents (contentsno),
+//    FOREIGN KEY (boardno) REFERENCES board (boardno)
 //  );
 
 package dev.mvc.inquiry;
@@ -19,14 +21,14 @@ public class InquiryVO {
   
   /** 문의 번호 */
   private int inquiryno;
-  /** 회원번호(신고자) */
+  /** 회원 번호 */
   private int memberno;
   /** 문의 제목 */
   private String inquiryTitle;
   /** 문의 내용 */
   private String inquiryReason;
-  /** 컨텐츠 번호 */
-  private int contentsno;
+  /** 답변 */
+  private String answer;
   
   public int getInquiryno() {
     return inquiryno;
@@ -46,10 +48,10 @@ public class InquiryVO {
   public void setInquiryReason(String inquiryReason) {
     this.inquiryReason = inquiryReason;
   }
-  public int getContentsno() {
-    return contentsno;
+  public String getInquiryTitle() {
+    return inquiryTitle;
   }
-  public void setContentsno(int contentsno) {
-    this.contentsno = contentsno;
+  public void setInquiryTitle(String inquiryTitle) {
+    this.inquiryTitle = inquiryTitle;
   }
 }

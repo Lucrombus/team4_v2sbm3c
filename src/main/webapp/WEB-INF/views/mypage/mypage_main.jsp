@@ -27,7 +27,7 @@
     <br><br>
     <button type='button' onclick="location.href='/mypage/report.do'" class="btn btn-info">내 신고 내역</button>
     <br><br>
-    <button type='button' onclick="location.href='/mypage/inquiry.do'" class="btn btn-info">문의 하기</button>
+    <button type='button' onclick="location.href='/inquiry/create.do?memberno=${memberno}'" class="btn btn-info">문의 하기</button>
     <br><br>
     <button type='button' onclick="location.href='/resume/list_all.do?memberno=${memberno}'" class="btn btn-info">내 이력서</button>     
   </DIV>

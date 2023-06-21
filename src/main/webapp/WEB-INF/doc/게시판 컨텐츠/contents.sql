@@ -31,3 +31,4 @@ COMMENT ON COLUMN contents.size1 is '이미지 용량';
 COMMENT ON COLUMN contents.word is '검색어';
 
 
+SELECT * FROM contents;

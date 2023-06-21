@@ -104,6 +104,6 @@ FROM member
 WHERE id='kd1' AND passwd = 1234
 
 
-
+ALTER TABLE member RENAME COLUMN password to passwd;
 
 commit;
