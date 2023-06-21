@@ -6,20 +6,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <mapper namespace = "dev.mvc.inquiry.InquiryDAOInter">
   
   <insert id="create" parameterType="dev.mvc.inquiry.InquiryDAOInter">
-    INSERT INTO inquiry(inquiryno, memberno, inquiryReason, contentsno) 
-    VALUES(inquiry_seq.nextval, #{memberno}, #{inquiryReason}, #{contentsno})
+    INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason, contentsno) 
+    VALUES(inquiry_seq.nextval, #{memberno}, #{inquiryTitle}, #{inquiryReason}, #{contentsno})
   </insert>
   
   <!-- 전체 문의 목록 출력 -->
   <select id="list" resultType="dev.mvc.inquiry.InquiryDAOInter">
-    SELECT inquiryno, memberno, inquiryReason, contentsno
+    SELECT inquiryno, memberno, inquiryTitle, inquiryReason, contentsno
     FROM inquiry
     ORDER BY inquiryno ASC
   </select>
   
   <!-- memberno와 inquiryno에 따른 문의 정보 조회 -->
   <select id="read" resultType="dev.mvc.inquiry.InquiryDAOInter" parameterType="int">
-    SELECT inquiryno, memberno, inquiryReason, contentsno
+    SELECT inquiryno, memberno, inquiryTitle, inquiryReason, contentsno
     FROM member
     WHERE memberno = #{memberno} AND inquiryno = #{inquiryno}
   </select>  
