@@ -25,21 +25,29 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- top 메뉴 drop down 버튼 스크립트를 작동하게 함 -->
 <script type="text/javascript">
 
-	function confirmClick(event) {
-		var result = confirm("댓글을 삭제하시겠습니까?");
-		if (result) {
-			return true;
+function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인지 확인
 
-		} else {
-			event.preventDefault(); // 기본 동작(링크 이동) 막기
-			return false;
-		}
-	}
+    var memno = $(image).data("value");
+    console.log("댓글쓴 회원번호:" +memno);
+
+	  var result = confirm("댓글을 삭제하시겠습니까?");
+
+	    if (result) {
+
+	      if ( ${sessionScope.memberno == null ? -1 : sessionScope.memberno } != memno ){
+    	  alert("다른 회원의 댓글은 삭제할 수 없습니다");
+    	  event.preventDefault(); // 기본 동작(링크 이동) 막기
+          }
+        
+    } else {
+      event.preventDefault(); // 기본 동작(링크 이동) 막기
+    }
+  }
 
 
 
 
-	  function gaechu(image) {
+	  function gaechu(image) { // 추천 누를 때 로그인 했는지 확인, 이미 추천했을경우는 rdata.result가 "실패"가 된다.
 	      var dataToSend = {replyno: $(image).data("value")};
         console.log("클릭한 댓글의 데이터: " + dataToSend.replyno);
 
@@ -64,10 +72,21 @@
               });
 
             }else{
-            	alert("로그인을 하십시오")
+            	alert("추천을 하려면 로그인을 하십시오")
                 }
 
 	      }
+
+      function send(){ // 댓글 작성전 로그인 했는지 확인
+          if (${sessionScope.memberno != null}){
+              $("#frm2").submit();
+
+              }else{
+            	  alert("댓글을 쓰려면 로그인을 하십시오");
+                  
+                  }
+          
+          }
 </script>
 
 </head> 
@@ -163,7 +182,7 @@
       <td style="font-size:13px; vertical-align: middle;">${replyVO.rdate }</td>
       <td>
       <a href="/reply/delete.do?contentsno=${param.contentsno }&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}&replyno=${replyVO.replyno}"><IMG src="/cate/images/delete.png" class="icon" 
-      onclick="confirmClick(event)"></a>
+      onclick="confirmClick(this)" data-value="${replyVO.memberno}"></a>
       </td>
       </tr>
       </c:forEach>
@@ -180,7 +199,7 @@
       <textarea name="reply_content" class="form-control" placeholder="댓글입력" id="reply_content" style="height: 100px" required="required"  maxlength="100"></textarea>
       <BR>
       <div style="text-align:right;">
-      <button type='submit' class="btn btn-dark btn-sm">댓글 등록</button>
+      <button type='button' onclick="send()" class="btn btn-dark btn-sm">댓글 등록</button>
       </div>
       
   </form>

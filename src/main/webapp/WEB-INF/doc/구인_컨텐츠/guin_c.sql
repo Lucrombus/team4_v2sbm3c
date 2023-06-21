@@ -19,7 +19,7 @@ CREATE TABLE guin_c(
 		period                        		VARCHAR2(50)		 NOT NULL,
 		tel                           		VARCHAR2(50)		 NOT NULL,
 		email                         		VARCHAR2(50)		 NOT NULL,
-		word                                VARCHAR2(20)         NULL ,
+		word                                VARCHAR2(100)         NULL ,
         file1                         		VARCHAR2(1000)		 NULL ,
 		file1saved                    		VARCHAR2(1000)		 NULL ,
 		thumb1                        		VARCHAR2(100)		 NULL ,
