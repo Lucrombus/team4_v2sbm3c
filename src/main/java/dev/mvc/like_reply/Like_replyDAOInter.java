@@ -20,6 +20,14 @@ public interface Like_replyDAOInter {
    */
   public int check(Like_replyVO like_reply);
   
+  /**
+   * 조회
+   * 
+   * @param Like_replyVO
+   * @return 특정 replyno에 달린 총 좋아요 수
+   */
+  public int count_by_replyno(int replyno);
+  
   
 
 }

@@ -4,17 +4,24 @@
 
 <mapper namespace="dev.mvc.like_reply.Like_replyDAOInter">
 
- <!-- 등록: 추가한 레코드 갯수를 리턴 -->
-  <insert id="create" parameterType="dev.mvc.reply.ReplyVO">
+  <!-- 등록: 추가한 레코드 갯수를 리턴 -->
+  <insert id="create" parameterType="dev.mvc.like_reply.Like_replyVO">
   INSERT INTO like_reply (likeno, replyno, memberno)
   VALUES (like_reply_seq.nextval, #{replyno}, #{memberno})
   </insert>
   
-     <!-- 조회: 이미 좋아요 눌렀는지 체크 -->
-  <select id="check" resultType="int" parameterType="int">
+  <!-- 조회: 이미 좋아요 눌렀는지 체크 -->
+  <select id="check" resultType="int" parameterType="dev.mvc.like_reply.Like_replyVO">
   SELECT COUNT(*) as cnt
   FROM like_reply
-  WHERE replyno = #{replyno} AND memberno = #{memberno};
+  WHERE replyno = #{replyno} AND memberno = #{memberno}
+  </select>
+  
+    <!-- 조회: 특정 댓글에 대한 총 좋아요 수-->
+  <select id="count_by_replyno" resultType="int" parameterType="int">
+  SELECT COUNT(*) as cnt
+  FROM like_reply
+  WHERE replyno = #{replyno}
   </select>
   
 
