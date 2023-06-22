@@ -35,4 +35,9 @@ public interface InquiryProcInter {
    */
   public ArrayList<InquiryVO> list_by_memberno(int memberno);
   
+  /**
+   * 문의 조회
+   * @return
+   */
+  public InquiryVO read(int inquiryno);
 }

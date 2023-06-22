@@ -26,10 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
   </select>
 
   <!-- memberno와 inquiryno에 따른 문의 정보 조회 -->
-  <select id="read" resultType="dev.mvc.inquiry.InquiryDAOInter" parameterType="int">
+  <select id="read" resultType="dev.mvc.inquiry.InquiryVO" parameterType="int">
     SELECT inquiryno, memberno, inquiryTitle, inquiryReason, answer
     FROM inquiry
-    WHERE memberno = #{memberno} AND inquiryno = #{inquiryno}
+    WHERE inquiryno = #{inquiryno}
   </select>  
   
 </mapper>

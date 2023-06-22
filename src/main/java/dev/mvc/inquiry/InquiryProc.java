@@ -64,12 +64,12 @@ public class InquiryProc implements InquiryProcInter {
     }
     return list; 
   }
-//
-//  @Override
-//  public MemberVO read(int memberno) {
-//    MemberVO memberVO = this.memberDAO.read(memberno);
-//    return memberVO;
-//  }
+  
+  @Override
+  public InquiryVO read(int inquiryno) {
+    InquiryVO inquiryVO = this.inquiryDAO.read(inquiryno);
+    return inquiryVO;
+  }
 //
 //  @Override
 //  public MemberVO readById(String id) {

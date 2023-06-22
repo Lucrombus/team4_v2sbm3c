@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map; // interface
 
 import dev.mvc.member.MemberVO;
+import dev.mvc.notice.NoticeVO;
 
 public interface InquiryDAOInter {
   
@@ -35,4 +36,9 @@ public interface InquiryDAOInter {
    */
   public ArrayList<InquiryVO> list_by_memberno(int memberno);
   
+  /**
+   * 문의 조회
+   * @return
+   */
+  public InquiryVO read(int inquiryno);
 }

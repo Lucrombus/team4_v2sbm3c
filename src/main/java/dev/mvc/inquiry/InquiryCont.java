@@ -28,6 +28,7 @@ import dev.mvc.contents.ContentsProcInter;
 import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
+import dev.mvc.notice.NoticeVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -149,6 +150,33 @@ public class InquiryCont {
       mav.setViewName("/member/admin_login_need");
     }
     
+    return mav;
+  }
+  
+  // 문의 조회
+  @RequestMapping(value="/inquiry/read.do", method=RequestMethod.GET )
+  public ModelAndView read(int inquiryno) {
+    ModelAndView mav = new ModelAndView();
+
+    InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
+    
+    String title = inquiryVO.getInquiryTitle();
+    String content = inquiryVO.getInquiryReason();
+    
+    title = Tool.convertChar(title);  // 특수 문자 처리
+    content = Tool.convertChar(content); 
+    
+    inquiryVO.setInquiryTitle(title);
+    inquiryVO.setInquiryReason(content);  
+    
+    mav.addObject("inquiryVO", inquiryVO); // request.setAttribute("inquiryVO", inquiryVO);
+    
+    // 회원 번호: admino -> AdminVO -> name
+    String name = this.memberProc.read(inquiryVO.getMemberno()).getName();
+    mav.addObject("name", name);
+
+    mav.setViewName("/inquiry/read"); // /WEB-INF/views/notice/read.jsp
+        
     return mav;
   }
 }
