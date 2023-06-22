@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ResumeVO {
   
-  /** 이력서 번호 */
+  
   private int resumeno;
   private int memberno;
   private String title;

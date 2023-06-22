@@ -7,7 +7,7 @@ public interface ResumeDAOInter {
   
   /**
    * 이력서 등록
-   * @param NoticeVO
+   * @param ResumeVO
    * @return
    */
   public int create(ResumeVO resumeVO);
@@ -15,7 +15,7 @@ public interface ResumeDAOInter {
   /**
    * 이력서 전체 목록
    * @param 
-   * @return 전체목록을 ArrayList<NoticeVO>로 리턴
+   * @return 전체목록을 ArrayList<ResumeVO>로 리턴
    */
   public ArrayList<ResumeVO> list_all(int memberno);
   

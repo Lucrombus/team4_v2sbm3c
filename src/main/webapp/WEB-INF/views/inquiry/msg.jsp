@@ -35,13 +35,13 @@
         
         <c:when test="${code == 'create_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">새로운 컨텐츠를 등록했습니다.</span>
+            <span class="span_success">문의를 등록했습니다.</span>
           </LI> 
         </c:when>
         
         <c:when test="${code == 'create_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">새로운 컨텐츠 등록에 실패했습니다.</span>
+            <span class="span_fail">문의 등록에 실패했습니다.</span>
           </LI>                                                                      
         </c:when>
         
