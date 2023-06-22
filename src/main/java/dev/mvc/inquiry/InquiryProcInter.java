@@ -22,4 +22,17 @@ public interface InquiryProcInter {
    * @return
    */
   public int create(InquiryVO inquiryVO);
+  
+  /**
+   * 문의 전체 목록 (관리자)
+   * @return
+   */
+  public ArrayList<InquiryVO> list_all();
+  
+  /**
+   * 멤버 개인 문의 전체 목록
+   * @return
+   */
+  public ArrayList<InquiryVO> list_by_memberno(int memberno);
+  
 }

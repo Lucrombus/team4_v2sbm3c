@@ -12,6 +12,8 @@ import java.util.List;
 // pay.calc();
 import java.util.Map; // interface
 
+import dev.mvc.member.MemberVO;
+
 public interface InquiryDAOInter {
   
   /**
@@ -20,5 +22,17 @@ public interface InquiryDAOInter {
    * @return
    */
   public int create(InquiryVO inquiryVO);
+  
+  /**
+   * 문의 전체 목록 (관리자)
+   * @return
+   */
+  public ArrayList<InquiryVO> list_all();
+  
+  /**
+   * 멤버 개인 문의 전체 목록
+   * @return
+   */
+  public ArrayList<InquiryVO> list_by_memberno(int memberno);
   
 }

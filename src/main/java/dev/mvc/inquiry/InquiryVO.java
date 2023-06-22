@@ -60,4 +60,10 @@ public class InquiryVO {
   public void setAnswer(String answer) {
     this.answer = answer;
   }
+  @Override
+  public String toString() {
+    return "InquiryVO [inquiryno=" + inquiryno + ", memberno=" + memberno + ", inquiryTitle=" + inquiryTitle
+        + ", inquiryReason=" + inquiryReason + ", answer=" + answer + "]";
+  }
+  
 }

@@ -27,8 +27,14 @@
     <br><br>
     <button type='button' onclick="location.href='/mypage/report.do'" class="btn btn-info">내 신고 내역</button>
     <br><br>
-    <button type='button' onclick="location.href='/inquiry/create.do?memberno=${memberno}'" class="btn btn-info">문의 하기</button>
-    <br><br>
+    <c:if test="${sessionScope.rankno == 1}">
+        <button type='button' onclick="location.href='/inquiry/list_all.do'" class="btn btn-info">문의</button>
+        <br><br>
+    </c:if>
+    <c:if test="${sessionScope.rankno == 2 || sessionScope.rankno == 3}">
+        <button type='button' onclick="location.href='/inquiry/list_by_memberno.do?memberno=${memberno}'" class="btn btn-info">문의</button>
+        <br><br>
+    </c:if>
     <button type='button' onclick="location.href='/resume/list_all.do?memberno=${memberno}'" class="btn btn-info">내 이력서</button>     
   </DIV>
  

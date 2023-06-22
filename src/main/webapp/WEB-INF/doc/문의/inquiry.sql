@@ -30,4 +30,14 @@ CREATE SEQUENCE inquiry_seq
   
 SELECT * FROM inquiry;
 
-INSERT INTO inquiry VALUES (inquiry_seq.nextval, 2, '부적절한 글' , '이유', 3); 
+INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason, answer) 
+VALUES (inquiry_seq.nextval, 2, '부적절한 글' , '이유', 'n'); 
+
+SELECT inquiryno, memberno, inquiryTitle, inquiryReason, answer
+FROM inquiry
+WHERE memberno = 7
+ORDER BY inquiryno ASC
+
+SELECT inquiryno, memberno, inquiryTitle, inquiryReason, answer
+FROM inquiry
+ORDER BY inquiryno ASC

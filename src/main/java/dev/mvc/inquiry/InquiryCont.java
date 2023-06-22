@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -54,8 +55,7 @@ public class InquiryCont {
   public ModelAndView create(HttpSession session, int memberno) {
     ModelAndView mav = new ModelAndView();
 
-    if (this.memberProc.isMember(session) || this.memberProc.isAdmin(session)
-        || this.memberProc.isEnterprise(session)) {
+    if (this.memberProc.isMember(session) || this.memberProc.isEnterprise(session)) {
       mav.setViewName("/inquiry/create"); // /WEB-INF/views/inquiry/create.jsp
     } else {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
@@ -79,18 +79,17 @@ public class InquiryCont {
       int cnt = inquiryProc.create(inquiryVO); 
     
       if (cnt == 1) {
-          mav.addObject("code", "create_success");
+        mav.setViewName("redirect:/inquiry/list_by_memberno.do"); 
       } else {
-          mav.addObject("code", "create_fail");
+        mav.setViewName("redirect:/inquiry/list_by_member"); 
       }
-      mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
-      
+//      mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+//      
       mav.addObject("memberno", inquiryVO.getMemberno()); // redirect parameter 적용
-      mav.addObject("answer", inquiryVO.getAnswer()); // redirect parameter 적용
-
-      mav.addObject("url", "/inquiry/msg"); // msg.jsp, redirect parameter 적용
-     
-      mav.setViewName("redirect:/inquiry/msg.do"); 
+//      mav.addObject("answer", inquiryVO.getAnswer()); // redirect parameter 적용
+//
+//      mav.addObject("url", "/inquiry/msg"); // msg.jsp, redirect parameter 적용
+//     
 
     } else {
       mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
@@ -98,5 +97,58 @@ public class InquiryCont {
     }
     
     return mav; // forward
+  }
+  
+  /**
+   * 모든 문의에 등록된 글 목록, http://localhost:9093/inquiry/list_all.do
+   * @return
+   */
+  @RequestMapping(value="/inquiry/list_all.do", method=RequestMethod.GET)
+  public ModelAndView list_all(HttpServletRequest request, HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/inquiry/list_all"); // /webapp/WEB-INF/views/inquiry/list_all.jsp
+   
+    if(this.memberProc.isAdmin(session)) {
+      ArrayList<InquiryVO> list = this.inquiryProc.list_all();
+      mav.addObject("list", list);
+      } else {
+      mav.setViewName("/member/admin_login_need");
+    }
+    
+    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, String> f = (memberno) -> {
+      MemberVO memberVO = memberProc.readByMemberno(memberno);
+      String id = memberVO.getId();
+      return id;
+    };
+    mav.addObject("f", f);
+    
+    return mav;
+  }
+  
+  /**
+   * 특정 카테고리의 등록된 글목록
+   * http://localhost:9091/inquiry/list_by_memberno.do?memberno=1
+   * http://localhost:9091/inquiry/list_by_memberno.do?memberno=2
+   * http://localhost:9091/inquiry/list_by_memberno.do?memberno=3
+   * @return
+   */
+  @RequestMapping(value="/inquiry/list_by_memberno.do", method=RequestMethod.GET)
+  public ModelAndView list_by_memberno(HttpServletRequest request, HttpSession session, int memberno) {
+    ModelAndView mav = new ModelAndView();
+    
+    MemberVO memberVO = this.memberProc.read(memberno);
+    mav.addObject("memberVO", memberVO);
+    
+    if(this.memberProc.isMember(session) || this.memberProc.isEnterprise(session)) {
+    ArrayList<InquiryVO> list = this.inquiryProc.list_by_memberno(memberno);
+    mav.addObject("list", list);
+    
+    mav.setViewName("/inquiry/list_by_memberno"); // /webapp/WEB-INF/views/inquiry/list_by_memberno.jsp
+    } else {
+      mav.setViewName("/member/admin_login_need");
+    }
+    
+    return mav;
   }
 }
