@@ -21,7 +21,7 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <A href="./create.do">등록</A>
+    <A href="./create.do?memberno=${sessionScope.memberno}">등록</A>
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
@@ -41,9 +41,11 @@
        <textarea name='inquiryReason' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
     </div>
     
+    <input type="hidden" name="answer" value="answer"> <!-- 답변 미 등록 -->
+    
     <div class="content_body_bottom">
-      <button type="submit" class="btn btn-primary">등록</button>
-      <button type="button" onclick="location.href='./list_by_memberno.do?memberno=${param.memberno}'" class="btn btn-primary">목록</button>
+      <button type="submit" class="btn btn-info btn-sm">등록</button>
+      <button type="button" onclick="history.back()" class="btn btn-info btn-sm">취소</button>
     </div>
   
   </FORM>

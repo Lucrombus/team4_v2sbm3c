@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <mapper namespace = "dev.mvc.inquiry.InquiryDAOInter">
   
   <insert id="create" parameterType="dev.mvc.inquiry.InquiryDAOInter">
-    INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason, answer) 
-    VALUES(inquiry_seq.nextval, #{memberno}, #{inquiryTitle}, #{inquiryReason}, #{answer})
+   INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason, answer) 
+   VALUES (inquiry_seq.nextval, #{memberno}, #{inquiryTitle} , #{inquiryReason}, #{answer}) 
   </insert>
   
   <!-- 전체 문의 목록 출력
