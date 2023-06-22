@@ -4,20 +4,20 @@ DROP TABLE inquiry;
 /* Table Name: 문의 */
 /**********************************/
 CREATE TABLE inquiry(
-		inquiryno                     		NUMBER(10)		 NOT NULL PRIMARY KEY,
-        memberno                            NUMBER(10)       NOT NULL ,
-        inquiryTitle                        VARCHAR2(50)     NOT NULL ,
-		inquiryReason                 		VARCHAR2(100)	 NOT NULL ,
-        answer                              VARCHAR2(100)    NOT NULL DEFAULT 'N',
+		inquiryno                   NUMBER(10)      NOT NULL PRIMARY KEY,
+        memberno                    NUMBER(10)      NOT NULL,
+        inquiryTitle                VARCHAR2(50)    NOT NULL,
+		inquiryReason               VARCHAR2(100)   NOT NULL,
+        answer                      VARCHAR2(100)   DEFAULT 'N',
         FOREIGN KEY (memberno) REFERENCES member (memberno)
-)
+);
 
 COMMENT ON TABLE inquiry is '문의';
 COMMENT ON COLUMN inquiry.inquiryno is '문의번호';
 COMMENT ON COLUMN inquiry.memberno is '회원번호 (신고자)';
 COMMENT ON COLUMN inquiry.inquiryTitle is '문의제목';
 COMMENT ON COLUMN inquiry.inquiryReason is '문의사유';
-COMMENT ON COLUMN inquiry.contentsno is '컨텐츠 번호';
+COMMENT ON COLUMN inquiry.answer is '답변';
 
 DROP SEQUENCE inquiry_seq;
 

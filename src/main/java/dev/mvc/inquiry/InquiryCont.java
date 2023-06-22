@@ -54,10 +54,8 @@ public class InquiryCont {
   public ModelAndView create(HttpSession session, int memberno) {
     ModelAndView mav = new ModelAndView();
     
-    MemberVO memberVO = this.memberProc.read(memberno);
     
     if (this.memberProc.isMember(session) || this.memberProc.isAdmin(session) || this.memberProc.isEnterprise(session)) {
-      mav.addObject("memberno", memberno);
       mav.setViewName("/inquiry/create"); // /WEB-INF/views/inquiry/create.jsp
     } else {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
@@ -77,28 +75,24 @@ public class InquiryCont {
     
     if (session.getAttribute("id") != null) {
       int cnt = this.inquiryProc.create(inquiryVO); 
-      
-      // ------------------------------------------------------------------------------
-      // PK의 return
-      // ------------------------------------------------------------------------------
-      // System.out.println("--> contentsno: " + contentsVO.getContentsno());
-      // mav.addObject("contentsno", contentsVO.getContentsno()); // redirect parameter 적용
-      // ------------------------------------------------------------------------------
-      
+    
       if (cnt == 1) {
           mav.addObject("code", "create_success");
-          // cateProc.increaseCnt(contentsVO.getCateno()); // 글수 증가
       } else {
           mav.addObject("code", "create_fail");
       }
       mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
       
+      mav.addObject("memberno", inquiryVO.getMemberno()); // redirect parameter 적용
+      mav.addObject("answer", inquiryVO.getAnswer()); // redirect parameter 적용
+
       mav.addObject("url", "/inquiry/msg"); // msg.jsp, redirect parameter 적용
-      mav.setViewName("redirect:/contents/msg.do"); 
+     
+      mav.setViewName("redirect:/inquiry/msg.do"); 
 
     } else {
       mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
-      mav.setViewName("redirect:/contents/msg.do"); 
+      mav.setViewName("redirect:/inquiry/msg.do"); 
     }
     
     return mav; // forward
