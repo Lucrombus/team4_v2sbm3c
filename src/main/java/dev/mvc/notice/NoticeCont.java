@@ -190,7 +190,7 @@ public class NoticeCont {
    public ModelAndView update_text(HttpSession session, NoticeVO noticeVO) {
      ModelAndView mav = new ModelAndView();
      
-     if (session.getAttribute("memberno") != null) { // 관리자 로그인
+     if (session.getAttribute("memberno") != null) { // 로그인되어있는 상태이면
        int cnt = this.noticeProc.update_text(noticeVO);  
        
        mav.addObject("noticeno", noticeVO.getNoticeno());

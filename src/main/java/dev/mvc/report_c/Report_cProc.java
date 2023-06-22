@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 
 
-@Component("dev.mvc.resume.Report_cProc")
+@Component("dev.mvc.report_c.Report_cProc")
 public class Report_cProc implements Report_cProcInter{
   
   @Autowired

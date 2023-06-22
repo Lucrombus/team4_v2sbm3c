@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
  
-<!DOCTYPE mapper 
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="dev.mvc.report_c.Report_cDAOInter">
 
     <!-- 등록 -->
     <insert id = "create" parameterType="dev.mvc.report_c.Report_cVO">
       INSERT INTO report_c(reportno, memberno, contentsno, reason, rdate)
-      VALUES(report_c_seq.nextval, #{memberno}, #{contentsno}, #{reason), sysdate)
+      VALUES(report_c_seq.nextval, #{memberno}, #{contentsno}, #{reason}, sysdate)
     </insert>
     
     <!-- 조회 : 회원별 자신의 신고목록 -->

@@ -123,15 +123,17 @@ public class ResumeCont {
   // 리스트 조회
   //http://localhost:9093/resume/list_all.do
   @RequestMapping(value="/resume/list_all.do", method=RequestMethod.GET)
-  public ModelAndView list_all(int memberno) {
+  public ModelAndView list_all(HttpSession session, int memberno, ResumeVO resumeVO) {
     ModelAndView mav = new ModelAndView();
+    
+    if ((int)session.getAttribute("memberno") == (resumeVO.getMemberno())) {
     mav.setViewName("/resume/list_all"); // /WEB-INF/views/resume/list_all.jsp
-    
-    MemberVO memberVO = this.memberProc.read(memberno);
-    mav.addObject("memberVO", memberVO);
-    
+
     ArrayList<ResumeVO> list = this.resumeProc.list_all(memberno);
     mav.addObject("list", list);
+    } else {
+      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+    }
     
     return mav;
   }
