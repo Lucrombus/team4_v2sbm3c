@@ -122,6 +122,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
       <span style="font-size: 1.5em; font-weight: bold;">${title }</span>
       <span class='menu_divide' >│</span> ${memberVO.id}
       <span class='menu_divide' >│</span> ${rdate }
+      <span class='menu_divide' >│</span> <a href="/report_c/create.do?contentsno=${contentsno}"><img src='/images/siren.png' title="신고" class="icon"></a>
     </ASIDE>
   
     <form name='frm' id='frm' method='get' action='./list_by_boardno_search_paging.do'>
@@ -172,10 +173,10 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
   <table class="table" style="width:100%;">
    <colgroup>
       <col style="width: 8%;"></col>
-      <col style="width: 75%;"></col>
+      <col style="width: 74%;"></col>
       <col style="width: 5%;"></col>
       <col style="width: 8%;"></col>
-      <col style="width: 4%;"></col>
+      <col style="width: 5%;"></col>
    </colgroup>
       <c:forEach var="replyVO" items="${reply_list }">
       <c:set var="memberno" value="${replyVO.memberno }" />
@@ -194,6 +195,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
       <td>
       <a href="/reply/delete.do?contentsno=${param.contentsno }&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}&replyno=${replyVO.replyno}"><IMG src="/cate/images/delete.png" class="icon" 
       onclick="confirmClick(this)" data-value="${replyVO.memberno}"></a>
+      <a href="/report_m/create.do?memberno=${replyVO.memberno}"><img src='/images/siren.png' title="신고" class="icon"></a>
       </td>
       </tr>
       </c:forEach>

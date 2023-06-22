@@ -4,6 +4,12 @@
  
 <mapper namespace="dev.mvc.message.MessageDAOInter">
 
+  <!-- 등록: 추가한 레코드 갯수를 리턴 -->
+  <insert id="create" parameterType="dev.mvc.message.MessageVO">
+    INSERT INTO message(messageno, memberno, receive_memberno, title, content, rdate ) 
+    VALUES(message_seq.nextval, #{memberno}, #{receive_memberno}, #{title}, #{content}, sysdate)
+  </insert>
+
 
           
 </mapper>

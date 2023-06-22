@@ -19,10 +19,11 @@ public class MessageCont {
     System.out.println("");
   }
   
-  @RequestMapping(value="", method=RequestMethod.GET)
+  @RequestMapping(value="/message/create.do", method=RequestMethod.GET)
   public ModelAndView create() {
     
     ModelAndView mav = new ModelAndView();
+    mav.setViewName("/message/create");
     return mav;
     
   }

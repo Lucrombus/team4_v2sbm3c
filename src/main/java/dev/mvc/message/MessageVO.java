@@ -6,53 +6,58 @@ public class MessageVO {
   
 
     /** 쪽지 번호 */
-    private int message_messageno;
+    private int messageno;
     /** 보낸 회원번호 */
-    private int message_memberno;
+    private int memberno;
     /** 받는 회원번호 */
-    private int message_receive_memberno;
+    private int receive_memberno;
     /** 제목 */
     private String title;
     /** 내용 */
-    private String message_content;
+    private String content;
     /** 날짜 */
-    private Date message_rdate;
+    private Date rdate;
+    
+    
+    public int getMessageno() {
+      return messageno;
+    }
+    public void setMessageno(int messageno) {
+      this.messageno = messageno;
+    }
+    public int getMemberno() {
+      return memberno;
+    }
+    public void setMemberno(int memberno) {
+      this.memberno = memberno;
+    }
+    public int getReceive_memberno() {
+      return receive_memberno;
+    }
+    public void setReceive_memberno(int receive_memberno) {
+      this.receive_memberno = receive_memberno;
+    }
+    public String getTitle() {
+      return title;
+    }
+    public void setTitle(String title) {
+      this.title = title;
+    }
+    public String getContent() {
+      return content;
+    }
+    public void setContent(String content) {
+      this.content = content;
+    }
+    public Date getRdate() {
+      return rdate;
+    }
+    public void setRdate(Date rdate) {
+      this.rdate = rdate;
+    }
+    
+    
    
     
-    public int getmessage_messageno() {
-        return message_messageno;
-    }
-    public void setmessage_messageno(int message_messageno) {
-        this.message_memberno = message_messageno;
-    }
-    public int getmessage_memberno() {
-      return message_memberno;
-    }
-    public void setmessage_memberno(int message_memberno) {
-    this.message_memberno = message_memberno;
-    }
-    public int getmessage_receive_memberno() {
-    return message_receive_memberno;
-    }
-    public void setmessage_receive_memberno(int message_receive_memberno) {
-    this.message_receive_memberno = message_receive_memberno;
-    }
-    public String gettitle() {
-        return title;
-    }
-    public void settitle(String title) {
-        this.title = title;
-    }
-    public String getmessage_content() {
-        return message_content;
-    }
-    public void setmessage_content(String message_content) {
-        this.message_content = message_content;
-    }
-    public Date getmessage_rdate() {
-      return message_rdate;
-    }
-    public void setmessage_rdate(Date message_rdate) {
-      this.message_rdate = message_rdate; 
-      }
+    
 }

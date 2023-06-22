@@ -9,9 +9,15 @@ public class MessageProc implements MessageProcInter {
   @Autowired
   private MessageDAOInter MessageDAO;
   
-  public MessageProc() {
-    //System.out.println("JobcateProc Created");
+  
+  
+  @Override
+  public int create(MessageVO messageVO) {
+    
+    int cnt = this.MessageDAO.create(messageVO);
+    return cnt;
   }
+  
   
   
   
