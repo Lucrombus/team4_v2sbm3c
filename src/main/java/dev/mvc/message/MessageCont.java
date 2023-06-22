@@ -1,5 +1,8 @@
 package dev.mvc.message;
 
+import java.util.ArrayList;
+import java.util.function.Function;
+
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -19,7 +22,7 @@ public class MessageCont {
 
   @Autowired
   @Qualifier("dev.mvc.message.MessageProc")
-  private MessageProcInter MessageProc;
+  private MessageProcInter messageProc;
 
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
@@ -69,8 +72,38 @@ public class MessageCont {
     
     messageVO.setMemberno((int) session.getAttribute("memberno")); // 보내는 사람 memberno 저장
     
-    int cnt = this.MessageProc.create(messageVO);
+    int cnt = this.messageProc.create(messageVO);
     mav.setViewName("redirect:/message/create.do");
+    return mav;
+
+  }
+  
+  // 내가 받은 메시지 리스트
+  @RequestMapping(value = "/message/list_receive.do", method = RequestMethod.GET)
+  public ModelAndView list_receive(HttpSession session) {
+    
+    ModelAndView mav = new ModelAndView();
+    
+    if (session.getAttribute("memberno") != null) { //로그인 확인
+      int receive_memberno = (int) session.getAttribute("memberno");
+      ArrayList<MessageVO> list = this.messageProc.list_receive(receive_memberno);
+      mav.addObject("list", list);
+      
+      Function<Integer, MemberVO> f = (memberno) -> {
+        MemberVO memberVO = this.memberProc.readByMemberno(memberno);
+        return memberVO;
+      };
+      
+      mav.addObject("f", f);
+      
+    
+      mav.setViewName("/message/list_receive");
+      
+    }else {
+      mav.setViewName("/member/login_need");
+      
+    }
+   
     return mav;
 
   }

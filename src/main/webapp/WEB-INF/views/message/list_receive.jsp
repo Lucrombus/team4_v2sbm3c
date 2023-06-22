@@ -42,24 +42,17 @@
 
 
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                </tr>
+            
+            <c:forEach var="MessageVO" items="${list }">
+              <tr>
+                <td>${MessageVO.messageno }</td>
+                <td>${MessageVO.title}</td>
+                <td>${f.apply(MessageVO.memberno).id }</td>
+                <td>${MessageVO.rdate }</td>
+              </tr>
+            </c:forEach>
+            
+             
             </tbody>
         </table>
     </DIV>
