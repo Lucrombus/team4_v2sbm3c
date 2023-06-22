@@ -81,7 +81,7 @@
             <supportSize>true</supportSize>
             <type>12</type>
           </columnType>
-          <size>30</size>
+          <size>100</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
@@ -91,7 +91,12 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>message.content</columnName>
           <logicalName>내용</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[4]/columnType"/>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>VARCHAR2</name>
+            <logicalName>String</logicalName>
+            <supportSize>true</supportSize>
+            <type>12</type>
+          </columnType>
           <size>1000</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>
