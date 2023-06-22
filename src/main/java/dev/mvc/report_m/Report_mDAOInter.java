@@ -1,35 +1,35 @@
-package dev.mvc.report_c;
+package dev.mvc.report_m;
 
 import java.util.ArrayList;
 
-public interface Report_cProcInter {
-  
+public interface Report_mDAOInter {
+
   /**
    * 컨텐츠 신고 등록
    * @param Report_mVO
    * @return
    */
-  public int create(Report_cVO report_cVO);
+  public int create(Report_mVO report_mVO);
   
   /**
    * 회원별 컨텐츠 신고 목록
    * @param memberno
-   * @return 전체목록을 ArrayList<ResumeVO>로 리턴
+   * @return 전체목록을 ArrayList<Report_mVO>로 리턴
    */
-  public ArrayList<Report_cVO> list_all_by_memberno(int memberno);
+  public ArrayList<Report_mVO> list_all_by_memberno(int memberno);
   
   /**
    * 관리자용 컨텐츠 신고 목록 전체
    * @param 
    * @return 전체목록을 ArrayList<ResumeVO>로 리턴
    */
-  public ArrayList<Report_cVO> list_all();
+  public ArrayList<Report_mVO> list_all();
   
   /**
    * 신고 글 조회
    * @return
    */
-  public Report_cVO read(int reportno);
+  public Report_mVO read(int reportno);
   
   
   /**

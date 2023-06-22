@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.report_m.Report_mDAOInter">
+
+    <!-- 회원 신고 생성 -->
+    <insert id="create" parameterType="dev.mvc.report_m.Report_mVO">
+      INSERT INTO report_m(reportno, memberno, target_mno, title, reason, rdate)
+      VALUES (#{reportno}, #{memberno}, #{target_mno}, #{title}, #{reason}, sysdate)
+    </insert>
+  
+    <!-- 나의 신고 리스트 -->
+    <select id="list_all_by_memberno" parameterType="int" resultType="dev.mvc.report_m.Report_mVO">
+      SELECT *
+      FROM report_m
+      WHERE memberno = #{memberno}
+      ORDER BY reportno ASC
+    </select>
+  
+    <!-- 관리자용 전체 신고 리스트 -->
+    <select id="list_all" resultType="dev.mvc.report_m.Report_mVO">
+      SELECT *
+      FROM report_m
+      ORDER BY reportno ASC
+    </select>
+  
+    <!-- 신고 조회 -->
+    <select id="read" parameterType="int" resultType="dev.mvc.report_m.Report_mVO">
+      SELECT *
+      FROM report_m
+      WHERE reportno = #{reportno}
+    </select>
+  
+    <!-- 신고 삭제 -->
+    <delete id="delete" parameterType="int">
+      DELETE FROM report_m
+      WHERE reportno = #{reportno}
+    </delete>
+    
+    
+    <!-- 수정 기능은 없음(불필요) -->
+    
+    
+</mapper>

@@ -6,7 +6,7 @@ public interface Report_cDAOInter {
 
   /**
    * 컨텐츠 신고 등록
-   * @param Report_cVO
+   * @param Report_mVO
    * @return
    */
   public int create(Report_cVO report_cVO);
