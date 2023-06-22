@@ -29,7 +29,7 @@
   <DIV class='menu_line'></DIV>
   
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
-    <input type="hidden" name="memberno" value="${sessionScope.memberno}"> <!-- 세션 멤버번호 -->
+    <input type="hidden" name="memberno" value="${param.memberno}"> <!-- 세션 멤버번호 -->
     
     <div>
        <label>문의명</label>

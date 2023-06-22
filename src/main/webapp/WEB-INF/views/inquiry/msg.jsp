@@ -26,6 +26,11 @@
 
 <DIV class='title_line'>알림</DIV>
 
+<c:set var="code" value="${param.code }" /> <%--mav.addObject("code", "create_success"); --%>
+<c:set var="cnt" value="${param.cnt }" />     <%-- mav.addObject("cnt", cnt); --%>
+<c:set var="memberno" value="${param.memberno }" /> <%-- mav.addObject("memberno", contentsVO.getCateno()); // redirect parameter 적용 --%>
+<c:set var="answer" value="${param.answer }" /> <%-- mav.addObject("memberno", contentsVO.getCateno()); // redirect parameter 적용 --%>
+
 <DIV class='message'>
   <fieldset class='fieldset_basic'>
     <UL>

@@ -35,7 +35,7 @@ public class InquiryCont {
   @Autowired
   @Qualifier("dev.mvc.inquiry.InquiryProc")
   private InquiryProcInter inquiryProc;
-  
+
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
@@ -53,14 +53,14 @@ public class InquiryCont {
   @RequestMapping(value = "/inquiry/create.do", method = RequestMethod.GET)
   public ModelAndView create(HttpSession session, int memberno) {
     ModelAndView mav = new ModelAndView();
-    
-    
-    if (this.memberProc.isMember(session) || this.memberProc.isAdmin(session) || this.memberProc.isEnterprise(session)) {
+
+    if (this.memberProc.isMember(session) || this.memberProc.isAdmin(session)
+        || this.memberProc.isEnterprise(session)) {
       mav.setViewName("/inquiry/create"); // /WEB-INF/views/inquiry/create.jsp
     } else {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
     }
-    
+
     return mav; // forward
   }
 
@@ -74,7 +74,9 @@ public class InquiryCont {
     ModelAndView mav = new ModelAndView();
     
     if (session.getAttribute("id") != null) {
-      int cnt = this.inquiryProc.create(inquiryVO); 
+//      int memberno = (int)session.getAttribute("memberno"); // adminno FK
+//      inquiryVO.setMemberno(memberno);
+      int cnt = inquiryProc.create(inquiryVO); 
     
       if (cnt == 1) {
           mav.addObject("code", "create_success");
