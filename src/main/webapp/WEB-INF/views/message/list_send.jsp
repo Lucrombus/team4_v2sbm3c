@@ -29,7 +29,7 @@
 </DIV>
 
     <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
-        <table class="table table-hover" style="width: 100%;">
+        <table class="table table-hover table-bordered table-sm" style="width: 100%;">
             <colgroup>
                 <col style='width: 10%;' />
                 <col style='width: 50%;' />

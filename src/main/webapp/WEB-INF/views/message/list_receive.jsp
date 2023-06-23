@@ -29,7 +29,7 @@
 </DIV>
 
     <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
-        <table class="table table-hover" style="width: 100%;">
+        <table class="table table-hover table-bordered table-sm" style="width: 100%;">
             <colgroup>
                 <col style='width: 10%;' />
                 <col style='width: 50%;' />
@@ -65,7 +65,7 @@
                 <td>${MessageVO.title}</td>
                 <td>${f.apply(MessageVO.memberno).id }</td>
                 <td>${MessageVO.rdate }</td>
-                <td style="color: ${MessageVO.read == 'Y' ? '#000000' : '#ff0000' };">${MessageVO.read }</td>
+                <td style="color: ${MessageVO.read == 'Y' ? '#555555' : '#ff0000' };">${MessageVO.read }</td>
               </a>
 
               </tr>
