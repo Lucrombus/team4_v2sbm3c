@@ -51,7 +51,7 @@
         <c:set var="memberno" value="${inquiryVO.memberno }" />
         <c:set var="inquiryTitle" value="${inquiryVO.inquiryTitle }" />
         <c:set var="inquiryReason" value="${inquiryVO.inquiryReason }" />
-        <c:set var="answer" value="${inquiryVO.answer }" />
+        <c:set var="rdate" value="${inquiryVO.rdate }" />
         
         <tr style="height: 112px;">
           <td style='vertical-align: middle; text-align: center;'>

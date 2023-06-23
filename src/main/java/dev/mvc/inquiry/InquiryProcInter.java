@@ -40,4 +40,18 @@ public interface InquiryProcInter {
    * @return
    */
   public InquiryVO read(int inquiryno);
+  
+  /**
+   * 문의 글 수정 처리
+   * @param inquiryVO
+   * @return
+   */
+  public int update(InquiryVO inquiryVO);
+  
+  /**
+   * 문의 글 삭제 처리
+   * @param inquiryno
+   * @return
+   */
+  public int delete(int inquiryno);
 }

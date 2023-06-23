@@ -35,11 +35,9 @@
       <span class='menu_divide' >│</span>
       <A href="./update.do?inquiryno=${inquiryno}&now_page=${param.now_page}">문의 수정</A>
       <span class='menu_divide' >│</span>
-      <A href="./delete.do?inquiryno=${inquiryno}&now_page=${param.now_page}">삭제</A>  
-      <span class='menu_divide' >│</span>
+      <A href="javascript:location.reload();">새로고침</A>
     </c:if>
 
-    <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>
   
   <DIV class='menu_line'></DIV>
@@ -56,8 +54,21 @@
       </li>
       
   </fieldset>
-
-</DIV>
+  </DIV>
+  <DIV style='text-align: center; width: 100%; float: center;'>
+    <FORM name='frm' method='POST' action='./delete.do'>
+              <input type='hidden' name='inquiryno' value='${inquiryno}'>
+              <input type='hidden' name='memberno' value='${memberno}'>
+              <br><br>
+              <div style='text-align: center; margin: 10px auto;'>
+                <span style="color: #FF0000; font-weight: bold;">삭제를 진행 하시겠습니까? 삭제하시면 복구 할 수 없습니다.</span><br><br>
+                <br><br>
+                <button type = "submit" class="btn btn-primary">삭제 진행</button>
+                <button type = "button" onclick = "history.back()" class="btn btn-primary">취소</button>
+              </div>   
+          </FORM>
+     </DIV>
+    
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

@@ -31,13 +31,15 @@
   
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
-      <col style="width: 80%;"></col>
-      <col style="width: 20%;"></col>
+      <col style="width: 70%;"></col>
+      <col style="width: 15%;"></col>
+      <col style="width: 15%;"></col>
     </colgroup>
 
     <thead>
       <tr>
         <th style='text-align: center;'>제목</th>
+        <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>작성자</th>
       </tr>
     
@@ -49,13 +51,16 @@
         <c:set var="memberno" value="${inquiryVO.memberno }" />
         <c:set var="inquiryTitle" value="${inquiryVO.inquiryTitle }" />
         <c:set var="inquiryReason" value="${inquiryVO.inquiryReason }" />
-        <c:set var="answer" value="${inquiryVO.answer }" />
+        <c:set var="rdate" value="${inquiryVO.rdate }" />
         
         <tr style="height: 112px;">
           <td style='vertical-align: middle; text-align: center;'>
             <a href="./read.do?inquiryno=${inquiryno}&now_page=${param.now_page}"><strong>${inquiryTitle}</strong>  
             </a> 
           </td>  
+          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+            ${rdate }
+          </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${f.apply(memberno) }
           </td> 

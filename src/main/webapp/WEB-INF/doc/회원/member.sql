@@ -3,8 +3,8 @@ DROP TABLE member CASCADE CONSTRAINTS;
 /* Table Name: 회원 */
 /**********************************/
 CREATE TABLE member(
-		memberno                            NUMBER(10) NOT NULL PRIMARY KEY,
-		id                                  VARCHAR2(30) NOT NULL UNIQUE,
+		memberno                            NUMBER(10) PRIMARY KEY,
+		id                                  VARCHAR2(30) UNIQUE NOT NULL,
 		passwd                              VARCHAR2(20) NOT NULL,
 		name                                VARCHAR2(20) NOT NULL,
         tel                                 VARCHAR(14)  NOT NULL,
@@ -55,6 +55,8 @@ INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, g
 VALUES(member_seq.nextval, 'kd', 1234, '홍길순', '010-4444-4444', sysdate, 1, 'N', '여성', '19700301', '4년제');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'kd6', 1234, '바길순', '010-4444-4444', sysdate, 3, 'N', '여성', '19700301', '4년제');
+INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
+VALUES(member_seq.nextval, 'user1@gmail.com', 1234, '바길순', '010-4444-4444', sysdate, 3, 'N', '여성', '19700301', '4년제');
 
 
 
@@ -105,5 +107,7 @@ WHERE id='kd1' AND passwd = 1234
 
 
 ALTER TABLE member RENAME COLUMN password to passwd;
+ALTER TABLE member ADD UNIQUE(id);
+ALTER TABLE member add constraint primary key(memberno);
 
 commit;

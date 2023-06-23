@@ -27,7 +27,8 @@ public class InquiryVO {
   private String inquiryTitle;
   /** 문의 내용 */
   private String inquiryReason;
-
+  /** 등록일 */
+  private String rdate;
   
   public int getInquiryno() {
     return inquiryno;
@@ -52,5 +53,11 @@ public class InquiryVO {
   }
   public void setInquiryTitle(String inquiryTitle) {
     this.inquiryTitle = inquiryTitle;
+  }
+  public String getRdate() {
+    return rdate;
+  }
+  public void setRdate(String rdate) {
+    this.rdate = rdate;
   }
 }

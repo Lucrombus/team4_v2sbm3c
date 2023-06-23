@@ -6,40 +6,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <mapper namespace = "dev.mvc.inquiry.InquiryDAOInter">
   
   <insert id="create" parameterType="dev.mvc.inquiry.InquiryDAOInter">
-   INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason) 
-   VALUES (inquiry_seq.nextval, #{memberno}, #{inquiryTitle} , #{inquiryReason}) 
+   INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason, rdate) 
+   VALUES (inquiry_seq.nextval, #{memberno}, #{inquiryTitle} , #{inquiryReason}, sysdate) 
   </insert>
   
   <!-- 전체 문의 목록 출력 (관리자)-->
   <select id="list_all" resultType="dev.mvc.inquiry.InquiryVO">
-    SELECT inquiryno, memberno, inquiryTitle, inquiryReason
+    SELECT inquiryno, memberno, inquiryTitle, inquiryReason, rdate
     FROM inquiry
     ORDER BY inquiryno ASC
   </select>
   
   <!-- 회원 본인 문의 목록 출력 -->
   <select id="list_by_memberno" resultType="dev.mvc.inquiry.InquiryVO">
-    SELECT inquiryno, memberno, inquiryTitle, inquiryReason
+    SELECT inquiryno, memberno, inquiryTitle, inquiryReason, rdate
     FROM inquiry
     WHERE memberno = #{memberno}
     ORDER BY inquiryno ASC
   </select>
 
-  <!-- memberno와 inquiryno에 따른 문의 정보 조회 -->
+  <!-- inquiryno에 따른 문의 정보 조회 -->
   <select id="read" resultType="dev.mvc.inquiry.InquiryVO" parameterType="int">
-    SELECT inquiryno, memberno, inquiryTitle, inquiryReason
+    SELECT inquiryno, memberno, inquiryTitle, inquiryReason, rdate
     FROM inquiry
     WHERE inquiryno = #{inquiryno}
   </select>  
   
-  <!-- 회원 inquiryno에 따른 문의 글 수정 -->
+  <!-- inquiryno에 따른 문의 글 수정 -->
   <update id="update"  parameterType="dev.mvc.inquiry.InquiryVO">
     UPDATE inquiry
-    SET inquiryTitle = #{inquiryTitle} AND inquiryReason = #{inquiryReason}
+    SET inquiryTitle = #{inquiryTitle} , inquiryReason = #{inquiryReason}
     WHERE inquiryno = #{inquiryno}
   </update>
   
-  
+  <!-- inquiryno에 따른 문의 글 삭제 -->
+  <delete id="delete"  parameterType="int">
+    DELETE FROM inquiry
+    WHERE inquiryno = #{inquiryno}
+  </delete>
   
   
 </mapper>

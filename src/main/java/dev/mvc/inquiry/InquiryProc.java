@@ -70,28 +70,16 @@ public class InquiryProc implements InquiryProcInter {
     InquiryVO inquiryVO = this.inquiryDAO.read(inquiryno);
     return inquiryVO;
   }
-//
-//  @Override
-//  public MemberVO readById(String id) {
-//    MemberVO memberVO = this.memberDAO.readById(id);
-//    return memberVO;
-//  }
-//  
-//  @Override
-//  public MemberVO readByMemberno(int memberno) {
-//    MemberVO memberVO = this.memberDAO.readByMemberno(memberno);
-//    return memberVO;
-//  }
-//  
-//  @Override
-//  public int update(MemberVO memberVO) {
-//    int cnt = this.memberDAO.update(memberVO);
-//    return cnt;
-//  }
-//  
-//  @Override
-//  public int delete(int memberno) {
-//    int cnt = this.memberDAO.delete(memberno);
-//    return cnt;
-//  }
+
+  @Override
+  public int update(InquiryVO inquiryVO) {
+    int cnt = this.inquiryDAO.update(inquiryVO);
+    return cnt;
+  }
+
+  @Override
+  public int delete(int inquiryno) {
+    int cnt = this.inquiryDAO.delete(inquiryno);
+    return cnt;
+  }
 }
