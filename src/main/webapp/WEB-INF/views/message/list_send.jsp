@@ -40,7 +40,7 @@
 
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">번호</th>
                     <th scope="col">제목</th>
                     <th scope="col">받는사람</th>
                     <th scope="col">날짜</th>

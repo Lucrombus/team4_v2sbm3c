@@ -40,9 +40,9 @@
 
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">제목</th>
                     <th scope="col">보낸사람</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">번호</th>
                     <th scope="col">날짜</th>
                     <th scope="col">읽음</th>
                 </tr>
@@ -61,9 +61,9 @@
             <c:forEach var="MessageVO" items="${list }">
               <tr onclick="location.href='/message/read.do?messageno=${MessageVO.messageno }'" class="hover">
               <a href="/message/read.do?messageno=${MessageVO.messageno }">
-                <td>${MessageVO.messageno }</td>
-                <td>${MessageVO.title}</td>
                 <td>${f.apply(MessageVO.memberno).id }</td>
+                <td>${MessageVO.title}</td>
+                <td>${MessageVO.messageno }</td>
                 <td>${MessageVO.rdate }</td>
                 <td style="color: ${MessageVO.read == 'Y' ? '#555555' : '#ff0000' };">${MessageVO.read }</td>
               </a>

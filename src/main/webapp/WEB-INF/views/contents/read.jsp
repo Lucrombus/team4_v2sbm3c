@@ -28,19 +28,20 @@
 function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인지 확인
 
     var memno = $(image).data("value");
+    var replyno = $(image).data("replyno");
     console.log("댓글쓴 회원번호:" +memno);
+    console.log("댓글번호:" +replyno);
 
 	  var result = confirm("댓글을 삭제하시겠습니까?");
 
 	    if (result) {
-
-	      if ( ${sessionScope.memberno == null ? -1 : sessionScope.memberno } != memno ){
-    	  alert("다른 회원의 댓글은 삭제할 수 없습니다");
-    	  event.preventDefault(); // 기본 동작(링크 이동) 막기
-          }
+	      if ( ${sessionScope.memberno == null ? -1 : sessionScope.memberno } == memno ){
+	    	  window.location.href = "/reply/delete.do?contentsno=${param.contentsno }&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}&replyno="+replyno
+          }else {
+        	  alert("다른 회원의 댓글은 삭제할 수 없습니다");
+              }
         
     } else {
-      event.preventDefault(); // 기본 동작(링크 이동) 막기
     }
   }
 
@@ -190,11 +191,11 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
         </c:choose>  ${f.apply(memberno).id == null ? '(알 수 없음)' : f.apply(memberno).id}
       </td>
       <td>${replyVO.reply_content }</td>
-      <td><a href="#"><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)"></a> +${f2.apply(replyVO.replyno) } </td>
+      <td><a href=""><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)"></a> +${f2.apply(replyVO.replyno) } </td>
       <td style="font-size:13px; vertical-align: middle;">${replyVO.rdate }</td>
       <td>
-      <a href="/reply/delete.do?contentsno=${param.contentsno }&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}&replyno=${replyVO.replyno}"><IMG src="/cate/images/delete.png" class="icon" 
-      onclick="confirmClick(this)" data-value="${replyVO.memberno}"></a>
+      <a><IMG src="/cate/images/delete.png" class="icon" style="cursor:pointer;"
+      onclick="confirmClick(this)" data-value="${replyVO.memberno}" data-replyno="${replyVO.replyno}"></a>
       <a href="/report_m/create.do?memberno=${replyVO.memberno}"><img src='/images/siren.png' title="신고" class="icon"></a>
       </td>
       </tr>
