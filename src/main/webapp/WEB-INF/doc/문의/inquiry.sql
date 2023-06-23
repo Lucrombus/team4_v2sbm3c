@@ -7,17 +7,17 @@ CREATE TABLE inquiry(
 		inquiryno                   NUMBER(10)      NOT NULL PRIMARY KEY,
         memberno                    NUMBER(10)      NOT NULL,
         inquiryTitle                VARCHAR2(50)    NOT NULL,
-		inquiryReason               VARCHAR2(100)   NOT NULL,
-        answer                      VARCHAR2(100)   DEFAULT 'N',
+		inquiryReason               VARCHAR2(300)   NOT NULL,
+        rdate                       DATE            NOT NULL,
         FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
 
-COMMENT ON TABLE inquiry is '문의';
+COMMENT ON TABLE inquiry is '고객센터(문의)';
 COMMENT ON COLUMN inquiry.inquiryno is '문의번호';
 COMMENT ON COLUMN inquiry.memberno is '회원번호 (신고자)';
 COMMENT ON COLUMN inquiry.inquiryTitle is '문의제목';
 COMMENT ON COLUMN inquiry.inquiryReason is '문의사유';
-COMMENT ON COLUMN inquiry.answer is '답변';
+COMMENT ON COLUMN inquiry.rdate is '등록일';
 
 DROP SEQUENCE inquiry_seq;
 
@@ -30,14 +30,14 @@ CREATE SEQUENCE inquiry_seq
   
 SELECT * FROM inquiry;
 
-INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason, answer) 
-VALUES (inquiry_seq.nextval, 2, '부적절한 글' , '이유', 'n'); 
+INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason, rdate) 
+VALUES (inquiry_seq.nextval, 2, '부적절한 글' , '이유', sysdate); 
 
-SELECT inquiryno, memberno, inquiryTitle, inquiryReason, answer
+SELECT inquiryno, memberno, inquiryTitle, inquiryReason
 FROM inquiry
 WHERE memberno = 7
 ORDER BY inquiryno ASC
 
-SELECT inquiryno, memberno, inquiryTitle, inquiryReason, answer
+SELECT inquiryno, memberno, inquiryTitle, inquiryReason
 FROM inquiry
 ORDER BY inquiryno ASC
