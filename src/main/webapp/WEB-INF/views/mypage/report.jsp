@@ -19,6 +19,13 @@
 <c:import url="/menu/top.do" />
 
 
+<DIV class='title_line'>내 신고내역</DIV>
+  <DIV class='message'>
+    <button type='button' onclick="location.href='/report_m/list_all_by_memberno.do'" class="btn btn-info">회원 신고 내역</button>
+    <br><br>
+    <button type='button' onclick="location.href='/report_c/list_all_by_memberno.do'" class="btn btn-info">게시글 신고 내역</button>
+    <br><br>
+
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

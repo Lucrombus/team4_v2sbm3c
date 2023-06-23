@@ -9,7 +9,7 @@ public class NoticeVO {
   private int memberno;
   private String title;
   private String content;
-  private int cnt;
+  private int viewcnt;
   private String word ="";
   private String rdate;
   private String file1 ="";
@@ -63,11 +63,11 @@ public class NoticeVO {
   public void setContent(String content) {
     this.content = content;
   }
-  public int getCnt() {
-    return cnt;
+  public int getViewcnt() {
+    return viewcnt;
   }
-  public void setCnt(int cnt) {
-    this.cnt = cnt;
+  public void setViewcnt(int viewcnt) {
+    this.viewcnt = viewcnt;
   }
   public String getWord() {
     return word;

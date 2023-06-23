@@ -46,9 +46,9 @@
     <thead>
       <tr >
         <th style='text-align: center;'>신고번호</th>
-        <th style='text-align: center;'>신고된 글 고유번호</th>
-        <th style='text-align: center;'>내용</th>
+        <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
+        <th style='text-align: center;'>신고된 회원번호</th>
         <th style='text-align: center;'>신고자</th>
 
       </tr>
@@ -56,12 +56,14 @@
     </thead>
     
     <tbody>
-      <c:forEach var="report_mVO" items="${list }">
-        <c:set var="reason" value="${report_mVO.reason }" />
-        <c:set var="contentsno" value="${report_mVO.contentsno }" />
+      <c:forEach var="report_mVO" items="${list }"> <!-- 값 불러오기!!!!!!!!!!!! -->
         <c:set var="reportno" value="${report_mVO.reportno }" />
-        <c:set var="rdate" value="${report_mVO.rdate }" />
         <c:set var="memberno" value="${report_mVO.memberno }" />
+        <c:set var="target_mno" value="${report_mVO.target_mno }" />
+        <c:set var="title" value="${report_mVO.title }" />
+        <c:set var="reason" value="${report_mVO.reason }" />
+        <c:set var="rdate" value="${report_mVO.rdate }" />
+
 
 
 
@@ -70,14 +72,14 @@
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
           ${reportno}
           </td>
-          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-          <a href="/contents/read.do?contentsno=${contentsno}"><strong>${contentsno }</strong></a> 
+          <td style='vertical-align: middle;  font-weight:bold;'>
+            <a href="./read.do?reportno=${reportno}"><strong>${title }</strong></a> 
           </td>
-          <td style='vertical-align: middle; '>
-            <a href="./read.do?reportno=${reportno}"><strong>${reason}</strong></a> 
-          </td> 
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }
+          </td>
+          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
+          ${target_mno }
           </td>
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
           ${id }

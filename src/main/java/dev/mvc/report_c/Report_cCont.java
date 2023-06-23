@@ -18,6 +18,7 @@ import dev.mvc.contents.ContentsProcInter;
 import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
+import dev.mvc.report_m.Report_mVO;
 import dev.mvc.resume.Resume;
 import dev.mvc.resume.ResumeVO;
 import dev.mvc.tool.Tool;
@@ -91,16 +92,21 @@ public class Report_cCont {
   // 회원 본인의 신고 리스트 조회
   //http://localhost:9093/report_c/list_all_by_memberno.do
   @RequestMapping(value="/report_c/list_all_by_memberno.do", method=RequestMethod.GET)
-  public ModelAndView list_all_by_memberno(HttpSession session, int memberno, Report_cVO report_cVO) {
+  public ModelAndView list_all_by_memberno(HttpSession session, Report_cVO report_cVO) {
     ModelAndView mav = new ModelAndView();
+    int memberno = (int)session.getAttribute("memberno"); //회원 번호 불러오기
+    report_cVO.setMemberno(memberno); //report_cVO에 세션 회원번호 저장
+    //Report_cVO report_cVO = this.report_cProc.read(memberno); //회원번호에 따른 신고정보 불러오기
+    
+    System.out.println("now session memberno="+memberno);//tset
+    System.out.println("now report_cVO memberno="+report_cVO.getMemberno());//test
     
     if ((int)session.getAttribute("memberno") == (report_cVO.getMemberno())) {
-    mav.setViewName("/report_c/list_all_by_memberno"); // /WEB-INF/views/resume/list_all_by_memberno.jsp
-
-    ArrayList<Report_cVO> list = this.report_cProc.list_all_by_memberno(memberno);
-    mav.addObject("list", list);
-    
-
+      //report_cVO.setMemberno(memberno);
+      ArrayList<Report_cVO> list = this.report_cProc.list_all_by_memberno(memberno);
+      mav.addObject("list", list);
+      
+      mav.setViewName("/report_c/list_all_by_memberno"); // /WEB-INF/views/resume/list_all_by_memberno.jsp
     
     } else {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
@@ -147,9 +153,7 @@ public class Report_cCont {
      
      // 회원 번호: admino -> AdminVO -> name
      String name = this.memberProc.read(report_cVO.getMemberno()).getName();
-     String gender = this.memberProc.read(report_cVO.getMemberno()).getGender();
      mav.addObject("name", name);
-     mav.addObject("gender", gender);
 
      mav.setViewName("/report_c/read"); // /WEB-INF/views/resume/read.jsp
          

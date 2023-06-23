@@ -124,10 +124,11 @@ public class NoticeCont {
    @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
    public ModelAndView list_all() {
      ModelAndView mav = new ModelAndView();
-     mav.setViewName("/notice/list_all"); // /WEB-INF/views/notice/list_all.jsp
-     
+
      ArrayList<NoticeVO> list = this.noticeProc.list_all();
      mav.addObject("list", list);
+     
+     mav.setViewName("/notice/list_all"); // /WEB-INF/views/notice/list_all.jsp
      
      // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
      Function<Integer, String> f = (memberno) -> {
@@ -137,6 +138,45 @@ public class NoticeCont {
      };
      mav.addObject("f", f);
      
+     return mav;
+   }
+   
+   /**
+    * 목록 + 검색 + 페이징 지원
+    * http://localhost:9093/notice/list_by_cateno.do?cateno=1&word=스위스&now_page=1
+    * 
+    * @param word
+    * @param now_page
+    * @return
+    */
+   @RequestMapping(value = "/notice/list_all_search_paging.do", method = RequestMethod.GET)
+   public ModelAndView list_all_search_paging(NoticeVO noticeVO) {
+     ModelAndView mav = new ModelAndView();
+
+     // 검색된 전체 글 수
+     int search_count = this.noticeProc.search_count(noticeVO);
+     mav.addObject("search_count", search_count);
+     
+     // 검색 목록: 검색된 레코드를 페이지 단위로 분할하여 가져옴
+     ArrayList<NoticeVO> list = noticeProc.list_all_search_paging(noticeVO);
+     mav.addObject("list", list);
+     
+
+     /*
+      * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
+      * 18 19 20 [다음]
+      * @param cateno 카테고리번호
+      * @param now_page 현재 페이지
+      * @param word 검색어
+      * @return 페이징용으로 생성된 HTML/CSS tag 문자열
+      */
+     String paging = noticeProc.pagingBox(noticeVO.getNow_page(), noticeVO.getWord(), "list_all_search_paging.do");
+     mav.addObject("paging", paging);
+
+     // mav.addObject("now_page", now_page);
+     
+     mav.setViewName("/notice/list_all_search_paging");  // /contents/list_by_cateno_search_paging.jsp
+
      return mav;
    }
    

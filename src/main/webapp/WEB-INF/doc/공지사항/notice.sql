@@ -10,7 +10,7 @@ CREATE TABLE notice(
 		memberno                      		NUMBER(10)		 NOT NULL,
 		title                         		VARCHAR2(50)		 NOT NULL,
 		content                       		VARCHAR2(4000)		 NOT NULL,
-		cnt                           		NUMBER(7)		 NOT NULL,
+		viewcnt                           	NUMBER(7)		 NOT NULL,
 		word                          		VARCHAR2(100)		 NULL ,
 		rdate                         		DATE		 NOT NULL,
 		file1                         		VARCHAR2(1000)		 NULL ,
@@ -25,7 +25,7 @@ COMMENT ON COLUMN notice.topview is '상단노출여부';
 COMMENT ON COLUMN notice.memberno is '회원 번호';
 COMMENT ON COLUMN notice.title is '제목';
 COMMENT ON COLUMN notice.content is '내용';
-COMMENT ON COLUMN notice.cnt is '조회수';
+COMMENT ON COLUMN notice.viewcnt is '조회수';
 COMMENT ON COLUMN notice.word is '검색어';
 COMMENT ON COLUMN notice.rdate is '등록일';
 COMMENT ON COLUMN notice.file1 is '메인 이미지';
@@ -49,12 +49,12 @@ CREATE SEQUENCE notice_seq
 
 
 --insert
-INSERT INTO notice (noticeno, topview, memberno, title, content, CNT, 
+INSERT INTO notice (noticeno, topview, memberno, title, content, viewcnt, -
         WORD, rdate, file1, file1saved, thumb1, size1)
 VALUES (notice_seq.nextval, 'N', 1, '공지사항제목', '내용', 0, '검색어1', sysdate, '메인이미지', '실제저장이미지', '메인이미지 썸네일', 0);
 
 --select
-SELECT noticeno, topview, memberno, title, content, CNT, 
+SELECT noticeno, topview, memberno, title, content, viewcnt, 
        WORD, rdate, file1, file1saved, thumb1, size1
 FROM notice
 ORDER BY noticeno DESC;

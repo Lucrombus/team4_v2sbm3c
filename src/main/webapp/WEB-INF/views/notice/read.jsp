@@ -29,7 +29,9 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'><A href="./list_by_cateno.do?cateno=${cateno }" class='title_link'>${cateVO.name }</A></DIV>
+<DIV class='title_line'>
+<A href="./list_all.do" class='title_link'>공지사항</A> > 
+<A href="./read.do?noticeno=${noticeno }" class='title_link'>${title }</A> </DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">

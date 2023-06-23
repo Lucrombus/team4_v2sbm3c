@@ -27,14 +27,19 @@
     <input type="hidden" name="memberno" value="${sessionScope.memberno}"> <!-- 세션 멤버번호 -->
 
     <div>
-       <label>신고할 회원</label><br>
-       <A href="/contents/read.do?contentsno=${ContentsVO.contentsno }&boardno=${BoardVO.boardno }&now_page=${now_page }" class='title_link'>회원번호 : ${ContentsVO.title }</A>
+       <label>회원신고</label><br>
+       회원번호 : ${Report_mVO.target_mno }</A>
     </div>
     <br>
     <div>
+      <label>제목</label>
+      <input type='text' name='title' value='' required="required" 
+                 autofocus="autofocus" class="form-control" style='width: 100%;'>
+    </div>
+    <div>
        <label>신고 사유 :</label>
        <textarea name='reason' required="required" class="form-control" 
-          autofocus="autofocus"  rows="12" style='width: 100%;'></textarea>
+            rows="12" style='width: 100%;'></textarea>
     </div>
     <li>*허위 신고 적발시 이용에 제한이 있을 수 있습니다.</li>
     

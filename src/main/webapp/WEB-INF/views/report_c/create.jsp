@@ -25,10 +25,11 @@
   
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
     <input type="hidden" name="memberno" value="${sessionScope.memberno}"> <!-- 세션 멤버번호 -->
+    <input type="hidden" name="contentsno" value="${param.contentsno}"> <!-- 콘텐츠 번호 -->
 
     <div>
        <label>신고할 컨텐츠</label><br>
-       <A href="/contents/read.do?contentsno=${ContentsVO.contentsno }&boardno=${BoardVO.boardno }&now_page=${now_page }" class='title_link'>글 : ${ContentsVO.title }</A>
+       <A href="/contents/read.do?contentsno=${ContentsVO.contentsno }&boardno=${BoardVO.boardno }&now_page=${now_page }" class='title_link'>글 : ${contentsno }</A>
     </div>
     <br>
     <div>

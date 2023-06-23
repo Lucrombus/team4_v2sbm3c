@@ -91,16 +91,21 @@ public class Report_mCont {
   // 회원 본인의 신고 리스트 조회
   //http://localhost:9093/report_m/list_all_by_memberno.do
   @RequestMapping(value="/report_m/list_all_by_memberno.do", method=RequestMethod.GET)
-  public ModelAndView list_all_by_memberno(HttpSession session, int memberno, Report_mVO report_mVO) {
+  public ModelAndView list_all_by_memberno(HttpSession session, Report_mVO report_mVO) {
     ModelAndView mav = new ModelAndView();
+    int memberno = (int)session.getAttribute("memberno"); //회원 번호 불러오기
+    report_mVO.setMemberno(memberno); //report_mVO에 세션 회원번호 저장
+    //Report_mVO report_mVO = this.report_mProc.read(memberno); //회원번호에 따른 신고정보 불러오기
+    
+    System.out.println("now session memberno="+memberno);//tset
+    System.out.println("now report_mVO memberno="+report_mVO.getMemberno());//test
     
     if ((int)session.getAttribute("memberno") == (report_mVO.getMemberno())) {
-    mav.setViewName("/report_m/list_all_by_memberno"); // /WEB-INF/views/resume/list_all_by_memberno.jsp
-
-    ArrayList<Report_mVO> list = this.report_mProc.list_all_by_memberno(memberno);
-    mav.addObject("list", list);
-    
-
+      //report_mVO.setMemberno(memberno);
+      ArrayList<Report_mVO> list = this.report_mProc.list_all_by_memberno(memberno);
+      mav.addObject("list", list);
+      
+      mav.setViewName("/report_m/list_all_by_memberno"); // /WEB-INF/views/resume/list_all_by_memberno.jsp
     
     } else {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
@@ -134,22 +139,20 @@ public class Report_mCont {
 
      Report_mVO report_mVO = this.report_mProc.read(reportno);
      
-     String reason = report_mVO.getReason();
-     //String title = report_mVO.getTitle();
+     //String reason = report_mVO.getReason();
+     String title = report_mVO.getTitle();
      
-     reason = Tool.convertChar(reason);  // 특수 문자 처리
-     //title = Tool.convertChar(title); 
+     //reason = Tool.convertChar(reason);  // 특수 문자 처리
+     title = Tool.convertChar(title); 
      
-     report_mVO.setReason(reason);
-     //report_mVO.setTitle(title);  
+     //report_mVO.setReason(reason);
+     report_mVO.setTitle(title);  
      
      mav.addObject("report_mVO", report_mVO); // request.setAttribute("resumeVO", resumeVO);
      
      // 회원 번호: admino -> AdminVO -> name
      String name = this.memberProc.read(report_mVO.getMemberno()).getName();
-     String gender = this.memberProc.read(report_mVO.getMemberno()).getGender();
      mav.addObject("name", name);
-     mav.addObject("gender", gender);
 
      mav.setViewName("/report_m/read"); // /WEB-INF/views/resume/read.jsp
          

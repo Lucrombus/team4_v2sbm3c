@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all.do?&now_page=1" class='title_link'>전체 신고 내역 </a>
+<A href="./list_all.do?now_page=1" class='title_link'>공지사항 </a>
 </DIV>
 
 <DIV class='content_body'>
@@ -31,58 +31,68 @@
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
 
+  <DIV style="text-align: right; clear: both;">  
+    <form name='frm' id='frm' method='get' action='./list_all.do'>
+      <input type='hidden' name='now_page' value='1'>  <%-- 검색기본 시작 페이지 --%>
+      
+      <c:choose>
+        <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
+          <input type='text' name='word' id='word' value='${param.word }' style='width: 20%; ' class='input_word'>
+        </c:when>
+        <c:otherwise> <%-- 검색하지 않는 경우 --%>
+          <input type='text' name='word' id='word' value='' style='width: 20%;'>
+        </c:otherwise>
+      </c:choose>
+      <button type='submit' class="btn btn-secondary btn-sm">검색</button>
+      <c:if test="${param.word.length() > 0 }">
+        <button type='button' class='btn btn-info btn-sm'
+                     onclick="location.href='./list_all.do?now_page=1&word='">검색 취소</button>  
+      </c:if>    
+    </form>
+  </DIV>
+
   <DIV class='menu_line'></DIV>
   
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
-      <col style="width: 10%;"></col>
-      <col style="width: 60%;"></col>
-      <col style="width: 15%;"></col>
-      <col style="width: 10%;"></col>
       <col style="width: 5%;"></col>
-
+      <col style="width: 65%;"></col>
+      <col style="width: 15%;"></col>
+      <col style="width: 15%;"></col>
     </colgroup>
 
     <thead>
       <tr >
-        <th style='text-align: center;'>신고번호</th>
+        <th style='text-align: center;'>번호</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
-        <th style='text-align: center;'>신고된 회원번호</th>
-        <th style='text-align: center;'>신고자</th>
-
+        <th style='text-align: center;'>작성자</th>
       </tr>
     
     </thead>
     
     <tbody>
-      <c:forEach var="report_mVO" items="${list }"> <!-- 값 불러오기!!!!!!!!!!!! -->
-        <c:set var="reportno" value="${report_mVO.reportno }" />
-        <c:set var="memberno" value="${report_mVO.memberno }" />
-        <c:set var="target_mno" value="${report_mVO.target_mno }" />
-        <c:set var="title" value="${report_mVO.title }" />
-        <c:set var="reason" value="${report_mVO.reason }" />
-        <c:set var="rdate" value="${report_mVO.rdate }" />
-
-
-
+      <c:forEach var="noticeVO" items="${list }">
+        <c:set var="title" value="${noticeVO.title }" />
+        <c:set var="content" value="${noticeVO.content }" />
+        <c:set var="noticeno" value="${noticeVO.noticeno }" />
+        <c:set var="rdate" value="${noticeVO.rdate }" />
+        <c:set var="memberno" value="${noticeVO.memberno }" />
 
         
         <tr style="height:50px;">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${reportno}
+          ${noticeno}
           </td>
-          <td style='vertical-align: middle;  font-weight:bold;'>
-            <a href="./read.do?reportno=${reportno}"><strong>${title }</strong></a> 
-          </td>
+          <td style='vertical-align: middle;'>
+            <a href="./read.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+            </a> 
+          </td> 
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }
           </td>
-          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${target_mno }
-          </td>
-          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${id }
+           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+          ${f.apply(memberno) }
           </td>
         </tr>
         
