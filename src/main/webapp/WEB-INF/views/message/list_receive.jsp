@@ -65,7 +65,7 @@
                 <td>${MessageVO.title}</td>
                 <td>${f.apply(MessageVO.memberno).id }</td>
                 <td>${MessageVO.rdate }</td>
-                <td>${MessageVO.read }</td>
+                <td style="color: ${MessageVO.read == 'Y' ? '#000000' : '#ff0000' };">${MessageVO.read }</td>
               </a>
 
               </tr>
