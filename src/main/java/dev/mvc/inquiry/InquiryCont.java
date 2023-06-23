@@ -228,7 +228,7 @@ public class InquiryCont {
 //  }
 
   /**
-   * 수정 처리 http://localhost:9093/contents/update_text.do?contentsno=1
+   * 수정 처리 http://localhost:9093/inquiry/update_text.do?contentsno=1
    * 
    * @return
    */
@@ -269,7 +269,7 @@ public class InquiryCont {
   }
   
   /**
-   * 삭제 처리 http://localhost:9091/contents/delete.do
+   * 삭제 처리 http://localhost:9093/inquiry/delete.do
    * 
    * @return
    */

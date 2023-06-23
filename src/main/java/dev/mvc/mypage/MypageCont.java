@@ -99,38 +99,6 @@ public class MypageCont {
   }
   
   /**
-   * 나의 관심 구직 목록, http://localhost:9093/mypage/list_like_guin.do
-   * @return
-   */
-  @RequestMapping(value="/mypage/list_like_guin.do", method=RequestMethod.GET)
-  public ModelAndView list_like_guin() {
-    ModelAndView mav = new ModelAndView();
-    
-    ArrayList<MypageVO> list = this.mypageProc.list_like_guin();
-    mav.addObject("list", list);
-    
-    mav.setViewName("/mypage/list_like_guin"); // /webapp/WEB-INF/views/mypage/list_like_guin.jsp
-    
-    return mav;
-  }
-  
-  /**
-   * 나의 관심 구인 목록, http://localhost:9093/mypage/list_like_gugik.do
-   * @return
-   */
-  @RequestMapping(value="/mypage/list_like_gugik.do", method=RequestMethod.GET)
-  public ModelAndView list_like_gugik() {
-    ModelAndView mav = new ModelAndView();
-    
-    ArrayList<MypageVO> list = this.mypageProc.list_like_gugik();
-    mav.addObject("list", list);
-    
-    mav.setViewName("/mypage/list_like_gugik"); // /webapp/WEB-INF/views/mypage/list_like_gugik.jsp
-    
-    return mav;
-  }
-  
-  /**
    * 신고 및 문의, http://localhost:9093/mypage/report.do
    * @return
    */

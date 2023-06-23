@@ -36,46 +36,6 @@ public class MypageProc implements MypageProcInter {
     return cnt;
   }
   
-  @Override
-  public ArrayList<MypageVO> list_like_guin() {
-    ArrayList<MypageVO> list = this.mypageDAO.list_like_guin();
-    
-    // for문을 사용하여 객체를 추출, Call By Reference 기반의 원본 객체 값 변경
-    for (MypageVO mypageVO : list) {
-      String title = mypageVO.getTitle_like_guin();
-      String detail = mypageVO.getDetail_like_guin();
-      
-      title = Tool.convertChar(title);  // 특수 문자 처리
-      detail = Tool.convertChar(detail); 
-      
-      mypageVO.setTitle_like_guin(title);
-      mypageVO.setDetail_like_guin(detail);  
-
-    }
-    
-    return list;
-  }
-  
-  @Override
-  public ArrayList<MypageVO> list_like_gugik() {
-    ArrayList<MypageVO> list = this.mypageDAO.list_like_gugik();
-    
-    // for문을 사용하여 객체를 추출, Call By Reference 기반의 원본 객체 값 변경
-    for (MypageVO mypageVO : list) {
-      String title = mypageVO.getTitle_like_gugik();
-      String detail = mypageVO.getDetail_like_gugik();
-      
-      title = Tool.convertChar(title);  // 특수 문자 처리
-      detail = Tool.convertChar(detail); 
-      
-      mypageVO.setTitle_like_gugik(title);
-      mypageVO.setDetail_like_gugik(detail);  
-
-    }
-    
-    return list;
-  }
-  
   /**
    * 관심 구인 조회
    */
