@@ -42,6 +42,30 @@ public interface MessageProcInter {
    */
   public MessageVO read(int messageno);
   
+  /**
+   * 삭제
+   * 
+   * @param int
+   * @return 
+   */
+  public int delete(int messageno);
+  
+  /**
+   * 읽은 상태 처리
+   * 
+   * @param int
+   * @return 
+   */
+  public int change_read(int messageno);
+  
+  /**
+   * 안 앍은 메시지 갯수 조회
+   * 
+   * @param int
+   * @return 
+   */
+  public int count_unread(int receive_memberno);
+  
   
   
 }

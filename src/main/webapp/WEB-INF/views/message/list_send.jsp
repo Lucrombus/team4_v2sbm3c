@@ -29,12 +29,13 @@
 </DIV>
 
     <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
-        <table class="table table-hover" style="width: 100%;">
+        <table class="table table-hover table-bordered table-sm" style="width: 100%;">
             <colgroup>
                 <col style='width: 10%;' />
-                <col style='width: 60%;' />
+                <col style='width: 50%;' />
                 <col style='width: 10%;' />
                 <col style='width: 20%;' />
+                <col style='width: 10%;' />
             </colgroup>
 
             <thead>
@@ -43,6 +44,7 @@
                     <th scope="col">제목</th>
                     <th scope="col">받는사람</th>
                     <th scope="col">날짜</th>
+                    <th scope="col">읽음</th>
                 </tr>
             </thead>
 
@@ -62,6 +64,7 @@
                 <td>${MessageVO.title}</td>
                 <td>${f.apply(MessageVO.receive_memberno).id }</td>
                 <td>${MessageVO.rdate }</td>
+                <td>${MessageVO.read }</td>
               </tr>
             </c:forEach>
             

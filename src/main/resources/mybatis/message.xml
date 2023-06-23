@@ -6,13 +6,13 @@
 
   <!-- 등록: 추가한 레코드 갯수를 리턴 -->
   <insert id="create" parameterType="dev.mvc.message.MessageVO">
-    INSERT INTO message(messageno, memberno, receive_memberno, title, content, rdate ) 
+    INSERT INTO message(messageno, memberno, receive_memberno, title, content, rdate) 
     VALUES(message_seq.nextval, #{memberno}, #{receive_memberno}, #{title}, #{content}, sysdate)
   </insert>
   
   <!-- 조회: 내가 받은 메시지 리스트 -->
   <select id="list_receive" resultType="dev.mvc.message.MessageVO" parameterType="int">
-    SELECT messageno, memberno, receive_memberno, title, content, rdate
+    SELECT messageno, memberno, receive_memberno, title, content, rdate, read
     FROM message
     WHERE receive_memberno = #{receive_memberno}
     ORDER BY rdate DESC
@@ -20,7 +20,7 @@
   
   <!-- 조회: 내가 보낸 메시지 리스트 -->
   <select id="list_send" resultType="dev.mvc.message.MessageVO" parameterType="int">
-    SELECT messageno, memberno, receive_memberno, title, content, rdate
+    SELECT messageno, memberno, receive_memberno, title, content, rdate, read
     FROM message
     WHERE memberno = #{memberno}
     ORDER BY rdate DESC
@@ -28,16 +28,29 @@
   
   <!-- 조회: 쪽지 읽기 -->
   <select id="read" resultType="dev.mvc.message.MessageVO" parameterType="int">
-    SELECT messageno, memberno, receive_memberno, title, content, rdate
+    SELECT messageno, memberno, receive_memberno, title, content, rdate, read
     FROM message
     WHERE messageno = #{messageno}
   </select>
   
-    <!-- 삭제: 쪽지 삭제 -->
+  <!-- 삭제: 쪽지 삭제 -->
   <delete id="delete" parameterType="int">
     DELETE FROM message
     WHERE messageno = ${messageno}
   </delete>
+  
+  <!-- 수정: 읽음상태로 처리 -->
+  <update id="change_read" parameterType="int">
+    UPDATE message SET read = 'Y'
+    WHERE messageno = #{messageno}
+  </update>
+  
+    <!-- 조회: 안읽은 메시지 갯수 -->
+  <select id="count_unread" resultType="int" parameterType="int">
+    SELECT count(*)
+    FROM message
+    WHERE receive_memberno = #{receive_memberno} and read = 'N'
+  </select>
 
 
           
