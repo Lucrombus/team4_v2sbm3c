@@ -27,8 +27,7 @@ public class InquiryVO {
   private String inquiryTitle;
   /** 문의 내용 */
   private String inquiryReason;
-  /** 답변 */
-  private String answer;
+
   
   public int getInquiryno() {
     return inquiryno;
@@ -54,16 +53,4 @@ public class InquiryVO {
   public void setInquiryTitle(String inquiryTitle) {
     this.inquiryTitle = inquiryTitle;
   }
-  public String getAnswer() {
-    return answer;
-  }
-  public void setAnswer(String answer) {
-    this.answer = answer;
-  }
-  @Override
-  public String toString() {
-    return "InquiryVO [inquiryno=" + inquiryno + ", memberno=" + memberno + ", inquiryTitle=" + inquiryTitle
-        + ", inquiryReason=" + inquiryReason + ", answer=" + answer + "]";
-  }
-  
 }

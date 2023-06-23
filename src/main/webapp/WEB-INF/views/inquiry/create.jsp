@@ -39,12 +39,12 @@
        <textarea name='inquiryReason' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
     </div>
     
-    <input type="hidden" name="answer" value="answer"> <!-- 답변 미 등록 -->
-    
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info btn-sm">등록</button>
       <button type="button" onclick="history.back()" class="btn btn-info btn-sm">취소</button>
     </div>
+    
+    <input type="hidden" name="rdate" value="${sysdate}"> <!-- 세션 멤버번호 -->
   
   </FORM>
 </DIV>

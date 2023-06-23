@@ -5,27 +5,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
  
 <mapper namespace = "dev.mvc.rank.RankDAOInter">
   
-  <insert id="create" parameterType="dev.mvc.rank.RankDAOInter">
+  <insert id="create" parameterType="dev.mvc.rank.RankVO">
     INSERT INTO rank(rankno, rankname) 
     VALUES(#{rankno}, #{rankname})
   </insert>
   
-  <select id="list" resultType="dev.mvc.rank.RankDAOInter">
+  <select id="list" resultType="dev.mvc.rank.RankVO">
     SELECT rankno, rankname
     FROM rank
     ORDER BY rankno ASC;
   </select>
   
   <!-- rankno로 등급 조회 -->
-  <select id="read" resultType="dev.mvc.rank.RankDAOInter" parameterType="int">
-    SELECT memberno, id, password, name, tel, rdate, rankno
+  <select id="read" resultType="dev.mvc.rank.RankVO" parameterType="int">
+    SELECT rankno, rankname
     FROM rank
     WHERE rankno = #{rankno}
   </select>  
   
   <!-- rankno로 등급 이름 수정 -->
-  <update id="update" parameterType="dev.mvc.rank.RankDAOInter">
-    UPDATE member 
+  <update id="update" parameterType="dev.mvc.rank.RankVO">
+    UPDATE rank 
     SET rankname=#{rankname}
     WHERE rankno=#{rankno}
   </update>
