@@ -17,6 +17,8 @@ public class MessageVO {
     private String content;
     /** 날짜 */
     private String rdate;
+    /** 읽음 상태 */
+    private String read = "N";
     
     
     public int getMessageno() {
@@ -55,6 +57,14 @@ public class MessageVO {
     public void setRdate(String rdate) {
       this.rdate = rdate;
     }
+    public String getRead() {
+      return read;
+    }
+    public void setRead(String read) {
+      this.read = read;
+    }
+    
+    
     
     
    

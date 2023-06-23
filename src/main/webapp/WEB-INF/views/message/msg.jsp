@@ -29,7 +29,7 @@
       <c:choose>
         <c:when test="${code == 'member_different'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">다른 회원의 쪽지는 읽을 수 없습니다</span>
+            <span class="span_success">다른 회원의 쪽지는 접근 할 수 없습니다</span>
           </LI> 
         </c:when> 
         

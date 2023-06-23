@@ -17,6 +17,15 @@
  
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function check(){
+	 var result = confirm("쪽지를 삭제하시겠습니까?\n보낸사람과 받은사람의 쪽지함 양쪽 모두에서 삭제됩니다"); 
+   if (result){
+	   $("#frm").submit();
+       }else{
+           }  
+}
+</script>
 
 
 </head>
@@ -34,7 +43,10 @@
 
     <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
 
-        <FORM name='frm' id='frm'>
+        <FORM name='frm' id='frm' method='POST' action='./delete.do'>
+            <input type="hidden" name="receive_memberno" value="${messageVO.receive_memberno }">
+            <input type="hidden" name="memberno" value="${messageVO.memberno }">
+            <input type="hidden" name="messageno" value="${messageVO.messageno }">
             
             <div class="input-group mb-3" style="width:60%;">
                 <span class="input-group-text" id="basic-addon1">보낸사람</span>
@@ -48,11 +60,15 @@
             
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">제목</span>
-                <input type="text" id="title" name="title" class="form-control" value="${messageVO.title }"  style="background-color: white;" readonly>
+                <input type="text" id="title" class="form-control" value="${messageVO.title }"  style="background-color: white;" readonly>
             </div>
             <div class="input-group">
                 <span class="input-group-text">내용</span>
-                <textarea class="form-control" id="content" name="content" rows="12" style="background-color: white;" readonly>${messageVO.content }</textarea>
+                <textarea class="form-control" id="content" rows="12" style="background-color: white;" readonly>${messageVO.content }</textarea>
+            </div>
+            
+            <div class="content_body_bottom">
+            <button type="button" onclick="check()" class="btn btn-danger">삭제</button>
             </div>
 
         </FORM>

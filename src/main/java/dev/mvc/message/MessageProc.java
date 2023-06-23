@@ -41,6 +41,27 @@ public class MessageProc implements MessageProcInter {
     return messageVO;
   }
   
+  @Override
+  public int delete(int messageno) {
+    
+    int cnt = this.MessageDAO.delete(messageno);
+    return cnt;
+  }
+  
+  @Override
+  public int change_read(int messageno) {
+    
+    int cnt = this.MessageDAO.change_read(messageno);
+    return cnt;
+  }
+  
+  @Override
+  public int count_unread(int receive_memberno) {
+    
+    int cnt = this.MessageDAO.count_unread(receive_memberno);
+    return cnt;
+  }
+  
   
   
   

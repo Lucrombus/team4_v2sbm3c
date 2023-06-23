@@ -32,9 +32,10 @@
         <table class="table table-hover" style="width: 100%;">
             <colgroup>
                 <col style='width: 10%;' />
-                <col style='width: 60%;' />
+                <col style='width: 50%;' />
                 <col style='width: 10%;' />
                 <col style='width: 20%;' />
+                <col style='width: 10%;' />
             </colgroup>
 
             <thead>
@@ -43,6 +44,7 @@
                     <th scope="col">제목</th>
                     <th scope="col">보낸사람</th>
                     <th scope="col">날짜</th>
+                    <th scope="col">읽음</th>
                 </tr>
             </thead>
 
@@ -63,6 +65,7 @@
                 <td>${MessageVO.title}</td>
                 <td>${f.apply(MessageVO.memberno).id }</td>
                 <td>${MessageVO.rdate }</td>
+                <td>${MessageVO.read }</td>
               </a>
 
               </tr>
