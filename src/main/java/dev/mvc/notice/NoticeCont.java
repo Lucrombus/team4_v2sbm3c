@@ -143,7 +143,7 @@ public class NoticeCont {
    
    /**
     * 목록 + 검색 + 페이징 지원
-    * http://localhost:9093/notice/list_by_cateno.do?cateno=1&word=스위스&now_page=1
+    * http://localhost:9093/notice/list_all_search_paging.do?word=스위스&now_page=1
     * 
     * @param word
     * @param now_page
@@ -152,7 +152,7 @@ public class NoticeCont {
    @RequestMapping(value = "/notice/list_all_search_paging.do", method = RequestMethod.GET)
    public ModelAndView list_all_search_paging(NoticeVO noticeVO) {
      ModelAndView mav = new ModelAndView();
-
+     
      // 검색된 전체 글 수
      int search_count = this.noticeProc.search_count(noticeVO);
      mav.addObject("search_count", search_count);
@@ -161,6 +161,13 @@ public class NoticeCont {
      ArrayList<NoticeVO> list = noticeProc.list_all_search_paging(noticeVO);
      mav.addObject("list", list);
      
+     // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+     Function<Integer, String> f = (memberno) -> {
+       MemberVO memberVO = memberProc.readByMemberno(memberno);
+       String id = memberVO.getId();
+       return id;
+     };
+     mav.addObject("f", f);
 
      /*
       * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
