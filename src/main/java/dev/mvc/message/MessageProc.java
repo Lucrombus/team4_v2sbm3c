@@ -27,6 +27,20 @@ public class MessageProc implements MessageProcInter {
     return list;
   }
   
+  @Override
+  public ArrayList<MessageVO> list_send(int memberno) {
+    
+    ArrayList<MessageVO> list = this.MessageDAO.list_send(memberno);
+    return list;
+  }
+  
+  @Override
+  public MessageVO read(int messageno) {
+    
+    MessageVO messageVO = this.MessageDAO.read(messageno);
+    return messageVO;
+  }
+  
   
   
   

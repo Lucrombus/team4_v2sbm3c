@@ -18,9 +18,25 @@ public interface MessageDAOInter {
    * 조회
    * 
    * @param int
-   * @return insert 태그가 추가한 레코드 갯수를 리턴
+   * @return 
    */
   public ArrayList<MessageVO> list_receive(int receive_memberno);
+  
+  /**
+   * 조회
+   * 
+   * @param int
+   * @return 
+   */
+  public ArrayList<MessageVO> list_send(int memberno);
+  
+  /**
+   * 조회
+   * 
+   * @param int
+   * @return 
+   */
+  public MessageVO read(int messageno);
   
   
 

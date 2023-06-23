@@ -56,6 +56,7 @@
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">${sessionScope.id } ${sessionScope.memberno == 1 ? "(관리자)" : ""}</a>
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href='/member/logout.do'>로그아웃</a>
+                        <a class="dropdown-item" href='/message/list_receive.do'>쪽지</a>
                         <a class="dropdown-item" href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a>
                         <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입정보 수정</a>
                         <a class="dropdown-item" href="/member/passwd_update.do?memberno=${sessionScope.memberno } ">비밀번호 변경</a>

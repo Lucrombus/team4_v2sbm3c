@@ -21,9 +21,9 @@
 <c:import url="/menu/top.do" />
 
 <DIV class='title_line'>
-<a href="/message/list_receive.do"><span style="font-size:20px; font-weight:bold;">받은 쪽지함 </span></a>
+<a href="/message/list_receive.do"><span style="font-size:20px; color:#A4A4A4; ">받은 쪽지함 </span></a>
 <span class='menu_divide' >│</span>
-<a href="/message/list_send.do"><span style="font-size:20px; color:#A4A4A4; ">보낸 쪽지함 </span></a>
+<a href="/message/list_send.do"><span style="font-size:20px; font-weight:bold;">보낸 쪽지함 </span></a>
 <span class='menu_divide' >│</span>
 <a href="/message/create.do"><span style="font-size:20px; color:#A4A4A4; ">쪽지쓰기 </span></a>
 </DIV>
@@ -41,7 +41,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">제목</th>
-                    <th scope="col">보낸사람</th>
+                    <th scope="col">받는사람</th>
                     <th scope="col">날짜</th>
                 </tr>
             </thead>
@@ -51,23 +51,19 @@
             <c:if test="${list[0]== null}">
             <tr>
             <td colspan="4">
-            받은 쪽지가 아무것도 없습니다!
+            보낸 쪽지가 아무것도 없습니다!
             </td>
             </tr>
             </c:if>
             
             <c:forEach var="MessageVO" items="${list }">
               <tr onclick="location.href='/message/read.do?messageno=${MessageVO.messageno }'" class="hover">
-              <a href="/message/read.do?messageno=${MessageVO.messageno }">
                 <td>${MessageVO.messageno }</td>
                 <td>${MessageVO.title}</td>
                 <td>${f.apply(MessageVO.memberno).id }</td>
                 <td>${MessageVO.rdate }</td>
-              </a>
-
               </tr>
             </c:forEach>
-
             
              
             </tbody>

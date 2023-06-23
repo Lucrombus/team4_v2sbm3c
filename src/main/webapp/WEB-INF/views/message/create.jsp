@@ -91,7 +91,13 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
 <%-- <jsp:include page="../menu/top.jsp" flush='false' /> --%>
 <c:import url="/menu/top.do" />
 
-<DIV class='title_line'>쪽지 쓰기</DIV>
+<DIV class='title_line'>
+<a href="/message/list_receive.do"><span style="font-size:20px; color:#A4A4A4; ">받은 쪽지함 </span></a>
+<span class='menu_divide' >│</span>
+<a href="/message/list_send.do"><span style="font-size:20px; color:#A4A4A4; ">보낸 쪽지함 </span></a>
+<span class='menu_divide' >│</span>
+<a href="/message/create.do"><span style="font-size:20px; font-weight:bold;">쪽지쓰기 </span></a>
+</DIV>
 
     <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
 
@@ -120,7 +126,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
                 <button type="button" onclick="checkLength();"
                     class="btn btn-secondary">전송</button>
                 <button type="button"
-                    onclick="location.href='./list_by_boardno_search_paging.do?boardno=${param.boardno}&now_page=${param.now_page }'"
+                    onclick="location.href='/message/list_send.do'"
                     class="btn btn-secondary">취소</button>
             </div>
 

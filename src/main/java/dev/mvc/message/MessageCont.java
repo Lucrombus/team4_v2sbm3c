@@ -32,6 +32,40 @@ public class MessageCont {
 
     System.out.println("MessageCont Created");
   }
+  
+  // 메시지 조회 폼
+  @RequestMapping(value = "/message/read.do", method = RequestMethod.GET)
+  public ModelAndView read(int messageno, HttpSession session) {
+
+    ModelAndView mav = new ModelAndView();
+    
+    MessageVO messageVO = this.messageProc.read(messageno);
+    mav.addObject("messageVO", messageVO);
+    
+    //자신이 보내거나 받은 메시지만 읽을 수 있도록 조건 추가
+    
+    if ((int) session.getAttribute("memberno") == messageVO.getMemberno()
+        || (int) session.getAttribute("memberno") == messageVO.getReceive_memberno()) {
+      
+      // memberno로 memberVO를 찾는 메소드를 람다식으로 구현후 페이지에 넣음
+      
+      Function<Integer, MemberVO> f = (memberno) -> {
+        MemberVO memberVO = this.memberProc.readByMemberno(memberno);
+        return memberVO;
+      };
+
+      mav.addObject("f", f);
+
+      mav.setViewName("/message/read");
+
+    }else {
+      mav.addObject("code", "member_different");
+      mav.setViewName("redirect:/message/msg.do");
+    }
+    
+    return mav;
+
+  }
 
   // 메시지 전송 폼
   @RequestMapping(value = "/message/create.do", method = RequestMethod.GET)
@@ -73,7 +107,7 @@ public class MessageCont {
     messageVO.setMemberno((int) session.getAttribute("memberno")); // 보내는 사람 memberno 저장
     
     int cnt = this.messageProc.create(messageVO);
-    mav.setViewName("redirect:/message/create.do");
+    mav.setViewName("redirect:/message/list_send.do");
     return mav;
 
   }
@@ -89,6 +123,7 @@ public class MessageCont {
       ArrayList<MessageVO> list = this.messageProc.list_receive(receive_memberno);
       mav.addObject("list", list);
       
+      //memberno로 memberVO를 찾는 메소드를 람다식으로 구현후 페이지에 넣음
       Function<Integer, MemberVO> f = (memberno) -> {
         MemberVO memberVO = this.memberProc.readByMemberno(memberno);
         return memberVO;
@@ -107,5 +142,45 @@ public class MessageCont {
     return mav;
 
   }
+  
+//내가 보낸 메시지 리스트
+ @RequestMapping(value = "/message/list_send.do", method = RequestMethod.GET)
+ public ModelAndView list_send(HttpSession session) {
+   
+   ModelAndView mav = new ModelAndView();
+   
+   if (session.getAttribute("memberno") != null) { //로그인 확인
+     int send_memberno = (int) session.getAttribute("memberno");
+     ArrayList<MessageVO> list = this.messageProc.list_send(send_memberno);
+     mav.addObject("list", list);
+     
+     Function<Integer, MemberVO> f = (memberno) -> {
+       MemberVO memberVO = this.memberProc.readByMemberno(memberno);
+       return memberVO;
+     };
+     
+     mav.addObject("f", f);
+     
+   
+     mav.setViewName("/message/list_send");
+     
+   }else {
+     mav.setViewName("/member/login_need");
+     
+   }
+  
+   return mav;
+
+ }
+ 
+ // 각종 MSG 처리
+ @RequestMapping(value = "/message/msg.do", method = RequestMethod.GET)
+ public ModelAndView msg() {
+
+   ModelAndView mav = new ModelAndView();
+   mav.setViewName("/message/msg");
+   return mav;
+
+ }
 
 }
