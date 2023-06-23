@@ -120,7 +120,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
   <DIV style="text-align: right; clear: both;">  
     <ASIDE class="aside_left" style="padding-bottom: 10px;">
       <span style="font-size: 1.5em; font-weight: bold;">${title }</span>
-      <span class='menu_divide' >│</span> ${memberVO.id}
+      <span class='menu_divide' >│</span> ${memberVO.id == null ? '(알 수 없음)' : memberVO.id}
       <span class='menu_divide' >│</span> ${rdate }
       <span class='menu_divide' >│</span> <a href="/report_c/create.do?contentsno=${contentsno}"><img src='/images/siren.png' title="신고" class="icon"></a>
     </ASIDE>
@@ -187,7 +187,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
           <c:when test="${f.apply(memberno).rankno == 2}"><img src='/member/images/user.png' title="개인 회원" class="icon"></c:when>
           <c:when test="${f.apply(memberno).rankno == 3}"><img src='/member/images/enterprise.png' title="기업 회원" class="icon"></c:when>
           <c:when test="${f.apply(memberno).rankno == 4}"><img src='/member/images/x.png' title="탈퇴 회원" class="icon"></c:when>
-        </c:choose>  ${f.apply(memberno).id }
+        </c:choose>  ${f.apply(memberno).id == null ? '(알 수 없음)' : f.apply(memberno).id}
       </td>
       <td>${replyVO.reply_content }</td>
       <td><a href="#"><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)"></a> +${f2.apply(replyVO.replyno) } </td>

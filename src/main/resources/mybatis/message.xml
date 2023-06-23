@@ -32,6 +32,12 @@
     FROM message
     WHERE messageno = #{messageno}
   </select>
+  
+    <!-- 삭제: 쪽지 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM message
+    WHERE messageno = ${messageno}
+  </delete>
 
 
           

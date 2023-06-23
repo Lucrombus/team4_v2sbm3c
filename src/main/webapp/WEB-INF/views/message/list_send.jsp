@@ -60,7 +60,7 @@
               <tr onclick="location.href='/message/read.do?messageno=${MessageVO.messageno }'" class="hover">
                 <td>${MessageVO.messageno }</td>
                 <td>${MessageVO.title}</td>
-                <td>${f.apply(MessageVO.memberno).id }</td>
+                <td>${f.apply(MessageVO.receive_memberno).id }</td>
                 <td>${MessageVO.rdate }</td>
               </tr>
             </c:forEach>

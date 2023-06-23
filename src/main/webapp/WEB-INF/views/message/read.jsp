@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="receiver" value="${f.apply(messageVO.receive_memberno).id == sessionScope.id ? '나' : f.apply(messageVO.receive_memberno).id }" />
+<c:set var="sender" value="${f.apply(messageVO.memberno).id == sessionScope.id ? '나' : f.apply(messageVO.memberno).id }" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -35,8 +38,11 @@
             
             <div class="input-group mb-3" style="width:60%;">
                 <span class="input-group-text" id="basic-addon1">보낸사람</span>
-                <input type="text" class="form-control" value="${f.apply(messageVO.memberno).id }"style="background-color: white;" readonly>
+                <input type="text" class="form-control" value="${sender }"style="background-color: white;" readonly>
+                <span class="input-group-text" id="basic-addon1">받는사람</span>
+                <input type="text" class="form-control" value="${receiver}"style="background-color: white;" readonly>
             </div>
+            
         
         
             

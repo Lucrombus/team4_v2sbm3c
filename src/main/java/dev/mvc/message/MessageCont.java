@@ -42,26 +42,33 @@ public class MessageCont {
     MessageVO messageVO = this.messageProc.read(messageno);
     mav.addObject("messageVO", messageVO);
     
-    //자신이 보내거나 받은 메시지만 읽을 수 있도록 조건 추가
-    
-    if ((int) session.getAttribute("memberno") == messageVO.getMemberno()
-        || (int) session.getAttribute("memberno") == messageVO.getReceive_memberno()) {
-      
-      // memberno로 memberVO를 찾는 메소드를 람다식으로 구현후 페이지에 넣음
-      
-      Function<Integer, MemberVO> f = (memberno) -> {
-        MemberVO memberVO = this.memberProc.readByMemberno(memberno);
-        return memberVO;
-      };
+    if (session.getAttribute("memberno") != null) {
+      // 자신이 보내거나 받은 메시지만 읽을 수 있도록 조건 추가
 
-      mav.addObject("f", f);
+      if ((int) session.getAttribute("memberno") == messageVO.getMemberno()
+          || (int) session.getAttribute("memberno") == messageVO.getReceive_memberno()) {
 
-      mav.setViewName("/message/read");
+        // memberno로 memberVO를 찾는 메소드를 람다식으로 구현후 페이지에 넣음
 
-    }else {
-      mav.addObject("code", "member_different");
-      mav.setViewName("redirect:/message/msg.do");
+        Function<Integer, MemberVO> f = (memberno) -> {
+          MemberVO memberVO = this.memberProc.readByMemberno(memberno);
+          return memberVO;
+        };
+
+        mav.addObject("f", f);
+
+        mav.setViewName("/message/read");
+
+      } else { // 내가 보내거나 받은 메시지가 아닐경우
+        mav.addObject("code", "member_different");
+        mav.setViewName("redirect:/message/msg.do");
+      }
+
+    } else { //로그인 상태가 아닐 경우
+      mav.setViewName("/member/login_need");
+
     }
+    
     
     return mav;
 
