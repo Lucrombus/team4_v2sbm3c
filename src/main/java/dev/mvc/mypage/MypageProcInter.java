@@ -33,20 +33,6 @@ public interface MypageProcInter {
   public int create_like_gugik(MypageVO mypageVO);
   
   /**
-   * 나의 관심 구인 목록
-   * 관심 구인 목록을 ArrayList<MypageVO>로 리턴
-   * @return
-   */
-  public ArrayList<MypageVO> list_like_guin();
-  
-  /**
-   * 나의 관심 구직 목록
-   * 관심 구직 목록을 ArrayList<MypageVO>로 리턴
-   * @return
-   */
-  public ArrayList<MypageVO> list_like_gugik();
-  
-  /**
    * 나의 관심 구인 조회
    * @param like_guinno
    * @return

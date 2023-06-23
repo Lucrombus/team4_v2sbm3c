@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
  
 <mapper namespace = "dev.mvc.inquiry.InquiryDAOInter">
   
-  <insert id="create" parameterType="dev.mvc.inquiry.InquiryDAOInter">
+  <insert id="create" parameterType="dev.mvc.inquiry.InquiryVO">
    INSERT INTO inquiry(inquiryno, memberno, inquiryTitle, inquiryReason, rdate) 
    VALUES (inquiry_seq.nextval, #{memberno}, #{inquiryTitle} , #{inquiryReason}, sysdate) 
   </insert>
@@ -44,6 +44,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     DELETE FROM inquiry
     WHERE inquiryno = #{inquiryno}
   </delete>
-  
   
 </mapper>

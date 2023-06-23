@@ -21,7 +21,7 @@
   <DIV class='message'>
     <button type='button' onclick="location.href='/mypage/myinfo.do'" class="btn btn-info">내 정보</button>
     <br><br>
-    <button type='button' onclick="location.href='/mypage/list_like_guin.do'" class="btn btn-info">나의 관심 구인 목록</button>
+    <button type='button' onclick="location.href='/like_guin/list_like_guin.do?memberno=${memberno}'" class="btn btn-info">나의 관심 구인 목록</button>
     <br><br>
     <button type='button' onclick="location.href='/mypage/list_like_gugik.do'" class="btn btn-info">나의 관심 구직 목록</button>
     <br><br>
