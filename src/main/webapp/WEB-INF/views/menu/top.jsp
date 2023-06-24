@@ -58,7 +58,7 @@
                         <a class="dropdown-item" href='/message/list_receive.do'>쪽지 
                         <c:if test="${unread_cnt > 0 }">(${unread_cnt }) <img src='/images/new_mail.png' title="관리자" class="icon"></c:if>
                         </a>
-                        
+                        <a class="dropdown-item" href="http://localhost:8000/ais/recommend_form/?memberno=${sessionScope.memberno }">관심분야 등록하고 추천받기</a>
                         <a class="dropdown-item" href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a>
                         <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입정보 수정</a>
                         <a class="dropdown-item" href="/member/passwd_update.do?memberno=${sessionScope.memberno } ">비밀번호 변경</a>
