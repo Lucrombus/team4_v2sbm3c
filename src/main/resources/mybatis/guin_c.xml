@@ -10,12 +10,12 @@
         (guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1)
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1, like)
         VALUES
         (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name},
         #{brand}, #{title},
         #{content}, sysdate, #{address},
-        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1}, #{thumb1_origin}, #{file1}, #{file1saved}, #{size1})
+        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1}, #{thumb1_origin}, #{file1}, #{file1saved}, #{size1}, 'N')
     </insert>
     
     <!-- 조회 -->
@@ -23,7 +23,7 @@
         SELECT guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map, like
         FROM guin_c
         WHERE guin_cno = #{guin_cno}
     </select>
@@ -126,6 +126,18 @@
   
   </select>
 
-
+  <!-- 수정: 관심 구인 등록 -->
+  <update id="like_y" parameterType="int">
+    UPDATE guin_c
+    SET like = 'Y'
+    WHERE guin_cno = #{guin_cno} AND memberno = #{memberno}
+  </update>
+  
+  <!-- 수정: 관심 구인 해제 -->
+  <update id="like_n" parameterType="int">
+    UPDATE guin_c
+    SET like = 'N'
+    WHERE guin_cno = #{guin_cno} AND memberno = #{memberno}
+  </update>
 
 </mapper>

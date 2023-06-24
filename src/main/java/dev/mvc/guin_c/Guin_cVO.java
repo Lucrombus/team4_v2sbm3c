@@ -25,6 +25,7 @@ public class Guin_cVO {
   private String thumb1_origin ="";
   private long size1;
   private String word ="";
+  private String like;
 
   /**
    * 이미지 파일
@@ -200,7 +201,12 @@ public class Guin_cVO {
   public void setNow_page(int now_page) {
     this.now_page = now_page;
   }
-  
+  public String getLike() {
+    return like;
+  }
+  public void setLike(String like) {
+    this.like = like;
+  }
   
   
   

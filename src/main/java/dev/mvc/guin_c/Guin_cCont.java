@@ -643,8 +643,37 @@ public class Guin_cCont {
     return mav; // forward
   }
   
- 
+  // 관심 구인 등록
+  // http://localhost:9093/guin_c/like_y.do
+  @RequestMapping(value = "/guin_c/like_y.do", method = RequestMethod.GET)
+  public ModelAndView like_y(int guin_cno) {
+
+
+    int cnt = this.guin_cProc.like_y(guin_cno);
+
+
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("redirect:/guin_c/like_y.do");
+
+    return mav;
+
+  }
   
+  // 관심 구인 해제
+  // http://localhost:9093/guin_c/like_n.do
+  @RequestMapping(value = "/guin_c/like_n.do", method = RequestMethod.GET)
+  public ModelAndView like_n(int guin_cno) {
+
+
+    int cnt = this.guin_cProc.like_n(guin_cno);
+
+
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("redirect:/guin_c/like_n.do");
+
+    return mav;
+
+  }
   
   
   

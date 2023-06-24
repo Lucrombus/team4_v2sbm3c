@@ -68,7 +68,19 @@ public interface Guin_cProcInter {
    */ 
   public String pagingBox(int typeno, int search_count, int now_page, String word, String list_file);
 
-
+  /**
+   * 관심 구인 등록
+   * 
+   * @return 수정된 레코드 갯수 리턴
+   */
+  public int like_y(int guin_cno);
+  
+  /**
+   * 관심 구인 해제
+   * 
+   * @return 수정된 레코드 갯수 리턴
+   */
+  public int like_n(int guin_cno);
   
 
 

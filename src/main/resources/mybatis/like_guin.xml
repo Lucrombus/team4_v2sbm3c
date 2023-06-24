@@ -4,18 +4,26 @@
 
 <mapper namespace="dev.mvc.like_guin.Like_guinDAOInter">
   
-  
+  <!-- 등록 -->
   <insert id="create" parameterType="dev.mvc.like_guin.Like_guinVO">
     INSERT INTO like_guin(like_guinno, memberno, guin_cno) 
     VALUES(like_guin_seq.nextval, #{memberno}, #{guin_cno})
   </insert>
   
-  <select id="list_like_guin" resultType="dev.mvc.like_guin.Like_guinVO">
+  <!-- 목록 -->
+  <select id="list_all" resultType="dev.mvc.like_guin.Like_guinVO">
     SELECT like_guinno, memberno, guin_cno
     FROM like_guin
-    WHERE memberno = #{memberno}
+    WHERE guin_cno = #{guin_cno}
   </select>
-
+  
+  <!-- 조회 -->
+  <select id="read" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="int">
+    SELECT like_guinno, memberno, guin_cno
+    FROM like_guin
+    WHERE like_guinno = #{like_guinno}
+  </select>
+  
   <delete id="delete" parameterType="int">
     DELETE FROM like_guin
     WHERE like_guinno=#{like_guinno}
