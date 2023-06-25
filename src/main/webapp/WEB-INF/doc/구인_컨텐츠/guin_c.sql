@@ -25,7 +25,7 @@ CREATE TABLE guin_c(
 		thumb1                        		VARCHAR2(100)		 NULL ,
         thumb1_origin                       VARCHAR2(100)		 NULL ,
 		size1                         		NUMBER(10)		 NULL ,
-        like                       		    CHAR(1)		 DEFAULT 'N'		 NOT NULL ,                               
+        like_w                     		    CHAR(1)		 DEFAULT 'N'		 NOT NULL ,                               
   FOREIGN KEY (jobcateno) REFERENCES jobcate (jobcateno),
   FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
@@ -50,7 +50,7 @@ COMMENT ON COLUMN guin_c.file1saved is '실제로 저장된 메인 이미지';
 COMMENT ON COLUMN guin_c.thumb1 is '크기가 바뀐 썸네일 이미지';
 COMMENT ON COLUMN guin_c.thumb1_origin is '썸네일 오리지널 이미지';
 COMMENT ON COLUMN guin_c.size1 is '이미지 용량';
-COMMENT ON COLUMN guin_c.like is '관심 구인 설정';
+COMMENT ON COLUMN guin_c.like_w is '관심 구인 설정';
 
 DROP SEQUENCE guin_c_seq;
 

@@ -10,7 +10,7 @@
         (guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1, like)
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1, like_w)
         VALUES
         (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name},
         #{brand}, #{title},
@@ -23,7 +23,7 @@
         SELECT guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map, like
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map, like_w
         FROM guin_c
         WHERE guin_cno = #{guin_cno}
     </select>
@@ -129,14 +129,14 @@
   <!-- 수정: 관심 구인 등록 -->
   <update id="like_y" parameterType="int">
     UPDATE guin_c
-    SET like = 'Y'
+    SET like_w = 'Y'
     WHERE guin_cno = #{guin_cno} AND memberno = #{memberno}
   </update>
   
   <!-- 수정: 관심 구인 해제 -->
   <update id="like_n" parameterType="int">
     UPDATE guin_c
-    SET like = 'N'
+    SET like_w = 'N'
     WHERE guin_cno = #{guin_cno} AND memberno = #{memberno}
   </update>
 
