@@ -7,7 +7,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>알바지옥몬 0.1</title>
 <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -107,6 +107,14 @@
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
             <A href="/guin_c/map.do?jobcateno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
+            <c:choose>
+              <c:when test= "${guin_cVO.getLike_w() eq 'Y' }">
+                <A href="./like_n.do?jobcateno=${jobcateVO.getJobcateno() }&guin_cno=${guin_cno }" title="관심 구인 해제 하기"><IMG src="/like_guin/images/like_y.png" class="icon"></A>
+              </c:when>
+              <c:otherwise>
+                <A href="./like_y.do?jobcateno=${jobcateVO.getJobcateno() }&guin_cno=${guin_cno }" title="관심 구인 등록 하기"><IMG src="/like_guin/images/like_n.png" class="icon"></A>
+              </c:otherwise>
+            </c:choose>
           </td>
           <td style='vertical-align: middle; text-align: center;'>
           ${rdate }
