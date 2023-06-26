@@ -126,18 +126,6 @@
   
   </select>
 
-  <!-- 수정: 관심 구인 등록 -->
-  <update id="like_y" parameterType="int">
-    UPDATE guin_c
-    SET like_w = 'Y'
-    WHERE guin_cno = #{guin_cno} AND memberno = #{memberno}
-  </update>
-  
-  <!-- 수정: 관심 구인 해제 -->
-  <update id="like_n" parameterType="int">
-    UPDATE guin_c
-    SET like_w = 'N'
-    WHERE guin_cno = #{guin_cno} AND memberno = #{memberno}
-  </update>
+
 
 </mapper>

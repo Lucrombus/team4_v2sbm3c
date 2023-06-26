@@ -34,4 +34,16 @@ public class Like_guinProc implements Like_guinProcInter{
     int cnt = this.like_guinDAO.delete(like_guinno);
     return cnt;
   }
+  
+  @Override
+  public int check(Like_guinVO like_guinVO) {
+    int cnt = this.like_guinDAO.check(like_guinVO);
+    return cnt;
+  }
+  
+  @Override
+  public int delete_mine(Like_guinVO like_guinVO) {
+    int cnt = this.like_guinDAO.delete_mine(like_guinVO);
+    return cnt;
+  }
 }

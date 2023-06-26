@@ -32,4 +32,18 @@ public interface Like_guinProcInter {
    */
   public int delete(int like_guinno);
   
+  /**
+   * 이미 관심등록 했는지 확인
+   * @param Like_guinVO
+   * @return
+   */
+  public int check(Like_guinVO like_guinVO);
+  
+  /**
+   * 관싱등록한거 삭제
+   * @param 
+   * @return
+   */
+  public int delete_mine(Like_guinVO like_guinVO);
+  
 }

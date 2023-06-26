@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.jobcate.JobcateProcInter;
 import dev.mvc.jobcate.JobcateVO;
+import dev.mvc.like_guin.Like_guinProcInter;
+import dev.mvc.like_guin.Like_guinVO;
 import dev.mvc.member.MemberProc;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
@@ -27,6 +29,8 @@ import dev.mvc.tool.Upload;
 
 @Controller
 public class Guin_cCont {
+  
+  
 
   @Autowired
   @Qualifier("dev.mvc.guin_c.Guin_cProc")
@@ -39,6 +43,10 @@ public class Guin_cCont {
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.like_guin.Like_guinProc")
+  private Like_guinProcInter like_guinProc;
 
   public Guin_cCont() {
     System.out.println("Guin_cCont created");
@@ -259,6 +267,9 @@ public class Guin_cCont {
 
     JobcateVO jobcateVO = jobcateProc.read(guin_cVO.getJobcateno());
     mav.addObject("jobcateVO", jobcateVO);
+    
+    Like_guinVO like_guinVO = new Like_guinVO();
+    mav.addObject("like_guinVO", like_guinVO);
 
     // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
     Function<Integer, String> f = (memberno) -> {
@@ -271,6 +282,14 @@ public class Guin_cCont {
       return id;
     };
     mav.addObject("f", f);
+    
+    // guin_cno와 현재 세션의 memberno로 이미 관심등록한 글인지 체크하는 메소드
+    Function<Like_guinVO, Integer> f2 = (like_guinVO_read) -> {
+      
+      int cnt = this.like_guinProc.check(like_guinVO_read);
+      return cnt;
+    };
+    mav.addObject("f2", f2);
 
     int search_count = guin_cProc.search_count(guin_cVO);
 
@@ -643,38 +662,7 @@ public class Guin_cCont {
     return mav; // forward
   }
   
-  // 관심 구인 등록
-  // http://localhost:9093/guin_c/like_y.do
-  @RequestMapping(value = "/guin_c/like_y.do", method = RequestMethod.GET)
-  public ModelAndView like_y(int guin_cno) {
-
-    int cnt = this.guin_cProc.like_y(guin_cno);
-    
-    ModelAndView mav = new ModelAndView();
-    
-    mav.setViewName("redirect:/guin_c/like_y.do");
-
-    return mav;
-
-  }
   
-  // 관심 구인 해제
-  // http://localhost:9093/guin_c/like_n.do
-  @RequestMapping(value = "/guin_c/like_n.do", method = RequestMethod.GET)
-  public ModelAndView like_n(int guin_cno) {
-
-    int cnt = this.guin_cProc.like_n(guin_cno);
-
-    ModelAndView mav = new ModelAndView();
-    
-    Guin_cVO guin_cVO = guin_cProc.read(guin_cno);
-    mav.addObject("guin_cVO", guin_cVO);
-    
-    mav.setViewName("redirect:/guin_c/like_n.do");
-
-    return mav;
-
-  }
   
   
   

@@ -214,20 +214,6 @@ public class Guin_cProc implements Guin_cProcInter {
 
     return str.toString();
   }
-
-  @Override
-  public int like_y(int guin_cno){
-    
-    int cnt = this.guin_cDAO.like_y(guin_cno);
-    return cnt;
-  }
-  
-  @Override
-  public int like_n(int guin_cno){
-    
-    int cnt = this.guin_cDAO.like_n(guin_cno);
-    return cnt;
-  }
   
   
 

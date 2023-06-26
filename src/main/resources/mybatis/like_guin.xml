@@ -28,6 +28,20 @@
     DELETE FROM like_guin
     WHERE like_guinno=#{like_guinno}
   </delete>
+  
+   <!-- 이미 관심등록 했는지 조회 -->
+  <select id="check" resultType="int" parameterType="dev.mvc.guin_c.Guin_cVO">
+    SELECT COUNT(*)
+    FROM like_guin
+    WHERE memberno = #{memberno} AND guin_cno = #{guin_cno}
+  </select>
+  
+   <delete id="delete_mine" parameterType="dev.mvc.guin_c.Guin_cVO">
+    DELETE FROM like_guin
+    WHERE memberno = #{memberno} AND guin_cno = #{guin_cno}
+  </delete>
+  
+  
 
 
 </mapper>

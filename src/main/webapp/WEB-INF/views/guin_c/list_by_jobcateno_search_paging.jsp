@@ -86,6 +86,9 @@
         <c:set var="rdate" value="${guin_cVO.rdate }" />
         <c:set var="memberno" value="${guin_cVO.memberno }" />
         
+        <c:set target="${like_guinVO}" property="guin_cno" value="${guin_cno }" />
+        <c:set target="${like_guinVO}" property="memberno" value="${sessionScope.memberno == null ? -1 : sessionScope.memberno }" />
+        
         <tr style="height:100px;">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
           ${guin_cno}
@@ -108,11 +111,11 @@
           <td style='vertical-align: middle; text-align: center;'>
             <A href="/guin_c/map.do?jobcateno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
             <c:choose>
-              <c:when test= "${guin_cVO.getLike_w() eq 'Y' }">
-                <A href="./like_n.do?jobcateno=${jobcateVO.getJobcateno() }&guin_cno=${guin_cno }" title="관심 구인 해제 하기"><IMG src="/like_guin/images/like_y.png" class="icon"></A>
+              <c:when test= "${f2.apply(like_guinVO) > 0 }">
+                <A href="/like_guin/like_n.do?jobcateno=${jobcateno }&guin_cno=${guin_cno }&now_page=${param.now_page}" title="관심 구인 해제 하기"><IMG src="/like_guin/images/like_y.png" class="icon"></A>
               </c:when>
               <c:otherwise>
-                <A href="./like_y.do?jobcateno=${jobcateVO.getJobcateno() }&guin_cno=${guin_cno }" title="관심 구인 등록 하기"><IMG src="/like_guin/images/like_n.png" class="icon"></A>
+                <A href="/like_guin/like_y.do?jobcateno=${jobcateno }&guin_cno=${guin_cno }&now_page=${param.now_page}" title="관심 구인 등록 하기"><IMG src="/like_guin/images/like_n.png" class="icon"></A>
               </c:otherwise>
             </c:choose>
           </td>

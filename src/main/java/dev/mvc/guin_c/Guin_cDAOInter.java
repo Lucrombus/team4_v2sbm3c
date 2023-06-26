@@ -54,19 +54,5 @@ public interface Guin_cDAOInter {
    * @return
    */
   public int count_by_jobcateno(int jobcateno);
-  
-  /**
-   * 관심 구인 등록
-   * 
-   * @return 수정된 레코드 갯수 리턴
-   */
-  public int like_y(int guin_cno);
-  
-  /**
-   * 관심 구인 해제
-   * 
-   * @return 수정된 레코드 갯수 리턴
-   */
-  public int like_n(int guin_cno);
 
 }
