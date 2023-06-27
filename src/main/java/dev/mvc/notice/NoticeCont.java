@@ -43,10 +43,10 @@ public class NoticeCont {
     // public ModelAndView create(HttpServletRequest request, int cateno) {
     ModelAndView mav = new ModelAndView();
 
-    if (this.memberProc.isMember(session) != true) {
+    if (this.memberProc.isAdmin(session)) {
       mav.setViewName("/notice/create"); // /webapp/WEB-INF/views/notice/create.jsp
     } else {
-      mav.setViewName("/member/login_need");
+      mav.setViewName("/member/admin_login_need");
     }
     
     return mav;
@@ -58,7 +58,7 @@ public class NoticeCont {
 
     ModelAndView mav = new ModelAndView();
 
-    if (this.memberProc.isMember(session) != true) { //관리자일경우
+    if (this.memberProc.isAdmin(session)) { //관리자일경우
       // ------------------------------------------------------------------------------
       // 파일 전송 코드 시작
       // ------------------------------------------------------------------------------
@@ -114,13 +114,13 @@ public class NoticeCont {
       mav.setViewName("redirect:/notice/list_all_search_paging.do");
       
     } else {
-      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+      mav.setViewName("/member/admin_login_need"); // /WEB-INF/views/member/admin_login_need.jsp
     }
 
     return mav;
   }
 
-   // 공지사항 리스트 조회
+   // 공지사항 topview 리스트 조회
    //http://localhost:9093/notice/list_all.do
    @RequestMapping(value="/notice/list_all.do", method=RequestMethod.GET)
    public ModelAndView list_all() {
@@ -226,15 +226,19 @@ public class NoticeCont {
    
    // 공지사항 글 수정 폼
    @RequestMapping(value = "/notice/update_text.do", method = RequestMethod.GET)
-   public ModelAndView update_text(int noticeno) {
+   public ModelAndView update_text(HttpSession session, int noticeno) {
      ModelAndView mav = new ModelAndView();
      
      NoticeVO noticeVO = this.noticeProc.read(noticeno);
      mav.addObject("noticeVO", noticeVO);
      
+     if (this.memberProc.isAdmin(session)) { //관리자일 경우에
      mav.setViewName("/notice/update_text"); // /WEB-INF/views/contents/update_text.jsp
      // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
      // mav.addObject("content", content);
+     } else {
+       mav.setViewName("/member/admin_login_need"); // /WEB-INF/views/member/admin_login_need.jsp
+     }
 
      return mav; // forward
    }
@@ -244,13 +248,13 @@ public class NoticeCont {
    public ModelAndView update_text(HttpSession session, NoticeVO noticeVO) {
      ModelAndView mav = new ModelAndView();
      
-     if (session.getAttribute("memberno") != null) { // 로그인되어있는 상태이면
+     if (this.memberProc.isAdmin(session)) { //관리자일 경우에
        int cnt = this.noticeProc.update_text(noticeVO);  
        
        mav.addObject("noticeno", noticeVO.getNoticeno());
        mav.setViewName("redirect:/notice/read.do");
      } else { // 정상적인 로그인이 아닌 경우
-       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+       mav.setViewName("/member/admin_login_need"); // /WEB-INF/views/member/admin_login_need.jsp
      }
      
      mav.addObject("now_page", noticeVO.getNow_page()); // POST -> GET: 데이터 분실이 발생함으로 다시한번 데이터 저장 ★
@@ -263,14 +267,18 @@ public class NoticeCont {
    
    // 파일 수정 폼
    @RequestMapping(value = "/notice/update_file.do", method = RequestMethod.GET)
-   public ModelAndView update_file(int noticeno) {
+   public ModelAndView update_file(HttpSession session, int noticeno) {
      ModelAndView mav = new ModelAndView();
      
+     if (this.memberProc.isAdmin(session)) { //관리자일 경우에
      NoticeVO noticeVO = this.noticeProc.read(noticeno);
      mav.addObject("noticeVO", noticeVO);
      
      mav.setViewName("/notice/update_file"); // /WEB-INF/views/contents/update_file.jsp
-
+     } else {
+       mav.setViewName("/member/admin_login_need"); // /WEB-INF/views/member/admin_login_need.jsp
+     }
+     
      return mav; // forward
    }
    
@@ -279,7 +287,7 @@ public class NoticeCont {
    public ModelAndView update_file(HttpSession session, NoticeVO noticeVO) {
      ModelAndView mav = new ModelAndView();
      
-     if (session.getAttribute("memberno") != null) {
+     if (this.memberProc.isAdmin(session)) { //관리자일 경우에
        // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
        NoticeVO noticeVO_old = noticeProc.read(noticeVO.getNoticeno());
        
@@ -342,7 +350,7 @@ public class NoticeCont {
                  
      } else {
        
-       mav.setViewName("/member/login_need"); // GET
+       mav.setViewName("/member/admin_login_need"); // GET
      }
 
      // redirect하게되면 전부 데이터가 삭제됨으로 mav 객체에 다시 저장
@@ -353,23 +361,28 @@ public class NoticeCont {
 
    // 삭제 폼
    @RequestMapping(value="/notice/delete.do", method=RequestMethod.GET )
-   public ModelAndView delete(int noticeno) { 
+   public ModelAndView delete(HttpSession session, int noticeno) { 
      ModelAndView mav = new  ModelAndView();
      
+     if (this.memberProc.isAdmin(session)) { //관리자일 경우에
      // 삭제할 정보를 조회하여 확인
      NoticeVO noticeVO = this.noticeProc.read(noticeno);
      mav.addObject("noticeVO", noticeVO);
      
      mav.setViewName("/notice/delete");  // /webapp/WEB-INF/views/notice/delete.jsp
+     } else {
+       mav.setViewName("/member/admin_login_need");
+     }
      
      return mav; 
    }
 
    // 삭제 처리
    @RequestMapping(value = "/notice/delete.do", method = RequestMethod.POST)
-   public ModelAndView delete(NoticeVO noticeVO) {
+   public ModelAndView delete(HttpSession session, NoticeVO noticeVO) {
      ModelAndView mav = new ModelAndView();
      
+     if (this.memberProc.isAdmin(session)) { //관리자일 경우에
      // -------------------------------------------------------------------
      // 파일 삭제 시작
      // -------------------------------------------------------------------
@@ -390,6 +403,9 @@ public class NoticeCont {
      
     
      mav.setViewName("redirect:/notice/list_all.do"); 
+     } else {
+       mav.setViewName("/member/admin_login_need");
+     }
      
      return mav;
    }   

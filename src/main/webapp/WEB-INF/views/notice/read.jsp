@@ -36,7 +36,7 @@
 <DIV class='content_body'>
   <ASIDE class="aside_right">
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.id != null}">
+    <c:if test="${sessionScope.rankno == 1}">
       <A href="./create.do">등록</A>
       <span class='menu_divide' >│</span>
       <A href="./update_text.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word }">글 수정</A>
