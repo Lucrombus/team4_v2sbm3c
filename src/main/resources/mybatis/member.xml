@@ -46,10 +46,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
   <!-- memberno로 회원 정보 수정 -->
   <update id="update" parameterType="dev.mvc.member.MemberVO">
     UPDATE member 
-    SET id=#{id}, name=#{name}, tel=#{tel}
+    SET id=#{id}, name=#{name}, tel=#{tel}, birth=#{birth}
     WHERE memberno=#{memberno}
   </update>
   
+  <!-- 회원 삭제 -->
   <delete id="delete" parameterType="int">
     DELETE FROM member
     WHERE memberno=#{memberno}
@@ -75,4 +76,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     FROM member
     WHERE id=#{id} AND passwd=#{passwd}
   </select>
+  
+  <!-- 회원 탈퇴 -->
+  <update id="delete_member" parameterType="dev.mvc.member.MemberVO">
+    UPDATE member 
+    SET rankno = 5
+    WHERE memberno=#{memberno}
+  </update>
+  
 </mapper>

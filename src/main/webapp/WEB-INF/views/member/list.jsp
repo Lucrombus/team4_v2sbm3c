@@ -85,7 +85,8 @@
           <c:when test="${rankno == 1}"><img src='/member/images/admin.png' title="관리자" class="icon"></c:when> <%-- static 기준 --%>
           <c:when test="${rankno == 2}"><img src='/member/images/user.png' title="개인 회원" class="icon"></c:when>
           <c:when test="${rankno == 3}"><img src='/member/images/enterprise.png' title="기업 회원" class="icon"></c:when>
-          <c:when test="${rankno == 4}"><img src='/member/images/x.png' title="탈퇴 회원" class="icon"></c:when>
+          <c:when test="${rankno == 4}"><img src='/member/images/x.png' title="정지 회원" class="icon"></c:when>
+          <c:when test="${rankno == 5}"><img src='/member/images/x.png' title="탈퇴 회원" class="icon"></c:when>
         </c:choose>  
       </TD>
       <TD class='td_left'><A href="./read.do?memberno=${memberno}">${id}</A></TD>

@@ -7,9 +7,9 @@ CREATE TABLE member(
 		id                                  VARCHAR2(30) UNIQUE NOT NULL,
 		passwd                              VARCHAR2(20) NOT NULL,
 		name                                VARCHAR2(20) NOT NULL,
-        tel                                 VARCHAR(14)  NOT NULL,
+        tel                                 VARCHAR(14)  UNIQUE NOT NULL,
 		rdate                               DATE NOT NULL,
-		rankno                              NUMBER(10),
+		rankno                              NUMBER(10),   /* 1은 관리자, 2는 개인 회원, 3은 기업 회원, 4는 정지 회원, 5는 탈퇴 회원 */
 		experience                          VARCHAR2(10) DEFAULT 'N',
 		gender                              VARCHAR(10) DEFAULT  'N',
 		birth                               DATE NOT NULL,
@@ -111,3 +111,7 @@ ALTER TABLE member ADD UNIQUE(id);
 ALTER TABLE member add constraint primary key(memberno);
 
 commit;
+
+UPDATE member
+SET rankno = 5
+WHERE memberno=1;

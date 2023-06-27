@@ -86,4 +86,11 @@ public interface MemberDAOInter {
    * 로그인 처리
    */
   public int login(HashMap<String, Object> map);
+  
+  /**
+   * 탈퇴 회원 처리
+   * @param memberVO
+   * @return
+   */
+  public int delete_member(MemberVO memberVO);
 }

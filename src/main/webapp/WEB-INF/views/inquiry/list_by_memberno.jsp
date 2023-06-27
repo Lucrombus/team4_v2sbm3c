@@ -33,13 +33,15 @@
   
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
-      <col style="width: 80%;"></col>
-      <col style="width: 20%;"></col>
+      <col style="width: 70%;"></col>
+      <col style="width: 15%;"></col>
+      <col style="width: 15%;"></col>
     </colgroup>
 
     <thead>
       <tr>
         <th style='text-align: center;'>제목</th>
+        <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>작성자</th>
       </tr>
     
@@ -58,6 +60,9 @@
             <a href="./read.do?inquiryno=${inquiryno}&now_page=${param.now_page}"><strong>${inquiryTitle}</strong>  
             </a> 
           </td>  
+          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+            ${rdate }
+          </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${memberVO.id }
           </td> 

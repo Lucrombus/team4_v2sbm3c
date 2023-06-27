@@ -63,7 +63,7 @@
                         <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입정보 수정</a>
                         <a class="dropdown-item" href="/member/passwd_update.do?memberno=${sessionScope.memberno } ">비밀번호 변경</a>
                         <a class="dropdown-item" href='/member/logout.do'>로그아웃</a>
-                        <a class="dropdown-item" href="#">회원 탈퇴</a>
+                        <a class="dropdown-item" href="/member/delete_member.do?memberno=${sessionScope.memberno }">회원 탈퇴</a>
                       </div>
                   </li>
                   </c:if>
