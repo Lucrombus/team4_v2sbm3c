@@ -61,27 +61,48 @@ public class Like_guinCont {
     return mav;
   }
 
-  // 검색 목록
+  // 나의 관심목록
   // http://localhost:9093/like_guin/list_all.do
   @RequestMapping(value = "/like_guin/list_all.do", method = RequestMethod.GET)
-  public ModelAndView list_all(int memberno) {
+  public ModelAndView list_all(int memberno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
-
-    ArrayList<Like_guinVO> list = like_guinProc.list_mine(memberno);
-    mav.addObject("list", list);
     
-    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
-    Function<Integer, String> f = (memberno_read) -> {
-      MemberVO memberVO = memberProc.readByMemberno(memberno_read);
-      String id = "(알수없음)";
-      
-      if (memberVO != null) {
-        id = memberVO.getId();
+    if (session.getAttribute("memberno") != null) {
+      if((int) session.getAttribute("memberno") == memberno) {
+        ArrayList<Like_guinVO> list = like_guinProc.list_mine(memberno);
+        mav.addObject("list", list);
+        
+        // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+        Function<Integer, String> f = (memberno_read) -> {
+          MemberVO memberVO = memberProc.readByMemberno(memberno_read);
+          String id = "(알수없음)";
+          
+          if (memberVO != null) {
+            id = memberVO.getId();
+          }
+          
+          return id;
+        };
+        mav.addObject("f", f);
+        
+        mav.setViewName("/like_guin/list_all");
+        
+      }else {
+        mav.addObject("code", "property_different");
+        mav.addObject("url", "/like_guin/msg");
+        mav.setViewName("redirect:/like_guin/msg.do");
+        
       }
       
-      return id;
-    };
-    mav.addObject("f", f);
+    
+      
+    }else {
+      mav.setViewName("/member/login_need");
+    }
+    
+    
+
+
 
 
     return mav;
@@ -155,5 +176,20 @@ public class Like_guinCont {
 
     return mav;
 
+  }
+  
+  /**
+   * 각종 메시지 처리
+   * 
+   * @param url
+   * @return
+   */
+  @RequestMapping(value = "/like_guin/msg.do", method = RequestMethod.GET)
+  public ModelAndView msg(String url) {
+    ModelAndView mav = new ModelAndView();
+
+    mav.setViewName(url); // forward
+
+    return mav; // forward
   }
 }
