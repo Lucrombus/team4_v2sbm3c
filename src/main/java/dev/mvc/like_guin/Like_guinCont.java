@@ -143,7 +143,7 @@ public class Like_guinCont {
 
   }
 
-  // 관심 구인 해제
+  // 관심 구인 해제 (구인 컨텐츠 목록에서 요청)
   // http://localhost:9093/guin_c/like_n.do
   @RequestMapping(value = "/like_guin/like_n.do", method = RequestMethod.GET)
   public ModelAndView like_n(int guin_cno, int jobcateno, int now_page, HttpSession session) {
@@ -177,6 +177,40 @@ public class Like_guinCont {
     return mav;
 
   }
+  
+//관심 구인 해제 (관심구인 목록에서 요청)
+ // http://localhost:9093/guin_c/like_n.do
+ @RequestMapping(value = "/like_guin/like_n_mine.do", method = RequestMethod.GET)
+ public ModelAndView like_n_mine(int guin_cno, HttpSession session) {
+
+
+   ModelAndView mav = new ModelAndView();
+
+   if (session.getAttribute("memberno") != null) {
+     Like_guinVO like_guinVO = new Like_guinVO();
+     int memberno = (int) session.getAttribute("memberno");
+     
+     
+     like_guinVO.setGuin_cno(guin_cno); // 선택한 컨텐츠 넘버와 현재 로그인한 사용자의 memberno로 관심 테이블에 등록
+     like_guinVO.setMemberno(memberno); // 선택한 컨텐츠 넘버와 현재 로그인한 사용자의 memberno로 관심 테이블에 등록
+     System.out.println("삭제할 guin_cno: " + guin_cno);
+     System.out.println("삭제할 memberno: " + memberno);
+     
+     
+     int cnt = this.like_guinProc.delete_mine(like_guinVO);
+
+     
+     
+     mav.addObject("memberno", memberno);
+     mav.setViewName("redirect:/like_guin/list_all.do");
+     
+   }else {
+     mav.setViewName("/member/login_need");
+   }
+
+   return mav;
+
+ }
   
   /**
    * 각종 메시지 처리

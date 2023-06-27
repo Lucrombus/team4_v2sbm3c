@@ -52,7 +52,7 @@
             <tbody>
             <c:if test="${list[0]== null}">
             <tr>
-            <td colspan="4">
+            <td colspan="5">
             받은 쪽지가 아무것도 없습니다!
             </td>
             </tr>

@@ -27,9 +27,9 @@
       <col style="width: 5%;"></col>
       <col style="width: 5%;"></col>
       <col style="width: 60%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 10%;"></col>
       <col style="width: 5%;"></col>
-      <col style="width: 10%;"></col>
-      <col style="width: 10%;"></col>
     </colgroup>
 
     <thead>
@@ -37,9 +37,9 @@
         <th style='text-align: center;'>번호</th>
         <th style='text-align: center;'>파일</th>
         <th style='text-align: center;'>제목</th>
-        <th style='text-align: center;'>기타</th>
         <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>작성자</th>
+        <th style='text-align: center;'>해제</th>
       </tr>
     
     </thead>
@@ -73,9 +73,6 @@
 		          <td style='vertical-align: middle;'>
 		            <a href="/guin_c/read.do?guin_cno=${guin_cno}&jobcateno=${jobcateno}&now_page=1&word=${param.word}"><strong>${title }</strong>  
 		            </a> 
-		          </td> 
-		          <td style='vertical-align: middle; text-align: center;'>
-		            <A href="/guin_c/map.do?jobcateno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
 		          </td>
 		          <td style='vertical-align: middle; text-align: center;'>
 		          ${rdate }
@@ -83,6 +80,9 @@
 		           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
 		          ${f.apply(memberno) }
 		          </td>
+              <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+              <A href="/like_guin/like_n_mine.do?guin_cno=${guin_cno }" title="관심 구인 해제 하기"><IMG src="/like_guin/images/like_y.png" class="icon"></A>
+              </td>
 		        </tr>
         
       </c:forEach>
