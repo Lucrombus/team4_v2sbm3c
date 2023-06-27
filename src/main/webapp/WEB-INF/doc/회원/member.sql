@@ -115,3 +115,5 @@ commit;
 UPDATE member
 SET rankno = 5
 WHERE memberno=1;
+ALTER TABLE member add constraint uni_id UNIQUE(id);
+ALTER TABLE member add constraint pk_memberno primary key(memberno);

@@ -1586,8 +1586,8 @@
                                     <constraint>
                                       <height>-1</height>
                                       <width>-1</width>
-                                      <x>968</x>
-                                      <y>197</y>
+                                      <x>972</x>
+                                      <y>190</y>
                                     </constraint>
                                     <sourceConnections>
                                       <net.java.amateras.db.visual.model.ForeignKeyModel reference="../../.."/>
@@ -1618,14 +1618,14 @@
                                         <columnName>ANSWERNO</columnName>
                                         <logicalName>답변 번호</logicalName>
                                         <columnType class="net.java.amateras.db.dialect.ColumnType">
-                                          <name>INTEGER</name>
-                                          <logicalName>Integer</logicalName>
+                                          <name>NUMBER</name>
+                                          <logicalName>Numeric</logicalName>
                                           <supportSize>true</supportSize>
-                                          <type>4</type>
+                                          <type>2</type>
                                         </columnType>
-                                        <size>8</size>
+                                        <size>10</size>
                                         <notNull>true</notNull>
-                                        <primaryKey>false</primaryKey>
+                                        <primaryKey>true</primaryKey>
                                         <description></description>
                                         <autoIncrement>false</autoIncrement>
                                         <defaultValue></defaultValue>
