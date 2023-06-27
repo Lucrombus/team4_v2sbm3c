@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all_by_memberno.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>내 신고 내역 </a>
+<A href="./list_all_by_memberno.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>게시글 신고 내역 </a>
 </DIV>
 
 <DIV class='content_body'>

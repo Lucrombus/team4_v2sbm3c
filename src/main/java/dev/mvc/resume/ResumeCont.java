@@ -113,7 +113,7 @@ public class ResumeCont {
       // ------------------------------------------------------------------------------
 
       mav.addObject("memberno", memberno);
-      mav.setViewName("redirect:/resume/list_all.do");
+      mav.setViewName("redirect:/resume/list_by_memberno_search_paging.do");
       
     } else {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
@@ -122,23 +122,23 @@ public class ResumeCont {
     return mav;
   }
 
-  // 리스트 조회
-  //http://localhost:9093/resume/list_all.do
-  @RequestMapping(value="/resume/list_all.do", method=RequestMethod.GET)
-  public ModelAndView list_all(HttpSession session, int memberno, ResumeVO resumeVO) {
-    ModelAndView mav = new ModelAndView();
-    
-    if ((int)session.getAttribute("memberno") == (resumeVO.getMemberno())) {
-    mav.setViewName("/resume/list_all"); // /WEB-INF/views/resume/list_all.jsp
-
-    ArrayList<ResumeVO> list = this.resumeProc.list_all(memberno);
-    mav.addObject("list", list);
-    } else {
-      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
-    }
-    
-    return mav;
-  }
+//  // 리스트 조회
+//  //http://localhost:9093/resume/list_all.do
+//  @RequestMapping(value="/resume/list_all.do", method=RequestMethod.GET)
+//  public ModelAndView list_all(HttpSession session, int memberno, ResumeVO resumeVO) {
+//    ModelAndView mav = new ModelAndView();
+//    
+//    if ((int)session.getAttribute("memberno") == (resumeVO.getMemberno())) {
+//    mav.setViewName("/resume/list_all"); // /WEB-INF/views/resume/list_all.jsp
+//
+//    ArrayList<ResumeVO> list = this.resumeProc.list_all(memberno);
+//    mav.addObject("list", list);
+//    } else {
+//      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+//    }
+//    
+//    return mav;
+//  }
   
   /**
    * 목록 + 검색 + 페이징 지원
@@ -150,48 +150,53 @@ public class ResumeCont {
    * @return
    */
   @RequestMapping(value = "/resume/list_by_memberno_search_paging.do", method = RequestMethod.GET)
-  public ModelAndView list_by_memberno_search_paging(ResumeVO resumeVO) {
+  public ModelAndView list_by_memberno_search_paging(HttpSession session, ResumeVO resumeVO) {
     ModelAndView mav = new ModelAndView();
-
-    // 검색 목록
-    ArrayList<ResumeVO> list = resumeProc.list_by_memberno_search_paging(resumeVO);
-    mav.addObject("list", list);
-
-    MemberVO memberVO = memberProc.read(resumeVO.getMemberno());
-    mav.addObject("MemberVO", memberVO);
-
-    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
-//    Function<Integer, String> f = (memberno) -> {
-//      memberVO = memberProc.readByMemberno(memberno);
-//      String id = "(알수없음)";
-//      
-//      if (memberVO != null) {
-//        id = memberVO.getId();
-//      }
-//      
-//      return id;
-//    };
-//    mav.addObject("f", f);
-
-    int search_count = resumeProc.search_count(resumeVO);
-
-    /*
-     * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17 18 19 20 [다음]
-     * 
-     * @param typeno 카테고리번호
-     * @param search_count 검색(전체) 레코드수
-     * @param now_page 현재 페이지
-     * @param word 검색어
-     * @return 페이징용으로 생성된 HTML/CSS tag 문자열
-     */
-    String paging = resumeProc.pagingBox(resumeVO.getMemberno(), resumeVO.getNow_page(),
-                                         resumeVO.getWantjob(), "list_by_memberno_search_paging.do");
-    mav.addObject("paging", paging);
-
-    // mav.addObject("now_page", resumeVO.getNow_page());
-
-    mav.setViewName("/resume/list_by_memberno_search_paging"); // //resume/list_by_memberno_search_paging.jsp
-
+    
+    //세션 회원번호와 조회하려는 회원번호가 일치하고, 회원 로그인일 경우에 실행
+    if((int)session.getAttribute("memberno") == resumeVO.getMemberno() && this.memberProc.isMember(session)) {
+      // 검색 목록
+      ArrayList<ResumeVO> list = resumeProc.list_by_memberno_search_paging(resumeVO);
+      mav.addObject("list", list);
+  
+      MemberVO memberVO = memberProc.read(resumeVO.getMemberno());
+      mav.addObject("MemberVO", memberVO);
+  
+      // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+  //    Function<Integer, String> f = (memberno) -> {
+  //      memberVO = memberProc.readByMemberno(memberno);
+  //      String id = "(알수없음)";
+  //      
+  //      if (memberVO != null) {
+  //        id = memberVO.getId();
+  //      }
+  //      
+  //      return id;
+  //    };
+  //    mav.addObject("f", f);
+  
+      int search_count = resumeProc.search_count(resumeVO);
+  
+      /*
+       * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17 18 19 20 [다음]
+       * 
+       * @param typeno 카테고리번호
+       * @param search_count 검색(전체) 레코드수
+       * @param now_page 현재 페이지
+       * @param word 검색어
+       * @return 페이징용으로 생성된 HTML/CSS tag 문자열
+       */
+      String paging = resumeProc.pagingBox(resumeVO.getMemberno(), resumeVO.getNow_page(),
+                                           resumeVO.getWantjob(), "list_by_memberno_search_paging.do");
+      mav.addObject("paging", paging);
+  
+      // mav.addObject("now_page", resumeVO.getNow_page());
+  
+      mav.setViewName("/resume/list_by_memberno_search_paging"); // //resume/list_by_memberno_search_paging.jsp
+    } else {
+      mav.setViewName("/member/login_need");
+    }
+    
     return mav;
   }
 
@@ -219,8 +224,12 @@ public class ResumeCont {
     // 회원 번호: admino -> AdminVO -> name
     String name = this.memberProc.read(resumeVO.getMemberno()).getName();
     String gender = this.memberProc.read(resumeVO.getMemberno()).getGender();
+    String birth = this.memberProc.read(resumeVO.getMemberno()).getBirth();
+    String education = this.memberProc.read(resumeVO.getMemberno()).getEducation();
     mav.addObject("name", name);
     mav.addObject("gender", gender);
+    mav.addObject("birth", birth);
+    mav.addObject("education", education);
 
     mav.setViewName("/resume/read"); // /WEB-INF/views/resume/read.jsp
         
@@ -394,7 +403,7 @@ public class ResumeCont {
     int memberno = (int) session.getAttribute("memberno");
     mav.addObject("memberno", memberno);
     mav.addObject("now_page", resumeVO.getNow_page());
-    mav.setViewName("redirect:/resume/list_all.do"); // request -> param으로 접근 전환
+    mav.setViewName("redirect:/resume/list_by_memberno_search_paging.do"); // request -> param으로 접근 전환
     
     return mav;
   }   

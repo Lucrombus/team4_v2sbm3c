@@ -34,7 +34,7 @@
   <DIV style="text-align: right; clear: both;">  
     <form name='frm' id='frm' method='get' action='./list_by_memberno_search_paging.do'>
       <input type='hidden' name='now_page' value='1'>  <%-- 검색기본 시작 페이지 --%>
-      
+      <input type='hidden' name='memberno' value=${sessionScope.memberno }>  <%-- 검색기본 시작 페이지 --%>
       <c:choose>
         <c:when test="${param.wantjob != '' }"> <%-- 검색하는 경우 --%>
           <input type='text' name='wantjob' id='wantjob' value='${param.wantjob }' style='width: 20%; ' class='input_word'>
