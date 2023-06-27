@@ -46,12 +46,63 @@
       <button type='submit' class="btn btn-secondary btn-sm">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' class='btn btn-info btn-sm'
-                     onclick="location.href='./list_all.do?now_page=1&word='">검색 취소</button>  
+                     onclick="location.href='./list_all_search_paging.do?now_page=1&word='">검색 취소</button>  
       </c:if>    
     </form>
   </DIV>
 
   <DIV class='menu_line'></DIV>
+  <c:if test="${noticeVO.getNow_page() == 1 }"> <!-- 1페이지에서만 상단노출 출력 -->
+    <p class="text-center" style='font-size:200%;'>❗ 중요 공지사항 ❗</p>
+    <table class="table table-danger table-striped" style='width: 100%;'>
+      <colgroup>
+        <col style="width: 5%;"></col>
+        <col style="width: 65%;"></col>
+        <col style="width: 15%;"></col>
+        <col style="width: 15%;"></col>
+      </colgroup>
+  
+      <thead>
+        <tr >
+          <th style='text-align: center;'>번호</th>
+          <th style='text-align: center;'>제목</th>
+          <th style='text-align: center;'>작성일</th>
+          <th style='text-align: center;'>작성자</th>
+        </tr>
+      
+      </thead>
+      
+      <tbody>
+        <c:forEach var="noticeVO" items="${list_t }">
+          <c:set var="title" value="${noticeVO.title }" />
+          <c:set var="content" value="${noticeVO.content }" />
+          <c:set var="noticeno" value="${noticeVO.noticeno }" />
+          <c:set var="rdate" value="${noticeVO.rdate }" />
+          <c:set var="memberno" value="${noticeVO.memberno }" />
+          <c:set var="topview" value="${noticeVO.topview }" /> <%-- 글의 topview 값을 가져옴 --%>
+  
+  
+          <c:if test="${topview == 'Y' }"> <%-- topview가 'Y'인 경우 상단에 고정 글을 출력함 --%>
+            <tr style="height:50px;">
+              <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
+              ${noticeno}
+              </td>
+              <td style='vertical-align: middle;'>
+                <a href="./read.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+                </a> 
+              </td> 
+              <td style='vertical-align: middle; text-align: center;'>
+              ${rdate }
+              </td>
+               <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+              ${f.apply(memberno) }
+              </td>
+            </tr>
+          </c:if> 
+        </c:forEach>
+      </tbody>
+    </table>
+  </c:if>
   
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
@@ -78,23 +129,26 @@
         <c:set var="noticeno" value="${noticeVO.noticeno }" />
         <c:set var="rdate" value="${noticeVO.rdate }" />
         <c:set var="memberno" value="${noticeVO.memberno }" />
+        <c:set var="topview" value="${noticeVO.topview }" /> <%-- 글의 topview 값을 가져옴 --%>
 
+        <c:if test="${topview == 'N' }"> <%-- topview가 'N'인 경우 하단에 고정 글을 출력함 --%>
+          <tr style="height:50px;">
+            <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
+            ${noticeno}
+            </td>
+            <td style='vertical-align: middle;'>
+              <a href="./read.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+              </a> 
+            </td> 
+            <td style='vertical-align: middle; text-align: center;'>
+            ${rdate }
+            </td>
+             <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+            ${f.apply(memberno) }
+            </td>
+          </tr>
+        </c:if>
         
-        <tr style="height:50px;">
-          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${noticeno}
-          </td>
-          <td style='vertical-align: middle;'>
-            <a href="./read.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
-            </a> 
-          </td> 
-          <td style='vertical-align: middle; text-align: center;'>
-          ${rdate }
-          </td>
-           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-          ${f.apply(memberno) }
-          </td>
-        </tr>
         
       </c:forEach>
 

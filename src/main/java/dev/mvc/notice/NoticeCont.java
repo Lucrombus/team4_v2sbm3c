@@ -158,8 +158,14 @@ public class NoticeCont {
      mav.addObject("search_count", search_count);
      
      // 검색 목록: 검색된 레코드를 페이지 단위로 분할하여 가져옴
-     ArrayList<NoticeVO> list = noticeProc.list_all_search_paging(noticeVO);
+     ArrayList<NoticeVO> list = noticeProc.list_all_search_paging(noticeVO); 
      mav.addObject("list", list);
+     
+     if (noticeVO.getNow_page() == 1) {
+     // 목록 : topview = 'Y'인 리스트 가져옴
+     ArrayList<NoticeVO> list_t = noticeProc.list_all(); 
+     mav.addObject("list_t", list_t);
+     }
      
      // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
      Function<Integer, String> f = (memberno) -> {

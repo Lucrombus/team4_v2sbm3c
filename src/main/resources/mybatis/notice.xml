@@ -18,6 +18,7 @@
       SELECT noticeno, topview, memberno, title, content, viewcnt, 
              word, rdate, file1, file1saved, thumb1, size1
       FROM notice 
+      WHERE topview = 'Y'
       ORDER BY noticeno DESC
     </select>
     
@@ -30,7 +31,7 @@
             OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
     </select>
     
-    <!-- 카테고리별 검색 + 페이징 목록 -->
+    <!-- 목록 검색 + 페이징 목록 -->
   <select id="list_all_search_paging" resultType="dev.mvc.notice.NoticeVO" parameterType="dev.mvc.notice.NoticeVO">
    SELECT noticeno, topview, memberno, title, content, viewcnt, 
           word, rdate, file1, file1saved, thumb1, size1, r
