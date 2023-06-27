@@ -1,6 +1,7 @@
 package dev.mvc.like_guin;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import dev.mvc.guin_c.Guin_cVO;
 import dev.mvc.jobcate.JobcateProcInter;
 import dev.mvc.jobcate.JobcateVO;
 import dev.mvc.member.MemberProcInter;
+import dev.mvc.member.MemberVO;
 
 @Controller
 public class Like_guinCont {
@@ -62,14 +64,25 @@ public class Like_guinCont {
   // 검색 목록
   // http://localhost:9093/like_guin/list_all.do
   @RequestMapping(value = "/like_guin/list_all.do", method = RequestMethod.GET)
-  public ModelAndView list_all(Like_guinVO like_guinVO) {
+  public ModelAndView list_all(int memberno) {
     ModelAndView mav = new ModelAndView();
 
-    ArrayList<Like_guinVO> list = like_guinProc.list_all(like_guinVO);
+    ArrayList<Like_guinVO> list = like_guinProc.list_mine(memberno);
     mav.addObject("list", list);
+    
+    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, String> f = (memberno_read) -> {
+      MemberVO memberVO = memberProc.readByMemberno(memberno_read);
+      String id = "(알수없음)";
+      
+      if (memberVO != null) {
+        id = memberVO.getId();
+      }
+      
+      return id;
+    };
+    mav.addObject("f", f);
 
-    Guin_cVO guin_cVO = guin_cProc.read(like_guinVO.getGuin_cno());
-    mav.addObject("guin_cVO", guin_cVO);
 
     return mav;
   }

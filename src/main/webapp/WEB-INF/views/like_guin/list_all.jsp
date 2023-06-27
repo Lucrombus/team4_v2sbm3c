@@ -19,10 +19,6 @@
 <c:import url="/menu/top.do" />
  <DIV class='title_line'>나의 관심 구인 목록</DIV>
 
-<DIV class='content_body'>
-  <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_all'>
-      <input type='hidden' name='guin_cno' value='${param.guin_cno }'>
       
   <DIV class='menu_line'></DIV>
   
@@ -57,10 +53,8 @@
         <c:set var="thumb1" value="${guin_cVO.thumb1 }" />
         <c:set var="rdate" value="${guin_cVO.rdate }" />
         <c:set var="memberno" value="${guin_cVO.memberno }" />
-        <c:set var="like" value= "${guin_cVO.like }" />
         
-        <c:choose>
-          <c:when test="${guin_cVO.like eq 'Y' }">
+
 		        <tr style="height:100px;">
 		          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
 		          ${guin_cno}
@@ -77,7 +71,7 @@
 		            </c:choose>
 		          </td>  
 		          <td style='vertical-align: middle;'>
-		            <a href="./read.do?guin_cno=${guin_cno}&jobcateno=${param.jobcateno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+		            <a href="/guin_c/read.do?guin_cno=${guin_cno}&jobcateno=${jobcateno}&now_page=1&word=${param.word}"><strong>${title }</strong>  
 		            </a> 
 		          </td> 
 		          <td style='vertical-align: middle; text-align: center;'>
@@ -90,8 +84,6 @@
 		          ${f.apply(memberno) }
 		          </td>
 		        </tr>
-		      </c:when>
-	      </c:choose>
         
       </c:forEach>
 

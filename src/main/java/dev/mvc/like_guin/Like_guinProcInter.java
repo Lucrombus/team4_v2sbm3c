@@ -46,4 +46,11 @@ public interface Like_guinProcInter {
    */
   public int delete_mine(Like_guinVO like_guinVO);
   
+  /**
+   * 나의 관심 구인 목록
+   * 
+   * @return
+   */
+  public ArrayList<Like_guinVO> list_mine(int memberno);
+  
 }

@@ -46,4 +46,11 @@ public class Like_guinProc implements Like_guinProcInter{
     int cnt = this.like_guinDAO.delete_mine(like_guinVO);
     return cnt;
   }
+  
+  @Override
+  public ArrayList<Like_guinVO> list_mine(int memberno) {
+    ArrayList<Like_guinVO> list = this.like_guinDAO.list_mine(memberno);
+    
+    return list;
+  }
 }
