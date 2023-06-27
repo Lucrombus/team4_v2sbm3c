@@ -53,19 +53,19 @@
   <fieldset class="fieldset_basic">
     <ul>
       <li class="li_none">
-        <DIV style='text-align: center; width: 50%; float: left;'>
+        <DIV style='text-align: center; width: 100%; float: left;'>
 
           <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
-              <img src="/resume/storage/${file1saved }" style='width: 90%;'> 
+              <img src="/resume/storage/${file1saved }" style='width: 50%;'> 
             </c:when>
             <c:otherwise> <!-- 이미지가 없는 경우 -->
-              이미지가 없습니다.
+              
             </c:otherwise>
           </c:choose>
         </DIV>
 
-        <DIV style='text-align: left; width: 47%; float: left;'>
+        <DIV style='text-align: center; width: 100%; float: left;'>
           <span style='font-size: 1.5em;'>${title}</span>
           <c:if test="${size1 > 0 }">
             <br>삭제되는 파일: ${file1 }

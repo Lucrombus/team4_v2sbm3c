@@ -19,7 +19,7 @@ public class ResumeVO {
   private String career;
   private String skills;
   private String langskill;
-  private String wantjob;
+  private String wantjob="";
   
   /**
    * 이미지 파일

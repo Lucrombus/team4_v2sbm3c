@@ -2,6 +2,8 @@ package dev.mvc.resume;
 
 import java.util.ArrayList;
 
+import dev.mvc.contents.ContentsVO;
+
 
 public interface ResumeDAOInter {
   
@@ -11,6 +13,18 @@ public interface ResumeDAOInter {
    * @return
    */
   public int create(ResumeVO resumeVO);
+  
+  /**
+   * 검색된 레코드 갯수 리턴
+   * @return
+   */
+  public int search_count(ResumeVO resumeVO);
+  
+  /**
+   * 카테고리별 검색 + 페이징된 글목록
+   * @return
+   */
+  public ArrayList<ResumeVO> list_by_memberno_search_paging(ResumeVO resumeVO);
   
   /**
    * 이력서 전체 목록

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.board.BoardVO;
+import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
 import dev.mvc.notice.Notice;
@@ -135,6 +137,61 @@ public class ResumeCont {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
     }
     
+    return mav;
+  }
+  
+  /**
+   * 목록 + 검색 + 페이징 지원
+   * http://localhost:9093/resume/list_by_memberno_search_paging.do?memberno=1&wantjob=스위스&now_page=1
+   * 
+   * @param memberno
+   * @param wantjob
+   * @param now_page
+   * @return
+   */
+  @RequestMapping(value = "/resume/list_by_memberno_search_paging.do", method = RequestMethod.GET)
+  public ModelAndView list_by_memberno_search_paging(ResumeVO resumeVO) {
+    ModelAndView mav = new ModelAndView();
+
+    // 검색 목록
+    ArrayList<ResumeVO> list = resumeProc.list_by_memberno_search_paging(resumeVO);
+    mav.addObject("list", list);
+
+    MemberVO memberVO = memberProc.read(resumeVO.getMemberno());
+    mav.addObject("MemberVO", memberVO);
+
+    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+//    Function<Integer, String> f = (memberno) -> {
+//      memberVO = memberProc.readByMemberno(memberno);
+//      String id = "(알수없음)";
+//      
+//      if (memberVO != null) {
+//        id = memberVO.getId();
+//      }
+//      
+//      return id;
+//    };
+//    mav.addObject("f", f);
+
+    int search_count = resumeProc.search_count(resumeVO);
+
+    /*
+     * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17 18 19 20 [다음]
+     * 
+     * @param typeno 카테고리번호
+     * @param search_count 검색(전체) 레코드수
+     * @param now_page 현재 페이지
+     * @param word 검색어
+     * @return 페이징용으로 생성된 HTML/CSS tag 문자열
+     */
+    String paging = resumeProc.pagingBox(resumeVO.getMemberno(), resumeVO.getNow_page(),
+                                         resumeVO.getWantjob(), "list_by_memberno_search_paging.do");
+    mav.addObject("paging", paging);
+
+    // mav.addObject("now_page", resumeVO.getNow_page());
+
+    mav.setViewName("/resume/list_by_memberno_search_paging"); // //resume/list_by_memberno_search_paging.jsp
+
     return mav;
   }
 

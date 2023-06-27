@@ -52,6 +52,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE resumeno = #{resumeno}
   </delete>
   
+  <!-- 검색 레코드 갯수 -->
+    <select id="search_count" resultType="int" parameterType="dev.mvc.resume.ResumeVO">
+        SELECT COUNT(*) as cnt
+        FROM resume
+        <choose>
+            <when
+                test="(wantjob == null or wantjob == '') and (memberno != 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (멤버별 목록) -->
+                WHERE memberno=#{memberno}
+            </when>
+            <when
+                test="(wantjob != null and wantjob != '') and (memberno != 0)"> <!-- 검색하는 경우의 레코드 갯수 (멤버별 목록) -->
+                WHERE memberno=#{memberno} 
+                AND (UPPER(title) LIKE '%' || UPPER(#{wantjob}) || '%'
+                OR UPPER(intro) LIKE '%' || UPPER(#{wantjob}) || '%'
+                OR UPPER(wantjob) LIKE '%' || UPPER(#{wantjob}) || '%')
+            </when>
+
+            <when
+                test="(wantjob == null or wantjob == '') and (memberno == 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (전체목록) -->
+            </when>
+            <when
+                test="(wantjob != null and wantjob != '') and (memberno == 0)"> <!-- 검색하는 경우의 레코드 갯수 (전체목록) -->
+                WHERE (UPPER(title) LIKE '%' || UPPER(#{wantjob}) || '%'
+                OR UPPER(intro) LIKE '%' || UPPER(#{wantjob}) || '%'
+                OR UPPER(wantjob) LIKE '%' || UPPER(#{wantjob}) || '%')
+            </when>
+        </choose>
+    </select>
+    
+    <!-- 카테고리별 검색 + 페이징 목록 -->
+  <select id="list_by_memberno_search_paging" resultType="dev.mvc.resume.ResumeVO" parameterType="dev.mvc.resume.ResumeVO">
+    SELECT resumeno, memberno, title, file1, file1saved, thumb1, size1, rdate, 
+           intro, tel, address, career, skills, langskill, wantjob, r
+   FROM (
+              SELECT resumeno, memberno, title, file1, file1saved, thumb1, size1, rdate, 
+                     intro, tel, address, career, skills, langskill, wantjob, rownum as r
+              FROM (
+                        SELECT resumeno, memberno, title, file1, file1saved, thumb1, size1, rdate, 
+                               intro, tel, address, career, skills, langskill, wantjob
+                        FROM resume
+                        <choose>
+                           <when test="(wantjob == null or wantjob == '') and (memberno != 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리 별) -->
+                            WHERE memberno=#{memberno}
+                          </when >
+                          <when test="(wantjob != null and wantjob != '') and (memberno != 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리 별)-->
+                            WHERE memberno=#{memberno} 
+                            AND (UPPER(title) LIKE '%' || UPPER(#{wantjob}) || '%' 
+                            OR UPPER(intro) LIKE '%' || UPPER(#{wantjob}) || '%' 
+                            OR UPPER(wantjob) LIKE '%' || UPPER(#{wantjob}) || '%')
+                          </when>
+                          
+                          <when test="(wantjob == null or wantjob == '') and (memberno == 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리 별) -->
+                          </when >
+                          <when test="(wantjob != null and wantjob != '') and (memberno == 0)"> <!-- 검색하는 경우의 레코드 갯수 (카테고리 별)-->
+                            WHERE (UPPER(title) LIKE '%' || UPPER(#{wantjob}) || '%' 
+                            OR UPPER(intro) LIKE '%' || UPPER(#{wantjob}) || '%' 
+                            OR UPPER(wantjob) LIKE '%' || UPPER(#{wantjob}) || '%')
+                          </when>
+                        </choose>
+                        ORDER BY resumeno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+     
+    <!--  1 page: WHERE r >= 1  AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
+
+ 
+  
   
   
 </mapper>

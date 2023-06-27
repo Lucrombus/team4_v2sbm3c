@@ -40,7 +40,7 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
+    <%-- 로그인해야 메뉴가 출력됨 --%>
     <c:if test="${sessionScope.id != null}">
       <A href="./create.do">등록</A>
       <span class='menu_divide' >│</span>
@@ -65,29 +65,27 @@
           <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
               <%-- /static/resume/storage/ --%>
-              <img src="/resume/storage/${file1saved }" style='width: 20%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/resume/storage/${file1saved }" style='width: 20%; float: right; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/resume/images/none1.png" style='width: 20%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/resume/images/none1.png" style='width: 20%; float: right; margin-top: 0.5%; margin-right: 1%;'> 
             </c:otherwise>
           </c:choose>
 
           <span style="font-size: 1.5em; font-weight: bold;">${title }</span><br>
-          <div style="font-size: 1em;">📆 작성일자 : ${rdate }</div><br>
+          <div style="font-size: 1em;">작성일자 : ${rdate }</div><br>
           <div style="font-size: 1em;">👨‍🦲 이름 : ${name }</div><br>
           <div style="font-size: 1em;">📞 전화번호 : ${tel }</div><br>
           <div style="font-size: 1em;">🌏 주소 : ${address }</div><br>
           <div style="font-size: 1em;">🚻 성별 : ${gender }</div><br>
+          <div style="font-size: 1em;">👨‍🔧 희망직종 : ${wantjob }</div><br>
+          <div style="font-size: 1em;">💪 경력 : ${career }</div><br>
+          <div style="font-size: 1em;">🦾 보유기술(자격증) : ${skills }</div><br>
+          <div style="font-size: 1em;">👄 언어능력 : ${langskill }</div><br>
+          😊 자기소개<br>${intro }
         </DIV>
       </li>
       
-      <li class="li_none">
-        <div style="font-size: 1em;">👨‍🔧 희망직종 : ${wantjob }</div><br>
-        <div style="font-size: 1em;">💪 경력 : ${career }</div><br>
-        <div style="font-size: 1em;">🦾 보유기술(자격증) : ${skills }</div><br>
-        <div style="font-size: 1em;">👄 언어능력 : ${langskill }</div><br>
-        😊 자기소개<br>${intro }
-      </li>
       
       <div class='menu_line'></div>
       
