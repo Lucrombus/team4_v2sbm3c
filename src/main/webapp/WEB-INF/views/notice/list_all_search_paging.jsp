@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all.do?now_page=1" class='title_link'>공지사항 </a>
+<A href="list_all_search_paging.do?word=${word }&now_page=1" class='title_link'>공지사항 </a>
 </DIV>
 
 <DIV class='content_body'>
@@ -32,7 +32,7 @@
   </ASIDE> 
 
   <DIV style="text-align: right; clear: both;">  
-    <form name='frm' id='frm' method='get' action='./list_all.do'>
+    <form name='frm' id='frm' method='get' action='./list_all_search_paging.do'>
       <input type='hidden' name='now_page' value='1'>  <%-- 검색기본 시작 페이지 --%>
       
       <c:choose>

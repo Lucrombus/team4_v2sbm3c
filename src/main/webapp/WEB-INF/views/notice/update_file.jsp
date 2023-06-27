@@ -25,9 +25,9 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>
-<A href="./list_all.do" class='title_link'>공지사항</A> > 
-<A href="./read.do?noticeno=${noticeno }" class='title_link'>${title }</A> > 파일 수정</DIV>
+<DIV class='title_line'> 
+<A href="./list_all_search_paging.do?now_page=${param.now_page }" class='title_link'>공지사항</A> 
+> ${title } > 파일 수정</DIV>
 
 
 <DIV class='content_body'>

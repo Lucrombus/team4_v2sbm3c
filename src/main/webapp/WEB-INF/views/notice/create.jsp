@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'> 
-<A href="./list_all_search_paging.do?now_page=${param.now_page }" class='title_link'>공지사항</A> 
+<A href="./list_all_search_paging.do?now_page=1" class='title_link'>공지사항</A> 
 > 새 공지사항 등록</DIV>
 
 <DIV class='content_body'>
@@ -57,7 +57,7 @@
     
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">등록</button>
-      <button type="button" onclick="location.href='./list_all.do'" class="btn btn-primary">목록</button>
+      <button type="button" onclick="location.href='./list_all_search_paging.do?now_page=${param.now_page }'" class="btn btn-primary">목록</button>
     </div>
   
   </FORM>

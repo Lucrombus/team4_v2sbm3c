@@ -110,7 +110,8 @@ public class NoticeCont {
       // mav.addObject("contentsno", contentsVO.getContentsno()); // redirect parameter 적용
       // ------------------------------------------------------------------------------
 
-      mav.setViewName("redirect:/notice/list_all.do");
+      mav.addObject("now_page", noticeVO.getNow_page());
+      mav.setViewName("redirect:/notice/list_all_search_paging.do");
       
     } else {
       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
