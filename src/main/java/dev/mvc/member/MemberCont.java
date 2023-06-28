@@ -495,6 +495,7 @@ public class MemberCont {
       String id, String passwd, @RequestParam(value = "id_save", defaultValue = "") String id_save,
       @RequestParam(value = "passwd_save", defaultValue = "") String passwd_save) {
     ModelAndView mav = new ModelAndView();
+    
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("id", id);
     map.put("passwd", passwd);
