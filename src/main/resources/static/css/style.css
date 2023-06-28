@@ -6,9 +6,15 @@
      margin: 0px;  /* top right bottom left */
      padding: 0px;
      color: #555555;
-  }  
+  }
+	li {list-style:none}
   
   .container_main {
+    width: 96%; 
+    margin: 70px auto;
+  }
+  
+  .container_top {
     width: 96%; 
     margin: 70px auto;
   }
@@ -60,6 +66,44 @@
     width: 15%;
     float: left;
   }
+  
+  .menu {
+  width: 1260px;
+  overflow: hidden;
+  margin: 0px;
+	}
+	
+	.menu > li {
+	  width: 210px; /*20*5=100%*/
+	  float: left;
+	  text-align: center;
+	  line-height: 40px;
+	  background-color: dark;
+	}
+	
+	.menu > li > a{
+    color: #EEE;
+  }
+	
+	.menu a {
+	  color: #FFFFFF;
+	}
+	
+	.submenu > li {
+	  line-height: 50px;
+	  background-color: #C0C0C0;
+	}
+	
+	 .submenu > li a {
+    line-height: 50px;
+    background-color: #C0C0C0;
+    background-size: 200px;
+  }
+	
+	.submenu {
+	  height: 0; /*ul의 높이를 안보이게 처리*/
+	  overflow: hidden;
+	}
   
   .main_container {
     display: flex;
@@ -333,22 +377,18 @@
 	}
   
   A:link{  /* 방문전 상태 */
-    text-decoration: none; /* 밑줄 삭제 */
     color: #555555;
   }
 
   A:visited{  /* 방문후 상태 */
-    text-decoration: none; /* 밑줄 삭제 */
     color: #555555;
   }
   
   A:hover{  /* A 태그에 마우스가 올라간 상태 */
-    text-decoration: underline; /* 밑줄 출력 */
     color: #7777FF;
   }
   
   A:active{  /* A 태그를 클릭한 상태 */
-    text-decoration: underline; /* 밑줄 출력 */
     color: #7777FF;
   }
 
@@ -363,15 +403,15 @@
     color: white;
   }
 
-  .menu_link:hover{  /* A 태그에 마우스가 올라간 상태 */
-    text-decoration: underline; /* 밑줄 출력 */
+/*   .menu_link:hover{  A 태그에 마우스가 올라간 상태
+    text-decoration: underline; 밑줄 출력
     color: white;
   }
 
-  .menu_link:active{  /* A 태그를 클릭한 상태 */
-    text-decoration: underline; /* 밑줄 출력 */
+  .menu_link:active{  A 태그를 클릭한 상태
+    text-decoration: underline; 밑줄 출력
     color: white;
-  }
+  } */
   /* 화면 상단 메뉴 스타일 구성 종료 */
   
   
@@ -397,6 +437,34 @@
     text-decoration: none; /* 밑줄 출력 */
     color: #7777FF;
     font-size: 0.8em;    
+  }
+  
+  .menu:hover {
+  text-decoration: none;
+  background-color: #555555;
+  transition-duration: 0.5s;
+  }
+  
+  .menu > li:hover{
+  text-decoration: none;
+  background-color: #FFFFFF;
+  transition-duration: 0.5s;
+	}
+	
+  .submenu > li a:hover {
+    background-color: #FFFFFF;
+    transition-duration: 0.5s;
+  }
+	
+	.menu > li:hover > a {
+    color: #000;
+  }
+	
+	.menu > li:hover .submenu {
+	 
+  height: 250px; /*서브메뉴 li한개의 높이 50*5*/
+  background-color: #555555;
+  transition-duration: 1s;
   }
   
   .content_title {
