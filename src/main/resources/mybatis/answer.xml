@@ -6,28 +6,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <mapper namespace = "dev.mvc.answer.AnswerDAOInter">
   
   <insert id="create" parameterType="dev.mvc.answer.AnswerVO">
-   INSERT INTO answer(ANSWERNO, CONTENT, RDATE, inquiryno, memberno) 
-   VALUES (answer_seq.nextval, #{CONTENT}, sysdate , #{inquiryno}, #{memberno}) 
+   INSERT INTO answer(answerno, content, rdate, inquiryno, memberno) 
+   VALUES (answer_seq.nextval, #{content}, sysdate , #{inquiryno}, #{memberno}) 
   </insert>
 
-  <!-- inquiryno에 따른 문의 정보 조회 -->
+  <!-- answerno에 따른 문의 정보 조회 
   <select id="read" resultType="dev.mvc.answer.AnswerVO" parameterType="int">
-    SELECT inquiryno, memberno, inquiryTitle, inquiryReason, rdate
-    FROM inquiry
-    WHERE inquiryno = #{inquiryno}
-  </select>  
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    WHERE answerno = #{answerno}
+  </select>  -->
   
-  <!-- inquiryno에 따른 문의 글 수정 -->
+  <!-- 전체 답변 목록 출력 
+  <select id="list_all" resultType="dev.mvc.answer.AnswerVO">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    ORDER BY answerno ASC
+  </select> -->
+  
+  <!-- answerno에 따른 답변 수정 
   <update id="update"  parameterType="dev.mvc.answer.AnswerVO">
     UPDATE answer
-    SET CONTENT = #{CONTENT}
-    WHERE ANSWERNO = #{ANSWERNO}
-  </update>
+    SET content = #{content}
+    WHERE answerno = #{answerno}
+  </update> -->
   
-  <!-- inquiryno에 따른 문의 글 삭제 -->
+  <!-- answerno에 따른 답변 삭제 
   <delete id="delete"  parameterType="int">
     DELETE FROM answer
-    WHERE ANSWERNO = #{ANSWERNO}
-  </delete>
+    WHERE answerno = #{answerno}
+  </delete>-->
   
 </mapper>

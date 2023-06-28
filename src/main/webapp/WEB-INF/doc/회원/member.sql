@@ -117,3 +117,8 @@ SET rankno = 5
 WHERE memberno=1;
 ALTER TABLE member add constraint uni_id UNIQUE(id);
 ALTER TABLE member add constraint pk_memberno primary key(memberno);
+
+
+SELECT COUNT(memberno) as cnt
+FROM member
+WHERE id='user3' AND passwd = 1234 AND rankno <= 3

@@ -26,3 +26,8 @@ CREATE SEQUENCE answer_seq
   MAXVALUE 9999999999  -- 최대값: 9999999999 --> NUMBER(10) 대응
   CACHE 2                        -- 2번은 메모리에서만 계산
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
+  
+INSERT INTO answer(answerno, content, rdate, inquiryno, memberno) 
+VALUES (answer_seq.nextval, '답변', sysdate , 12, 1) 
+
+SELECT * FROM answer;

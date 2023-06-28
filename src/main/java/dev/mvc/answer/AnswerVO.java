@@ -3,34 +3,34 @@ package dev.mvc.answer;
 public class AnswerVO {
   
   /** 답변 번호 */
-  private int ANSWERNO;
+  private int answerno;
   /** 내용 */
-  private String CONTENT;
+  private String content;
   /** 등록일 */
-  private String RDATE;
+  private String rdate;
   /** 문의 번호 */
   private int inquiryno;
   /** 회원 번호 */
   private int memberno;
   
   
-  public int getANSWERNO() {
-    return ANSWERNO;
+  public int getAnswerno() {
+    return answerno;
   }
-  public void setANSWERNO(int aNSWERNO) {
-    ANSWERNO = aNSWERNO;
+  public void setAnswerno(int answerno) {
+    this.answerno = answerno;
   }
-  public String getCONTENT() {
-    return CONTENT;
+  public String getContent() {
+    return content;
   }
-  public void setCONTENT(String cONTENT) {
-    CONTENT = cONTENT;
+  public void setContent(String content) {
+    this.content = content;
   }
-  public String getRDATE() {
-    return RDATE;
+  public String getRdate() {
+    return rdate;
   }
-  public void setRDATE(String rDATE) {
-    RDATE = rDATE;
+  public void setRdate(String rdate) {
+    this.rdate = rdate;
   }
   public int getInquiryno() {
     return inquiryno;
