@@ -20,12 +20,12 @@
 <%-- <jsp:include page="../menu/top.jsp" flush='false' /> --%>
 <c:import url="/menu/top.do" />
   <DIV class='main_container'>
-    <DIV class='left'>
+    <DIV class='index_left'>
 	    <DIV class='main_box'>
 		    <IMG src='/images/index_cafe.jpg' style='width: 70%;'>
 		  </DIV>
 		</DIV>
-		<DIV class='right'>
+		<DIV class='index_right'>
 		  <DIV class='main_box' style='border: 3px solid rgba(80, 40, 0, 0.7); margin-top:30px; width:80%;'>
 		    <a>알바 구하기 힘들 때!</a><br><br>
 		    <a>여러 알바 비교하고 싶을 때!</a><br><br>

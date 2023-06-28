@@ -68,42 +68,39 @@
   }
   
   .menu {
-  width: 1260px;
+  width: auto;
   overflow: hidden;
   margin: 0px;
+  font-weight: bold;
 	}
 	
 	.menu > li {
-	  width: 210px; /*20*5=100%*/
+	  width: 220px;
 	  float: left;
 	  text-align: center;
 	  line-height: 40px;
 	  background-color: dark;
 	}
 	
-	.menu > li > a{
+	.menu > li > a {
     color: #EEE;
   }
 	
-	.menu a {
-	  color: #FFFFFF;
+	.submenu li {
+	  line-height: 40px;
+	  margin-top: 5px;
+	  margin-left: 5px;
+	  margin-right: 5px;
 	}
-	
-	.submenu > li {
-	  line-height: 50px;
-	  background-color: #C0C0C0;
-	}
-	
-	 .submenu > li a {
-    line-height: 50px;
-    background-color: #C0C0C0;
-    background-size: 200px;
-  }
 	
 	.submenu {
 	  height: 0; /*ul의 높이를 안보이게 처리*/
 	  overflow: hidden;
 	}
+  
+  .menu  .submenu  li  a {
+    color: #333;
+  }
   
   .main_container {
     display: flex;
@@ -139,9 +136,23 @@
     background-color: #FFFFFF;
   }
   
-  .left, .right {
+  .index_left, .index_right {
     flex: 1;
     height: 100%;
+  }
+  
+  .top_left {
+    flex-grow: 0;
+    height: 100%;
+  }
+  
+  .top_right {
+    flex-grow: 0;
+    height: auto;
+    margin-left: 20px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    margin-right: auto;
   }
 
   .content {
@@ -439,32 +450,51 @@
     font-size: 0.8em;    
   }
   
-  .menu:hover {
-  text-decoration: none;
-  background-color: #555555;
-  transition-duration: 0.5s;
+  
+  .menu:hover .submenu {
+    height: 320px;
+    background-color: #666666;
+    transition-duration: 0.5s;
   }
   
-  .menu > li:hover{
-  text-decoration: none;
-  background-color: #FFFFFF;
-  transition-duration: 0.5s;
+  .menu:hover > li {
+    text-decoration: none;
+    background-color: #222222;
+    transition-duration: 0.5s;
+  }
+  
+  .menu > li:hover {
+    text-decoration: none;
+    background-color: #999999;
+    transition-duration: 0.5s;
+  }
+  
+  .menu:hover .submenu li > a {
+    color: #666;
+    transition-duration: 0.5s;
+  }
+  
+  .menu li:hover .submenu {
+	  background-color: #FFFFFF;
+	  transition-duration: 0.5s;
 	}
 	
-  .submenu > li a:hover {
+	.menu li:hover .submenu li {
     background-color: #FFFFFF;
     transition-duration: 0.5s;
   }
-	
-	.menu > li:hover > a {
+  
+  .menu > li > .submenu > li:hover {
+    background-color: #CCCCCC;
+    transition-duration: 0.5s;
+  }
+  
+  .menu > li:hover > a {
     color: #000;
   }
-	
-	.menu > li:hover .submenu {
-	 
-  height: 250px; /*서브메뉴 li한개의 높이 50*5*/
-  background-color: #555555;
-  transition-duration: 1s;
+  
+  .menu > li:hover > .submenu li a {
+    color: #333;
   }
   
   .content_title {
