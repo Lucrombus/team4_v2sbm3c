@@ -5,18 +5,6 @@
 <%@ page import="dev.mvc.jobcate.JobcateVO"%>
 <%@ page import="dev.mvc.member.MemberVO"%>
 
-<script type="text/javascript">
-function recommend() {
-      var url = 'http://43.201.72.175:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
-      var win = window.open(url, '공지 사항', 'width=1300px, height=850px');
-      
-      var x = (screen.width - 1300) / 2;
-      var y = (screen.height - 850) / 2;
-      
-      win.moveTo(x, y); // 화면 중앙으로 이동
-}
-</script>
-
 <DIV class='container_main'>
     <!-- 헤더 start -->
     <div class="header">
@@ -94,7 +82,8 @@ function recommend() {
                                             src='/images/new_mail.png'
                                             title="관리자" class="icon">
                                     </c:if>
-                                </a> <a class="dropdown-item" href="javascript: recommend();">관심분야
+                                </a> <a class="dropdown-item"
+                                    href="http://localhost:8000/ais/recommend_form/?memberno=${sessionScope.memberno }">관심분야
                                     등록하고 추천받기</a> <a class="dropdown-item"
                                     href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a>
                                 <a class="dropdown-item"
