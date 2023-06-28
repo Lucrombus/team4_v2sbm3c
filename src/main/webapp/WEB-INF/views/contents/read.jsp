@@ -191,7 +191,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
         </c:choose>  ${f.apply(memberno).id == null ? '(알 수 없음)' : f.apply(memberno).id}
       </td>
       <td>${replyVO.reply_content }</td>
-      <td><a href=""><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)"></a> +${f2.apply(replyVO.replyno) } </td>
+      <td><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)" style="cursor:pointer;"> +${f2.apply(replyVO.replyno) } </td>
       <td style="font-size:13px; vertical-align: middle;">${replyVO.rdate }</td>
       <td>
       <a><IMG src="/cate/images/delete.png" class="icon" style="cursor:pointer;"
