@@ -36,14 +36,14 @@ BoardVO boardVO_read = (BoardVO)request.getAttribute("boardVO");
       <input type="hidden" name="boardno" value="<%=boardVO_read.getBoardno() %>"> <%-- 삭제할 카테고리 번호 --%>
 
       <c:choose>
-        <c:when test="${count_by_cateno >= 1 }"> <%-- 자식 레코드가 있는 상황 --%>
+        <c:when test="${count_by_boardno >= 1 }"> <%-- 자식 레코드가 있는 상황 --%>
           <div class="msg_warning">
-            관련 자료 ${count_by_cateno } 건이 발견되었습니다.<br>
+            관련 자료 ${count_by_boardno } 건이 발견되었습니다.<br>
             관련 자료와 카테고리를 모두 삭제하시겠습니까?
           </div>
             
           <label>관련 카테고리 이름</label>: <%=boardVO_read.getName() %> 
-          <a href="../contents/list_by_cateno.do?cateno=${boardVO.cateno }" title="관련 카테고리로 이동"><img src='/cate/images/link.png'></a>
+          <a href="../contents/list_by_boardno.do?boardno=${boardVO.boardno }" title="관련 카테고리로 이동"><img src='/cate/images/link.png'></a>
           &nbsp;      
           <button type="submit" id='submit' class='btn btn-danger btn-sm' style='height: 28px; margin-bottom: 5px;'>관련 자료와 함게 카테고리 삭제</button>
           

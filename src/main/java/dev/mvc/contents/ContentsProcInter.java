@@ -48,6 +48,12 @@ public interface ContentsProcInter {
    */
   public int count_by_boardno(int boardno);
   
+  /**
+   * 일괄삭제
+   * @return
+   */
+  public int delete_all(int boardno);
+  
   
   /** 
    * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 

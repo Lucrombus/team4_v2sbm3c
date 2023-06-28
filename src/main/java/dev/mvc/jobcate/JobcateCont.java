@@ -114,6 +114,7 @@ public class JobcateCont {
   @RequestMapping(value = "/jobcate/delete.do", method = RequestMethod.POST)
   public ModelAndView delete(int jobcateno) {
 
+    int cnt_child = this.guin_cProc.delete_all(jobcateno); // 자식 레코드부터 전부 삭제해야 함
     int cnt = this.jobcateProc.delete(jobcateno);
 
     ModelAndView mav = new ModelAndView();

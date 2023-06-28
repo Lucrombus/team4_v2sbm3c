@@ -54,5 +54,11 @@ public interface Guin_cDAOInter {
    * @return
    */
   public int count_by_jobcateno(int jobcateno);
+  
+  /**
+   * 일괄삭제
+   * @return
+   */
+  public int delete_all(int jobcateno);
 
 }

@@ -49,6 +49,12 @@ public interface ContentsDAOInter {
    */
   public int count_by_boardno(int boardno);
   
+  /**
+   * 일괄삭제
+   * @return
+   */
+  public int delete_all(int boardno);
+  
   
 
 }
