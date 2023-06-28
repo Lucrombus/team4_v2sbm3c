@@ -43,7 +43,7 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno}&now_page=${param.now_page}&word=${param.word }">기본 목록형</A>    
+    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno}&now_page=${param.now_page}&word=${param.word }">목록</A>    
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
 

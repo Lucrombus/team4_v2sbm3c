@@ -101,7 +101,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
 
 <DIV class='content_body'>
   <ASIDE class="aside_right"  style="padding-bottom: 10px;">
-    <A href="./list_by_boardno_search_paging.do?boardno=${param.boardno }&now_page=1">기본 목록형</A> 
+    <A href="./list_by_boardno_search_paging.do?boardno=${param.boardno }&now_page=1">목록</A> 
     <span class='menu_divide' >│</span>   
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>

@@ -22,7 +22,7 @@
  
 <DIV class='content_body'>
   <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }">기본 목록형</A>    
+    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }">목록</A>    
     <span class='menu_divide' >│</span>
     <A href="./list_by_jobcateno_grid.do?jobcateno=${typeVO.jobcateno }">갤러리형</A>
     <span class='menu_divide' >│</span>
