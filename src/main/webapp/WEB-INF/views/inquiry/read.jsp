@@ -45,12 +45,11 @@
   <DIV class='menu_line'></DIV>
 
   <fieldset class="fieldset_basic">
-    <ul>
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
 
           <span style="font-size: 1.5em; font-weight: bold;">제목 - ${inquiryTitle }</span><br>
-          <div style="font-size: 1em;">${id } / ${rdate }</div><br>
+          <div style="font-size: 1em;">${f.apply(memberno) } / ${rdate }</div><br>
           ${inquiryReason }
         </DIV>
       </li>

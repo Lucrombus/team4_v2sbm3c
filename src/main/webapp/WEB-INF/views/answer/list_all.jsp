@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-  전체 문의 목록
+  전체 답변 목록
 </DIV>
 
 <DIV class='content_body'>
@@ -31,41 +31,33 @@
   
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
-      <col style="width: 60%;"></col>
+      <col style="width: 70%;"></col>
       <col style="width: 15%;"></col>
-      <col style="width: 10%;"></col>
       <col style="width: 15%;"></col>
     </colgroup>
 
     <thead>
       <tr>
-        <th style='text-align: center;'>제목</th>
+        <th style='text-align: center;'>답변</th>
         <th style='text-align: center;'>작성일</th>
-        <th style='text-align: center;'>답변 작성</th>
         <th style='text-align: center;'>작성자</th>
       </tr>
     
     </thead>
     
     <tbody>
-      <c:forEach var="inquiryVO" items="${list }">
-        <c:set var="inquiryno" value="${inquiryVO.inquiryno }" />
-        <c:set var="memberno" value="${inquiryVO.memberno }" />
-        <c:set var="inquiryTitle" value="${inquiryVO.inquiryTitle }" />
-        <c:set var="inquiryReason" value="${inquiryVO.inquiryReason }" />
-        <c:set var="rdate" value="${inquiryVO.rdate }" />
+      <c:forEach var="answerVO" items="${list }">
+        <c:set var="content" value="${answerVO.content }" />
+        <c:set var="rdate" value="${answerVO.rdate }" />
+        <c:set var="memberno" value="${answerVO.memberno }" />
         
         <tr style="height: 112px;">
           <td style='vertical-align: middle; text-align: center;'>
-            <a href="./read.do?inquiryno=${inquiryno}"><strong>${inquiryTitle}</strong>  
+            <a href="./read.do?inquiryno=${inquiryno}"><strong>${content}</strong>  
             </a> 
           </td>  
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${rdate.substring(0,10) }
-          </td> 
-          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-            <a href="/answer/create.do?inquiryno=${inquiryno}&memberno=${memberno}"><strong> 답변 </strong>  
-            </a>
           </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${f.apply(memberno) }

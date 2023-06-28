@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.answer.AnswerProcInter;
 import dev.mvc.board.BoardVO;
 import dev.mvc.contents.Contents;
 import dev.mvc.contents.ContentsProcInter;
@@ -42,11 +43,15 @@ public class InquiryCont {
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
 
+  @Autowired
+  @Qualifier("dev.mvc.answer.AnswerProc")
+  private AnswerProcInter answerProc;
+  
   public InquiryCont() {
     System.out.println("-> InquiryCont created.");
   }
 
-  // http://localhost:9093/inquiry/create.do?contentsno=3
+  // http://localhost:9093/inquiry/create.do?memberno=3
   /**
    * 문의 글 등록
    * 
@@ -151,6 +156,7 @@ public class InquiryCont {
     } else {
       mav.setViewName("/member/admin_login_need");
     }
+    
 
     return mav;
   }
@@ -173,9 +179,12 @@ public class InquiryCont {
 
     mav.addObject("inquiryVO", inquiryVO); // request.setAttribute("inquiryVO", inquiryVO);
 
-    // 회원 번호: admino -> AdminVO -> name
-    String name = this.memberProc.read(inquiryVO.getMemberno()).getName();
-    mav.addObject("name", name);
+    Function<Integer, String> f = (memberno) -> {
+      MemberVO memberVO = memberProc.readByMemberno(memberno);
+      String id = memberVO.getId();
+      return id;
+    };
+    mav.addObject("f", f);
 
     mav.setViewName("/inquiry/read"); // /WEB-INF/views/notice/read.jsp
 

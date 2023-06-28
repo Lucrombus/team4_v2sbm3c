@@ -10,31 +10,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
    VALUES (answer_seq.nextval, #{content}, sysdate , #{inquiryno}, #{memberno}) 
   </insert>
 
-  <!-- answerno에 따른 문의 정보 조회 
+  <!-- answerno에 따른 문의 정보 조회 -->
   <select id="read" resultType="dev.mvc.answer.AnswerVO" parameterType="int">
     SELECT answerno, content, rdate, inquiryno, memberno
     FROM answer
     WHERE answerno = #{answerno}
-  </select>  -->
+  </select>
   
-  <!-- 전체 답변 목록 출력 
+  <!-- 전체 답변 목록 출력 -->
   <select id="list_all" resultType="dev.mvc.answer.AnswerVO">
     SELECT answerno, content, rdate, inquiryno, memberno
     FROM answer
     ORDER BY answerno ASC
-  </select> -->
+  </select>
   
-  <!-- answerno에 따른 답변 수정 
+  <!-- answerno에 따른 답변 수정 -->
   <update id="update"  parameterType="dev.mvc.answer.AnswerVO">
     UPDATE answer
     SET content = #{content}
     WHERE answerno = #{answerno}
-  </update> -->
+  </update> 
   
-  <!-- answerno에 따른 답변 삭제 
+  <!-- answerno에 따른 답변 삭제 -->
   <delete id="delete"  parameterType="int">
     DELETE FROM answer
     WHERE answerno = #{answerno}
-  </delete>-->
+  </delete>
   
 </mapper>

@@ -1,6 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-  
+
+<c:set var="inquiryno" value="${inquiryVO.inquiryno }" />
+<c:set var="inquiryTitle" value="${inquiryVO.inquiryTitle }" />        
+<c:set var="inquiryReason" value="${inquiryVO.inquiryReason }" />
+<c:set var="rdate" value="${inquiryVO.rdate }" />
+
+
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -17,7 +23,7 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'> 문의 글 등록</DIV>
+<DIV class='title_line'> 답변 등록</DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
@@ -26,25 +32,31 @@
   
   <DIV class='menu_line'></DIV>
   
+  <fieldset class="fieldset_basic">
+      <li class="li_none">
+        <DIV style="width: 100%; word-break: break-all;">
+
+          <span style="font-size: 1.5em; font-weight: bold;">제목 - ${inquiryTitle }</span><br>
+          <div style="font-size: 1em;">${name } / ${rdate }</div><br>
+          ${inquiryReason }
+        </DIV>
+      </li>
+      
+  </fieldset>
+  
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
-    <input type="hidden" name="memberno" value="${param.memberno}"> <!-- 세션 멤버번호 -->
+    <input type="hidden" name="memberno" value="${sessionScope.memberno}"> <!-- 세션 멤버번호 -->
+    <input type="hidden" name="inquiryno" value="${param.inquiryno}"> <!-- 해당 문의 번호 -->
     
     <div>
-       <label>문의명</label>
-       <input type='text' name='inquiryTitle' value='' required="required" 
-                 autofocus="autofocus" class="form-control" style='width: 100%;'>
-    </div>
-    <div>
-       <label>문의 내용</label>
-       <textarea name='inquiryReason' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
+       <label>답변 내용</label>
+       <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
     </div>
     
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-info btn-sm">등록</button>
       <button type="button" onclick="history.back()" class="btn btn-info btn-sm">취소</button>
     </div>
-    
-    <input type="hidden" name="rdate" value="${sysdate}"> <!-- 세션 멤버번호 -->
   
   </FORM>
 </DIV>
@@ -53,3 +65,4 @@
 </body>
  
 </html>
+
