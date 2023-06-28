@@ -72,6 +72,14 @@
     
     </thead>
     
+    <c:if test="${list[0]== null}">
+       <tr>
+        <td colspan="4" style='vertical-align: middle; text-align: center; font-size: 17px;'>
+        등록된 글이 아무것도 없습니다!
+        </td>
+       </tr>
+    </c:if>
+    
     <tbody>
       <c:forEach var="contentsVO" items="${list }">
         <c:set var="title" value="${contentsVO.title }" />

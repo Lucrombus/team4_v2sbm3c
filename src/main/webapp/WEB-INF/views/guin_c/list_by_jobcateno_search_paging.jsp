@@ -76,6 +76,14 @@
     
     </thead>
     
+     <c:if test="${list[0]== null}">
+         <tr>
+             <td colspan="6" style='vertical-align: middle; text-align: center; font-size: 17px;'>
+              등록된 구인정보가 아무것도 없습니다!
+             </td>
+         </tr>
+     </c:if>
+    
     <tbody>
       <c:forEach var="guin_cVO" items="${list }">
         <c:set var="title" value="${guin_cVO.title }" />
