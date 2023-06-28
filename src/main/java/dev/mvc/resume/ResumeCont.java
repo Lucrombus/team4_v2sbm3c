@@ -202,51 +202,60 @@ public class ResumeCont {
 
   // 이력서 조회
   @RequestMapping(value="/resume/read.do", method=RequestMethod.GET )
-  public ModelAndView read(int resumeno) {
+  public ModelAndView read(HttpSession session, int resumeno) {
     ModelAndView mav = new ModelAndView();
 
+    //세션 회원번호와 조회하려는 회원번호가 일치하고, 회원 로그인일 경우에 실행
+    
     ResumeVO resumeVO = this.resumeProc.read(resumeno);
-    
-    String title = resumeVO.getTitle();
-    String intro = resumeVO.getIntro();
-    
-    title = Tool.convertChar(title);  // 특수 문자 처리
-    intro = Tool.convertChar(intro); 
-    
-    resumeVO.setTitle(title);
-    resumeVO.setIntro(intro);  
-    
-    long size1 = resumeVO.getSize1();
-    resumeVO.setSize1_label(Tool.unit(size1));    
-    
-    mav.addObject("resumeVO", resumeVO); // request.setAttribute("resumeVO", resumeVO);
-    
-    // 회원 번호: admino -> AdminVO -> name
-    String name = this.memberProc.read(resumeVO.getMemberno()).getName();
-    String gender = this.memberProc.read(resumeVO.getMemberno()).getGender();
-    String birth = this.memberProc.read(resumeVO.getMemberno()).getBirth();
-    String education = this.memberProc.read(resumeVO.getMemberno()).getEducation();
-    mav.addObject("name", name);
-    mav.addObject("gender", gender);
-    mav.addObject("birth", birth);
-    mav.addObject("education", education);
-
-    mav.setViewName("/resume/read"); // /WEB-INF/views/resume/read.jsp
+    if((int)session.getAttribute("memberno") == resumeVO.getMemberno() && this.memberProc.isMember(session)) {
+      String title = resumeVO.getTitle();
+      String intro = resumeVO.getIntro();
+      
+      title = Tool.convertChar(title);  // 특수 문자 처리
+      intro = Tool.convertChar(intro); 
+      
+      resumeVO.setTitle(title);
+      resumeVO.setIntro(intro);  
+      
+      long size1 = resumeVO.getSize1();
+      resumeVO.setSize1_label(Tool.unit(size1));    
+      
+      mav.addObject("resumeVO", resumeVO); // request.setAttribute("resumeVO", resumeVO);
+      
+      // 회원 번호: admino -> AdminVO -> name
+      String name = this.memberProc.read(resumeVO.getMemberno()).getName();
+      String gender = this.memberProc.read(resumeVO.getMemberno()).getGender();
+      String birth = this.memberProc.read(resumeVO.getMemberno()).getBirth();
+      String education = this.memberProc.read(resumeVO.getMemberno()).getEducation();
+      mav.addObject("name", name);
+      mav.addObject("gender", gender);
+      mav.addObject("birth", birth);
+      mav.addObject("education", education);
+  
+      mav.setViewName("/resume/read"); // /WEB-INF/views/resume/read.jsp
+    } else {
+      mav.setViewName("/member/login_need");
+    }
         
     return mav;
   }
 
   // 이력서 글 수정 폼
   @RequestMapping(value = "/resume/update_text.do", method = RequestMethod.GET)
-  public ModelAndView update_text(int resumeno) {
+  public ModelAndView update_text(HttpSession session, int resumeno) {
     ModelAndView mav = new ModelAndView();
     
     ResumeVO resumeVO = this.resumeProc.read(resumeno);
-    mav.addObject("resumeVO", resumeVO);
-    
-    mav.setViewName("/resume/update_text"); // /WEB-INF/views/contents/update_text.jsp
-    // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
-    // mav.addObject("content", content);
+    if((int)session.getAttribute("memberno") == resumeVO.getMemberno() && this.memberProc.isMember(session)) {
+      mav.addObject("resumeVO", resumeVO);
+      
+      mav.setViewName("/resume/update_text"); // /WEB-INF/views/contents/update_text.jsp
+      // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
+      // mav.addObject("content", content);
+    } else {
+      mav.setViewName("/member/login_need");
+    }
 
     return mav; // forward
   }
@@ -256,7 +265,7 @@ public class ResumeCont {
   public ModelAndView update_text(HttpSession session, ResumeVO resumeVO) {
     ModelAndView mav = new ModelAndView();
     
-    if (this.memberProc.isMember(session)) { // 관리자 로그인
+    if(this.memberProc.isMember(session)) {
       int cnt = this.resumeProc.update_text(resumeVO);  
       
       mav.addObject("resumeno", resumeVO.getResumeno());
@@ -275,13 +284,17 @@ public class ResumeCont {
   
   // 이력서 파일 수정 폼
   @RequestMapping(value = "/resume/update_file.do", method = RequestMethod.GET)
-  public ModelAndView update_file(int resumeno) {
+  public ModelAndView update_file(HttpSession session, int resumeno) {
     ModelAndView mav = new ModelAndView();
     
     ResumeVO resumeVO = this.resumeProc.read(resumeno);
-    mav.addObject("resumeVO", resumeVO);
-    
-    mav.setViewName("/resume/update_file"); // /WEB-INF/views/contents/update_file.jsp
+    if((int)session.getAttribute("memberno") == resumeVO.getMemberno() && this.memberProc.isMember(session)) {
+      mav.addObject("resumeVO", resumeVO);
+      
+      mav.setViewName("/resume/update_file"); // /WEB-INF/views/contents/update_file.jsp
+    } else {
+      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+    }
 
     return mav; // forward
   }
@@ -291,7 +304,7 @@ public class ResumeCont {
   public ModelAndView update_file(HttpSession session, ResumeVO resumeVO) {
     ModelAndView mav = new ModelAndView();
     
-    if (this.memberProc.isMember(session)) {
+    if(this.memberProc.isMember(session)) {
       // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
       ResumeVO resumeVO_old = resumeProc.read(resumeVO.getResumeno());
       
@@ -365,14 +378,18 @@ public class ResumeCont {
   
   //삭제 폼
   @RequestMapping(value="/resume/delete.do", method=RequestMethod.GET )
-  public ModelAndView delete(int resumeno) { 
+  public ModelAndView delete(HttpSession session, int resumeno) { 
     ModelAndView mav = new  ModelAndView();
     
     // 삭제할 정보를 조회하여 확인
     ResumeVO resumeVO = this.resumeProc.read(resumeno);
-    mav.addObject("resumeVO", resumeVO);
-    
-    mav.setViewName("/resume/delete");  // /webapp/WEB-INF/views/resume/delete.jsp
+    if((int)session.getAttribute("memberno") == resumeVO.getMemberno() && this.memberProc.isMember(session)) {
+      mav.addObject("resumeVO", resumeVO);
+      
+      mav.setViewName("/resume/delete");  // /webapp/WEB-INF/views/resume/delete.jsp
+    } else {
+      mav.setViewName("/member/login_need");
+    }
     
     return mav; 
   }
@@ -382,28 +399,32 @@ public class ResumeCont {
   public ModelAndView delete(HttpSession session, ResumeVO resumeVO) {
     ModelAndView mav = new ModelAndView();
     
-    // -------------------------------------------------------------------
-    // 파일 삭제 시작
-    // -------------------------------------------------------------------
-    // 삭제할 파일 정보를 읽어옴.
-    ResumeVO resumeVO_read = resumeProc.read(resumeVO.getResumeno());
-        
-    String file1saved = resumeVO.getFile1saved();
-    String thumb1 = resumeVO.getThumb1();
-    
-    String uploadDir = Resume.getUploadDir();
-    Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
-    Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
-    // -------------------------------------------------------------------
-    // 파일 삭제 종료
-    // -------------------------------------------------------------------
-        
-    this.resumeProc.delete(resumeVO.getResumeno()); // DBMS 삭제
-    
-    int memberno = (int) session.getAttribute("memberno");
-    mav.addObject("memberno", memberno);
-    mav.addObject("now_page", resumeVO.getNow_page());
-    mav.setViewName("redirect:/resume/list_by_memberno_search_paging.do"); // request -> param으로 접근 전환
+    if(this.memberProc.isMember(session)) {
+      // -------------------------------------------------------------------
+      // 파일 삭제 시작
+      // -------------------------------------------------------------------
+      // 삭제할 파일 정보를 읽어옴.
+      ResumeVO resumeVO_read = resumeProc.read(resumeVO.getResumeno());
+          
+      String file1saved = resumeVO.getFile1saved();
+      String thumb1 = resumeVO.getThumb1();
+      
+      String uploadDir = Resume.getUploadDir();
+      Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
+      Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
+      // -------------------------------------------------------------------
+      // 파일 삭제 종료
+      // -------------------------------------------------------------------
+          
+      this.resumeProc.delete(resumeVO.getResumeno()); // DBMS 삭제
+      
+      int memberno = (int) session.getAttribute("memberno");
+      mav.addObject("memberno", memberno);
+      mav.addObject("now_page", resumeVO.getNow_page());
+      mav.setViewName("redirect:/resume/list_by_memberno_search_paging.do"); // request -> param으로 접근 전환
+    } else {
+      mav.setViewName("/member/login_need");
+    }
     
     return mav;
   }   

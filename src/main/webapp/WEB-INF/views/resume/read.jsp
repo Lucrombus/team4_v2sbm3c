@@ -83,7 +83,10 @@
           <tr>
             <td style="width: 15%;">👨‍🦲 이름:</td>
             <td>${name }</td>
-
+          </tr>
+          <tr>
+            <td>🚻 성별:</td>
+            <td>${gender }</td>
           </tr>
           <tr>
             <td>👶 생일:</td>
@@ -100,10 +103,6 @@
           <tr>
             <td>🌏 주소:</td>
             <td>${address }</td>
-          </tr>
-          <tr>
-            <td>🚻 성별:</td>
-            <td>${gender }</td>
           </tr>
           <tr>
             <td>👨‍🔧 희망직종:</td>
