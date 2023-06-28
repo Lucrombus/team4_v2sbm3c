@@ -81,7 +81,7 @@
             <supportSize>true</supportSize>
             <type>12</type>
           </columnType>
-          <size>50</size>
+          <size>100</size>
           <notNull>true</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
