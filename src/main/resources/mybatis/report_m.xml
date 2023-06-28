@@ -6,8 +6,8 @@
 
     <!-- 회원 신고 생성 -->
     <insert id="create" parameterType="dev.mvc.report_m.Report_mVO">
-      INSERT INTO report_m(reportno, memberno, target_mno, title, reason, rdate)
-      VALUES (report_m_seq.nextval, #{memberno}, #{target_mno}, #{title}, #{reason}, sysdate)
+      INSERT INTO report_m(reportno, memberno, target_mno, title, reason, rdate, done)
+      VALUES (report_m_seq.nextval, #{memberno}, #{target_mno}, #{title}, #{reason}, sysdate, #{done})
     </insert>
   
     <!-- 나의 신고 리스트 -->

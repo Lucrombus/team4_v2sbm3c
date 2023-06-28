@@ -19,20 +19,56 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all_by_memberno.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>회원 신고 내역 </a>
+<a href="/report_m/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; font-weight:bold;">내 신고 조회 </span></a>
+<span class='menu_divide' >│</span>
+<a href="/report_m/create.do"><span style="font-size:20px; color:#A4A4A4;">회원 신고하기 </span></a>
 </DIV>
+<!-- ------------------------------------------------------ -->
+<DIV style='width: 50%; margin: 30px auto; text-align: center;'>
+        <table class="table table-hover table-bordered table-sm" style="width: 100%;">
+            <colgroup>
+                <col style='width: 10%;' />
+                <col style='width: 50%;' />
+                <col style='width: 10%;' />
+                <col style='width: 20%;' />
+                <col style='width: 10%;' />
+            </colgroup>
 
-<DIV class='content_body'>
-  <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <c:if test="${sessionScope.id != null}">
-     <A href="./create.do">등록</A>
-     <span class='menu_divide' >│</span>
-    </c:if>
-    <A href="javascript:location.reload();">새로고침</A>
-  </ASIDE> 
+            <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">신고대상</th>
+                    <th scope="col">날짜</th>
+                    <th scope="col">처리여부</th>
+                </tr>
+            </thead>
 
-  <DIV class='menu_line'></DIV>
-  
+
+            <tbody>
+            <c:if test="${list[0]== null}">
+            <tr>
+            <td colspan="5">
+            회원 신고 내역이 없습니다!
+            </td>
+            </tr>
+            </c:if>
+            
+            <c:forEach var="report_mVO" items="${list }">
+              <tr onclick="location.href='/message/read.do?messageno=${MessageVO.messageno }'" class="hover">
+                <td>${report_mVO.reportno  }</td>
+                <td>${report_mVO.title}</td>
+                <td>${(report_mVO.target_mno).id }</td>
+                <td>${report_mVO.rdate }</td>
+                <td>${report_mVO.done }</td>
+              </tr>
+            </c:forEach>
+            
+             
+            </tbody>
+        </table>
+    </DIV>
+<!-- ------------------------------------------------------ -->
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
       <col style="width: 5%;"></col>
@@ -91,6 +127,8 @@
 
     </tbody>
   </table>
+  
+  
    <!-- 페이지 목록 출력 부분 시작 -->
   <DIV class='bottom_menu'>${paging }</DIV> <%-- 페이지 리스트 --%>
   <!-- 페이지 목록 출력 부분 종료 -->

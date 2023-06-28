@@ -6,11 +6,13 @@ import java.util.function.Function;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -56,19 +58,42 @@ public class Report_mCont {
   
      return mav;
    }
+   
+   //아이디 확인후 membrno 반환 AJAX
+   @ResponseBody
+   @RequestMapping(value = "/report_m/checkid_ajax.do", method = RequestMethod.POST)
+   public String check(String member_target) {
+
+     System.out.println("응답성공");
+
+     JSONObject json = new JSONObject();
+     MemberVO memberVO = this.memberProc.readById(member_target);
+     if (memberVO != null) {
+       json.put("memberno", memberVO.getMemberno());
+       json.put("result", "성공");
+
+     } else {
+       json.put("result", "실패");
+     }
+
+     return json.toString();
+
+   }
  
    // 신고 등록 처리
    @RequestMapping(value = "/report_m/create.do", method = RequestMethod.POST)
    public ModelAndView create(HttpSession session, Report_mVO report_mVO) {
 
      ModelAndView mav = new ModelAndView();
-
+     
+  // Call By Reference: 메모리 공유, Hashcode 전달
+     int memberno = (int) session.getAttribute("memberno"); // memberno FK
+     report_mVO.setMemberno(memberno);
+     
      if ((int)session.getAttribute("memberno") == (report_mVO.getMemberno())) { // (로그인세션의 memberno와 report_m의 memberno가 같을경우에만 실행)
 
 
-       // Call By Reference: 메모리 공유, Hashcode 전달
-       int memberno = (int) session.getAttribute("memberno"); // memberno FK
-       report_mVO.setMemberno(memberno);
+       
        int cnt = this.report_mProc.create(report_mVO);
 
        // ------------------------------------------------------------------------------
@@ -79,7 +104,7 @@ public class Report_mCont {
        // ------------------------------------------------------------------------------
 
        mav.addObject("memberno", memberno);
-       mav.setViewName("redirect:/report_m/list_all.do");
+       mav.setViewName("redirect:/report_m/list_all_by_memberno.do");
        
      } else {
        mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
@@ -97,10 +122,9 @@ public class Report_mCont {
     report_mVO.setMemberno(memberno); //report_mVO에 세션 회원번호 저장
     //Report_mVO report_mVO = this.report_mProc.read(memberno); //회원번호에 따른 신고정보 불러오기
     
-    System.out.println("now session memberno="+memberno);//tset
-    System.out.println("now report_mVO memberno="+report_mVO.getMemberno());//test
-    
     if ((int)session.getAttribute("memberno") == (report_mVO.getMemberno())) {
+      MemberVO memberVO = this.memberProc.readByMemberno(memberno);
+      mav.addObject(memberVO);
       //report_mVO.setMemberno(memberno);
       ArrayList<Report_mVO> list = this.report_mProc.list_all_by_memberno(memberno);
       mav.addObject("list", list);
