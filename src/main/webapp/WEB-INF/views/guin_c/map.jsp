@@ -18,13 +18,11 @@
 <body>
 <c:import url="/menu/top.do" />
 
-<DIV class='title_line'><A href="/guin_c/list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1" class="title_link">${param.jobcateno != 0 ? typeVO.name : "전체목록" } 게시판</A> > ${guin_cVO.title } > 지도 등록/수정/삭제</DIV>
+<DIV class='title_line'><A href="/guin_c/list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1" class="title_link">${param.jobcateno != 0 ? jobcateVO.name : "전체목록" } 구인</A> > ${guin_cVO.title } > 지도 등록/수정/삭제</DIV>
  
 <DIV class='content_body'>
   <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }">목록</A>    
-    <span class='menu_divide' >│</span>
-    <A href="./list_by_jobcateno_grid.do?jobcateno=${typeVO.jobcateno }">갤러리형</A>
+    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=${param.now_page }">목록</A>    
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
