@@ -7,16 +7,20 @@ CREATE TABLE report_c(
 		reportno                      		NUMBER(10)		 NOT NULL   PRIMARY KEY,
 		memberno                      		NUMBER(10)		 NOT NULL,
 		contentsno                    		NUMBER(10)		 NOT NULL,
+		title                         		VARCHAR2(100)		 NOT NULL,
 		reason                        		VARCHAR2(200)		 NOT NULL,
-		rdate                         		DATE		 NOT NULL
+		rdate                         		DATE		 NOT NULL,
+		done                          		CHAR(1)		 DEFAULT 'N'		 NOT NULL
 );
 
 COMMENT ON TABLE report_c is '컨텐츠 신고';
 COMMENT ON COLUMN report_c.reportno is '신고번호';
 COMMENT ON COLUMN report_c.memberno is '회원번호 (신고자)';
 COMMENT ON COLUMN report_c.contentsno is '컨텐츠 번호';
-COMMENT ON COLUMN report_c.reason is '신고사유';
-COMMENT ON COLUMN report_c.rdate is '신고 등록일';
+COMMENT ON COLUMN report_m.title is '제목';
+COMMENT ON COLUMN report_m.reason is '신고사유';
+COMMENT ON COLUMN report_m.rdate is '신고 등록일';
+COMMENT ON COLUMN report_m.done is '신고 처리 여부';
 
 
 DROP SEQUENCE report_c_seq;
@@ -29,11 +33,11 @@ CREATE SEQUENCE report_c_seq
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
 
 --insert
-INSERT INTO report_c(reportno, memberno, contentsno, reason, rdate)
-VALUES(report_c_seq.nextval, 1, 1, '신고이유', sysdate);
+INSERT INTO report_c(reportno, memberno, contentsno, title, reason, rdate, done)
+VALUES(report_c_seq.nextval, 1, 1, '신고제목', '신고이유', sysdate, 'N');
 
 --select
-SELECT reportno, memberno, contentsno, reason, rdate
+SELECT reportno, memberno, contentsno, title, reason, rdate, done
 FROM report_c
 WHERE memberno = 1
 ORDER BY reportno ASC;
