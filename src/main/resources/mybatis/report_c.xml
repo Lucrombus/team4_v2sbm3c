@@ -6,13 +6,13 @@
 
     <!-- 등록 -->
     <insert id = "create" parameterType="dev.mvc.report_c.Report_cVO">
-      INSERT INTO report_c(reportno, memberno, contentsno, reason, rdate)
-      VALUES(report_c_seq.nextval, #{memberno}, #{contentsno}, #{reason}, sysdate)
+      INSERT INTO report_c(reportno, memberno, contentsno, title, reason, rdate, done)
+      VALUES(report_c_seq.nextval, #{memberno}, #{contentsno}, #{title}, #{reason}, sysdate, #{done})
     </insert>
     
     <!-- 조회 : 회원별 자신의 신고목록 -->
     <select id="list_all_by_memberno" resultType="dev.mvc.report_c.Report_cVO" parameterType="int">
-      SELECT reportno, memberno, contentsno, reason, rdate
+      SELECT reportno, memberno, contentsno, title, reason, rdate, done
       FROM report_c
       WHERE memberno = #{memberno}
       ORDER BY reportno DESC
@@ -20,14 +20,14 @@
     
     <!-- 조회 : 관리자용 전체 신고목록 -->
     <select id="list_all" resultType="dev.mvc.report_c.Report_cVO">
-      SELECT reportno, memberno, contentsno, reason, rdate
+      SELECT reportno, memberno, contentsno, title, reason, rdate, done
       FROM report_c
       ORDER BY reportno ASC
     </select>
     
     <!-- 조회 : 번호로 레코드 조회 -->
     <select id="read" resultType="dev.mvc.report_c.Report_cVO" parameterType="int">
-      SELECT reportno, memberno, contentsno, reason, rdate
+      SELECT reportno, memberno, contentsno, title, reason, rdate, done
       FROM report_c
       WHERE reportno = #{reportno}
     </select>

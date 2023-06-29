@@ -131,13 +131,6 @@ public class Report_mCont {
       };
       mav.addObject("f", f);
       
-//      Report_mVO report_mVO = this.report_mProc.read(memberno);
-//      int target_mno = report_mVO.getTarget_mno();
-//      
-//      MemberVO Member_tVO = this.memberProc.readByMemberno(target_mno);
-//      String id = Member_tVO.getId();
-//      mav.addObject("id", id);
-      
       mav.setViewName("report_m/list_all_by_memberno");
       mav.addObject("memberno", memberno);
     } else {
@@ -171,10 +164,15 @@ public class Report_mCont {
      ModelAndView mav = new ModelAndView();
 
      Report_mVO report_mVO = this.report_mProc.read(reportno);
-
+     
+     // 특수 문자 처리------
+     String reason = report_mVO.getReason();
      String title = report_mVO.getTitle();
-     title = Tool.convertChar(title); // 특수 문자 처리
+     reason = Tool.convertChar(reason);  
+     title = Tool.convertChar(title); 
+     report_mVO.setReason(reason);
      report_mVO.setTitle(title);  
+     //------------------
      
      mav.addObject("report_mVO", report_mVO); // request.setAttribute("resumeVO", resumeVO);
      

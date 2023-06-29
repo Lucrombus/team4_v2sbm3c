@@ -5,8 +5,12 @@ public class Report_cVO {
   private int reportno;
   private int memberno;
   private int contentsno;
+  private String title;
   private String reason;
   private String rdate;
+  private String done = "N";
+  
+
   
   private int start_num;
   private int end_num;
@@ -31,6 +35,12 @@ public class Report_cVO {
   public void setContentsno(int contentsno) {
     this.contentsno = contentsno;
   }
+  public String getTitle() {
+    return title;
+  }
+  public void setTitle(String title) {
+    this.title = title;
+  }
   public String getReason() {
     return reason;
   }
@@ -42,6 +52,12 @@ public class Report_cVO {
   }
   public void setRdate(String rdate) {
     this.rdate = rdate;
+  }
+  public String getDone() {
+    return done;
+  }
+  public void setDone(String done) {
+    this.done = done;
   }
   public int getStart_num() {
     return start_num;
