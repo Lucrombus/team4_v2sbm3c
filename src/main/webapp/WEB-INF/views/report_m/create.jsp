@@ -103,7 +103,7 @@ function checkLength() {
 
             <div class="input-group mb-3" style="width:60%;">
                 <span class="input-group-text" id="basic-addon1">신고받는 대상</span>
-                <input type="text" class="form-control" placeholder="ID" id="idchecker">
+                <input type="text" class="form-control" placeholder="ID" id="idchecker" value="${param.target_id }">
                 <button type="button" onclick="CheckID()" class="btn btn-outline-secondary">조회</button>
                 <span style="padding-left:10px; padding-top:4px;" id="span_result">조회필요</span>
             </div>

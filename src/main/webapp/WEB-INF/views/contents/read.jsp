@@ -196,7 +196,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
       <td>
       <a><IMG src="/cate/images/delete.png" class="icon" style="cursor:pointer;"
       onclick="confirmClick(this)" data-value="${replyVO.memberno}" data-replyno="${replyVO.replyno}"></a>
-      <a href="/report_m/create.do?memberno=${replyVO.memberno}"><img src='/images/siren.png' title="신고" class="icon"></a>
+      <a href="/report_m/create.do?target_id=${f.apply(memberno).id }"><img src='/images/siren.png' title="신고" class="icon"></a>
       </td>
       </tr>
       </c:forEach>
