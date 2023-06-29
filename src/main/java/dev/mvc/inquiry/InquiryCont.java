@@ -50,7 +50,22 @@ public class InquiryCont {
   public InquiryCont() {
     System.out.println("-> InquiryCont created.");
   }
-
+  
+  /**
+   * POST 요청시 JSP 페이지에서 JSTL 호출 기능 지원
+   * 새로고침 방지, EL에서 param으로 접근, GET -> POST
+   * 
+   * @return
+   */
+//  @RequestMapping(value = "/inquiry/msg.do", method = RequestMethod.GET)
+//  public ModelAndView msg(String url) {
+//    ModelAndView mav = new ModelAndView();
+//
+//    mav.setViewName(url); // forward
+//
+//    return mav; // forward
+//  } 
+  
   // http://localhost:9093/inquiry/create.do?memberno=3
   /**
    * 문의 글 등록

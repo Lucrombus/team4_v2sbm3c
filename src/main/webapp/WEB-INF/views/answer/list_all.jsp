@@ -49,11 +49,13 @@
       <c:forEach var="answerVO" items="${list }">
         <c:set var="content" value="${answerVO.content }" />
         <c:set var="rdate" value="${answerVO.rdate }" />
+        <c:set var="answerno" value="${answerVO.answerno }" />
         <c:set var="memberno" value="${answerVO.memberno }" />
+        <c:set var="inquiryno" value="${answerVO.inquiryno }" />
         
         <tr style="height: 112px;">
           <td style='vertical-align: middle; text-align: center;'>
-            <a href="./read.do?inquiryno=${inquiryno}"><strong>${content}</strong>  
+            <a href="./read.do?answerno=${answerno}"><strong>${content}</strong>  
             </a> 
           </td>  
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>

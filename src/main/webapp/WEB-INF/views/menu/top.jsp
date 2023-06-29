@@ -132,6 +132,8 @@ function recommend() {
 		                   <a href="#">회원 관리</a>
 		                   <ul class="submenu">
 		                     <li><a href="/member/list.do">회원 목록</a></li>
+                             <li><a href="/inquiry/list_all.do">문의 목록</a></li>
+                             <li><a href="/answer/list_all.do">답변 목록</a></li>
 		                   </ul>
 		                 </li>
 		               </c:if>

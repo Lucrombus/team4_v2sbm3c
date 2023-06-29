@@ -17,6 +17,7 @@ import dev.mvc.inquiry.InquiryProcInter;
 import dev.mvc.inquiry.InquiryVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
+import dev.mvc.tool.Tool;
 
 @Controller
 public class AnswerCont {
@@ -35,7 +36,22 @@ public class AnswerCont {
   public AnswerCont() {
     System.out.println("-> AnswerCont created.");
   }
+  
+  /**
+   * POST 요청시 JSP 페이지에서 JSTL 호출 기능 지원
+   * 새로고침 방지, EL에서 param으로 접근, GET -> POST
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/inquiry/msg.do", method = RequestMethod.GET)
+  public ModelAndView msg(String url) {
+    ModelAndView mav = new ModelAndView();
 
+    mav.setViewName(url); // forward
+
+    return mav; // forward
+  }
+  
   // http://localhost:9093/answer/create.do?inquiry=1
   /**
    * 답변 등록
@@ -109,4 +125,104 @@ public class AnswerCont {
 
     return mav;
   }
+  
+  // 문의 조회
+ @RequestMapping(value = "/answer/read.do", method = RequestMethod.GET)
+ public ModelAndView read(int answerno) {
+   ModelAndView mav = new ModelAndView();
+
+   AnswerVO answerVO = this.answerProc.read(answerno);
+
+   String content = answerVO.getContent();
+   content = Tool.convertChar(content);
+   answerVO.setContent(content);
+
+   mav.addObject("answerVO", answerVO); // request.setAttribute("inquiryVO", inquiryVO);
+
+   Function<Integer, String> f = (memberno) -> {
+     MemberVO memberVO = memberProc.readByMemberno(memberno);
+     String id = memberVO.getId();
+     return id;
+   };
+   mav.addObject("f", f);
+
+   mav.setViewName("/answer/read"); // /WEB-INF/views/notice/read.jsp
+
+   return mav;
+ }
+
+ /**
+  * 문의 글 수정 폼 http://localhost:9093/inquiry/update.do?answerno=1
+  * 
+  * @return
+  */
+ @RequestMapping(value = "/answer/update.do", method = RequestMethod.GET)
+ public ModelAndView update(int answerno) {
+   ModelAndView mav = new ModelAndView();
+
+   AnswerVO answerVO = this.answerProc.read(answerno); // 수정용 데이터
+
+   mav.addObject("answerVO", answerVO);
+
+   mav.setViewName("/answer/update");
+
+   return mav; // forward
+ }
+ 
+ /**
+  * 수정 처리 http://localhost:9093/answer/update.do?answerno=1
+  * 
+  * @return
+  */
+ @RequestMapping(value = "/answer/update.do", method = RequestMethod.POST)
+ public ModelAndView update(HttpSession session, AnswerVO answerVO) {
+   ModelAndView mav = new ModelAndView();
+
+   // System.out.println("-> word: " + contentsVO.getWord());
+
+   if (this.memberProc.isAdmin(session)) { // 회원이나 기업 로그인
+     int cnt = this.answerProc.update(answerVO);
+     
+     mav.addObject("answerno", answerVO.getAnswerno());
+     mav.setViewName("redirect:/answer/read.do");
+
+   } else {
+     mav.addObject("url", "/member/admin_login_need"); // /WEB-INF/views/admin/login_need.jsp
+   }
+   return mav; // forward
+ }
+ 
+ /**
+  * 삭제 폼
+  * @param answerno
+  * @return
+  */
+ @RequestMapping(value="/answer/delete.do", method=RequestMethod.GET )
+ public ModelAndView delete(int answerno) { 
+   ModelAndView mav = new  ModelAndView();
+   
+   // 삭제할 정보를 조회하여 확인
+   AnswerVO answerVO = this.answerProc.read(answerno);
+   mav.addObject("answerVO", answerVO);
+   
+   mav.setViewName("/answer/delete");  // /webapp/WEB-INF/views/inquiry/delete.jsp
+   
+   return mav; 
+ }
+ 
+ /**
+  * 삭제 처리 http://localhost:9093/answer/delete.do
+  * 
+  * @return
+  */
+ @RequestMapping(value = "/answer/delete.do", method = RequestMethod.POST)
+ public ModelAndView delete(AnswerVO answerVO) {
+   ModelAndView mav = new ModelAndView();
+   
+   this.answerProc.delete(answerVO.getAnswerno()); // DBMS 삭제
+   
+   mav.setViewName("redirect:/answer/list_all.do"); 
+   
+   return mav;
+ }   
 }

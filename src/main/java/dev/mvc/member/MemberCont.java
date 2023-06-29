@@ -148,6 +148,7 @@ public class MemberCont {
   }
 
   /**
+   * POST 요청시 JSP 페이지에서 JSTL 호출 기능 지원
    * 새로고침 방지, EL에서 param으로 접근, GET -> POST
    * 
    * @return
