@@ -53,9 +53,14 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>boardno</columnName>
           <logicalName>게시판 번호</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>NUMBER</name>
+            <logicalName>Numeric</logicalName>
+            <supportSize>true</supportSize>
+            <type>2</type>
+          </columnType>
           <size>10</size>
-          <notNull>false</notNull>
+          <notNull>true</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
           <autoIncrement>false</autoIncrement>
@@ -98,7 +103,7 @@
             <type>12</type>
           </columnType>
           <size>4000</size>
-          <notNull>false</notNull>
+          <notNull>true</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
           <autoIncrement>false</autoIncrement>

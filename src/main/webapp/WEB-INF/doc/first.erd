@@ -726,9 +726,14 @@
                                 <net.java.amateras.db.visual.model.ColumnModel>
                                   <columnName>boardno</columnName>
                                   <logicalName>게시판 번호</logicalName>
-                                  <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../../../../sourceConnections/net.java.amateras.db.visual.model.ForeignKeyModel/target/columns/net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+                                  <columnType class="net.java.amateras.db.dialect.ColumnType">
+                                    <name>NUMBER</name>
+                                    <logicalName>Numeric</logicalName>
+                                    <supportSize>true</supportSize>
+                                    <type>2</type>
+                                  </columnType>
                                   <size>10</size>
-                                  <notNull>false</notNull>
+                                  <notNull>true</notNull>
                                   <primaryKey>false</primaryKey>
                                   <description></description>
                                   <autoIncrement>false</autoIncrement>
@@ -764,9 +769,14 @@
                                 <net.java.amateras.db.visual.model.ColumnModel>
                                   <columnName>content</columnName>
                                   <logicalName>내용</logicalName>
-                                  <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../../sourceConnections/net.java.amateras.db.visual.model.ForeignKeyModel/target/columns/net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
+                                  <columnType class="net.java.amateras.db.dialect.ColumnType">
+                                    <name>VARCHAR2</name>
+                                    <logicalName>String</logicalName>
+                                    <supportSize>true</supportSize>
+                                    <type>12</type>
+                                  </columnType>
                                   <size>4000</size>
-                                  <notNull>false</notNull>
+                                  <notNull>true</notNull>
                                   <primaryKey>false</primaryKey>
                                   <description></description>
                                   <autoIncrement>false</autoIncrement>
