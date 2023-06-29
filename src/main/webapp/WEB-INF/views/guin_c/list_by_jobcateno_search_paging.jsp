@@ -12,7 +12,69 @@
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- top 메뉴 drop down 버튼 스크립트를 작동하게 함 -->
-    
+<script type="text/javascript">
+
+function like_y(image) {
+    var dataToSend = {guin_cno: $(image).data("guin_cno")};
+    console.log("클릭한 댓글의 데이터: " + dataToSend.guin_cno);
+
+    if (${sessionScope.id != null}){
+      $.ajax({                // 자바스크립트 객체 표기법: {, }  
+            url: "/like_guin/like_y.do", // form action 기능을 함.
+            type: "post",          // form method 기능을 함.
+            cache: false,         // 응답 결과 임시 저장 취소
+            async: true,          // true: 비동기 통신 (권장), false: 동기 통신
+            dataType: "json",     // 서버로부터의 응답 형식: json, html, xml..., JSON.parse() 자동 처리
+            data: dataToSend,         // 서버로 보내는 데이터, id=user1&passwd=1234
+            success: function(rdata) { // 응답 성공
+              if (rdata.result == "성공") {
+                window.location.reload();
+              } else {
+                alert("아무튼 실패함");  
+              }
+                  
+            },
+            error: function(request, status, error) {
+            }   
+          });
+
+        }else{
+          alert("관심 등록을 하려면 로그인을 하십시오")
+            }
+
+    }
+
+
+function like_n(image) {
+    var dataToSend = {guin_cno: $(image).data("guin_cno")};
+    console.log("클릭한 댓글의 데이터: " + dataToSend.guin_cno);
+
+    if (${sessionScope.id != null}){
+      $.ajax({                // 자바스크립트 객체 표기법: {, }  
+            url: "/like_guin/like_n.do", // form action 기능을 함.
+            type: "post",          // form method 기능을 함.
+            cache: false,         // 응답 결과 임시 저장 취소
+            async: true,          // true: 비동기 통신 (권장), false: 동기 통신
+            dataType: "json",     // 서버로부터의 응답 형식: json, html, xml..., JSON.parse() 자동 처리
+            data: dataToSend,         // 서버로 보내는 데이터, id=user1&passwd=1234
+            success: function(rdata) { // 응답 성공
+              if (rdata.result == "성공") {
+                window.location.reload();
+              } else {
+                alert("아무튼 실패함");  
+              }
+                  
+            },
+            error: function(request, status, error) {
+            }   
+          });
+
+        }else{
+          alert("관심 등록 해제를 하려면 로그인을 하십시오")
+            }
+
+    }
+</script>
 </head> 
  
 <body>
@@ -120,10 +182,10 @@
             <A href="/guin_c/map.do?jobcateno=${param.jobcateno }&guin_cno=${guin_cno}&now_page=${param.now_page}" title="지도"><IMG src="/contents/images/map.png" class="icon"></A>
             <c:choose>
               <c:when test= "${f2.apply(like_guinVO) > 0 }">
-                <A href="/like_guin/like_n.do?jobcateno=${jobcateno }&guin_cno=${guin_cno }&now_page=${param.now_page}" title="관심 구인 해제 하기"><IMG src="/like_guin/images/like_y.png" class="icon"></A>
+                <IMG src="/like_guin/images/like_y.png" id="like_y" class="icon" style="cursor:pointer;" onclick="like_n(this)" data-guin_cno="${guin_cno }">
               </c:when>
               <c:otherwise>
-                <A href="/like_guin/like_y.do?jobcateno=${jobcateno }&guin_cno=${guin_cno }&now_page=${param.now_page}" title="관심 구인 등록 하기"><IMG src="/like_guin/images/like_n.png" class="icon"></A>
+                <IMG src="/like_guin/images/like_n.png" id="like_n" class="icon" style="cursor:pointer;" onclick="like_y(this)" data-guin_cno="${guin_cno }">
               </c:otherwise>
             </c:choose>
           </td>
@@ -144,7 +206,6 @@
   <DIV class='bottom_menu'>${paging }</DIV> <%-- 페이지 리스트 --%>
   <!-- 페이지 목록 출력 부분 종료 -->
 </DIV>
-
  
 <jsp:include page="../menu/bottom.jsp" />
 </body>
