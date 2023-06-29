@@ -94,7 +94,7 @@
           ${contentsno}
           </td>
           <td style='vertical-align: middle;'>
-            <a href="./read.do?contentsno=${contentsno}&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong> <span class="reply-count">[${f2.apply(contentsno)}]</span>           
+            <a href="./read.do?contentsno=${contentsno}&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}"><strong>${param.boardno == 0 ? [f3.apply(boardno).name] : '' }</strong> ${title} <span class="reply-count">[${f2.apply(contentsno)}]</span>           
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>

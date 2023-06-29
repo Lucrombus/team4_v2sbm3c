@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.board.BoardVO;
 import dev.mvc.jobcate.JobcateProcInter;
 import dev.mvc.jobcate.JobcateVO;
 import dev.mvc.like_guin.Like_guinProcInter;
@@ -292,6 +293,13 @@ public class Guin_cCont {
     mav.addObject("f2", f2);
 
     int search_count = guin_cProc.search_count(guin_cVO);
+    
+    // 업종번호로 업종VO를 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, JobcateVO> f3 = (jobcateno) -> {
+      JobcateVO jobcatenoVO_read = this.jobcateProc.read(jobcateno);
+      return jobcatenoVO_read;
+    };
+    mav.addObject("f3", f3);
 
     /*
      * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17

@@ -113,7 +113,7 @@
             </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
-            <a href="./read.do?guin_cno=${guin_cno}&jobcateno=${param.jobcateno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong>  
+            <a href="./read.do?guin_cno=${guin_cno}&jobcateno=${param.jobcateno}&now_page=${param.now_page}&word=${param.word}"><strong>${param.jobcateno == 0 ? [f3.apply(jobcateno).name] : '' }</strong> ${title}  
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>

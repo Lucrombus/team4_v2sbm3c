@@ -41,7 +41,7 @@ function recommend() {
 		               </li>
 		               <li>
 	                   <%-- 구인 서브 메뉴 --%>
-	                   <a href="#">구인</a>
+	                   <a href="/guin_c/list_by_jobcateno_search_paging.do?jobcateno=0&now_page=1">구인</a>
 	                   <ul class="submenu">
 	                       <c:forEach var="jobcateVO" items="${list}">
 	                           <c:set var="jobcateno"
@@ -64,7 +64,7 @@ function recommend() {
 			
 		               <li>
 	                   <%-- 커뮤니티 서브 메뉴 --%>
-	                   <a href="#">커뮤니티</a>
+	                   <a href="/contents/list_by_boardno_search_paging.do?boardno=0&now_page=1">커뮤니티</a>
 	                   <ul class="submenu">
                        <c:forEach var="boardVO"
                            items="${list_board}">
