@@ -55,10 +55,10 @@
             </c:if>
             
             <c:forEach var="report_mVO" items="${list }">
-              <tr onclick="location.href='/message/read.do?messageno=${MessageVO.messageno }'" class="hover">
+              <tr onclick="location.href='/report_m/read.do?reportno=${report_mVO.reportno }'" class="hover">
                 <td>${report_mVO.reportno  }</td>
                 <td>${report_mVO.title}</td>
-                <td>${(report_mVO.target_mno).id }</td>
+                <td>${f.apply(report_mVO.target_mno).id }</td>
                 <td>${report_mVO.rdate }</td>
                 <td>${report_mVO.done }</td>
               </tr>
@@ -69,64 +69,7 @@
         </table>
     </DIV>
 <!-- ------------------------------------------------------ -->
-  <table class="table table-striped" style='width: 100%;'>
-    <colgroup>
-      <col style="width: 5%;"></col>
-      <col style="width: 15%;"></col>
-      <col style="width: 60%;"></col>
-      <col style="width: 15%;"></col>
-      <col style="width: 5%;"></col>
-
-    </colgroup>
-
-    <thead>
-      <tr >
-        <th style='text-align: center;'>신고번호</th>
-        <th style='text-align: center;'>제목</th>
-        <th style='text-align: center;'>작성일</th>
-        <th style='text-align: center;'>신고된 회원번호</th>
-        <th style='text-align: center;'>신고자</th>
-
-      </tr>
-    
-    </thead>
-    
-    <tbody>
-      <c:forEach var="report_mVO" items="${list }"> <!-- 값 불러오기!!!!!!!!!!!! -->
-        <c:set var="reportno" value="${report_mVO.reportno }" />
-        <c:set var="memberno" value="${report_mVO.memberno }" />
-        <c:set var="target_mno" value="${report_mVO.target_mno }" />
-        <c:set var="title" value="${report_mVO.title }" />
-        <c:set var="reason" value="${report_mVO.reason }" />
-        <c:set var="rdate" value="${report_mVO.rdate }" />
-
-
-
-
-        
-        <tr style="height:50px;">
-          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${reportno}
-          </td>
-          <td style='vertical-align: middle;  font-weight:bold;'>
-            <a href="./read.do?reportno=${reportno}"><strong>${title }</strong></a> 
-          </td>
-          <td style='vertical-align: middle; text-align: center;'>
-          ${rdate }
-          </td>
-          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${target_mno }
-          </td>
-          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${id }
-          </td>
-        </tr>
-        
-      </c:forEach>
-
-
-    </tbody>
-  </table>
+  
   
   
    <!-- 페이지 목록 출력 부분 시작 -->

@@ -36,7 +36,7 @@ function CheckID() {
             if (rdata.result == "성공") {
                 console.log("조회성공")
                 $("#span_result").html("<span style='color:#00db00;'>조회성공</span>");
-                $("#target_no").val(rdata.memberno);
+                $("#target_mno").val(rdata.memberno);
                 ID_EXIST = true;
 
 
@@ -99,7 +99,7 @@ function checkLength() {
         <FORM name='frm' id='frm' method='POST'
             action='./create.do' enctype="multipart/form-data" >
             
-            <input type="hidden" name="target_no" value="" id="target_no">
+            <input type="hidden" name="target_mno" value="" id="target_mno">
 
             <div class="input-group mb-3" style="width:60%;">
                 <span class="input-group-text" id="basic-addon1">신고받는 대상</span>

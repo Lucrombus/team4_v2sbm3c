@@ -20,6 +20,7 @@ import dev.mvc.contents.ContentsProcInter;
 import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
+import dev.mvc.message.MessageVO;
 import dev.mvc.resume.Resume;
 import dev.mvc.resume.ResumeVO;
 import dev.mvc.tool.Tool;
@@ -116,23 +117,31 @@ public class Report_mCont {
   // 회원 본인의 신고 리스트 조회
   //http://localhost:9093/report_m/list_all_by_memberno.do
   @RequestMapping(value="/report_m/list_all_by_memberno.do", method=RequestMethod.GET)
-  public ModelAndView list_all_by_memberno(HttpSession session, Report_mVO report_mVO) {
+  public ModelAndView list_all_by_memberno(HttpSession session) {
     ModelAndView mav = new ModelAndView();
-    int memberno = (int)session.getAttribute("memberno"); //회원 번호 불러오기
-    report_mVO.setMemberno(memberno); //report_mVO에 세션 회원번호 저장
-    //Report_mVO report_mVO = this.report_mProc.read(memberno); //회원번호에 따른 신고정보 불러오기
     
-    if ((int)session.getAttribute("memberno") == (report_mVO.getMemberno())) {
-      MemberVO memberVO = this.memberProc.readByMemberno(memberno);
-      mav.addObject(memberVO);
-      //report_mVO.setMemberno(memberno);
+    if (this.memberProc.isMember(session)) {
+      int memberno = (int)session.getAttribute("memberno");
       ArrayList<Report_mVO> list = this.report_mProc.list_all_by_memberno(memberno);
       mav.addObject("list", list);
       
-      mav.setViewName("/report_m/list_all_by_memberno"); // /WEB-INF/views/resume/list_all_by_memberno.jsp
-    
+      Function<Integer, MemberVO> f = (target_mno) -> {
+        MemberVO member_tVO = this.memberProc.readByMemberno(target_mno);
+        return member_tVO;
+      };
+      mav.addObject("f", f);
+      
+//      Report_mVO report_mVO = this.report_mProc.read(memberno);
+//      int target_mno = report_mVO.getTarget_mno();
+//      
+//      MemberVO Member_tVO = this.memberProc.readByMemberno(target_mno);
+//      String id = Member_tVO.getId();
+//      mav.addObject("id", id);
+      
+      mav.setViewName("report_m/list_all_by_memberno");
+      mav.addObject("memberno", memberno);
     } else {
-      mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+      mav.setViewName("/member/login_need");
     }
     
     return mav;
@@ -162,54 +171,62 @@ public class Report_mCont {
      ModelAndView mav = new ModelAndView();
 
      Report_mVO report_mVO = this.report_mProc.read(reportno);
-     
-     //String reason = report_mVO.getReason();
+
      String title = report_mVO.getTitle();
-     
-     //reason = Tool.convertChar(reason);  // 특수 문자 처리
-     title = Tool.convertChar(title); 
-     
-     //report_mVO.setReason(reason);
+     title = Tool.convertChar(title); // 특수 문자 처리
      report_mVO.setTitle(title);  
      
      mav.addObject("report_mVO", report_mVO); // request.setAttribute("resumeVO", resumeVO);
      
-     // 회원 번호: admino -> AdminVO -> name
-     String name = this.memberProc.read(report_mVO.getMemberno()).getName();
-     mav.addObject("name", name);
+     // 회원 번호: admino -> AdminVO -> id
+     String id = this.memberProc.read(report_mVO.getMemberno()).getId();
+     String id_t = this.memberProc.read(report_mVO.getTarget_mno()).getId();
+     mav.addObject("id", id);
+     mav.addObject("id_t", id_t);
 
      mav.setViewName("/report_m/read"); // /WEB-INF/views/resume/read.jsp
          
      return mav;
    }
    
-   // 삭제 폼
-   @RequestMapping(value="/report_m/delete.do", method=RequestMethod.GET )
-   public ModelAndView delete(int reportno) { 
-     ModelAndView mav = new  ModelAndView();
-     
-     // 삭제할 정보를 조회하여 확인
-     Report_mVO report_mVO = this.report_mProc.read(reportno);
-     mav.addObject("report_mVO", report_mVO);
-     
-     mav.setViewName("/report_m/delete");  // /webapp/WEB-INF/views/resume/delete.jsp
-     
-     return mav; 
-   }
+//   // 삭제 폼
+//   @RequestMapping(value="/report_m/delete.do", method=RequestMethod.GET )
+//   public ModelAndView delete(int reportno) { 
+//     ModelAndView mav = new  ModelAndView();
+//     
+//     // 삭제할 정보를 조회하여 확인
+//     Report_mVO report_mVO = this.report_mProc.read(reportno);
+//     mav.addObject("report_mVO", report_mVO);
+//     
+//     mav.setViewName("/report_m/delete");  // /webapp/WEB-INF/views/resume/delete.jsp
+//     
+//     return mav; 
+//   }
 
    // 삭제 처리
-//   @RequestMapping(value = "/resume/delete.do", method = RequestMethod.POST)
-//   public ModelAndView delete(HttpSession session, ResumeVO resumeVO) {
-//     ModelAndView mav = new ModelAndView();
-//         
-//     this.resumeProc.delete(resumeVO.getResumeno()); // DBMS 삭제
-//     
-//     int memberno = (int) session.getAttribute("memberno");
-//     mav.addObject("memberno", memberno);
-//     mav.addObject("now_page", resumeVO.getNow_page());
-//     mav.setViewName("redirect:/resume/list_all.do"); // request -> param으로 접근 전환
-//     
-//     return mav;
-//   }  
+   @RequestMapping(value = "/report_m/delete.do", method = RequestMethod.POST)
+   public ModelAndView delete(HttpSession session, Report_mVO report_mVO) {
+     ModelAndView mav = new ModelAndView();
+         
+     System.out.println(report_mVO.getReportno());
+     this.report_mProc.delete(report_mVO.getReportno()); // DBMS 삭제
+     
+     int memberno = (int) session.getAttribute("memberno");
+     mav.addObject("memberno", memberno);
+     mav.setViewName("redirect:/report_m/list_all_by_memberno.do"); // request -> param으로 접근 전환
+     
+     
+     return mav;
+   }  
+   
+  // 각종 MSG 처리
+  @RequestMapping(value = "/report_m/msg.do", method = RequestMethod.GET)
+  public ModelAndView msg(String url) {
+
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName(url);
+    return mav;
+
+  }
 
 }

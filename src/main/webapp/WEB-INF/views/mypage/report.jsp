@@ -21,12 +21,12 @@
 <DIV class='title_line'>내 신고 내역</DIV>
   <DIV class='myinfo_container' style='width:33%;'>
     <DIV class='myinfo_box'>
-      <a href="/report_m/list_all_by_memberno.do"><IMG src="/mypage/images/report_m.png" style='width: 40%; margin-bottom: 10px;'></a><br>
-      <button type='button' onclick="location.href='/report_m/list_all_by_memberno.do'" class="btn btn-secondary">회원 신고 내역</button>
+      <a href="/report_m/list_all_by_memberno.do?memberno=${memberno }"><IMG src="/mypage/images/report_m.png" style='width: 40%; margin-bottom: 10px;'></a><br>
+      <button type='button' onclick="location.href='/report_m/list_all_by_memberno.do?memberno=${memberno }'" class="btn btn-secondary">회원 신고 내역</button>
     </DIV>
     <DIV class='myinfo_box'>
-      <a href="/report_c/list_all_by_memberno.do"><IMG src="/mypage/images/report_c.png" style='width: 40%; margin-bottom: 10px;'></a><br>
-      <button type='button' onclick="location.href='/report_c/list_all_by_memberno.do'" class="btn btn-secondary">게시글 신고 내역</button>
+      <a href="/report_c/list_all_by_memberno.do?memberno=${memberno }"><IMG src="/mypage/images/report_c.png" style='width: 40%; margin-bottom: 10px;'></a><br>
+      <button type='button' onclick="location.href='/report_c/list_all_by_memberno.do?memberno=${memberno }'" class="btn btn-secondary">게시글 신고 내역</button>
     </DIV>
   </DIV>
  
