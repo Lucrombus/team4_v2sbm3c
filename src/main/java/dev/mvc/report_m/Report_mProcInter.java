@@ -6,7 +6,7 @@ public interface Report_mProcInter {
   
   /**
    * 컨텐츠 신고 등록
-   * @param Report_mVO
+   * @param Report_m_answerVO
    * @return
    */
   public int create(Report_mVO report_mVO);
