@@ -38,7 +38,9 @@
             </div>    
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">신고할 게시글</span>
-                <input type="text" class="form-control" placeholder="게시글 제목" id="title_c" name="title_c" value="${f.title }" readonly>
+                <a href="/contents/read.do?contentsno=${param.contentsno }" style="display: flex; flex-grow: 1;">
+                  <input type="text" class="form-control" placeholder="게시글 제목" id="title_c" name="title_c" value="${f.title }" readonly>
+                </a>
             </div>
 
             <div class="input-group mb-3">
