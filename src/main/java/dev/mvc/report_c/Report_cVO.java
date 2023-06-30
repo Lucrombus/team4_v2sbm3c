@@ -9,9 +9,11 @@ public class Report_cVO {
   private String reason;
   private String rdate;
   private String done = "N";
+  private String answer;
   
 
   
+
   private int start_num;
   private int end_num;
   private int now_page = 1;
@@ -58,6 +60,12 @@ public class Report_cVO {
   }
   public void setDone(String done) {
     this.done = done;
+  }
+  public String getAnswer() {
+    return answer;
+  }
+  public void setAnswer(String answer) {
+    this.answer = answer;
   }
   public int getStart_num() {
     return start_num;

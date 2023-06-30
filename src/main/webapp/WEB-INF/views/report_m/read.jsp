@@ -9,6 +9,7 @@
 <c:set var="reason" value="${report_mVO.reason }" />        
 <c:set var="rdate" value="${report_mVO.rdate.substring(0, 16) }" />
 <c:set var="done" value="${report_mVO.done }" />        
+<c:set var="answer" value="${report_mVO.answer }" />
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -74,10 +75,44 @@ function check(){
             </div>
 
         </FORM>
+        
+<!-- -----------------------답변 시작----------------------- -->
+
+    <FORM name='frm' id='frm' method='POST' action='./update.do' enctype="multipart/form-data">
+      <input type='hidden' name='reportno' value='${report_mVO.reportno}'>
+      
+      <c:if test="${answer != null}">
+        <div class="input-group">
+          <span class="input-group-text">답변</span>
+          <c:if test="${sessionScope.rankno == 1}">
+            <textarea class="form-control"  name="answer" rows="12" maxlength="333" style="background-color: white;" >${answer }</textarea><br>
+            <div class="content_body_bottom">
+            <button type="button" onclick="submit();" class="btn btn-info">답변 수정하기</button>
+            </div>
+          </c:if>
+          <c:if test="${sessionScope.rankno != 1}">
+            <textarea class="form-control"  name="answer" rows="12" maxlength="333" style="background-color: white;" readonly>${answer }</textarea><br>
+
+          </c:if>
+        </div>
+      </c:if>
+            
+      <c:if test="${answer == null && sessionScope.rankno == 1}">
+      <div class="input-group">
+        <span class="input-group-text">답변</span>
+        <textarea class="form-control"  name="answer" rows="12" maxlength="333" style="background-color: white;" >${answer }</textarea>
+      </div>
+      <div class="content_body_bottom">
+        <button type="button" onclick="submit();" class="btn btn-info">답변 수정하기</button>
+      </div>
+      </c:if>
+    </FORM>
+<!-- ----------------------답변 끝------------------------ -->
+  
 
 
     </DIV>
-<!-- ---------------------------------------------- -->
+
  
 
  

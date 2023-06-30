@@ -37,4 +37,10 @@ public interface Report_mProcInter {
    * @return
    */
   public int delete(int reportno);
+  
+  /**
+   * 신고 글 수정
+   * @return
+   */
+  public int update(Report_mVO report_mVO);
 }

@@ -1050,7 +1050,7 @@
                               </columns>
                               <indices/>
                               <backgroundColor>
-                                <red>255</red>
+                                <red>128</red>
                                 <green>255</green>
                                 <blue>255</blue>
                               </backgroundColor>

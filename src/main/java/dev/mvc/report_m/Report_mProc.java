@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import dev.mvc.report_c.Report_cVO;
+
 
 
 @Component("dev.mvc.report_m.Report_mProc")
@@ -40,6 +42,12 @@ public class Report_mProc implements Report_mProcInter{
   @Override
   public int delete(int reportno) {
     int cnt = this.report_mDAO.delete(reportno);
+    return cnt;
+  }
+  
+  @Override
+  public int update(Report_mVO report_mVO) {
+    int cnt = this.report_mDAO.update(report_mVO);
     return cnt;
   }
 

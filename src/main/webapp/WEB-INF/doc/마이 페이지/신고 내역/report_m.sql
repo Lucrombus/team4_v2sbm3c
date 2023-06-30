@@ -10,7 +10,8 @@ CREATE TABLE report_m(
 		title                         		VARCHAR2(100)		 NOT NULL,
 		reason                        		VARCHAR2(200)		 NOT NULL,
 		rdate                         		DATE		 NOT NULL,
-		done                          		CHAR(1)		 DEFAULT 'N'		 NOT NULL
+		done                          		CHAR(1)		 DEFAULT 'N'		 NOT NULL,
+        answer                              VARCHAR(300)    NULL
 );
 
 COMMENT ON TABLE report_m is '회원 신고';
@@ -21,6 +22,7 @@ COMMENT ON COLUMN report_m.title is '제목';
 COMMENT ON COLUMN report_m.reason is '신고사유';
 COMMENT ON COLUMN report_m.rdate is '신고 등록일';
 COMMENT ON COLUMN report_m.done is '신고 처리 여부';
+COMMENT ON COLUMN report_m.answer is '답변';
 
 
 DROP SEQUENCE report_m_seq;
@@ -33,8 +35,8 @@ CREATE SEQUENCE report_m_seq
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
 
 --insert
-INSERT INTO report_m(reportno, memberno, target_mno, title, reason, rdate, done)
-VALUES (report_m_seq.nextval, 1, 2, '신고합니다', '신고사유는 네모다', sysdate);
+INSERT INTO report_m(reportno, memberno, target_mno, title, reason, rdate, done, answer)
+VALUES (report_m_seq.nextval, 1, 2, '신고합니다', '신고사유는 네모다', sysdate, '답변임');
 
 --select
 SELECT *

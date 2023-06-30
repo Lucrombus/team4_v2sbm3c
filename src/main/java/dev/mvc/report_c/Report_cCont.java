@@ -18,6 +18,7 @@ import dev.mvc.contents.ContentsProcInter;
 import dev.mvc.contents.ContentsVO;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
+import dev.mvc.notice.NoticeVO;
 import dev.mvc.report_m.Report_mVO;
 import dev.mvc.resume.Resume;
 import dev.mvc.resume.ResumeVO;
@@ -203,6 +204,29 @@ public class Report_cCont {
      
      return mav;
    }  
+   
+   // 신고 글 수정 처리(answer 등록하기)
+   @RequestMapping(value = "/report_c/update.do", method = RequestMethod.POST)
+   public ModelAndView update(HttpSession session, Report_cVO report_cVO) {
+     ModelAndView mav = new ModelAndView();
+     
+     if (this.memberProc.isAdmin(session)) { //관리자일 경우에
+       int cnt = this.report_cProc.update(report_cVO);
+       report_cVO = this.report_cProc.read(report_cVO.getReportno()); // 수정된 내용을 다시 읽어옴
+       
+       
+
+       mav.addObject("report_cVO", report_cVO); // 수정된 내용을 다시 전달
+       mav.setViewName("redirect:/report_c/read.do?reportno=" + report_cVO.getReportno());
+     } else {
+       mav.setViewName("/member/admin_login_need"); // 정상적인 로그인이 아닌 경우
+     }           
+     
+     return mav; // forward
+   }
+   
+
+
    
   // 각종 MSG 처리
   @RequestMapping(value = "/report_c/msg.do", method = RequestMethod.GET)

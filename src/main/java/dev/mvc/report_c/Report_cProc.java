@@ -43,4 +43,10 @@ public class Report_cProc implements Report_cProcInter{
     return cnt;
   }
 
+  @Override
+  public int update(Report_cVO report_cVO) {
+    int cnt = this.report_cDAO.update(report_cVO);
+    return cnt;
+  }
+
 }
