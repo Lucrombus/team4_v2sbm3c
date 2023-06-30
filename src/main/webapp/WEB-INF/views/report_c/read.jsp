@@ -4,7 +4,7 @@
 
 <c:set var="reportno" value="${report_cVO.reportno }" />
 <c:set var="memberno" value="${report_cVO.memberno }" />
-<c:set var="target_mno" value="${report_cVO.target_mno }" />
+<c:set var="contentsno" value="${report_cVO.contentsno }" />
 <c:set var="title" value="${report_cVO.title }" />                  
 <c:set var="reason" value="${report_cVO.reason }" />        
 <c:set var="rdate" value="${report_cVO.rdate.substring(0, 16) }" />
@@ -38,35 +38,35 @@ function check(){
 <c:import url="/menu/top.do" />
 
 <DIV class='title_line'>
-<a href="/report_c/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; color:#A4A4A4;">내 신고 조회 </span></a>
+<a href="/report_c/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; color:#A4A4A4; ">게시글 신고 조회 </span></a>
 <span class='menu_divide' >│</span>
-<a href="/report_c/create.do"><span style="font-size:20px; color:#A4A4A4;">회원 신고하기 </span></a>
+<span style="font-size:20px; font-weight:bold;">게시글 신고 내용 </span>
 </DIV>
 
     <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
 
         <FORM name='frm' id='frm' method='POST' action='./delete.do'>
-            <input type="hidden" name="target_mno" value="${target_mno }">
-            <input type="hidden" name="memberno" value="${memberno }">
-            <input type="hidden" name="reportno" value="${reportno }">     
+            
+            <input type="hidden" name="reportno" value="${reportno }">  
                    
-            <div class="input-group mb-3" style="width:60%;">
-                <span class="input-group-text" id="basic-addon1">신고자</span>
-                <input type="text" class="form-control" value="${id }"style="background-color: white;" readonly>
-                <span class="input-group-text" id="basic-addon1">신고대상</span>
-                <input type="text" class="form-control" value="${id_t}"style="background-color: white;" readonly>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1" >신고된 게시글 고유번호</span>
+                <input type="text" class="form-control" placeholder="신고 게시물 번호" id="contentsno" name="contentsno" value="${contentsno }" style="background-color: white;" readonly>
+            </div>    
+            <div class="input-group mb-3" >
+                <span class="input-group-text" id="basic-addon1" >신고된 게시글</span>
+                <a href="/contents/read.do?contentsno=${contentsno }" style="display: flex; flex-grow: 1;">
+                  <input type="text" class="form-control" placeholder="게시글 제목" id="title_c" name="title_c" value="${title_c }" style="background-color: white;" readonly>
+                </a>
             </div>
-            
-        
-        
-            
+
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">제목</span>
-                <input type="text" id="title" class="form-control" value="${title }"  style="background-color: white;" readonly>
+                <input type="text" id="title" name="title" value="${title }" class="form-control" required="required" maxlength="33" style="background-color: white;" readonly>
             </div>
             <div class="input-group">
                 <span class="input-group-text">내용</span>
-                <textarea class="form-control" id="reason" rows="12" style="background-color: white;" readonly>${reason }</textarea>
+                <textarea class="form-control" id="reason" name="reason" rows="12" required="required" maxlength="333" style="background-color: white;" readonly>${reason }</textarea>
             </div>
             
             <div class="content_body_bottom">

@@ -15,83 +15,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 
  
-<script type="text/javascript">
-var ID_EXIST = false;
 
-function CheckID() {
-
-    var id_read = $("#idchecker").val();
-    console.log("입력한 ID: " + id_read);
-    var dataToSend = {member_target: id_read};
-    console.log("전송할 데이터: " + dataToSend.target_no);
-
-    $.ajax({
-        url: "/report_c/checkid_ajax.do",
-        type: "post",
-        cache: false,
-        async: true,
-        dataType: "json",
-        data: dataToSend,
-        success: function(rdata) {
-            if (rdata.result == "성공") {
-                console.log("조회성공")
-                $("#span_result").html("<span style='color:#00db00;'>조회성공</span>");
-                $("#target_mno").val(rdata.memberno);
-                ID_EXIST = true;
-
-
-            } else {
-                console.log("조회실패")
-                $("#span_result").html("<span style='color:#ff0000;'>조회실패</span>");
-                alert("존재하지 않는 ID입니다");
-                ID_EXIST = false;
-            }
-
-        },
-        error: function(request, status, error) {
-        }
-    });
-
-}
-
-function checkLength() {
-    var title_length = $("#title").val().length;
-    var reason_length = $("#reason").val().length;
-
-    console.log('제목길이' + title_length);
-    console.log('내용길이' + reason_length);
-
-    if (document.getElementById("frm").checkValidity()) {
-        if (title_length < 33) {
-            if (reason_length < 333) {
-                if (ID_EXIST == true) {
-                    $("#frm").submit();
-                } else {
-                    alert("신고받는 대상 ID를 확인해주세요");
-                }
-
-            } else {
-                alert("내용은 333자 이내로 해주세요");
-            }
-        } else {
-            alert("제목은 33자 이내로 해주세요");
-
-        }
-    } else {
-        alert("입력되지 않은 필수 정보가 있습니다");
-    }
-
-}
-</script>
     
 </head>
 <body>
 <c:import url="/menu/top.do" />
 
 <DIV class='title_line'>
-<a href="/report_c/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; color:#A4A4A4; ">내 신고 조회 </span></a>
+<a href="/report_c/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; color:#A4A4A4; ">게시글 신고 조회 </span></a>
 <span class='menu_divide' >│</span>
-<a href="/report_c/create.do"><span style="font-size:20px; font-weight:bold;">회원 신고하기 </span></a>
+<span style="font-size:20px; font-weight:bold;">게시글 신고하기 </span>
 </DIV>
 
     <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
@@ -99,13 +32,13 @@ function checkLength() {
         <FORM name='frm' id='frm' method='POST'
             action='./create.do' enctype="multipart/form-data" >
             
-            <input type="hidden" name="target_mno" value="" id="target_mno">
-
-            <div class="input-group mb-3" style="width:60%;">
-                <span class="input-group-text" id="basic-addon1">신고받는 대상</span>
-                <input type="text" class="form-control" placeholder="ID" id="idchecker" value="${param.target_id }">
-                <button type="button" onclick="CheckID()" class="btn btn-outline-secondary">조회</button>
-                <span style="padding-left:10px; padding-top:4px;" id="span_result">조회필요</span>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1" >신고 게시글 고유번호</span>
+                <input type="text" class="form-control" placeholder="신고 게시물 번호" id="contentsno" name="contentsno" value="${param.contentsno }" readonly>
+            </div>    
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">신고할 게시글</span>
+                <input type="text" class="form-control" placeholder="게시글 제목" id="title_c" name="title_c" value="${f.title }" readonly>
             </div>
 
             <div class="input-group mb-3">
@@ -118,10 +51,10 @@ function checkLength() {
             </div>
 
             <div class="content_body_bottom">
-                <button type="button" onclick="checkLength();"
+                <button type="button" onclick="submit()"
                     class="btn btn-secondary">전송</button>
                 <button type="button"
-                    onclick="location.href='/message/list_send.do'"
+                    onclick="history.back();"
                     class="btn btn-secondary">취소</button>
             </div>
 

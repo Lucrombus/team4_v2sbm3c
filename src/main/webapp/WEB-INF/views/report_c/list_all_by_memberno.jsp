@@ -19,9 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<a href="/report_c/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; font-weight:bold;">내 신고 조회 </span></a>
-<span class='menu_divide' >│</span>
-<a href="/report_c/create.do"><span style="font-size:20px; color:#A4A4A4;">회원 신고하기 </span></a>
+<a href="/report_c/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; font-weight:bold;">게시글 신고 조회 </span></a>
 </DIV>
 <!-- ------------------------------------------------------ -->
 <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
@@ -29,7 +27,6 @@
             <colgroup>
                 <col style='width: 10%;' />
                 <col style='width: 50%;' />
-                <col style='width: 10%;' />
                 <col style='width: 20%;' />
                 <col style='width: 10%;' />
             </colgroup>
@@ -37,8 +34,7 @@
             <thead>
                 <tr>
                     <th scope="col">번호</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">신고대상</th>
+                    <th scope="col">신고된 게시글 제목</th>
                     <th scope="col">날짜</th>
                     <th scope="col">처리여부</th>
                 </tr>
@@ -49,7 +45,7 @@
             <c:if test="${list[0]== null}">
             <tr>
             <td colspan="5">
-            회원 신고 내역이 없습니다!
+            게시글 신고 내역이 없습니다!
             </td>
             </tr>
             </c:if>
@@ -57,8 +53,7 @@
             <c:forEach var="report_cVO" items="${list }">
               <tr onclick="location.href='/report_c/read.do?reportno=${report_cVO.reportno }'" class="hover">
                 <td>${report_cVO.reportno  }</td>
-                <td>${report_cVO.title}</td>
-                <td>${f.apply(report_cVO.target_mno).id }</td>
+                <td>${f.apply(report_cVO.contentsno).title }</td>
                 <td>${report_cVO.rdate }</td>
                 <td>${report_cVO.done }</td>
               </tr>

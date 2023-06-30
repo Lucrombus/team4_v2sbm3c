@@ -46,10 +46,16 @@ public class Report_cCont {
   // 신고 등록 폼
   // http://localhost:9093/report_c/create.do
    @RequestMapping(value = "/report_c/create.do", method = RequestMethod.GET)
-   public ModelAndView create(HttpSession session) { 
+   public ModelAndView create(HttpSession session, int contentsno) { 
      ModelAndView mav = new ModelAndView();
   
      if (session.getAttribute("memberno") != null) { //로그인한 경우에는 접근 가능
+       Function<Integer, ContentsVO> f = (contentsnoparam) -> { //contentsnoparam로 contentsVO값 불러오기
+         ContentsVO contentsVO = this.contentsProc.read(contentsnoparam);
+         return contentsVO;
+       };
+       mav.addObject("f", f.apply(contentsno));
+       
        mav.setViewName("/report_c/create"); // /webapp/WEB-INF/views/report_c/create.jsp
      } else {
        mav.setViewName("/member/login_need");
@@ -64,8 +70,7 @@ public class Report_cCont {
 
      ModelAndView mav = new ModelAndView();
 
-     if ((int)session.getAttribute("memberno") == (report_cVO.getMemberno())) { // (로그인세션의 memberno와 report_c의 memberno가 같을경우에만 실행)
-
+     if (this.memberProc.isMember(session)) { // (로그인세션의 memberno와 report_c의 memberno가 같을경우에만 실행)
 
        // Call By Reference: 메모리 공유, Hashcode 전달
        int memberno = (int) session.getAttribute("memberno"); // memberno FK
@@ -80,7 +85,7 @@ public class Report_cCont {
        // ------------------------------------------------------------------------------
 
        mav.addObject("memberno", memberno);
-       mav.setViewName("redirect:/report_c/list_all.do");
+       mav.setViewName("redirect:/report_c/list_all_by_memberno.do");
        
      } else {
        mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
@@ -151,12 +156,17 @@ public class Report_cCont {
      
      mav.addObject("report_cVO", report_cVO); // request.setAttribute("resumeVO", resumeVO);
      
+     Function<Integer, ContentsVO> f = (contentsno) -> { //contentsno로 contentsVO값 불러오기
+       ContentsVO contentsVO = this.contentsProc.read(contentsno);
+       return contentsVO;
+     };
+     
      // 회원 번호: admino -> AdminVO -> id
-     String id = this.memberProc.read(report_cVO.getMemberno()).getId(); //신고자
-     String id_t = this.memberProc.read(report_cVO.getContentsno()).getId(); //컨텐츠 작성자
+//     String id = this.memberProc.read(report_cVO.getMemberno()).getId(); //신고자
+//     String id_t = this.memberProc.read(report_cVO.getContentsno()).getId(); //컨텐츠 작성자
      String title_c = this.contentsProc.read(report_cVO.getContentsno()).getTitle(); //컨텐츠 제목
-     mav.addObject("id", id);
-     mav.addObject("id_t", id_t);
+//     mav.addObject("id", id);
+//     mav.addObject("id_t", id_t);
      mav.addObject("title_c", title_c);
 
      mav.setViewName("/report_c/read"); // /WEB-INF/views/resume/read.jsp
