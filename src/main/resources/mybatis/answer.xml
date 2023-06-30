@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
   <select id="list_all" resultType="dev.mvc.answer.AnswerVO">
     SELECT answerno, content, rdate, inquiryno, memberno
     FROM answer
-    ORDER BY answerno ASC
+    ORDER BY inquiryno ASC
   </select>
   
   <!-- answerno에 따른 답변 수정 -->

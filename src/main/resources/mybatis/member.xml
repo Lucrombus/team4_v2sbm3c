@@ -77,6 +77,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE id=#{id} AND passwd=#{passwd} AND rankno &lt;= 3
   </select>
   
+  <!-- 회원 정지 -->
+  <update id="suspend_member" parameterType="dev.mvc.member.MemberVO">
+    UPDATE member 
+    SET rankno = 4
+    WHERE memberno=#{memberno}
+  </update>
+  
   <!-- 회원 탈퇴 -->
   <update id="delete_member" parameterType="dev.mvc.member.MemberVO">
     UPDATE member 

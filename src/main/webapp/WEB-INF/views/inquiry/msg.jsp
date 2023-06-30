@@ -100,6 +100,12 @@
           </LI>                                                                      
         </c:when> 
         
+        <c:when test="${code == 'member_different'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">본인 글이 아니면 수정 할 수 없습니다.</span>
+          </LI>                                                                      
+        </c:when> 
+        
         <c:otherwise>
           <LI class='li_none_left'>
             <span class="span_fail">알 수 없는 에러로 작업에 실패했습니다.</span>

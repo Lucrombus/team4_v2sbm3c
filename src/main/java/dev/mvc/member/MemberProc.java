@@ -139,7 +139,13 @@ public class MemberProc implements MemberProcInter {
     }
     return admin_sw;
   }
-
+  
+  @Override
+  public int suspend_member(MemberVO memberVO) {
+    int cnt = this.memberDAO.suspend_member(memberVO);
+    return cnt;
+  }
+  
   @Override
   public int delete_member(MemberVO memberVO) {
     int cnt = this.memberDAO.delete_member(memberVO);

@@ -213,15 +213,23 @@ public class InquiryCont {
    * @return
    */
   @RequestMapping(value = "/inquiry/update.do", method = RequestMethod.GET)
-  public ModelAndView update(int inquiryno) {
+  public ModelAndView update(int inquiryno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
-
+    
+    
     InquiryVO inquiryVO = this.inquiryProc.read(inquiryno); // 수정용 데이터
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(inquiryVO.getMemberno())) {
+      MemberVO memberVO = this.memberProc.readByMemberno(inquiryVO.getMemberno());
+      mav.addObject("inquiryVO", inquiryVO);
+      mav.addObject("memberVO", memberVO);
+      mav.setViewName("/inquiry/update");
 
-    mav.addObject("inquiryVO", inquiryVO);
-
-    mav.setViewName("/inquiry/update");
-
+    } else {
+      mav.addObject("url", "/inquiry/msg");
+      mav.addObject("code", "member_different");
+      mav.setViewName("redirect:/inquiry/msg.do");
+    }
+    
     return mav; // forward
   }
   

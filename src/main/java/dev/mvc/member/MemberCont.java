@@ -561,7 +561,55 @@ public class MemberCont {
 
     return mav;
   }
+  
+//http://localhost:9093/member/create.do
+ /**
+  * 회원 정지 폼
+  * 
+  * @return
+  */
+ @RequestMapping(value = "/member/suspend_member.do", method = RequestMethod.GET)
+ public ModelAndView suspend_member(HttpSession session, MemberVO memberVO) {
+   ModelAndView mav = new ModelAndView();
+   if (this.memberProc.isAdmin(session)) { // 회원으로 로그인
+     this.memberProc.read(memberVO.getMemberno());
+     mav.addObject("memberVO", memberVO);
+     mav.setViewName("/member/suspend_member"); // /member/suspend_member.jsp
+   } else {
+     // 로그인을 하지 않은 경우
+     mav.setViewName("/member/admin_login_need"); // /webapp/WEB-INF/views/admin/login_need.jsp
+   }
+   return mav; // forward
+ }
+ 
+ /**
+  * 회원 정지 처리
+  * 
+  * @param memberVO
+  * @return
+  */
+ @RequestMapping(value = "/member/suspend_member.do", method = RequestMethod.POST)
+ public ModelAndView suspend_member(MemberVO memberVO) {
+   ModelAndView mav = new ModelAndView();
 
+   // System.out.println("id: " + memberVO.getId());
+
+   int cnt = this.memberProc.suspend_member(memberVO);
+
+   if (cnt == 1) {
+     mav.addObject("code", "suspend_member_success");
+   } else {
+     mav.addObject("code", "suspend_member_fail");
+   }
+
+   mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+   mav.addObject("url", "/member/msg"); // /member/msg -> /member/msg.jsp
+
+   mav.setViewName("redirect:/member/msg.do");
+
+   return mav;
+ }
+  
   // http://localhost:9093/member/create.do
   /**
    * 회원 탈퇴 폼

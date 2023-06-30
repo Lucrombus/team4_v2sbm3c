@@ -85,7 +85,7 @@
           <c:when test="${rankno == 1}"><img src='/member/images/admin.png' title="관리자" class="icon"></c:when> <%-- static 기준 --%>
           <c:when test="${rankno == 2}"><img src='/member/images/user.png' title="개인 회원" class="icon"></c:when>
           <c:when test="${rankno == 3}"><img src='/member/images/enterprise.png' title="기업 회원" class="icon"></c:when>
-          <c:when test="${rankno == 4}"><img src='/member/images/x.png' title="정지 회원" class="icon"></c:when>
+          <c:when test="${rankno == 4}"><img src='/member/images/pause.png' title="정지 회원" class="icon"></c:when>
           <c:when test="${rankno == 5}"><img src='/member/images/x.png' title="탈퇴 회원" class="icon"></c:when>
         </c:choose>  
       </TD>
@@ -100,6 +100,7 @@
       <TD class='td_basic'>
         <A href="./passwd_update.do?memberno=${memberno}"><IMG src='/member/images/passwd.png' title='패스워드 변경' class="icon"></A>
         <A href="./read.do?memberno=${memberno}"><IMG src='/member/images/update.png' title='수정' class="icon"></A>
+        <A href="./suspend_member.do?memberno=${memberno}"><IMG src='/member/images/lock.png' title='정지' class="icon"></A>
         <A href="./delete.do?memberno=${memberno}"><IMG src='/member/images/delete.png' title='삭제' class="icon"></A>
       </TD>
       

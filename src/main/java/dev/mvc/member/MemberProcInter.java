@@ -108,6 +108,13 @@ public interface MemberProcInter {
    * @param memberVO
    * @return
    */
+  public int suspend_member(MemberVO memberVO);
+  
+  /**
+   * 탈퇴 회원 처리
+   * @param memberVO
+   * @return
+   */
   public int delete_member(MemberVO memberVO);
   
 //  /**
