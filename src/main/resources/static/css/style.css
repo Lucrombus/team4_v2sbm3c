@@ -69,6 +69,7 @@
   
   .menu {
   width: auto;
+  height: auto;
   overflow: hidden;
   margin: 0px;
   font-weight: bold;
@@ -148,7 +149,6 @@
   
   .top_right {
     flex-grow: 0;
-    height: auto;
     margin-left: 20px;
     margin-top: 24px;
     margin-bottom: 24px;

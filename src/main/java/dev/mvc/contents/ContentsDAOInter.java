@@ -7,7 +7,7 @@ public interface ContentsDAOInter {
   
   /**
    * 등록
-   * @param ContentsVO
+   * @param EventVO
    * @return
    */
   public int create(ContentsVO contentsVO);

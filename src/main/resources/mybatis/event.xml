@@ -2,50 +2,40 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="dev.mvc.notice.NoticeDAOInter">
+<mapper namespace="dev.mvc.event.EventDAOInter">
 
     <!-- 등록 -->
-    <insert id="create" parameterType="dev.mvc.notice.NoticeVO">
-        INSERT INTO notice (noticeno, topview, memberno, title, content, viewcnt, 
+    <insert id="create" parameterType="dev.mvc.event.EventVO">
+        INSERT INTO event (eventno, memberno, title, content, viewcnt, 
                             word, rdate, file1, file1saved, thumb1, size1)
-        VALUES (notice_seq.nextval, #{topview}, #{memberno}, #{title}, #{content}, #{viewcnt}, 
+        VALUES (event_seq.nextval, #{memberno}, #{title}, #{content}, #{viewcnt}, 
                             #{word}, sysdate, #{file1}, #{file1saved}, #{thumb1}, #{size1})
     </insert>
     
-    <!-- 목록: CateVO 객체를 생성하여 변수에 컬럼의 값을 저장 후, 
-               ArrayList<CateVO> 객체를 생성한후 add까지 자동 진행하여 ArrayList 객체를 return -->
-    <select id="list_all" resultType="dev.mvc.notice.NoticeVO">
-      SELECT noticeno, topview, memberno, title, content, viewcnt, 
-             word, rdate, file1, file1saved, thumb1, size1
-      FROM notice 
-      WHERE topview = 'Y'
-      ORDER BY noticeno DESC
-    </select>
-    
     <!-- 카테고리별 검색 레코드 갯수 -->
-    <select id="search_count" resultType="int" parameterType="dev.mvc.notice.NoticeVO">
+    <select id="search_count" resultType="int" parameterType="dev.mvc.event.EventVO">
       SELECT COUNT(*) as cnt
-      FROM notice
+      FROM event
       WHERE (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
             OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
             OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
     </select>
     
     <!-- 목록 검색 + 페이징 목록 -->
-  <select id="list_all_search_paging" resultType="dev.mvc.notice.NoticeVO" parameterType="dev.mvc.notice.NoticeVO">
-   SELECT noticeno, topview, memberno, title, content, viewcnt, 
+  <select id="list_all_search_paging" resultType="dev.mvc.event.EventVO" parameterType="dev.mvc.event.EventVO">
+   SELECT eventno, memberno, title, content, viewcnt, 
           word, rdate, file1, file1saved, thumb1, size1, r
    FROM (
-              SELECT noticeno, topview, memberno, title, content, viewcnt, 
+              SELECT eventno, memberno, title, content, viewcnt, 
                      word, rdate, file1, file1saved, thumb1, size1, rownum as r
               FROM (
-                        SELECT noticeno, topview, memberno, title, content, viewcnt, 
+                        SELECT eventno, memberno, title, content, viewcnt, 
                                word, rdate, file1, file1saved, thumb1, size1
-                        FROM notice
+                        FROM event
                         WHERE (UPPER(title) LIKE '%' || UPPER(#{word}) || '%' 
                               OR UPPER(content) LIKE '%' || UPPER(#{word}) || '%' 
                               OR UPPER(word) LIKE '%' || UPPER(#{word}) || '%')
-                        ORDER BY noticeno DESC
+                        ORDER BY eventno DESC
                )
     )
     WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
@@ -56,22 +46,22 @@
   </select>
     
     <!-- 일반적인 조회 -->
-    <select id="read" resultType="dev.mvc.notice.NoticeVO" parameterType="int">
-      SELECT noticeno, topview, memberno, title, content, viewcnt, 
+    <select id="read" resultType="dev.mvc.event.EventVO" parameterType="int">
+      SELECT eventno, memberno, title, content, viewcnt, 
              word, rdate, file1, file1saved, thumb1, size1
-      FROM notice 
-      WHERE noticeno = #{noticeno}
+      FROM event 
+      WHERE eventno = #{envetno}
     </select>
     
     <!-- 글 수정 -->
-    <update id="update_text" parameterType="dev.mvc.notice.NoticeVO">
+    <update id="update_text" parameterType="dev.mvc.event.EventVO">
       UPDATE event
       SET title=#{title}, content=#{content},  word=#{word} 
-      WHERE evemtno = #{eventno}
+      WHERE eventno = #{eventno}
     </update>
     
     <!-- 파일 수정 -->
-    <update id="update_file" parameterType="dev.mvc.notice.NoticeVO">
+    <update id="update_file" parameterType="dev.mvc.event.EventVO">
       UPDATE event
       SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
       WHERE eventno = #{eventno}
@@ -79,8 +69,8 @@
     
     <!-- 글 삭제 -->
     <delete id="delete" parameterType="int">
-      DELETE FROM notice
-      WHERE noticeno=#{noticeno}
+      DELETE FROM event
+      WHERE eventno=#{eventno}
     </delete>
 
     

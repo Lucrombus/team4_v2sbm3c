@@ -37,7 +37,9 @@ function recommend() {
 			           <ul class="menu">
 		               <li>
 		                 <a href="/notice/list_all_search_paging.do?now_page=1">공지사항</a>
-		                 <ul class="submenu"></ul>
+		                 <ul class="submenu">
+		                  <li><a href="/event/list_all_search_paging.do?now_page=1">이벤트</a>
+		                 </ul>
 		               </li>
 		               <li>
 	                   <%-- 구인 서브 메뉴 --%>
