@@ -52,6 +52,7 @@
   <%--등록 폼 --%>
   <FORM name='form' method='POST' action='./map.do'>
     <input type="hidden" name="guin_cno" value="${param.guin_cno }">
+    <input type="hidden" name="memberno" value="${guin_cVO.memberno }">
     <input type="hidden" name="jobcateno" value="${param.jobcateno}">
     <input type="hidden" name="now_page" value="${param.now_page }">
     

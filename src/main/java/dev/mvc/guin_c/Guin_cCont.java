@@ -596,6 +596,8 @@ public class Guin_cCont {
     // 삭제할 정보를 조회하여 확인
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     
+
+    
     if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
       mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
 
@@ -635,6 +637,9 @@ public class Guin_cCont {
     // System.out.println("-> contentsno: " + contentsno);
 
     ModelAndView mav = new ModelAndView();
+    
+    System.out.println("글의 주인: " + guin_cVO.getMemberno());
+    System.out.println("현재 로그인: " + session.getAttribute("memberno"));
 
     if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
       this.guin_cProc.map(guin_cVO);
