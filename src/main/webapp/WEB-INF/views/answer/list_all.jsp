@@ -31,13 +31,15 @@
   
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
-      <col style="width: 70%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 60%;"></col>
       <col style="width: 15%;"></col>
       <col style="width: 15%;"></col>
     </colgroup>
 
     <thead>
       <tr>
+        <th style='text-align: center;'>문의 번호</th>
         <th style='text-align: center;'>답변</th>
         <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>작성자</th>
@@ -54,7 +56,10 @@
         <c:set var="inquiryno" value="${answerVO.inquiryno }" />
         
         <tr style="height: 112px;">
-          <td style='vertical-align: middle; text-align: center;'>
+          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+            ${inquiryno}
+          </td>
+          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             <a href="./read.do?answerno=${answerno}"><strong>${content}</strong>  
             </a> 
           </td>  

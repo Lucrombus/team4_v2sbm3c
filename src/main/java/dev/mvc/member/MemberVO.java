@@ -47,6 +47,13 @@ public class MemberVO {
     private String passwd_save = "";
     /** 이동할 주소 저장 */
     private String url_address = "";
+    /** 시작 번호 */
+    private int start_num;
+    /** 끝 번호 */
+    private int end_num;
+    /** 현재 페이지 */
+    private int now_page = 1;
+    
     public int getMemberno() {
       return memberno;
     }
@@ -136,5 +143,23 @@ public class MemberVO {
     }
     public void setUrl_address(String url_address) {
       this.url_address = url_address;
+    }
+    public int getStart_num() {
+      return start_num;
+    }
+    public void setStart_num(int start_num) {
+      this.start_num = start_num;
+    }
+    public int getEnd_num() {
+      return end_num;
+    }
+    public void setEnd_num(int end_num) {
+      this.end_num = end_num;
+    }
+    public int getNow_page() {
+      return now_page;
+    }
+    public void setNow_page(int now_page) {
+      this.now_page = now_page;
     }
 }

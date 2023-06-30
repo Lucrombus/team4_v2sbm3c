@@ -33,9 +33,9 @@
     <c:if test="${sessionScope.id != null}">
       <A href="./create.do?memberno=${memberno}">등록</A>
       <span class='menu_divide' >│</span>
-      <A href="./update.do?inquiryno=${inquiryno}&now_page=${param.now_page}">문의 수정</A>
+      <A href="./update.do?inquiryno=${inquiryno}">문의 수정</A>
       <span class='menu_divide' >│</span>
-      <A href="./delete.do?inquiryno=${inquiryno}&now_page=${param.now_page}">삭제</A>  
+      <A href="./delete.do?inquiryno=${inquiryno}">삭제</A>  
       <span class='menu_divide' >│</span>
     </c:if>
 

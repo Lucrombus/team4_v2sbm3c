@@ -37,67 +37,86 @@
       <c:choose>
         <c:when test="${param.code == 'create_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">문의 글 등록을 완료했습니다.</span>
+            <span class="span_success">답변 등록을 완료했습니다.</span>
           </LI>  
           <LI class='li_none'>
             <button type='button' 
-                         onclick="location.href='/'"
-                         class="btn btn-info btn-sm">시작 화면</button>
+                         onclick="location.href='./list_all.do'"
+                         class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./list_by_memberno.do?memberno=${memberno}'"
-                         class="btn btn-info btn-sm">문의 목록</button>   
+                         onclick="location.href='./index.do'"
+                         class="btn btn-info btn-sm">메인</button>
           </LI> 
         </c:when>
         
         <c:when test="${param.code == 'create_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">문의 글 등록에 실패했습니다. 다시 시도해주세요.</span>
+            <span class="span_fail">답변 등록에 실패했습니다. 다시 시도해주세요.</span>
           </LI>
           <LI class='li_none'>
             <button type='button' 
-                         onclick="location.href='/index.do'"
+                         onclick="location.href='./list_all.do'"
+                         class="btn btn-info btn-sm">답변 목록</button>
+            <button type='button' 
+                         onclick="location.href='./index.do'"
                          class="btn btn-info btn-sm">메인</button>
           </LI>                                                                     
         </c:when>
 
         <c:when test="${param.code == 'update_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">문의 글을 변경했습니다.</span>
+            <span class="span_success">답변을 성공적으로 변경했습니다.</span>
           </LI>
           <LI class='li_none'>
             <button type='button' 
-                         onclick="location.href='/'"
-                         class="btn btn-info btn-sm">시작 화면</button>
+                         onclick="location.href='./list_all.do'"
+                         class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./list_by_memberno.do?memberno=${memberno}'"
-                         class="btn btn-info btn-sm">문의 목록</button>                   
+                         onclick="location.href='./index.do'"
+                         class="btn btn-info btn-sm">메인</button>                  
           </LI>                                                                       
         </c:when>
                 
         <c:when test="${param.code == 'update_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">문의 글 수정에 실패했습니다.</span>
-          </LI>                                                                      
+            <span class="span_fail">답변 수정에 실패했습니다.</span>
+          </LI>  
+          <LI class='li_none'>
+            <button type='button' 
+                         onclick="location.href='./list_all.do'"
+                         class="btn btn-info btn-sm">답변 목록</button>
+            <button type='button' 
+                         onclick="location.href='./index.do'"
+                         class="btn btn-info btn-sm">메인</button>                  
+          </LI>                                                                         
         </c:when>
         
         <c:when test="${param.code == 'delete_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">문의 글 삭제에 성공했습니다.</span>
+            <span class="span_success">답변 삭제에 성공했습니다.</span>
           </LI>   
           <LI class='li_none'>
             <button type='button' 
-                         onclick="location.href='/'"
-                         class="btn btn-info btn-sm">시작 화면</button>
+                         onclick="location.href='./list_all.do'"
+                         class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./list_by_memberno.do?memberno=${memberno}'"
-                         class="btn btn-info btn-sm">문의 목록</button>   
-          </LI>                                                                     
+                         onclick="location.href='./index.do'"
+                         class="btn btn-info btn-sm">메인</button>                  
+          </LI>                                                                       
         </c:when>    
             
         <c:when test="${code == 'delete_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">문의 글 삭제에 실패했습니다.</span>
-          </LI>                                                                      
+            <span class="span_fail">답변 삭제에 실패했습니다.</span>
+          </LI>
+          <LI class='li_none'>
+            <button type='button' 
+                         onclick="location.href='./list_all.do'"
+                         class="btn btn-info btn-sm">답변 목록</button>
+            <button type='button' 
+                         onclick="location.href='./index.do'"
+                         class="btn btn-info btn-sm">메인</button>                  
+          </LI>                                                                           
         </c:when> 
         
         <c:otherwise>

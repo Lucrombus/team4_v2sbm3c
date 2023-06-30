@@ -40,7 +40,7 @@
     
     <div>
        <label>답변 수정</label>
-       <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
+       <textarea name='content' required="required"  class="form-control" rows="12" style='width: 100%;'>${content }</textarea>
     </div>
     
     <input type="hidden" name="rdate" value="${rdate}"> <!-- 등록일 -->

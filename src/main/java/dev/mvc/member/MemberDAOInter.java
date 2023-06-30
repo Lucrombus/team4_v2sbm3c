@@ -93,4 +93,11 @@ public interface MemberDAOInter {
    * @return
    */
   public int delete_member(MemberVO memberVO);
+  
+//  /**
+//   *  페이징된 회원 목록
+//   *  spring framework이 JDBC 관련 코드를 모두 생성해줌
+//   * @return
+//   */
+//  public ArrayList<MemberVO> list_by_paging(MemberVO memberVO);
 }

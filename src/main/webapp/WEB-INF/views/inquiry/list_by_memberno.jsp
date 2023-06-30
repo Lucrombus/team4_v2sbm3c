@@ -33,15 +33,19 @@
   
   <table class="table table-striped" style='width: 100%;'>
     <colgroup>
-      <col style="width: 70%;"></col>
-      <col style="width: 15%;"></col>
-      <col style="width: 15%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 60%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 10%;"></col>
     </colgroup>
 
     <thead>
       <tr>
+        <th style='text-align: center;'>번호</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
+        <th style='text-align: center;'>답변</th>
         <th style='text-align: center;'>작성자</th>
       </tr>
     
@@ -57,11 +61,21 @@
         
         <tr style="height: 112px;">
           <td style='vertical-align: middle; text-align: center;'>
+            ${inquiryno }
+          </td>  
+          <td style='vertical-align: middle; text-align: center;'>
             <a href="./read.do?inquiryno=${inquiryno}&now_page=${param.now_page}"><strong>${inquiryTitle}</strong>  
             </a> 
           </td>  
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-            ${rdate }
+            ${rdate.substring(0,10) }
+          </td> 
+          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+            
+            <c:choose>
+                <c:when test="${param.word != '' }"> 미등록 </c:when>
+                <c:when test="${param.word != '' }"> <a href="/answer/read.do?answerno=${answerno }"></a>등록 </c:when>
+            </c:choose>
           </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${memberVO.id }

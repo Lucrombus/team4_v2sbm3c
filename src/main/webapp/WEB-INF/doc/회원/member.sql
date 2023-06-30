@@ -122,3 +122,28 @@ ALTER TABLE member add constraint pk_memberno primary key(memberno);
 SELECT COUNT(memberno) as cnt
 FROM member
 WHERE id='user3' AND passwd = 1234 AND rankno <= 3
+
+<!-- 페이징 목록 -->
+  <select id="list_by_cateno_search_paging" resultType="dev.mvc.contents.ContentsVO" parameterType="dev.mvc.contents.ContentsVO">
+   SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education, r
+   FROM (
+              SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education, rownum as r
+              FROM (
+                        SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education
+                        FROM member
+                        ORDER BY rankno ASC
+               )
+    )
+    WHERE r >= 1 AND r <= 10
+     
+    <!-- 1 page: WHERE r >= 1 AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
+  
+<!-- 전체 답변 목록 출력 -->
+  <select id="list_all" resultType="dev.mvc.answer.AnswerVO">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    WHERE name = ' ' AND tel AND birth '
+  </select>

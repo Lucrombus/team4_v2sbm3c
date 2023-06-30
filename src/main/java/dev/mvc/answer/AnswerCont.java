@@ -43,7 +43,7 @@ public class AnswerCont {
    * 
    * @return
    */
-  @RequestMapping(value = "/inquiry/msg.do", method = RequestMethod.GET)
+  @RequestMapping(value = "/answer/msg.do", method = RequestMethod.GET)
   public ModelAndView msg(String url) {
     ModelAndView mav = new ModelAndView();
 
@@ -87,10 +87,15 @@ public class AnswerCont {
       int cnt = answerProc.create(answerVO);
 
       if (cnt == 1) {
-        mav.setViewName("redirect:/inquiry/list_all.do");
+        mav.addObject("code", "create_success");
       } else {
-        mav.setViewName("redirect:/inquiry/list_by_member");
+        mav.addObject("code", "create_fail");
       }
+      
+      mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+      mav.addObject("url", "/answer/msg"); // /member/msg -> /member/msg.jsp
+      mav.setViewName("redirect:/answer/msg.do");
+      
     } else {
       mav.addObject("url", "/member/admin_login_need"); // /WEB-INF/views/admin/login_need.jsp
     }
@@ -170,7 +175,7 @@ public class AnswerCont {
  }
  
  /**
-  * 수정 처리 http://localhost:9093/answer/update.do?answerno=1
+  * 답변 수정 처리 http://localhost:9093/answer/update.do?answerno=1
   * 
   * @return
   */
@@ -183,8 +188,16 @@ public class AnswerCont {
    if (this.memberProc.isAdmin(session)) { // 회원이나 기업 로그인
      int cnt = this.answerProc.update(answerVO);
      
+     if (cnt == 1) {
+       mav.addObject("code", "update_success");
+     } else {
+       mav.addObject("code", "update_fail");
+     }
+     
+     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+     mav.addObject("url", "/answer/msg");  // /member/msg -> /member/msg.jsp
      mav.addObject("answerno", answerVO.getAnswerno());
-     mav.setViewName("redirect:/answer/read.do");
+     mav.setViewName("redirect:/answer/msg.do");
 
    } else {
      mav.addObject("url", "/member/admin_login_need"); // /WEB-INF/views/admin/login_need.jsp
