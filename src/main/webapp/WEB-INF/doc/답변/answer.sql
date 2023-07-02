@@ -27,7 +27,30 @@ CREATE SEQUENCE answer_seq
   CACHE 2                        -- 2번은 메모리에서만 계산
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
   
+-- CREATE
 INSERT INTO answer(answerno, content, rdate, inquiryno, memberno) 
 VALUES (answer_seq.nextval, '답변', sysdate , 12, 1) 
 
+-- SELECT
 SELECT * FROM answer;
+
+SELECT answerno, content, rdate, inquiryno, memberno
+FROM answer
+WHERE inquiryno = 1
+ORDER BY answerno DESC
+
+SELECT COUNT(inquiryno) as cnt
+FROM answer
+WHERE inquiryno = 11
+
+-- UPDATE
+UPDATE answer
+SET content = '이상해용'
+WHERE answerno = 1
+
+-- DELETE
+DELETE FROM answer
+WHERE answerno = 1
+
+SELECT *
+FROM 

@@ -238,4 +238,45 @@ public class AnswerCont {
    
    return mav;
  }   
+ 
+ /** 문의 및 답변 조회
+  * 
+  * @param inquiryno
+  * @return
+  */
+
+ @RequestMapping(value = "/answer/read_by_inquiryno.do", method = RequestMethod.GET)
+ public ModelAndView read_by_inquiryno(int inquiryno) {
+   ModelAndView mav = new ModelAndView();
+   
+   InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
+   AnswerVO answerVO = this.answerProc.read_by_inquiryno(inquiryno);
+   
+   String inquiryTitle = inquiryVO.getInquiryTitle();
+   String inquiryReason = inquiryVO.getInquiryReason();
+   String content = answerVO.getContent();
+   
+   inquiryTitle = Tool.convertChar(inquiryTitle);
+   inquiryReason = Tool.convertChar(inquiryReason);
+   content = Tool.convertChar(content);
+   
+   inquiryVO.setInquiryTitle(inquiryTitle);
+   inquiryVO.setInquiryReason(inquiryReason);
+   answerVO.setContent(content);
+   
+   mav.addObject("inquiryVO", inquiryVO);
+   mav.addObject("answerVO", answerVO); // request.setAttribute("inquiryVO", inquiryVO);
+
+   Function<Integer, String> f = (memberno) -> {
+     MemberVO memberVO = memberProc.readByMemberno(memberno);
+     String id = memberVO.getId();
+     return id;
+   };
+   mav.addObject("f", f);
+
+   mav.setViewName("/answer/read_by_inquiryno"); // /WEB-INF/views/notice/read.jsp
+
+   return mav;
+ }
+ 
 }

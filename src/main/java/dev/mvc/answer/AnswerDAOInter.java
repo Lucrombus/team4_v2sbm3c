@@ -50,4 +50,11 @@ public interface AnswerDAOInter {
    * @return
    */
   public int delete(int answerno);
+  
+  /**
+   * 문의 번호에 따른 문의 및 답변 조회
+   * @param inquiryno
+   * @return
+   */
+  public AnswerVO read_by_inquiryno(int inquiryno);
 }
