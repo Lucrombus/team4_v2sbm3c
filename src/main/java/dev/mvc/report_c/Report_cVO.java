@@ -9,7 +9,7 @@ public class Report_cVO {
   private String reason;
   private String rdate;
   private String done = "N";
-  private String answer;
+  private String answer = "";
   
 
   

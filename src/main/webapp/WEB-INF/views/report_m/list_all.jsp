@@ -16,10 +16,10 @@
 </head> 
  
 <body>
-<c:import url="/menu/top.do" />
+
  
 <DIV class='title_line'>
-<A href="./list_all.do?&now_page=1" class='title_link'>전체 신고 내역 </a>
+<A href="./list_all.do?&now_page=1" class='title_link'> 회원 신고 내역 </a>
 </DIV>
 
 <DIV class='content_body'>
@@ -33,7 +33,7 @@
 
   <DIV class='menu_line'></DIV>
   
-  <table class="table table-striped" style='width: 100%;'>
+  <table class="table table-secondary table-hover" style='width: 100%;'>
     <colgroup>
       <col style="width: 10%;"></col>
       <col style="width: 60%;"></col>
@@ -68,21 +68,21 @@
 
 
         
-        <tr style="height:50px;">
+        <tr style="height:50px;" onclick="window.location='/report_m/read.do?reportno=${reportno}'">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${reportno}
+            ${reportno}
           </td>
           <td style='vertical-align: middle;  font-weight:bold;'>
-            <a href="./read.do?reportno=${reportno}"><strong>${title }</strong></a> 
+            <strong>${title }</strong>
           </td>
           <td style='vertical-align: middle; text-align: center;'>
-          ${rdate }
+            ${rdate }
           </td>
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${target_mno }
+            ${target_mno }
           </td>
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${id }
+            ${f.apply(memberno) }
           </td>
         </tr>
         
@@ -91,13 +91,11 @@
 
     </tbody>
   </table>
-   <!-- 페이지 목록 출력 부분 시작 -->
-  <DIV class='bottom_menu'>${paging }</DIV> <%-- 페이지 리스트 --%>
-  <!-- 페이지 목록 출력 부분 종료 -->
+
 </DIV>
 
  
-<jsp:include page="../menu/bottom.jsp" />
+
 </body>
  
 </html>

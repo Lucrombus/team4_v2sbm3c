@@ -81,7 +81,8 @@ function check(){
     <FORM name='frm' id='frm' method='POST' action='./update.do' enctype="multipart/form-data">
       <input type='hidden' name='reportno' value='${report_mVO.reportno}'>
       
-      <c:if test="${answer != null}">
+      <c:if test="${answer != ''}">
+      <input type='hidden' name='done' value='Y'> <!-- done 값을 바꾸기 위해 미리 작성함@@@@@@@@@@@@@@@@ -->
         <div class="input-group">
           <span class="input-group-text">답변</span>
           <c:if test="${sessionScope.rankno == 1}">
@@ -97,14 +98,17 @@ function check(){
         </div>
       </c:if>
             
-      <c:if test="${answer == null && sessionScope.rankno == 1}">
-      <div class="input-group">
-        <span class="input-group-text">답변</span>
-        <textarea class="form-control"  name="answer" rows="12" maxlength="333" style="background-color: white;" >${answer }</textarea>
-      </div>
-      <div class="content_body_bottom">
-        <button type="button" onclick="submit();" class="btn btn-info">답변 수정하기</button>
-      </div>
+      <c:if test="${answer == '' }">
+        <input type='hidden' name='done' value='N'> <!-- done 값을 바꾸기 위해 미리 작성함@@@@@@@@@@@@@@@@ -->
+        <c:if test="${sessionScope.rankno == 1 }">
+        <div class="input-group">
+          <span class="input-group-text">답변</span>
+          <textarea class="form-control"  name="answer" rows="12" maxlength="333" style="background-color: white;" >${answer }</textarea>
+        </div>
+        <div class="content_body_bottom">
+          <button type="button" onclick="submit();" class="btn btn-info">답변 수정하기</button>
+        </div>
+        </c:if>
       </c:if>
     </FORM>
 <!-- ----------------------답변 끝------------------------ -->

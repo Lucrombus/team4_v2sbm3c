@@ -88,13 +88,18 @@ public class Report_mCont {
 
      ModelAndView mav = new ModelAndView();
      
-  // Call By Reference: 메모리 공유, Hashcode 전달
+     // Call By Reference: 메모리 공유, Hashcode 전달
      int memberno = (int) session.getAttribute("memberno"); // memberno FK
      report_mVO.setMemberno(memberno);
      
      if ((int)session.getAttribute("memberno") == (report_mVO.getMemberno())) { // (로그인세션의 memberno와 report_m의 memberno가 같을경우에만 실행)
 
-
+       // answer 값이 존재하는지 확인하여 done 값을 설정
+       if (report_mVO.getAnswer() != null && !report_mVO.getAnswer().isEmpty()) {
+         report_mVO.setDone("Y");
+       } else {
+         report_mVO.setDone("N");
+       }
        
        int cnt = this.report_mProc.create(report_mVO);
 
@@ -121,7 +126,8 @@ public class Report_mCont {
   public ModelAndView list_all_by_memberno(HttpSession session) {
     ModelAndView mav = new ModelAndView();
     
-    if (this.memberProc.isMember(session)) {
+    if (this.memberProc.isAdmin(session) || 
+        session.getAttribute("memberno") != null) {
       int memberno = (int)session.getAttribute("memberno");
       ArrayList<Report_mVO> list = this.report_mProc.list_all_by_memberno(memberno);
       mav.addObject("list", list);
@@ -152,6 +158,14 @@ public class Report_mCont {
   
      ArrayList<Report_mVO> list = this.report_mProc.list_all();
      mav.addObject("list", list);     
+     
+     Function<Integer, String> f = (memberno) -> {
+       MemberVO memberVO = memberProc.readByMemberno(memberno);
+       String id = memberVO.getId();
+       return id;
+     };
+     mav.addObject("f", f);
+     
      } else {
        mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
      }
@@ -224,10 +238,16 @@ public class Report_mCont {
      ModelAndView mav = new ModelAndView();
      
      if (this.memberProc.isAdmin(session)) { //관리자일 경우에
+       
+       // answer 값이 존재하는지 확인하여 done 값을 설정
+       if (report_mVO.getAnswer() != null && !report_mVO.getAnswer().isEmpty()) {
+         report_mVO.setDone("Y");
+       } else {
+         report_mVO.setDone("N");
+       }
+       
        int cnt = this.report_mProc.update(report_mVO);
        report_mVO = this.report_mProc.read(report_mVO.getReportno()); // 수정된 내용을 다시 읽어옴
-       
-       
 
        mav.addObject("report_cVO", report_mVO); // 수정된 내용을 다시 전달
        mav.setViewName("redirect:/report_m/read.do?reportno=" + report_mVO.getReportno());

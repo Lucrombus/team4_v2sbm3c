@@ -8,8 +8,8 @@ public class Report_mVO {
   private String title;
   private String reason;
   private String rdate;
-  private String done="N";
-  private String answer;
+  private String done = "N";
+  private String answer = "";
   
 
 

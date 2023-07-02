@@ -15,11 +15,15 @@
     
 </head> 
  
+ 
+
+ 
+ 
 <body>
-<c:import url="/menu/top.do" />
+
  
 <DIV class='title_line'>
-<A href="./list_all.do?&now_page=1" class='title_link'>전체 신고 내역 </a>
+<A href="./list_all.do?&now_page=1" class='title_link'>게시글 신고 내역 </a>
 </DIV>
 
 <DIV class='content_body'>
@@ -33,7 +37,7 @@
 
   <DIV class='menu_line'></DIV>
   
-  <table class="table table-striped" style='width: 100%;'>
+  <table class="table table-secondary table-hover" style='width: 100%;'>
     <colgroup>
       <col style="width: 5%;"></col>
       <col style="width: 15%;"></col>
@@ -55,47 +59,50 @@
     
     </thead>
     
+    
     <tbody>
+    
       <c:forEach var="report_cVO" items="${list }">
         <c:set var="reason" value="${report_cVO.reason }" />
         <c:set var="contentsno" value="${report_cVO.contentsno }" />
         <c:set var="reportno" value="${report_cVO.reportno }" />
         <c:set var="rdate" value="${report_cVO.rdate }" />
         <c:set var="memberno" value="${report_cVO.memberno }" />
+        <c:set var="done" value="${report_cVO.done }" />
 
 
 
         
-        <tr style="height:50px;">
+        <tr style="height:50px;" onclick="window.location='/report_c/read.do?reportno=${reportno}'">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
           ${reportno}
           </td>
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-          <a href="/contents/read.do?contentsno=${contentsno}"><strong>${contentsno }</strong></a> 
+            <strong>${contentsno }</strong>
           </td>
           <td style='vertical-align: middle; '>
-            <a href="./read.do?reportno=${reportno}"><strong>${reason}</strong></a> 
+            <strong>${reason}</strong>
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
-          ${rdate }
+            ${rdate }
           </td>
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${id }
+            ${f.apply(memberno) }
           </td>
         </tr>
         
+        
       </c:forEach>
 
-
+     
     </tbody>
   </table>
-   <!-- 페이지 목록 출력 부분 시작 -->
-  <DIV class='bottom_menu'>${paging }</DIV> <%-- 페이지 리스트 --%>
-  <!-- 페이지 목록 출력 부분 종료 -->
+  
+
 </DIV>
 
  
-<jsp:include page="../menu/bottom.jsp" />
+
 </body>
  
 </html>

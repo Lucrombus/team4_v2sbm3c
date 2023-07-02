@@ -83,9 +83,8 @@ function check(){
     <FORM name='frm' id='frm' method='POST' action='./update.do' enctype="multipart/form-data">
       <input type='hidden' name='reportno' value='${report_cVO.reportno}'>
       
-      
-      <c:if test="${answer != null}">
-      <input type='hidden' name='done' value='"Y"'> <!-- done 값을 바꾸기 위해 미리 작성함 -->
+      <c:if test="${answer != ''}">
+      <input type='hidden' name='done' value='Y'> <!-- done 값을 바꾸기 위해 미리 작성함@@@@@@@@@@@@@@@@ -->
         <div class="input-group">
           <span class="input-group-text">답변</span>
           <c:if test="${sessionScope.rankno == 1}">
@@ -101,8 +100,8 @@ function check(){
         </div>
       </c:if>
             
-      <c:if test="${answer == null }">
-        <input type='hidden' name='done' value='"N"'> <!-- done 값을 바꾸기 위해 미리 작성함 -->
+      <c:if test="${answer == '' }">
+        <input type='hidden' name='done' value='N'> <!-- done 값을 바꾸기 위해 미리 작성함@@@@@@@@@@@@@@@@ -->
         <c:if test="${sessionScope.rankno == 1 }">
         <div class="input-group">
           <span class="input-group-text">답변</span>

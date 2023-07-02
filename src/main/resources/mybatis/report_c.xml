@@ -39,10 +39,10 @@
     </delete>
     
     
-    <!-- 답변 등록(수정 update로 answer값 수정) -->
+    <!-- 답변 등록(수정 update로 answer값과 done값 수정) -->
     <update id="update" parameterType="dev.mvc.report_c.Report_cVO">
       UPDATE report_c 
-      SET answer = #{answer}
+      SET answer = #{answer}, done = #{done}
       WHERE reportno = #{reportno}
     </update>
     

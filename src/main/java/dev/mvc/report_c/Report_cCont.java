@@ -70,13 +70,23 @@ public class Report_cCont {
    public ModelAndView create(HttpServletRequest request, HttpSession session, Report_cVO report_cVO) {
 
      ModelAndView mav = new ModelAndView();
+     
+     // Call By Reference: 메모리 공유, Hashcode 전달
+     int memberno = (int) session.getAttribute("memberno"); // memberno FK
+     report_cVO.setMemberno(memberno);
 
-     if (this.memberProc.isMember(session)) { // (로그인세션의 memberno와 report_c의 memberno가 같을경우에만 실행)
+     if ((int)session.getAttribute("memberno") == (report_cVO.getMemberno())) { // (로그인세션의 memberno와 report_c의 memberno가 같을경우에만 실행)
 
-       // Call By Reference: 메모리 공유, Hashcode 전달
-       int memberno = (int) session.getAttribute("memberno"); // memberno FK
-       report_cVO.setMemberno(memberno);
+       // answer 값이 존재하는지 확인하여 done 값을 설정
+       if (report_cVO.getAnswer() != null && !report_cVO.getAnswer().isEmpty()) {
+         report_cVO.setDone("Y");
+       } else {
+         report_cVO.setDone("N");
+       }
+       
+
        int cnt = this.report_cProc.create(report_cVO);
+       
 
        // ------------------------------------------------------------------------------
        // PK의 return
@@ -85,12 +95,17 @@ public class Report_cCont {
        // mav.addObject("contentsno", contentsVO.getContentsno()); // redirect parameter 적용
        // ------------------------------------------------------------------------------
 
+       mav.addObject("cnt", cnt);
        mav.addObject("memberno", memberno);
        mav.setViewName("redirect:/report_c/list_all_by_memberno.do");
+       
+
        
      } else {
        mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
      }
+     
+     
 
      return mav;
    }
@@ -101,7 +116,8 @@ public class Report_cCont {
    public ModelAndView list_all_by_memberno(HttpSession session) {
      ModelAndView mav = new ModelAndView();
      
-     if (this.memberProc.isMember(session)) {
+     if (this.memberProc.isAdmin(session) || 
+         session.getAttribute("memberno") != null) {
        int memberno = (int)session.getAttribute("memberno");
        ArrayList<Report_cVO> list = this.report_cProc.list_all_by_memberno(memberno);
        mav.addObject("list", list);
@@ -132,6 +148,15 @@ public class Report_cCont {
   
      ArrayList<Report_cVO> list = this.report_cProc.list_all();
      mav.addObject("list", list);     
+     
+     Function<Integer, String> f = (memberno) -> {
+       MemberVO memberVO = memberProc.readByMemberno(memberno);
+       String id = memberVO.getId();
+       return id;
+     };
+     mav.addObject("f", f);
+
+     
      } else {
        mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
      }
@@ -141,10 +166,13 @@ public class Report_cCont {
    
    // 신고 글 조회
    @RequestMapping(value="/report_c/read.do", method=RequestMethod.GET )
-   public ModelAndView read(int reportno) {
+   public ModelAndView read(HttpSession session, int reportno) {
      ModelAndView mav = new ModelAndView();
 
      Report_cVO report_cVO = this.report_cProc.read(reportno);
+     
+     if (this.memberProc.isAdmin(session) || 
+         (int)session.getAttribute("memberno") == (report_cVO.getMemberno())) {
      
      // 특수 문자 처리------
      String reason = report_cVO.getReason();
@@ -171,6 +199,9 @@ public class Report_cCont {
      mav.addObject("title_c", title_c);
 
      mav.setViewName("/report_c/read"); // /WEB-INF/views/resume/read.jsp
+     } else {
+       
+     }
          
      return mav;
    }
@@ -205,16 +236,22 @@ public class Report_cCont {
      return mav;
    }  
    
-   // 신고 글 수정 처리(answer 등록하기)
+   // 신고 글 수정 처리(answer 등록하기, done 값 수정하기)
    @RequestMapping(value = "/report_c/update.do", method = RequestMethod.POST)
    public ModelAndView update(HttpSession session, Report_cVO report_cVO) {
      ModelAndView mav = new ModelAndView();
      
      if (this.memberProc.isAdmin(session)) { //관리자일 경우에
+       
+       // answer 값이 존재하는지 확인하여 done 값을 설정
+       if (report_cVO.getAnswer() != null && !report_cVO.getAnswer().isEmpty()) {
+         report_cVO.setDone("Y");
+       } else {
+         report_cVO.setDone("N");
+       }
+       
        int cnt = this.report_cProc.update(report_cVO);
        report_cVO = this.report_cProc.read(report_cVO.getReportno()); // 수정된 내용을 다시 읽어옴
-       
-       
 
        mav.addObject("report_cVO", report_cVO); // 수정된 내용을 다시 전달
        mav.setViewName("redirect:/report_c/read.do?reportno=" + report_cVO.getReportno());
@@ -236,6 +273,18 @@ public class Report_cCont {
     mav.setViewName(url);
     return mav;
 
+  }
+  
+  // 관리자용 신고관리 서브메뉴
+  // http://localhost:9093/report_all/list_all.do
+  @RequestMapping(value= {"/report_all/list_all.do"}, method=RequestMethod.GET)
+  public ModelAndView report_all() {
+    ModelAndView mav = new ModelAndView();
+    // spring.mvc.view.prefix=/WEB-INF/views/
+    // spring.mvc.view.suffix=.jsp
+    mav.setViewName("/report_all/list_all"); // /WEB-INF/views/index.jsp
+    
+    return mav;
   }
 
 }
