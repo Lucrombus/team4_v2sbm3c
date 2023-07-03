@@ -1,34 +1,69 @@
-SELECT memberno, id, password, name, tel, rdate, rankno, experience, gender, birth, education
+SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education
 FROM member
 ORDER BY memberno ASC;
 /**********************************/
-/* Table Name: 통계 컨텐츠(SELECT) */
+/* Table Name: ?���? 컨텐�?(SELECT) */
 /**********************************/
---(구직 성공시 경력 여부 동기화 작업 필요)
+--(구직 ?��공시 경력 ?���? ?��기화 ?��?�� ?��?��)
 
--- 경력 비율 
-SELECT experience AS 경력비율, CONCAT(ROUND((COUNT(EXPERIENCE) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2),'%') AS 비율
-FROM MEMBER GROUP BY EXPERIENCE;
+        SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY TRUNC((sysdate - birth)/365, -1)
+        HAVING TRUNC((sysdate - birth)/365, -1) = 10;
 
-경력비율       비율                                       
+
+-- 경력 유 비율
+SELECT experience , ROUND((COUNT(EXPERIENCE) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY EXPERIENCE
+HAVING experience = 'Y';
+
+EXPERIENCE    PERCENT
+---------- ----------
+Y               44.44
+
+-- 경력 무 비율
+SELECT experience, ROUND((COUNT(EXPERIENCE) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY EXPERIENCE
+HAVING experience = 'N';
+
+EXPERIENCE    PERCENT
+---------- ----------
+N               55.56
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 성별 남 비율
+SELECT gender, ROUND((COUNT(gender) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY gender
+HAVING gender = '남성'
+
+GENDER        PERCENT
+---------- ----------
+남성            33.33
+
+
+-- 성별 여 비율
+SELECT gender, CONCAT(ROUND((COUNT(gender) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2),'%') AS percent
+FROM MEMBER 
+GROUP BY gender
+HAVING gender = '여성'
+
+GENDER     PERCENT                                  
 ---------- -----------------------------------------
-Y          50%                                      
-N          50%       
+여성       66.67%        
 
--- 성별 비율
-SELECT gender AS 성별, CONCAT(ROUND((COUNT(gender) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2),'%') AS 비율
-FROM MEMBER GROUP BY gender;
-
-성별         비율                                       
----------- -----------------------------------------
-남성       66.67%                                   
-여성       33.33%      
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- 나이대 구하기
-SELECT TRUNC((sysdate - birth)/365, -1) AS 나이 -- 날짜와 날짜를 빼면 남은 일수 리턴, 365로 나눠 연령표시, TRUNC 통해 정수 첫째자리 삭제
+SELECT TRUNC((sysdate - birth)/365, -1) AS age 
 FROM member;
 
-        나이
+       AGE
 ----------
         20
         20
@@ -36,30 +71,152 @@ FROM member;
         30
         20
         50
+        30
+        20
+        40
+        20
+        20
         
--- 나이대 갯수
-SELECT TRUNC((sysdate - birth)/365, -1) as 나이대, count(TRUNC((sysdate - birth)/365, -1)) as 나이대_갯수-- 날짜와 날짜를 빼면 남은 일수 리턴, 365로 나눠 연령표시, TRUNC 통해 정수 첫째자리 삭제       
-FROM member group by TRUNC((sysdate - birth)/365, -1) ORDER BY 나이대;
+-- 나이대별 분류
+SELECT TRUNC((sysdate - birth)/365, -1) as age, count(TRUNC((sysdate - birth)/365, -1)) as percent     
+FROM member group by TRUNC((sysdate - birth)/365, -1) ORDER BY age;
 
-       나이대     나이대_갯수
+       AGE    PERCENT
 ---------- ----------
         10          1
-        20          3
-        30          1
+        20          6
+        30          2
+        40          1
         50          1
 
--- 나이대 비율 
-SELECT TRUNC((sysdate - birth)/365, -1) as 나이대, CONCAT(ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2),'%') AS 비율
-FROM MEMBER GROUP BY TRUNC((sysdate - birth)/365, -1)ORDER BY 나이대;
+-- 나이대별 비율 
+SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY TRUNC((sysdate - birth)/365, -1)
+ORDER BY age;
 
-       나이대 비율                                       
+       AGE PERCENT                                  
 ---------- -----------------------------------------
-        10 16.67%                                   
-        20 50%                                      
-        30 16.67%                                   
-        50 16.67%   
+        10 9.09%                                    
+        20 54.55%                                   
+        30 18.18%                                   
+        40 9.09%                                    
+        50 9.09%     
 
--- 학력
+-- 10대 비율
+SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY TRUNC((sysdate - birth)/365, -1)
+HAVING TRUNC((sysdate - birth)/365, -1) = 10;
+
+       AGE    PERCENT
+---------- ----------
+        10       9.09
+
+-- 20대 비율
+SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY TRUNC((sysdate - birth)/365, -1)
+HAVING TRUNC((sysdate - birth)/365, -1) = 20;
+
+       AGE    PERCENT
+---------- ----------
+        20      54.55
+
+
+-- 30대 비율
+SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY TRUNC((sysdate - birth)/365, -1)
+HAVING TRUNC((sysdate - birth)/365, -1) = 30;
+
+       AGE    PERCENT
+---------- ----------
+        30      18.18
+
+-- 40대 비율
+SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY TRUNC((sysdate - birth)/365, -1)
+HAVING TRUNC((sysdate - birth)/365, -1) = 40;
+
+       AGE    PERCENT
+---------- ----------
+        40       9.09
+
+-- 50대 비율
+SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY TRUNC((sysdate - birth)/365, -1)
+HAVING TRUNC((sysdate - birth)/365, -1) = 50;
+
+       AGE    PERCENT
+---------- ----------
+        50       9.09
+
+-- 기타 비율
+SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY TRUNC((sysdate - birth)/365, -1)
+HAVING TRUNC((sysdate - birth)/365, -1) >= 60;
+
+선택된 행 없음
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--학력 비율
+SELECT education , ROUND((COUNT(education) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY education
+ORDER BY 1;
+
+EDUCATION     PERCENT
+---------- ----------
+2년제            9.09
+3년제           18.18
+4년제           45.45
+고졸            27.27
+
+-- 고졸 비율
+SELECT education , ROUND((COUNT(education) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY education
+HAVING education = '고졸';
+
+EDUCATION     PERCENT
+---------- ----------
+고졸            27.27
+
+-- 2년제 비율
+SELECT education , ROUND((COUNT(education) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY education
+HAVING education = '2년제';
+
+EDUCATION     PERCENT
+---------- ----------
+2년제            9.09
+
+-- 3년제 비율
+SELECT education , ROUND((COUNT(education) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY education
+HAVING education = '3년제';
+
+EDUCATION     PERCENT
+---------- ----------
+3년제           18.18
+
+-- 4년제 비율
+SELECT education , ROUND((COUNT(education) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+FROM MEMBER 
+GROUP BY education
+HAVING education = '4년제';
+
+EDUCATION     PERCENT
+---------- ----------
+4년제           45.45
+-- ?��?��
 
 --DROP TABLE statistics CASCADE CONSTRAINTS;
 --
@@ -75,22 +232,22 @@ FROM MEMBER GROUP BY TRUNC((sysdate - birth)/365, -1)ORDER BY 나이대;
 --);
 --
 --
---COMMENT ON COLUMN statistics.statisticsno is '통계번호';
---COMMENT ON COLUMN statistics.statisticsname is '통계이름';
---COMMENT ON COLUMN statistics.memberno is '회원번호';
---COMMENT ON COLUMN statistics.experience is '경력여부';
---COMMENT ON COLUMN statistics.gender is '성별';
---COMMENT ON COLUMN statistics.age is '나이';
---COMMENT ON COLUMN statistics.education is '학력';
+--COMMENT ON COLUMN statistics.statisticsno is '?��계번?��';
+--COMMENT ON COLUMN statistics.statisticsname is '?��계이�?';
+--COMMENT ON COLUMN statistics.memberno is '?��?��번호';
+--COMMENT ON COLUMN statistics.experience is '경력?���?';
+--COMMENT ON COLUMN statistics.gender is '?���?';
+--COMMENT ON COLUMN statistics.age is '?��?��';
+--COMMENT ON COLUMN statistics.education is '?��?��';
 --
 --DROP SEQUENCE statistics_seq;
 --
 --CREATE SEQUENCE statistics_seq
---  START WITH 1                -- 시작 번호
---  INCREMENT BY 1            -- 증가값
---  MAXVALUE 9999999999  -- 최대값: 9999999999 --> NUMBER(10) 대응
---  CACHE 2                        -- 2번은 메모리에서만 계산
---  NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
+--  START WITH 1                -- ?��?�� 번호
+--  INCREMENT BY 1            -- 증�?�?
+--  MAXVALUE 9999999999  -- 최�?�?: 9999999999 --> NUMBER(10) ???��
+--  CACHE 2                        -- 2번�? 메모리에?���? 계산
+--  NOCYCLE;                      -- ?��?�� 1�??�� ?��?��?��?�� 것을 방�?
 --  
 --SELECT statisticsno, statisticsname, memberno, experience, gender, age, education
 --FROM statistics
@@ -102,7 +259,7 @@ FROM MEMBER GROUP BY TRUNC((sysdate - birth)/365, -1)ORDER BY 나이대;
 --INSERT INTO statistics(statisticsno, statisticsname)
 --VALUES(statistics_seq.nextval, '비율');
 
---동기화 작업
+--?��기화 ?��?��
 --MERGE
 --    INTO statistics DB
 --    USING member D
