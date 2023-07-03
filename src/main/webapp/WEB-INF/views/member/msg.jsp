@@ -112,6 +112,40 @@
           </LI>                                                                      
         </c:when> 
         
+        <c:when test="${param.code == 'find_id_success'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_success">${param.name }님의 아이디는 ${param.id }입니다.</span>
+          </LI>
+          <LI class='li_none'>  
+            <button type='button' 
+                         onclick="location.href='/'"
+                         class="btn btn-info btn-sm">시작 화면</button>
+          </LI>                                                                    
+        </c:when>    
+            
+        <c:when test="${code == 'find_id_fail'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">아이디 찾기에 실패했습니다.</span>
+          </LI>                                                                      
+        </c:when> 
+        
+        <c:when test="${param.code == 'find_passwd_success'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_success">${param.name }(${param.id })님의 비밀번호는 ${param.passwd }입니다.</span>
+          </LI>
+          <LI class='li_none'>  
+            <button type='button' 
+                         onclick="location.href='/'"
+                         class="btn btn-info btn-sm">시작 화면</button>
+          </LI>                                                                    
+        </c:when>    
+            
+        <c:when test="${code == 'find_passwd_fail'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">비밀번호 찾기에 실패했습니다.</span>
+          </LI>                                                                      
+        </c:when> 
+        
         <c:when test="${param.code == 'delete_member_success'}"> <%-- Java if --%>
           <LI class='li_none'>
             <span class="span_success">회원 탈퇴에 성공했습니다.</span>

@@ -91,6 +91,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE memberno=#{memberno}
   </update>
   
+  <!-- 아이디 찾기 -->
+  <select id="find_id" resultType="String" parameterType="dev.mvc.member.MemberVO">
+    SELECT id
+    FROM member
+    WHERE name = #{name} AND tel = #{tel}
+   </select>
+
+  <!-- 비밀번호 찾기 -->
+  <select id="find_passwd" resultType="String" parameterType="dev.mvc.member.MemberVO">
+    SELECT passwd
+    FROM member
+    WHERE name = #{name} AND tel = #{tel} AND id = #{id}
+  </select>
+  
   <!-- 페이징 목록 
   <select id="list_by__paging" resultType="dev.mvc.member.MemberVO" parameterType="dev.mvc.member.MemberVO">
     SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education, r
