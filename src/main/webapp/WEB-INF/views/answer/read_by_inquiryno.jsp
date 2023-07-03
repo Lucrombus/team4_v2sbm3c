@@ -42,17 +42,20 @@
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
           <span style="font-size: 1.5em; font-weight: bold;">제목 - ${inquiryVO.inquiryTitle }</span><br>
-          <div style="font-size: 1em;">${f.apply(memberno) } / ${inquiryVO.rdate }</div><br>
+          <div style="font-size: 1em;">${f.apply(inquiryVO.memberno) } / ${inquiryVO.rdate }</div><br>
           ${inquiryVO.inquiryReason }
         </DIV>
       </li>
+      <br>
       
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
-
           <span style="font-size: 1.5em; font-weight: bold;">답변</span><br>
-          <div style="font-size: 1em;">${f.apply(memberno) } / ${answerVO.rdate }</div><br>
-          ${answerVO.content }
+          <div style="font-size: 1em;">${f.apply(answerVO.memberno) } / ${answerVO.rdate }</div><br>
+            <c:choose>
+                <c:when test = "${answerVO.content == null}">답변 미등록</c:when>
+                <c:when test = "${answerVO.content != null }">${answerVO.content }</c:when>
+            </c:choose>
         </DIV>
       </li>
       

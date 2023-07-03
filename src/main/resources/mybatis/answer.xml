@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
   <select id="read_by_inquiryno" resultType="dev.mvc.answer.AnswerVO" parameterType="int">
     SELECT answerno, content, rdate, inquiryno, memberno
     FROM answer
-    WHERE inquiryno = 1
+    WHERE inquiryno = #{inquiryno}
     ORDER BY answerno DESC
   </select>
   

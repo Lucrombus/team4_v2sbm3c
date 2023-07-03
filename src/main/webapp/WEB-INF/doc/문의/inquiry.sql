@@ -45,3 +45,6 @@ ORDER BY inquiryno ASC
 UPDATE inquiry
 SET inquiryTitle = '버그 신고' , inquiryReason = '문의 글 조회에서 위에 버튼이 안눌려요' , rdate = sysdate
 WHERE inquiryno = 3
+
+DELETE FROM inquiry
+WHERE inquiryno = 3
