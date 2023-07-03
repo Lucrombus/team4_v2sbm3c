@@ -29,7 +29,7 @@ CREATE SEQUENCE answer_seq
   
 -- CREATE
 INSERT INTO answer(answerno, content, rdate, inquiryno, memberno) 
-VALUES (answer_seq.nextval, '답변', sysdate , 12, 1) 
+VALUES (answer_seq.nextval, '답변', sysdate , 1, 1) 
 
 -- SELECT
 SELECT * FROM answer;
@@ -54,3 +54,12 @@ WHERE answerno = 1
 
 SELECT *
 FROM 
+
+SELECT answerno, content, rdate, inquiryno, memberno
+FROM answer
+WHERE memberno = 1
+ORDER BY inquiryno ASC
+
+SELECT COUNT(inquiryno) as cnt
+FROM answer
+WHERE inquiryno = 1

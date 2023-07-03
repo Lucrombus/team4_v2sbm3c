@@ -64,4 +64,25 @@ public class AnswerProc implements AnswerProcInter {
     AnswerVO answerVO = this.answerDAO.read_by_inquiryno(inquiryno);
     return answerVO;
   }
+
+  @Override
+  public int checkAnswer(int inquiryno) {
+    int cnt = this.answerDAO.checkAnswer(inquiryno);
+    return cnt;
+  }
+
+  @Override
+  public ArrayList<AnswerVO> list_by_memberno(int memberno) {
+    ArrayList<AnswerVO> list = this.answerDAO.list_by_memberno(memberno);
+    
+    // for문을 사용하여 객체를 추출, Call By Reference 기반의 원본 객체 값 변경
+    for (AnswerVO answerVO : list) {
+      String content = answerVO.getContent();
+      
+      content = Tool.convertChar(content); 
+      
+      answerVO.setContent(content);  
+    }
+    return list; 
+  }
 }

@@ -70,6 +70,13 @@ public class AnswerCont {
     } else {
       mav.setViewName("/member/admin_login_need"); // /WEB-INF/views/admin/login_need.jsp
     }
+    
+    Function<Integer, String> f = (memberno) -> {
+      MemberVO memberVO = memberProc.readByMemberno(memberno);
+      String id = memberVO.getId();
+      return id;
+    };
+    mav.addObject("f", f);
 
     return mav; // forward
   }
@@ -124,6 +131,36 @@ public class AnswerCont {
     Function<Integer, String> f = (memberno) -> {
       MemberVO memberVO = memberProc.readByMemberno(memberno);
       String id = memberVO.getId();
+      return id;
+    };
+    mav.addObject("f", f);
+
+    return mav;
+  }
+  
+  /**
+   * memberno에 따른 답변, http://localhost:9093/answer/list_by_memberno.do
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/answer/list_by_memberno.do", method = RequestMethod.GET)
+  public ModelAndView list_by_memberno(HttpServletRequest request, HttpSession session, int memberno) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/answer/list_by_memberno"); // /webapp/WEB-INF/views/inquiry/list_all.jsp
+
+    ArrayList<InquiryVO> list = this.inquiryProc.list_by_memberno(memberno);
+    
+    mav.addObject("list", list);
+
+    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, String> f = (memberno_read) -> {
+      MemberVO memberVO = memberProc.readByMemberno(memberno_read);
+      String id = "(알수없음)";
+
+      if (memberVO != null) {
+        id = memberVO.getId();
+      }
+
       return id;
     };
     mav.addObject("f", f);

@@ -133,7 +133,9 @@ public class InquiryCont {
 
     if (this.memberProc.isAdmin(session)) {
       ArrayList<InquiryVO> list = this.inquiryProc.list_all();
+      
       mav.addObject("list", list);
+      
     } else {
       mav.setViewName("/member/admin_login_need");
     }

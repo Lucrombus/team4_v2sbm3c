@@ -45,4 +45,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     ORDER BY answerno DESC
   </select>
   
+  <!-- 전체 답변 목록 출력 -->
+  <select id="list_by_memberno" resultType="dev.mvc.answer.AnswerVO" parameterType = "int">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    WHERE memberno = #{memberno}
+    ORDER BY inquiryno ASC
+  </select>
+  
+  <select id="checkAnswer" resultType="int" parameterType ="int">
+    SELECT COUNT(inquiryno) as cnt
+    FROM answer
+    WHERE inquiryno = #{inquiryno}
+  </select>
+  
 </mapper>

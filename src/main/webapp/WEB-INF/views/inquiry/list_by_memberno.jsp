@@ -64,7 +64,7 @@
             ${inquiryno }
           </td>  
           <td style='vertical-align: middle; text-align: center;'>
-            <a href="./read.do?inquiryno=${inquiryno}&now_page=${param.now_page}"><strong>${inquiryTitle}</strong>  
+            <a href="./read.do?inquiryno=${inquiryno}"><strong>${inquiryTitle}</strong>  
             </a> 
           </td>  
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
@@ -74,7 +74,7 @@
             
             <c:choose>
                 <c:when test="${param.word != '' }"> 미등록 </c:when>
-                <c:when test="${param.word != '' }"> <a href="/answer/read.do?answerno=${answerno }"></a>등록 </c:when>
+                <c:when test="${param.word != '' }"> <a href="/answer/read_by_inquiryno.do?inquiryno=${inquiryno }"></a>등록 </c:when>
             </c:choose>
           </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
