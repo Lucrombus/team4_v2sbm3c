@@ -117,6 +117,20 @@ public interface MemberProcInter {
    */
   public int delete_member(MemberVO memberVO);
   
+  /**
+   * 아이디 찾기
+   * @param memberVO
+   * @return
+   */
+  public String find_id(MemberVO memberVO);
+  
+  /**
+   * 비밀번호 찾기
+   * @param memberVO
+   * @return
+   */
+  public String find_passwd(MemberVO memberVO);
+  
 //  /**
 //   *  페이징된 회원 목록
 //   *  spring framework이 JDBC 관련 코드를 모두 생성해줌

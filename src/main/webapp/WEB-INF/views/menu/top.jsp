@@ -87,7 +87,7 @@ function recommend() {
                      </li>
       
                      <c:if test="${sessionScope.id != null}">
-                       <li><a href="#">${sessionScope.id } ${sessionScope.memberno == 1 ? "(관리자)" : ""}</a>
+                       <li><a href="#">${sessionScope.id } ${sessionScope.rankno == 1 ? "(관리자)" : ""}</a>
                          <ul class="submenu">
                            <li>
                              <a href='/message/list_receive.do'>쪽지
@@ -113,8 +113,8 @@ function recommend() {
                            <li><a href="/member/login.do">로그인</a></li>
                            <li><a href="/member/create.do">개인 회원 가입</a></li>
                            <li><a href="/member/enterprise_create.do">기업회원 가입</a></li>
-                           <li><a href="#">아이디 찾기</a></li>
-                           <li><a href="#">비밀번호 찾기</a></li>
+                           <li><a href="/member/find_id.do">아이디 찾기</a></li>
+                           <li><a href="/member/find_passwd.do">비밀번호 찾기</a></li>
                          </ul>
                        </li>
                      </c:if>
