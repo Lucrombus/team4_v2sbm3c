@@ -166,6 +166,13 @@ public class Report_mCont {
      };
      mav.addObject("f", f);
      
+     Function<Integer, String> f2 = (target_mno) -> {
+       MemberVO memberVO = memberProc.readByMemberno(target_mno);
+       String id = memberVO.getId();
+       return id;
+     };
+     mav.addObject("f2", f2);
+     
      } else {
        mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
      }
