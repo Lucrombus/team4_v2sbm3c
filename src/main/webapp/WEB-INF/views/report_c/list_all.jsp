@@ -73,7 +73,7 @@
 
 
         
-        <tr style="height:50px;" onclick="window.location='/report_c/read.do?reportno=${reportno}'">
+        <tr style="height:50px;" onmouseover="this.style.cursor='pointer'" onclick="window.location='/report_c/read.do?reportno=${reportno}'">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
           ${reportno}
           </td>

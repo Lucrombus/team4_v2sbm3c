@@ -60,7 +60,12 @@
                 <td>${report_mVO.title}</td>
                 <td>${f.apply(report_mVO.target_mno).id }</td>
                 <td>${report_mVO.rdate }</td>
-                <td>${report_mVO.done }</td>
+                <c:if test="${report_mVO.done == 'Y' }">
+                  <td style="color: Green;">처리 완료</td>
+                </c:if>
+                <c:if test="${report_mVO.done == 'N' }">
+                  <td style="color: Red;">대기중</td>
+                </c:if>
               </tr>
             </c:forEach>
             
