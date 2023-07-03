@@ -30,13 +30,13 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all.do" class='title_link'>공지사항</A> > 
-<A href="./read.do?noticeno=${noticeno }" class='title_link'>${title }</A> </DIV>
+<A href="./list_all_search_paging.do?now_page=${param.now_page }" class='title_link'>공지사항</A> > 
+<A href="./read.do?noticeno=${noticeno }&now_page=${param.now_page }&word=${param.word }" class='title_link'>${title }</A> </DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.id != null}">
+    <c:if test="${sessionScope.rankno == 1}">
       <A href="./create.do">등록</A>
       <span class='menu_divide' >│</span>
       <A href="./update_text.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word }">글 수정</A>
@@ -82,7 +82,7 @@
               <img src="/notice/storage/${file1saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
-              <img src="/notice/images/none1.png" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <!-- <img src="/notice/images/none1.png" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> --> 
             </c:otherwise>
           </c:choose>
 

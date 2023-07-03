@@ -19,15 +19,16 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>이력서 </a>
-</DIV>
+<A href="./list_by_memberno_search_paging.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>내 이력서 </a>
 
 <DIV class='content_body'>
-  <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <c:if test="${sessionScope.id != null}">
-     <A href="./create.do">등록</A>
-     <span class='menu_divide' >│</span>
+  <ASIDE class="aside_right">
+    <%-- 회원 로그인해야 메뉴가 출력됨 --%>
+    <c:if test="${sessionScope.rankno == 2}">
+      <A href="./create.do">등록</A>
+      <span class='menu_divide' >│</span>
     </c:if>
+
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
 

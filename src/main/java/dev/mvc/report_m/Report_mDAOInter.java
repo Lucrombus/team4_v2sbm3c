@@ -2,11 +2,13 @@ package dev.mvc.report_m;
 
 import java.util.ArrayList;
 
+import dev.mvc.report_c.Report_cVO;
+
 public interface Report_mDAOInter {
 
   /**
    * 컨텐츠 신고 등록
-   * @param Report_mVO
+   * @param Report_m_answerVO
    * @return
    */
   public int create(Report_mVO report_mVO);
@@ -37,4 +39,10 @@ public interface Report_mDAOInter {
    * @return
    */
   public int delete(int reportno);
+  
+  /**
+   * 신고 글 수정
+   * @return
+   */
+  public int update(Report_mVO report_mVO);
 }

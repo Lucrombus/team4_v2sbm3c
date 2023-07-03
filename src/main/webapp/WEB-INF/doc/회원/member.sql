@@ -7,9 +7,9 @@ CREATE TABLE member(
 		id                                  VARCHAR2(30) UNIQUE NOT NULL,
 		passwd                              VARCHAR2(20) NOT NULL,
 		name                                VARCHAR2(20) NOT NULL,
-        tel                                 VARCHAR(14)  NOT NULL,
+        tel                                 VARCHAR(14)  UNIQUE NOT NULL,
 		rdate                               DATE NOT NULL,
-		rankno                              NUMBER(10),
+		rankno                              NUMBER(10),   /* 1은 관리자, 2는 개인 회원, 3은 기업 회원, 4는 정지 회원, 5는 탈퇴 회원 */
 		experience                          VARCHAR2(10) DEFAULT 'N',
 		gender                              VARCHAR(10) DEFAULT  'N',
 		birth                               DATE NOT NULL,
@@ -111,3 +111,39 @@ ALTER TABLE member ADD UNIQUE(id);
 ALTER TABLE member add constraint primary key(memberno);
 
 commit;
+
+UPDATE member
+SET rankno = 5
+WHERE memberno=1;
+ALTER TABLE member add constraint uni_id UNIQUE(id);
+ALTER TABLE member add constraint pk_memberno primary key(memberno);
+
+
+SELECT COUNT(memberno) as cnt
+FROM member
+WHERE id='user3' AND passwd = 1234 AND rankno <= 3
+
+<!-- 페이징 목록 -->
+  <select id="list_by_cateno_search_paging" resultType="dev.mvc.contents.ContentsVO" parameterType="dev.mvc.contents.ContentsVO">
+   SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education, r
+   FROM (
+              SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education, rownum as r
+              FROM (
+                        SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education
+                        FROM member
+                        ORDER BY rankno ASC
+               )
+    )
+    WHERE r >= 1 AND r <= 10
+     
+    <!-- 1 page: WHERE r >= 1 AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
+  
+<!-- 전체 답변 목록 출력 -->
+  <select id="list_all" resultType="dev.mvc.answer.AnswerVO">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    WHERE name = ' ' AND tel AND birth '
+  </select>

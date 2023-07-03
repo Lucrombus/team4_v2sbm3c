@@ -6,8 +6,8 @@
 
     <!-- 회원 신고 생성 -->
     <insert id="create" parameterType="dev.mvc.report_m.Report_mVO">
-      INSERT INTO report_m(reportno, memberno, target_mno, title, reason, rdate)
-      VALUES (report_m_seq.nextval, #{memberno}, #{target_mno}, #{title}, #{reason}, sysdate)
+      INSERT INTO report_m(reportno, memberno, target_mno, title, reason, rdate, done, answer)
+      VALUES (report_m_seq.nextval, #{memberno}, #{target_mno}, #{title}, #{reason}, sysdate, #{done}, #{answer})
     </insert>
   
     <!-- 나의 신고 리스트 -->
@@ -39,7 +39,12 @@
     </delete>
     
     
-    <!-- 수정 기능은 없음(불필요) -->
+    <!-- 답변 등록(수정 update로 answer값과 done값 수정) -->
+    <update id="update" parameterType="dev.mvc.report_m.Report_mVO">
+      UPDATE report_m 
+      SET answer = #{answer}, done = #{done}
+      WHERE reportno = #{reportno}
+    </update>
     
     
 </mapper>

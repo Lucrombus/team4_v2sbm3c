@@ -51,7 +51,7 @@ CREATE SEQUENCE resume_seq
 --insert
 INSERT INTO resume(resumeno, memberno, title, file1, file1saved, thumb1, size1, rdate, 
                    intro, tel, address, career, skills, langskill, wantjob)
-VALUES(resume_seq.nextval, 1, '이력서제목1', '', '', '', 0, sysdate, 
+VALUES(resume_seq.nextval, 5, '이력서제목1', '', '', '', 0, sysdate, 
       '자기소개test1', '010-00', '인천', '웹개발경력 3년', '스프링 부트', '일어 가능', '편의점');
 
 --select

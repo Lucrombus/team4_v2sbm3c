@@ -86,4 +86,25 @@ public interface MemberDAOInter {
    * 로그인 처리
    */
   public int login(HashMap<String, Object> map);
+  
+  /**
+   * 탈퇴 회원 처리
+   * @param memberVO
+   * @return
+   */
+  public int suspend_member(MemberVO memberVO);
+  
+  /**
+   * 탈퇴 회원 처리
+   * @param memberVO
+   * @return
+   */
+  public int delete_member(MemberVO memberVO);
+  
+//  /**
+//   *  페이징된 회원 목록
+//   *  spring framework이 JDBC 관련 코드를 모두 생성해줌
+//   * @return
+//   */
+//  public ArrayList<MemberVO> list_by_paging(MemberVO memberVO);
 }

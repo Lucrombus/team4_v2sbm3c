@@ -17,8 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.board.BoardVO;
 import dev.mvc.jobcate.JobcateProcInter;
 import dev.mvc.jobcate.JobcateVO;
+import dev.mvc.like_guin.Like_guinProcInter;
+import dev.mvc.like_guin.Like_guinVO;
 import dev.mvc.member.MemberProc;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
@@ -27,6 +30,8 @@ import dev.mvc.tool.Upload;
 
 @Controller
 public class Guin_cCont {
+  
+  
 
   @Autowired
   @Qualifier("dev.mvc.guin_c.Guin_cProc")
@@ -39,6 +44,10 @@ public class Guin_cCont {
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.like_guin.Like_guinProc")
+  private Like_guinProcInter like_guinProc;
 
   public Guin_cCont() {
     System.out.println("Guin_cCont created");
@@ -259,6 +268,9 @@ public class Guin_cCont {
 
     JobcateVO jobcateVO = jobcateProc.read(guin_cVO.getJobcateno());
     mav.addObject("jobcateVO", jobcateVO);
+    
+    Like_guinVO like_guinVO = new Like_guinVO();
+    mav.addObject("like_guinVO", like_guinVO);
 
     // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
     Function<Integer, String> f = (memberno) -> {
@@ -271,8 +283,23 @@ public class Guin_cCont {
       return id;
     };
     mav.addObject("f", f);
+    
+    // guin_cno와 현재 세션의 memberno로 이미 관심등록한 글인지 체크하는 메소드
+    Function<Like_guinVO, Integer> f2 = (like_guinVO_read) -> {
+      
+      int cnt = this.like_guinProc.check(like_guinVO_read);
+      return cnt;
+    };
+    mav.addObject("f2", f2);
 
     int search_count = guin_cProc.search_count(guin_cVO);
+    
+    // 업종번호로 업종VO를 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, JobcateVO> f3 = (jobcateno) -> {
+      JobcateVO jobcatenoVO_read = this.jobcateProc.read(jobcateno);
+      return jobcatenoVO_read;
+    };
+    mav.addObject("f3", f3);
 
     /*
      * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
@@ -569,6 +596,8 @@ public class Guin_cCont {
     // 삭제할 정보를 조회하여 확인
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     
+
+    
     if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
       mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
 
@@ -608,6 +637,9 @@ public class Guin_cCont {
     // System.out.println("-> contentsno: " + contentsno);
 
     ModelAndView mav = new ModelAndView();
+    
+    System.out.println("글의 주인: " + guin_cVO.getMemberno());
+    System.out.println("현재 로그인: " + session.getAttribute("memberno"));
 
     if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
       this.guin_cProc.map(guin_cVO);
@@ -643,7 +675,6 @@ public class Guin_cCont {
     return mav; // forward
   }
   
- 
   
   
   

@@ -41,8 +41,11 @@
           </LI>  
           <LI class='li_none'>
             <button type='button' 
-                         onclick="location.href='./index.do'"
-                         class="btn btn-info btn-sm">메인</button>
+                         onclick="location.href='/'"
+                         class="btn btn-info btn-sm">시작 화면</button>
+            <button type='button' 
+                         onclick="location.href='./list_by_memberno.do?memberno=${memberno}'"
+                         class="btn btn-info btn-sm">문의 목록</button>   
           </LI> 
         </c:when>
         
@@ -52,7 +55,7 @@
           </LI>
           <LI class='li_none'>
             <button type='button' 
-                         onclick="location.href='./index.do'"
+                         onclick="location.href='/index.do'"
                          class="btn btn-info btn-sm">메인</button>
           </LI>                                                                     
         </c:when>
@@ -66,31 +69,40 @@
                          onclick="location.href='/'"
                          class="btn btn-info btn-sm">시작 화면</button>
             <button type='button' 
-                         onclick="location.href='/member/list.do'"
-                         class="btn btn-info btn-sm">회원 목록</button>                   
+                         onclick="location.href='./list_by_memberno.do?memberno=${memberno}'"
+                         class="btn btn-info btn-sm">문의 목록</button>                   
           </LI>                                                                       
         </c:when>
                 
         <c:when test="${param.code == 'update_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">${param.name }님(${param.id }) 문의 글 수정에 실패했습니다.</span>
+            <span class="span_fail">문의 글 수정에 실패했습니다.</span>
           </LI>                                                                      
         </c:when>
         
         <c:when test="${param.code == 'delete_success'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">${param.name }님(${param.id }) 문의 글 삭제에 성공했습니다.</span>
+            <span class="span_success">문의 글 삭제에 성공했습니다.</span>
           </LI>   
           <LI class='li_none'>
             <button type='button' 
-                         onclick="location.href='/member/list.do'"
-                         class="btn btn-info btn-sm">회원 목록</button>
+                         onclick="location.href='/'"
+                         class="btn btn-info btn-sm">시작 화면</button>
+            <button type='button' 
+                         onclick="location.href='./list_by_memberno.do?memberno=${memberno}'"
+                         class="btn btn-info btn-sm">문의 목록</button>   
           </LI>                                                                     
         </c:when>    
             
         <c:when test="${code == 'delete_fail'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">${param.name }님(${param.id }) 문의 글 삭제에 실패했습니다.</span>
+            <span class="span_fail">문의 글 삭제에 실패했습니다.</span>
+          </LI>                                                                      
+        </c:when> 
+        
+        <c:when test="${code == 'member_different'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">본인 글이 아니면 수정 할 수 없습니다.</span>
           </LI>                                                                      
         </c:when> 
         

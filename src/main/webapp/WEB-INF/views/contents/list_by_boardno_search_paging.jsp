@@ -72,6 +72,14 @@
     
     </thead>
     
+    <c:if test="${list[0]== null}">
+       <tr>
+        <td colspan="4" style='vertical-align: middle; text-align: center; font-size: 17px;'>
+        등록된 글이 아무것도 없습니다!
+        </td>
+       </tr>
+    </c:if>
+    
     <tbody>
       <c:forEach var="contentsVO" items="${list }">
         <c:set var="title" value="${contentsVO.title }" />
@@ -86,7 +94,7 @@
           ${contentsno}
           </td>
           <td style='vertical-align: middle;'>
-            <a href="./read.do?contentsno=${contentsno}&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}"><strong>${title}</strong> <span class="reply-count">[${f2.apply(contentsno)}]</span>           
+            <a href="./read.do?contentsno=${contentsno}&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}"><strong>${param.boardno == 0 ? [f3.apply(boardno).name] : '' }</strong> ${title} <span class="reply-count">[${f2.apply(contentsno)}]</span>           
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>

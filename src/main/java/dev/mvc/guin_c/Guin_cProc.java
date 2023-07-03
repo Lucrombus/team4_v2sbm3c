@@ -112,6 +112,12 @@ public class Guin_cProc implements Guin_cProcInter {
     int cnt = this.guin_cDAO.count_by_jobcateno(jobcateno);
     return cnt;
   }
+  
+  @Override
+  public int delete_all(int jobcateno) {
+    int cnt = this.guin_cDAO.delete_all(jobcateno);
+    return cnt;
+  }
 
   
   
@@ -214,7 +220,7 @@ public class Guin_cProc implements Guin_cProcInter {
 
     return str.toString();
   }
-
- 
+  
+  
 
 }

@@ -6,6 +6,7 @@
 <c:set var="title" value="${noticeVO.title }" />
 <c:set var="content" value="${noticeVO.content }" />
 <c:set var="word" value="${noticeVO.word }" />
+<c:set var="topview" value="${noticeVO.topview }" /> <%-- topview 값을 읽어옴 --%>
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -23,7 +24,9 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'> 공지사항 > ${title } > 수정</DIV>
+<DIV class='title_line'> 
+<A href="./list_all_search_paging.do?now_page=${param.now_page }" class='title_link'>공지사항</A> 
+> ${title } > 수정</DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
@@ -54,6 +57,14 @@
        <input type='text' name='word' value="${word }" required="required" 
                  class="form-control" style='width: 100%;'>
     </div>   
+    <div>
+       <label>상단 노출 여부
+       <input type='checkbox' name='topview' value="Y" <%-- 수정: 상단 노출 체크박스의 값을 'Y'로 지정 --%>
+                 <%-- 상단 노출 체크박스가 체크된 경우에는 'Y', 체크되지 않은 경우에는 'N' --%>
+                 <%-- topview 변수의 값을 'Y'로 설정해주어야 합니다. --%>
+                 <%-- 예를 들어, ${topview == 'Y' ? 'checked' : ''} 로 수정할 수 있습니다. --%>
+                 ${topview == 'Y' ? 'checked' : ''} class="form-control" style='width: 100%;'></label>
+    </div>  
     
     
        

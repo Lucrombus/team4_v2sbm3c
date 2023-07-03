@@ -19,20 +19,24 @@
 <body>
 <%-- <jsp:include page="../menu/top.jsp" flush='false' /> --%>
 <c:import url="/menu/top.do" />
-
-  <DIV style='width: 100%; margin: 30px auto; text-align: center;'>
-    <%-- /static/images/index01.png --%>
-    <IMG src='/images/index01.png' style='width: 7%;'>
+  <DIV class='main_container'>
+    <DIV class='index_left'>
+	    <DIV class='main_box'>
+		    <IMG src='/images/index_cafe.jpg' style='width: 70%;'>
+		  </DIV>
+		</DIV>
+		<DIV class='index_right'>
+		  <DIV class='main_box' style='border: 3px solid rgba(80, 40, 0, 0.7); margin-top:30px; width:80%;'>
+		    <a>알바 구하기 힘들 때!</a><br><br>
+		    <a>여러 알바 비교하고 싶을 때!</a><br><br>
+		    <a>쉬운 알바 찾아보고 싶을 때!</a><br><br>
+		    <a>단기 알바 지원하고 싶을 때!</a><br><br>
+		    <a>알바 찾느라 지친 당신을 위한!</a><br><br><br>
+		    <a>알바지옥몬</a>
+		    <IMG src='/images/hellmon.png' style='width: 5%;'>
+		  </DIV>
+		</DIV>
   </DIV>
-  
-  <DIV style='margin: 0px auto; width: 90%;'>
-    
-    
-  </DIV>
- 
-  <DIV style='width: 94.8%; margin: 0px auto;'>
-  </DIV>  
- 
 <jsp:include page="./menu/bottom.jsp" flush='false' />
  
 </body>

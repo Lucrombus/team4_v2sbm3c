@@ -33,9 +33,9 @@
     <c:if test="${sessionScope.id != null}">
       <A href="./create.do?memberno=${memberno}">등록</A>
       <span class='menu_divide' >│</span>
-      <A href="./update.do?inquiryno=${inquiryno}&now_page=${param.now_page}">문의 수정</A>
+      <A href="./update.do?inquiryno=${inquiryno}">문의 수정</A>
       <span class='menu_divide' >│</span>
-      <A href="./delete.do?inquiryno=${inquiryno}&now_page=${param.now_page}">삭제</A>  
+      <A href="./delete.do?inquiryno=${inquiryno}">삭제</A>  
       <span class='menu_divide' >│</span>
     </c:if>
 
@@ -45,12 +45,11 @@
   <DIV class='menu_line'></DIV>
 
   <fieldset class="fieldset_basic">
-    <ul>
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
 
           <span style="font-size: 1.5em; font-weight: bold;">제목 - ${inquiryTitle }</span><br>
-          <div style="font-size: 1em;">${id } / ${rdate }</div><br>
+          <div style="font-size: 1em;">${f.apply(memberno) } / ${rdate }</div><br>
           ${inquiryReason }
         </DIV>
       </li>

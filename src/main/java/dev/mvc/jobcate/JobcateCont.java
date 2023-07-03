@@ -80,11 +80,16 @@ public class JobcateCont {
 // http://localhost:9093/jobcate/read_delete.do
   @RequestMapping(value = "/jobcate/read_delete.do", method = RequestMethod.GET)
   public ModelAndView read_delete(int jobcateno) {
+    
+    ModelAndView mav = new ModelAndView();
 
     ArrayList<JobcateVO> list = this.jobcateProc.list_all();
     JobcateVO jobcateVO = this.jobcateProc.read(jobcateno);
+    
+    int count_by_jobcateno = this.guin_cProc.count_by_jobcateno(jobcateno);
+    mav.addObject("count_by_jobcateno", count_by_jobcateno);
 
-    ModelAndView mav = new ModelAndView();
+    
     
     Function<Integer, Integer> f = (jobcateno_read) -> {
       int count = this.guin_cProc.count_by_jobcateno(jobcateno_read);
@@ -109,6 +114,7 @@ public class JobcateCont {
   @RequestMapping(value = "/jobcate/delete.do", method = RequestMethod.POST)
   public ModelAndView delete(int jobcateno) {
 
+    int cnt_child = this.guin_cProc.delete_all(jobcateno); // 자식 레코드부터 전부 삭제해야 함
     int cnt = this.jobcateProc.delete(jobcateno);
 
     ModelAndView mav = new ModelAndView();

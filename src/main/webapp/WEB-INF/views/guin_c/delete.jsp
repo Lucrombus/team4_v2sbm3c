@@ -15,7 +15,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>알바지옥몬 0.1</title>
  <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
  
@@ -31,7 +31,7 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right"  style="padding-bottom: 10px;">
-    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">기본 목록형</A> 
+    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">목록</A> 
     <span class='menu_divide' >│</span>   
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>

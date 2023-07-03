@@ -19,7 +19,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>알바지옥몬 0.1</title>
 <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -103,7 +103,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
 
 <DIV class='content_body'>
   <ASIDE class="aside_right"  style="padding-bottom: 10px;">
-    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">기본 목록형</A> 
+    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">목록</A> 
     <span class='menu_divide' >│</span>   
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>
@@ -184,7 +184,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
     
 
     <input type="hidden" name="guin_cno" value="${guin_cno }">
-    <input type="hidden" name="memberno" value="${sessionScope.memberno}">
+    <input type="hidden" name="memberno" value="${guin_cVO.memberno}">
     <input type="hidden" name="thumb1" value="${guin_cVO.thumb1 }">
     <input type="hidden" name="file1" value="${file1 }" id="file1">
     <input type="hidden" name="file1saved" value="${file1saved }" id="file1saved">

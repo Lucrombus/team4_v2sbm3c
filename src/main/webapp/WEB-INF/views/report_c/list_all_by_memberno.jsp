@@ -19,76 +19,54 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all_by_memberno.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>내 신고 내역 </a>
+<a href="/report_c/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; font-weight:bold;">게시글 신고 조회 </span></a>
 </DIV>
+<!-- ------------------------------------------------------ -->
+<DIV style='width: 50%; margin: 30px auto; text-align: center;'>
+        <table class="table table-hover table-bordered table-sm" style="width: 100%;">
+            <colgroup>
+                <col style='width: 10%;' />
+                <col style='width: 50%;' />
+                <col style='width: 20%;' />
+                <col style='width: 10%;' />
+            </colgroup>
 
-<DIV class='content_body'>
-  <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <c:if test="${sessionScope.id != null}">
-     <A href="./create.do">등록</A>
-     <span class='menu_divide' >│</span>
-    </c:if>
-    <A href="javascript:location.reload();">새로고침</A>
-  </ASIDE> 
+            <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">신고된 게시글 제목</th>
+                    <th scope="col">날짜</th>
+                    <th scope="col">처리여부</th>
+                </tr>
+            </thead>
 
-  <DIV class='menu_line'></DIV>
+
+            <tbody>
+            <c:if test="${list[0]== null}">
+            <tr>
+            <td colspan="5">
+            게시글 신고 내역이 없습니다!
+            </td>
+            </tr>
+            </c:if>
+            
+            <c:forEach var="report_cVO" items="${list }">
+              <tr onclick="location.href='/report_c/read.do?reportno=${report_cVO.reportno }'" class="hover">
+                <td>${report_cVO.reportno  }</td>
+                <td>${f.apply(report_cVO.contentsno).title }</td>
+                <td>${report_cVO.rdate }</td>
+                <td>${report_cVO.done }</td>
+              </tr>
+            </c:forEach>
+            
+             
+            </tbody>
+        </table>
+    </DIV>
+<!-- ------------------------------------------------------ -->
   
-  <table class="table table-striped" style='width: 100%;'>
-    <colgroup>
-      <col style="width: 5%;"></col>
-      <col style="width: 15%;"></col>
-      <col style="width: 60%;"></col>
-      <col style="width: 15%;"></col>
-      <col style="width: 5%;"></col>
-
-    </colgroup>
-
-    <thead>
-      <tr >
-        <th style='text-align: center;'>신고번호</th>
-        <th style='text-align: center;'>신고된 글 고유번호</th>
-        <th style='text-align: center;'>내용</th>
-        <th style='text-align: center;'>작성일</th>
-        <th style='text-align: center;'>신고자</th>
-
-      </tr>
-    
-    </thead>
-    
-    <tbody>
-      <c:forEach var="report_cVO" items="${list }">
-        <c:set var="reason" value="${report_cVO.reason }" />
-        <c:set var="contentsno" value="${report_cVO.contentsno }" />
-        <c:set var="reportno" value="${report_cVO.reportno }" />
-        <c:set var="rdate" value="${report_cVO.rdate }" />
-        <c:set var="memberno" value="${report_cVO.memberno }" />
-
-
-
-        
-        <tr style="height:50px;">
-          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${reportno}
-          </td>
-          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-          <a href="/contents/read.do?contentsno=${contentsno}"><strong>${contentsno }</strong></a> 
-          </td>
-          <td style='vertical-align: middle; '>
-            <a href="./read.do?reportno=${reportno}"><strong>${reason}</strong></a> 
-          </td> 
-          <td style='vertical-align: middle; text-align: center;'>
-          ${rdate }
-          </td>
-          <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-          ${id }
-          </td>
-        </tr>
-        
-      </c:forEach>
-
-
-    </tbody>
-  </table>
+  
+  
    <!-- 페이지 목록 출력 부분 시작 -->
   <DIV class='bottom_menu'>${paging }</DIV> <%-- 페이지 리스트 --%>
   <!-- 페이지 목록 출력 부분 종료 -->

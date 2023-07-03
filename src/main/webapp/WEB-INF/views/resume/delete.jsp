@@ -27,20 +27,20 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>이력서 </a> > 
+<A href="./list_by_memberno_search_paging.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>내 이력서 </a> > 
 <A href="./read.do?resumeno=${resumeno }" class='title_link'>${title }</A> > 글 삭제</DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.id != null}">
+    <%-- 회원 로그인해야 메뉴가 출력됨 --%>
+    <c:if test="${sessionScope.rankno == 2}">
       <A href="./create.do">등록</A>
       <span class='menu_divide' >│</span>
-      <A href="./update_text.do?resumeno=${resumeno}&now_page=${param.now_page}">글 수정</A>
+      <A href="./update_text.do?resumeno=${resumeno}">글 수정</A>
       <span class='menu_divide' >│</span>
-      <A href="./update_file.do?resumeno=${resumeno}&now_page=${param.now_page}">파일 수정</A>  
+      <A href="./update_file.do?resumeno=${resumeno}">파일 수정</A>  
       <span class='menu_divide' >│</span>
-      <A href="./delete.do?resumeno=${resumeno}&now_page=${param.now_page}">삭제</A>  
+      <A href="./delete.do?resumeno=${resumeno}">삭제</A>  
       <span class='menu_divide' >│</span>
     </c:if>
 
@@ -53,19 +53,19 @@
   <fieldset class="fieldset_basic">
     <ul>
       <li class="li_none">
-        <DIV style='text-align: center; width: 50%; float: left;'>
+        <DIV style='text-align: center; width: 100%; float: left;'>
 
           <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
-              <img src="/resume/storage/${file1saved }" style='width: 90%;'> 
+              <img src="/resume/storage/${file1saved }" style='width: 50%;'> 
             </c:when>
             <c:otherwise> <!-- 이미지가 없는 경우 -->
-              이미지가 없습니다.
+              
             </c:otherwise>
           </c:choose>
         </DIV>
 
-        <DIV style='text-align: left; width: 47%; float: left;'>
+        <DIV style='text-align: center; width: 100%; float: left;'>
           <span style='font-size: 1.5em;'>${title}</span>
           <c:if test="${size1 > 0 }">
             <br>삭제되는 파일: ${file1 }

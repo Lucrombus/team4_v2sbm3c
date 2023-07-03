@@ -252,6 +252,13 @@ public class ContentsCont {
       return cnt;
     };
     mav.addObject("f2", f2);
+    
+    // 보드 번호로 보드VO를 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
+    Function<Integer, BoardVO> f3 = (boardno) -> {
+      BoardVO boardVO_read = this.boardProc.read(boardno);
+      return boardVO_read;
+    };
+    mav.addObject("f3", f3);
 
     int search_count = contentsProc.search_count(contentsVO);
 

@@ -9,7 +9,7 @@ CREATE TABLE guin_c(
 		memberno                      		NUMBER(10)		 NOT NULL,  --FK
 		name                          		VARCHAR2(50)		 NOT NULL,
 		brand                         		VARCHAR2(50)		 NOT NULL,
-		title                         		VARCHAR2(100)		 NOT NULL,
+		title                         		VARCHAR2(200)		 NOT NULL,
 		content                       		VARCHAR2(4000)		 NOT NULL,
 		rdate                          		DATE		 NOT NULL,
 		address                       		VARCHAR2(200)		 NOT NULL,
@@ -37,7 +37,7 @@ COMMENT ON COLUMN guin_c.name is '업체명';
 COMMENT ON COLUMN guin_c.brand is '프렌차이즈';
 COMMENT ON COLUMN guin_c.title is '제목';
 COMMENT ON COLUMN guin_c.content is '내용';
-COMMENT ON COLUMN guin_c.date is '등록일';
+COMMENT ON COLUMN guin_c.rdate is '등록일';
 COMMENT ON COLUMN guin_c.address is '주소';
 COMMENT ON COLUMN guin_c.wage is '시급';
 COMMENT ON COLUMN guin_c.day is '근무요일';
@@ -120,8 +120,12 @@ WHERE jobcateno = 1 AND (UPPER(title) LIKE '%' ||UPPER('123') || '%'
                                                                       OR UPPER(word) LIKE '%' || UPPER('123') || '%')
                         ORDER BY jobcateno DESC
                )
-    )
+    );
 
+
+SELECT *
+FROM guin_c
+WHERE guin_cno IN (SELECT guin_cno FROM like_guin WHERE memberno =1);
 
 
 

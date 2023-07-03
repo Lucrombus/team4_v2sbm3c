@@ -25,19 +25,25 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'>
-<A href="./list_all.do" class='title_link'>공지사항</A> >
-<A href="./read.do?noticeno=${noticeno }" class='title_link'>${title }</A> > 파일 삭제</DIV>
+<DIV class='title_line'> 
+<A href="./list_all_search_paging.do?now_page=${param.now_page }" class='title_link'>공지사항</A> 
+> ${title } > 파일 삭제</DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <A href="./create.do?cateno=${cateno }">등록</A>
-    <span class='menu_divide' >│</span>
+    <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
+    <c:if test="${sessionScope.id != null}">
+      <A href="./create.do">등록</A>
+      <span class='menu_divide' >│</span>
+      <A href="./update_text.do?noticeno=${noticeno}&now_page=${param.now_page}&word=${param.word }">글 수정</A>
+      <span class='menu_divide' >│</span>
+      <A href="./update_file.do?noticeno=${noticeno}&now_page=${param.now_page}">파일 수정</A>  
+      <span class='menu_divide' >│</span>
+      <A href="./delete.do?noticeno=${noticeno}&now_page=${param.now_page}">삭제</A>  
+      <span class='menu_divide' >│</span>
+    </c:if>
+
     <A href="javascript:location.reload();">새로고침</A>
-    <span class='menu_divide' >│</span>
-    <A href="./update_text.do?contentsno=${contentsno}">글 수정</A>
-    <span class='menu_divide' >│</span>
-    <A href="./update_file.do?contentsno=${contentsno}">파일 수정</A>  
   </ASIDE> 
   
   
@@ -53,12 +59,12 @@
               <img src="/notice/storage/${file1saved }" style='width: 90%;'> 
             </c:when>
             <c:otherwise> <!-- 이미지가 없는 경우 -->
-              이미지가 없습니다.
+              
             </c:otherwise>
           </c:choose>
         </DIV>
 
-        <DIV style='text-align: left; width: 47%; float: left;'>
+        <DIV style='text-align: center; width: 100%; float: left;'>
           <span style='font-size: 1.5em;'>${title}</span>
           <c:if test="${size1 > 0 }">
             <br>삭제되는 파일: ${file1 }

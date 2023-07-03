@@ -102,4 +102,34 @@ public interface MemberProcInter {
    * 로그인 처리
    */
   public int login(HashMap<String, Object> map);
+  
+  /**
+   * 탈퇴 회원 처리
+   * @param memberVO
+   * @return
+   */
+  public int suspend_member(MemberVO memberVO);
+  
+  /**
+   * 탈퇴 회원 처리
+   * @param memberVO
+   * @return
+   */
+  public int delete_member(MemberVO memberVO);
+  
+//  /**
+//   *  페이징된 회원 목록
+//   *  spring framework이 JDBC 관련 코드를 모두 생성해줌
+//   * @return
+//   */
+//  public ArrayList<MemberVO> list_by_paging(MemberVO memberVO);
+//  
+//  /** 
+//   * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 
+//   * 현재 페이지: 11 / 22   [이전] 11 12 13 14 15 16 17 18 19 20 [다음] 
+//   * 
+//   * @param now_page      현재 페이지
+//   * @return 페이징 생성 문자열
+//   */ 
+//  public String pagingBox(int now_page);
 }

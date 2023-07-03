@@ -19,7 +19,7 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-<A href="./list_all.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>이력서 </a> > 새 이력서 등록</DIV>
+<A href="./list_by_memberno_search_paging.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>내 이력서 </a> > 새 이력서 등록</DIV>
 
 <DIV class='content_body'>
   
@@ -84,7 +84,9 @@
     
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">등록</button>
-      <button type="button" onclick="location.href='./list_all.do??memberno=${sessionScope.memberno }'" class="btn btn-primary">목록</button>
+      <button type="button" 
+              onclick="location.href='./list_by_memberno_search_paging.do?memberno=${sessionScope.memberno }&now_page=1'" 
+              class="btn btn-primary">목록</button>
     </div>
   
   </FORM>

@@ -110,7 +110,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
 
 <DIV class='content_body'>
   <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <A href="./list_by_boardno_search_paging.do?boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word }">기본 목록형</A>    
+    <A href="./list_by_boardno_search_paging.do?boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word }">목록</A>    
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
 
@@ -191,12 +191,12 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
         </c:choose>  ${f.apply(memberno).id == null ? '(알 수 없음)' : f.apply(memberno).id}
       </td>
       <td>${replyVO.reply_content }</td>
-      <td><a href=""><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)"></a> +${f2.apply(replyVO.replyno) } </td>
+      <td><IMG src="/images/gaechu.png" class="icon" data-value="${replyVO.replyno }" onclick="gaechu(this)" style="cursor:pointer;"> +${f2.apply(replyVO.replyno) } </td>
       <td style="font-size:13px; vertical-align: middle;">${replyVO.rdate }</td>
       <td>
       <a><IMG src="/cate/images/delete.png" class="icon" style="cursor:pointer;"
       onclick="confirmClick(this)" data-value="${replyVO.memberno}" data-replyno="${replyVO.replyno}"></a>
-      <a href="/report_m/create.do?memberno=${replyVO.memberno}"><img src='/images/siren.png' title="신고" class="icon"></a>
+      <a href="/report_m/create.do?target_id=${f.apply(memberno).id }"><img src='/images/siren.png' title="신고" class="icon"></a>
       </td>
       </tr>
       </c:forEach>

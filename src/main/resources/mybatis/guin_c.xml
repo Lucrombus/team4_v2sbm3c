@@ -10,12 +10,12 @@
         (guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1)
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1, like_w)
         VALUES
         (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name},
         #{brand}, #{title},
         #{content}, sysdate, #{address},
-        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1}, #{thumb1_origin}, #{file1}, #{file1saved}, #{size1})
+        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1}, #{thumb1_origin}, #{file1}, #{file1saved}, #{size1}, 'N')
     </insert>
     
     <!-- 조회 -->
@@ -23,7 +23,7 @@
         SELECT guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map, like_w
         FROM guin_c
         WHERE guin_cno = #{guin_cno}
     </select>
@@ -117,14 +117,21 @@
           2 page: WHERE r >= 11 AND r <= 20;
           3 page: WHERE r >= 21 AND r <= 30; -->
   </select>
-  
-   <!-- 카테고리별 카운트 검색 -->
-  <select id="count_by_jobcateno" resultType="int" parameterType="int">
-  SELECT COUNT(*)
-  FROM guin_c
-  WHERE jobcateno = #{jobcateno}
-  
-  </select>
+
+    <!-- 카테고리별 카운트 검색 -->
+    <select id="count_by_jobcateno" resultType="int"
+        parameterType="int">
+        SELECT COUNT(*)
+        FROM guin_c
+        WHERE jobcateno = #{jobcateno}
+
+    </select>
+
+    <!-- 일괄 삭제 -->
+    <delete id="delete_all" parameterType="int">
+        DELETE FROM guin_c
+        WHERE jobcateno = #{jobcateno}
+    </delete>
 
 
 

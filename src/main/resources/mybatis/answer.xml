@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace = "dev.mvc.answer.AnswerDAOInter">
+  
+  <insert id="create" parameterType="dev.mvc.answer.AnswerVO">
+   INSERT INTO answer(answerno, content, rdate, inquiryno, memberno) 
+   VALUES (answer_seq.nextval, #{content}, sysdate , #{inquiryno}, #{memberno}) 
+  </insert>
+
+  <!-- answerno에 따른 답변 정보 조회 -->
+  <select id="read" resultType="dev.mvc.answer.AnswerVO" parameterType="int">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    WHERE answerno = #{answerno}
+  </select>
+  
+  <!-- 전체 답변 목록 출력 -->
+  <select id="list_all" resultType="dev.mvc.answer.AnswerVO">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    ORDER BY inquiryno ASC
+  </select>
+  
+  <!-- answerno에 따른 답변 수정 -->
+  <update id="update"  parameterType="dev.mvc.answer.AnswerVO">
+    UPDATE answer
+    SET content = #{content}
+    WHERE answerno = #{answerno}
+  </update> 
+  
+  <!-- answerno에 따른 답변 삭제 -->
+  <delete id="delete"  parameterType="int">
+    DELETE FROM answer
+    WHERE answerno = #{answerno}
+  </delete>
+  
+  <!-- inquiryno에 따른 문의와 답변 조회 -->
+  <select id="read_by_inquiryno" resultType="dev.mvc.answer.AnswerVO" parameterType="int">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    WHERE inquiryno = 1
+    ORDER BY answerno DESC
+  </select>
+  
+</mapper>

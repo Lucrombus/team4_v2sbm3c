@@ -103,11 +103,16 @@
 
  <!-- 카테고리별 카운트 검색 -->
   <select id="count_by_boardno" resultType="int" parameterType="int">
-  SELECT COUNT(*)
-  FROM contents
-  WHERE boardno = #{boardno}
-  
+      SELECT COUNT(*)
+      FROM contents
+      WHERE boardno = #{boardno}
   </select>
+  
+  <!-- 일괄 삭제 -->
+  <delete id="delete_all" parameterType="int" >
+      DELETE FROM contents
+      WHERE boardno = #{boardno}
+  </delete>
 
 
 </mapper>

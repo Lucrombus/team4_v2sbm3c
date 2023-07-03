@@ -101,6 +101,12 @@ public class ContentsProc implements ContentsProcInter {
     int cnt = this.contentsDAO.count_by_boardno(boardno);
     return cnt;
   }
+  
+  @Override
+  public int delete_all(int boardno) {
+    int cnt = this.contentsDAO.delete_all(boardno);
+    return cnt;
+  }
 
   
   

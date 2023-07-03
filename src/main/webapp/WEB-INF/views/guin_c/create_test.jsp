@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>알바지옥몬 0.1</title>
 <script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -93,7 +93,7 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right"  style="padding-bottom: 10px;">
-    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">기본 목록형</A> 
+    <A href="./list_by_jobcateno_search_paging.do?jobcateno=${param.jobcateno }&now_page=1">목록</A> 
     <span class='menu_divide' >│</span>   
     <A href="javascript:location.reload();">새로고침</A>
 
@@ -172,7 +172,7 @@
                  value='' placeholder="파일 선택">
                  
       
-    <br>
+    <br><br>
 
     
 
@@ -181,7 +181,20 @@
     <input type="hidden" name="file1" value="" id="file1">
     <input type="hidden" name="file1saved" value="" id="file1saved">
     <input type="hidden" name="size1" value="0" id="size1">
-    <input type='hidden' name='jobcateno' value='${param.jobcateno }'> 
+    <c:choose>
+        <c:when test='${param.jobcateno == 0 }'>
+            <select name="jobcateno" class="form-select" aria-label="Default select example" required="required">
+            <option value='' selected>---업종선택---</option>
+            <c:forEach var="jobcateVO" items="${list }">
+            <option value='${jobcateVO.jobcateno }'>${jobcateVO.name }</option>
+            </c:forEach>
+            
+            </select>
+        </c:when>
+        <c:otherwise>
+          <input type='hidden' name='jobcateno' value='${param.jobcateno }'>  <%-- 게시판의 구분 --%>
+        </c:otherwise>
+     </c:choose>
     
     
     

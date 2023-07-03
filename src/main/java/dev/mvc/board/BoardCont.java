@@ -82,11 +82,16 @@ public class BoardCont {
 // http://localhost:9093/board/read_delete.do
   @RequestMapping(value = "/board/read_delete.do", method = RequestMethod.GET)
   public ModelAndView read_delete(int boardno) {
+    
+    ModelAndView mav = new ModelAndView();
 
     ArrayList<BoardVO> list = this.boardProc.list_all();
     BoardVO boardVO = this.boardProc.read(boardno);
+    int count_by_boardno = this.contentsProc.count_by_boardno(boardno);
+    
+    mav.addObject("count_by_boardno", count_by_boardno);
 
-    ModelAndView mav = new ModelAndView();
+    
     
     Function<Integer, Integer> f = (boardno_read) -> {
       int count = this.contentsProc.count_by_boardno(boardno_read);
@@ -108,7 +113,9 @@ public class BoardCont {
 //http://localhost:9093/board/delete.do
   @RequestMapping(value = "/board/delete.do", method = RequestMethod.POST)
   public ModelAndView delete(int boardno) {
-
+    
+    
+    int cnt_child = this.contentsProc.delete_all(boardno); // 자식 레코드부터 전부 삭제해야 함
     int cnt = this.boardProc.delete(boardno);
 
     ModelAndView mav = new ModelAndView();

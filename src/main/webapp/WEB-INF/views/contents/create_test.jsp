@@ -124,12 +124,26 @@
   
   
   <FORM name='frm' id='frm' method='POST' action='./create_test.do' enctype="multipart/form-data">
+    <br>
 
     <input type="hidden" name="memberno" value="${sessionScope.memberno}">
     <input type="hidden" name="file1" value="" id="file1">
     <input type="hidden" name="file1saved" value="" id="file1saved">
     <input type="hidden" name="size1" value="0" id="size1">
-    <input type='hidden' name='boardno' value='${param.boardno }'> 
+        <c:choose>
+        <c:when test='${param.boardno == 0 }'>
+            <select name="boardno" class="form-select" aria-label="Default select example" required="required">
+            <option value='' selected>---게시판 선택---</option>
+            <c:forEach var="boardVO" items="${list }">
+            <option value='${boardVO.boardno }'>${boardVO.name }</option>
+            </c:forEach>
+            
+            </select>
+        </c:when>
+        <c:otherwise>
+          <input type='hidden' name='boardno' value='${param.boardno }'>  <%-- 게시판의 구분 --%>
+        </c:otherwise>
+     </c:choose> 
     
     
     

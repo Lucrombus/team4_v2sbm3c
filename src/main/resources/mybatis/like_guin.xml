@@ -4,22 +4,50 @@
 
 <mapper namespace="dev.mvc.like_guin.Like_guinDAOInter">
   
-  
+  <!-- 등록 -->
   <insert id="create" parameterType="dev.mvc.like_guin.Like_guinVO">
     INSERT INTO like_guin(like_guinno, memberno, guin_cno) 
     VALUES(like_guin_seq.nextval, #{memberno}, #{guin_cno})
   </insert>
   
-  <select id="list_like_guin" resultType="dev.mvc.like_guin.Like_guinVO">
+  <!-- 목록 -->
+  <select id="list_all" resultType="dev.mvc.like_guin.Like_guinVO">
     SELECT like_guinno, memberno, guin_cno
     FROM like_guin
-    WHERE memberno = #{memberno}
+    WHERE guin_cno = #{guin_cno}
   </select>
-
+  
+  <!-- 조회 -->
+  <select id="read" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="int">
+    SELECT like_guinno, memberno, guin_cno
+    FROM like_guin
+    WHERE like_guinno = #{like_guinno}
+  </select>
+  
   <delete id="delete" parameterType="int">
     DELETE FROM like_guin
     WHERE like_guinno=#{like_guinno}
   </delete>
+  
+  <!-- 이미 관심등록 했는지 조회 -->
+  <select id="check" resultType="int" parameterType="dev.mvc.guin_c.Guin_cVO">
+    SELECT COUNT(*)
+    FROM like_guin
+    WHERE memberno = #{memberno} AND guin_cno = #{guin_cno}
+  </select>
+  
+  <delete id="delete_mine" parameterType="dev.mvc.guin_c.Guin_cVO">
+    DELETE FROM like_guin
+    WHERE memberno = #{memberno} AND guin_cno = #{guin_cno}
+  </delete>
+  
+  <!-- 내가 관심등록한 목록 -->
+  <select id="list_mine" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="int">
+    SELECT *
+    FROM guin_c
+    WHERE guin_cno IN (SELECT guin_cno FROM like_guin WHERE memberno = #{memberno})
+  </select>
+  
 
 
 </mapper>

@@ -95,6 +95,40 @@
           </LI>                                                                      
         </c:when>  
         
+        <c:when test="${param.code == 'suspend_member_success'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_success">회원 정지에 성공했습니다.</span>
+          </LI>
+          <LI class='li_none'>  
+            <button type='button' 
+                         onclick="location.href='/'"
+                         class="btn btn-info btn-sm">시작 화면</button>
+          </LI>                                                                    
+        </c:when>    
+            
+        <c:when test="${code == 'suspend_member_fail'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">회원 정지에 실패했습니다.</span>
+          </LI>                                                                      
+        </c:when> 
+        
+        <c:when test="${param.code == 'delete_member_success'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_success">회원 탈퇴에 성공했습니다.</span>
+          </LI>
+          <LI class='li_none'>  
+            <button type='button' 
+                         onclick="location.href='/'"
+                         class="btn btn-info btn-sm">시작 화면</button>
+          </LI>                                                                    
+        </c:when>    
+            
+        <c:when test="${code == 'delete_member_fail'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">${param.name }님(${param.id }) 회원 탈퇴에 실패했습니다.</span>
+          </LI>                                                                      
+        </c:when> 
+        
         <c:otherwise>
           <LI class='li_none_left'>
             <span class="span_fail">알 수 없는 에러로 작업에 실패했습니다.</span>

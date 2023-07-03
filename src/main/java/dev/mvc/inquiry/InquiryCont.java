@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.answer.AnswerProcInter;
 import dev.mvc.board.BoardVO;
 import dev.mvc.contents.Contents;
 import dev.mvc.contents.ContentsProcInter;
@@ -42,11 +43,30 @@ public class InquiryCont {
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
 
+  @Autowired
+  @Qualifier("dev.mvc.answer.AnswerProc")
+  private AnswerProcInter answerProc;
+  
   public InquiryCont() {
     System.out.println("-> InquiryCont created.");
   }
+  
+  /**
+   * POST 요청시 JSP 페이지에서 JSTL 호출 기능 지원
+   * 새로고침 방지, EL에서 param으로 접근, GET -> POST
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/inquiry/msg.do", method = RequestMethod.GET)
+  public ModelAndView msg(String url) {
+    ModelAndView mav = new ModelAndView();
 
-  // http://localhost:9093/inquiry/create.do?contentsno=3
+    mav.setViewName(url); // forward
+
+    return mav; // forward
+  } 
+  
+  // http://localhost:9093/inquiry/create.do?memberno=3
   /**
    * 문의 글 등록
    * 
@@ -77,20 +97,21 @@ public class InquiryCont {
     if (session.getAttribute("id") != null) {
 //      int memberno = (int)session.getAttribute("memberno"); // adminno FK
 //      inquiryVO.setMemberno(memberno);
+      
       int cnt = inquiryProc.create(inquiryVO);
 
       if (cnt == 1) {
-        mav.setViewName("redirect:/inquiry/list_by_memberno.do");
+        mav.addObject("code", "create_success");
       } else {
-        mav.setViewName("redirect:/inquiry/list_by_member");
+        mav.addObject("code", "create_fail");
       }
-//      mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
-//      
+      mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+     
       mav.addObject("memberno", inquiryVO.getMemberno()); // redirect parameter 적용
 //      mav.addObject("answer", inquiryVO.getAnswer()); // redirect parameter 적용
 //
-//      mav.addObject("url", "/inquiry/msg"); // msg.jsp, redirect parameter 적용
-//     
+      mav.addObject("url", "/inquiry/msg"); // msg.jsp, redirect parameter 적용
+      mav.setViewName("redirect:/inquiry/msg.do");
 
     } else {
       mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
@@ -151,6 +172,7 @@ public class InquiryCont {
     } else {
       mav.setViewName("/member/admin_login_need");
     }
+    
 
     return mav;
   }
@@ -173,9 +195,12 @@ public class InquiryCont {
 
     mav.addObject("inquiryVO", inquiryVO); // request.setAttribute("inquiryVO", inquiryVO);
 
-    // 회원 번호: admino -> AdminVO -> name
-    String name = this.memberProc.read(inquiryVO.getMemberno()).getName();
-    mav.addObject("name", name);
+    Function<Integer, String> f = (memberno) -> {
+      MemberVO memberVO = memberProc.readByMemberno(memberno);
+      String id = memberVO.getId();
+      return id;
+    };
+    mav.addObject("f", f);
 
     mav.setViewName("/inquiry/read"); // /WEB-INF/views/notice/read.jsp
 
@@ -188,67 +213,76 @@ public class InquiryCont {
    * @return
    */
   @RequestMapping(value = "/inquiry/update.do", method = RequestMethod.GET)
-  public ModelAndView update(int inquiryno) {
+  public ModelAndView update(int inquiryno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
-
+    
+    
     InquiryVO inquiryVO = this.inquiryProc.read(inquiryno); // 수정용 데이터
-
-    mav.addObject("inquiryVO", inquiryVO);
-
-    mav.setViewName("/inquiry/update");
-
-    return mav; // forward
-  }
-//  /**
-//   * 회원 정보 수정 처리
-//   * @param memberVO
-//   * @return
-//   */
-//  @RequestMapping(value="/inquiry/update.do", method=RequestMethod.POST)
-//  public ModelAndView update(InquiryVO inquiryVO){
-//    ModelAndView mav = new ModelAndView();
-//    
-//    int cnt = this.inquiryProc.update(inquiryVO);
-//    
-//    if (cnt == 1) {
-//      mav.addObject("code", "update_success");
-//    } else {
-//      mav.addObject("code", "update_fail");
-//    }
-//
-//    mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
-//    mav.addObject("url", "/inquiry/msg");  // /member/msg -> /member/msg.jsp
-//    mav.addObject("inquiryno", inquiryVO.getInquiryno()); // redirect parameter 적용
-//    mav.addObject("memberno", inquiryVO.getMemberno()); // redirect parameter 적용
-//    mav.addObject("rdate", inquiryVO.getRdate()); // redirect parameter 적용
-//    
-//    mav.setViewName("redirect:/inquiry/msg.do");
-//    
-//    return mav;
-//  }
-
-  /**
-   * 수정 처리 http://localhost:9093/inquiry/update_text.do?contentsno=1
-   * 
-   * @return
-   */
-  @RequestMapping(value = "/inquiry/update.do", method = RequestMethod.POST)
-  public ModelAndView update(HttpSession session, InquiryVO inquiryVO) {
-    ModelAndView mav = new ModelAndView();
-
-    // System.out.println("-> word: " + contentsVO.getWord());
-
-    if (this.memberProc.isMember(session) || this.memberProc.isMember(session)) { // 회원이나 기업 로그인
-      int cnt = this.inquiryProc.update(inquiryVO);
-      
-      mav.addObject("inquiryno", inquiryVO.getInquiryno());
-      mav.setViewName("redirect:/inquiry/read.do");
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(inquiryVO.getMemberno())) {
+      MemberVO memberVO = this.memberProc.readByMemberno(inquiryVO.getMemberno());
+      mav.addObject("inquiryVO", inquiryVO);
+      mav.addObject("memberVO", memberVO);
+      mav.setViewName("/inquiry/update");
 
     } else {
-      mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
+      mav.addObject("url", "/inquiry/msg");
+      mav.addObject("code", "member_different");
+      mav.setViewName("redirect:/inquiry/msg.do");
     }
+    
     return mav; // forward
   }
+  
+  /**
+   * 문의 글 수정 처리
+   * @param inquiryVO
+   * @return
+   */
+  @RequestMapping(value="/inquiry/update.do", method=RequestMethod.POST)
+  public ModelAndView update(InquiryVO inquiryVO){
+    ModelAndView mav = new ModelAndView();
+    
+    int cnt = this.inquiryProc.update(inquiryVO);
+    
+    if (cnt == 1) {
+      mav.addObject("code", "update_success");
+    } else {
+      mav.addObject("code", "update_fail");
+    }
+
+    mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+    mav.addObject("url", "/inquiry/msg");  // /member/msg -> /member/msg.jsp
+    mav.addObject("inquiryno", inquiryVO.getInquiryno()); // redirect parameter 적용
+    mav.addObject("memberno", inquiryVO.getMemberno()); // redirect parameter 적용
+    mav.addObject("rdate", inquiryVO.getRdate()); // redirect parameter 적용
+    
+    mav.setViewName("redirect:/inquiry/msg.do");
+    
+    return mav;
+  }
+
+//  /**
+//   * 수정 처리 http://localhost:9093/inquiry/update_text.do?contentsno=1
+//   * 
+//   * @return
+//   */
+//  @RequestMapping(value = "/inquiry/update.do", method = RequestMethod.POST)
+//  public ModelAndView update(HttpSession session, InquiryVO inquiryVO) {
+//    ModelAndView mav = new ModelAndView();
+//
+//    // System.out.println("-> word: " + contentsVO.getWord());
+//
+//    if (this.memberProc.isMember(session) || this.memberProc.isMember(session)) { // 회원이나 기업 로그인
+//      int cnt = this.inquiryProc.update(inquiryVO);
+//      
+//      mav.addObject("inquiryno", inquiryVO.getInquiryno());
+//      mav.setViewName("redirect:/inquiry/read.do");
+//
+//    } else {
+//      mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
+//    }
+//    return mav; // forward
+//  }
   
   /**
    * 삭제 폼
@@ -269,20 +303,49 @@ public class InquiryCont {
   }
   
   /**
-   * 삭제 처리 http://localhost:9093/inquiry/delete.do
+   * 삭제 처리
    * 
+   * @param memberVO
    * @return
    */
   @RequestMapping(value = "/inquiry/delete.do", method = RequestMethod.POST)
-  public ModelAndView delete(InquiryVO inquiryVO) {
+  public ModelAndView delete_proc(int inquiryno) {
     ModelAndView mav = new ModelAndView();
     
-    this.inquiryProc.delete(inquiryVO.getInquiryno()); // DBMS 삭제
+    InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
     
-    mav.addObject("memberno", inquiryVO.getMemberno());
+    int cnt = inquiryProc.delete(inquiryno); // 회원 삭제
+
+    if (cnt == 1) {
+      mav.addObject("code", "delete_success");
+    } else {
+      mav.addObject("code", "delete_fail");
+    }
     
-    mav.setViewName("redirect:/inquiry/list_by_memberno.do"); 
-    
+    mav.addObject("memberno", inquiryVO.getMemberno()); // redirect parameter 적용
+    mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
+    mav.addObject("url", "/inquiry/msg"); // /member/msg -> /member/msg.jsp
+
+    mav.setViewName("redirect:/inquiry/msg.do");
+
     return mav;
-  }   
+  }
+  
+//  /**
+//   * 삭제 처리 http://localhost:9093/inquiry/delete.do
+//   * 
+//   * @return
+//   */
+//  @RequestMapping(value = "/inquiry/delete.do", method = RequestMethod.POST)
+//  public ModelAndView delete(InquiryVO inquiryVO) {
+//    ModelAndView mav = new ModelAndView();
+//    
+//    this.inquiryProc.delete(inquiryVO.getInquiryno()); // DBMS 삭제
+//    
+//    mav.addObject("memberno", inquiryVO.getMemberno());
+//    
+//    mav.setViewName("redirect:/inquiry/list_by_memberno.do"); 
+//    
+//    return mav;
+//  }   
 }

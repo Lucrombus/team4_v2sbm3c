@@ -6,7 +6,7 @@ public interface ContentsProcInter {
   
   /**
    * 등록
-   * @param ContentsVO
+   * @param EventVO
    * @return
    */
   public int create(ContentsVO contentsVO);
@@ -47,6 +47,12 @@ public interface ContentsProcInter {
    * @return
    */
   public int count_by_boardno(int boardno);
+  
+  /**
+   * 일괄삭제
+   * @return
+   */
+  public int delete_all(int boardno);
   
   
   /** 

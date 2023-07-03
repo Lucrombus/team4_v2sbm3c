@@ -3,10 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="reportno" value="${report_mVO.reportno }" />
-<c:set var="memberno" value="${report_mVO.memberno }" />        
-<c:set var="contentsno" value="${report_mVO.contentsno }" />        
+<c:set var="memberno" value="${report_mVO.memberno }" />
+<c:set var="target_mno" value="${report_mVO.target_mno }" />
+<c:set var="title" value="${report_mVO.title }" />                  
 <c:set var="reason" value="${report_mVO.reason }" />        
 <c:set var="rdate" value="${report_mVO.rdate.substring(0, 16) }" />
+<c:set var="done" value="${report_mVO.done }" />        
+<c:set var="answer" value="${report_mVO.answer }" />
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -20,55 +23,102 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> <!-- top 메뉴 drop down 버튼 스크립트를 작동하게 함 -->
-</head> 
+</head>
+
+<script type="text/javascript">
+function check(){
+   var result = confirm("신고를 철회하시겠습니까?"); 
+   if (result){
+     $("#frm").submit();
+       }else{
+           }  
+}
+</script> 
  
 <body>
 <c:import url="/menu/top.do" />
- 
+
 <DIV class='title_line'>
-<A href="./list_all_by_memberno.do?memberno=${sessionScope.memberno }&now_page=1" class='title_link'>신고 내역 </a> > 
-<A href="./read.do?reportno=${reportno }" class='title_link'>${title }</A>${reason }</DIV>
-
-<DIV class='content_body'>
-  <ASIDE class="aside_right">
-    <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.id != null}">
-      <A href="./create.do">등록</A>
-      <span class='menu_divide' >│</span>
-      <A href="./delete.do?reportno=${reportno}">삭제</A>  
-      <span class='menu_divide' >│</span>
-    </c:if>
-
-    <A href="javascript:location.reload();">새로고침</A>
-  </ASIDE> 
-  
-  
-  <DIV class='menu_line'></DIV>
-
-  <fieldset class="fieldset_basic">
-    <ul>
-      <li class="li_none">
-        
-        <div style="font-size: 1em;">신고번호 : ${reportno }</div><br>
-        <div style="font-size: 1em;">신고자 번호 : ${memberno }</div><br>
-        <div style="font-size: 1em;">컨텐츠 번호 : ${contentsno }</div><br>
-        <div style="font-size: 1em;">신고 사유 : ${reason }</div><br>
-        <div style="font-size: 1em;">신고 날짜 : ${rdate }</div><br>
-      </li>
-      
-      <div class='menu_line'></div>
-      
-      <li class="li_none">
-        <DIV>
-          <c:if test="${file1.trim().length() > 0 }"> <%-- ServletRegister.java: registrationBean.addUrlMappings("/download"); --%>
-            첨부 파일: <a href='/download?dir=/resume/storage&filename=${file1saved}&downname=${file1}'>${file1}</a> (${size1_label})  
-          </c:if>
-        </DIV>
-      </li>   
-    </ul>
-  </fieldset>
-
+<a href="/report_m/list_all_by_memberno.do?memberno=${memberno }"><span style="font-size:20px; color:#A4A4A4;">내 신고 조회 </span></a>
+<span class='menu_divide' >│</span>
+<a href="/report_m/create.do"><span style="font-size:20px; color:#A4A4A4;">회원 신고하기 </span></a>
 </DIV>
+
+    <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
+
+        <FORM name='frm' id='frm' method='POST' action='./delete.do'>
+            <input type="hidden" name="target_mno" value="${target_mno }">
+            <input type="hidden" name="memberno" value="${memberno }">
+            <input type="hidden" name="reportno" value="${reportno }">     
+                   
+            <div class="input-group mb-3" style="width:60%;">
+                <span class="input-group-text" id="basic-addon1">신고자</span>
+                <input type="text" class="form-control" value="${id }"style="background-color: white;" readonly>
+                <span class="input-group-text" id="basic-addon1">신고대상</span>
+                <input type="text" class="form-control" value="${id_t}"style="background-color: white;" readonly>
+            </div>
+            
+        
+        
+            
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">제목</span>
+                <input type="text" id="title" class="form-control" value="${title }"  style="background-color: white;" readonly>
+            </div>
+            <div class="input-group">
+                <span class="input-group-text">내용</span>
+                <textarea class="form-control" id="reason" rows="12" style="background-color: white;" readonly>${reason }</textarea>
+            </div>
+            
+            <div class="content_body_bottom">
+            <button type="button" onclick="check()" class="btn btn-danger">삭제</button>
+            </div>
+
+        </FORM>
+        
+<!-- -----------------------답변 시작----------------------- -->
+
+    <FORM name='frm' id='frm' method='POST' action='./update.do' enctype="multipart/form-data">
+      <input type='hidden' name='reportno' value='${report_mVO.reportno}'>
+      
+      <c:if test="${answer != ''}">
+      <input type='hidden' name='done' value='Y'> <!-- done 값을 바꾸기 위해 미리 작성함@@@@@@@@@@@@@@@@ -->
+        <div class="input-group">
+          <span class="input-group-text">답변</span>
+          <c:if test="${sessionScope.rankno == 1}">
+            <textarea class="form-control"  name="answer" rows="12" maxlength="333" style="background-color: white;" >${answer }</textarea><br>
+            <div class="content_body_bottom">
+            <button type="button" onclick="submit();" class="btn btn-info">답변 수정하기</button>
+            </div>
+          </c:if>
+          <c:if test="${sessionScope.rankno != 1}">
+            <textarea class="form-control"  name="answer" rows="12" maxlength="333" style="background-color: white;" readonly>${answer }</textarea><br>
+
+          </c:if>
+        </div>
+      </c:if>
+            
+      <c:if test="${answer == '' }">
+        <input type='hidden' name='done' value='N'> <!-- done 값을 바꾸기 위해 미리 작성함@@@@@@@@@@@@@@@@ -->
+        <c:if test="${sessionScope.rankno == 1 }">
+        <div class="input-group">
+          <span class="input-group-text">답변</span>
+          <textarea class="form-control"  name="answer" rows="12" maxlength="333" style="background-color: white;" >${answer }</textarea>
+        </div>
+        <div class="content_body_bottom">
+          <button type="button" onclick="submit();" class="btn btn-info">답변 수정하기</button>
+        </div>
+        </c:if>
+      </c:if>
+    </FORM>
+<!-- ----------------------답변 끝------------------------ -->
+  
+
+
+    </DIV>
+
+ 
+
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
