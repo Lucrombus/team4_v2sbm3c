@@ -66,11 +66,11 @@
             </a> 
           </td>  
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-            <a href="/answer/create.do?inquiryno=${inquiryno}"><strong>등록</strong>  
-            </a> 
+            ${rdate.substring(0,10) }
           </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-            ${rdate.substring(0,10) }
+            <a href="/answer/create.do?inquiryno=${inquiryno}"><strong>등록</strong>  
+            </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${f.apply(memberno) }
