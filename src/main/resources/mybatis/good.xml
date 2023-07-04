@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <mapper namespace = "dev.mvc.good.GoodDAOInter">
 
   <!-- 좋아요 중복 확인 -->
-  <select id="GoodCheck" resultType="int" parameterType="dev.mvc.guin_c.Guin_cVO">
+  <select id="goodcheck" resultType="int" parameterType="dev.mvc.guin_c.Guin_cVO">
     SELECT COUNT(*) as cnt
     FROM good
     WHERE memberno = #{memberno} AND guin_cno = #{guin_cno}
@@ -19,4 +19,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     VALUES(good_seq.nextval, #{memberno}, #{guin_cno}, sysdate)
   </insert>
  
+  <!-- 조회 -->
+  <select id="read" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="int">
+    SELECT goodno, memberno, guin_cno, rdate
+    FROM good
+    WHERE goodno = #{goodno}
+  </select>
+  
+  <delete id="delete_good" parameterType="dev.mvc.guin_c.Guin_cVO">
+    DELETE FROM good
+    WHERE memberno = #{memberno} AND guin_cno = #{guin_cno}
+  </delete>
+  
+  <!-- 목록 -->
+  <select id="list_all" resultType="dev.mvc.good.GoodVO">
+    SELECT goodno, memberno, guin_cno, rdate
+    FROM good
+    WHERE guin_cno = #{guin_cno}
+  </select>
 </mapper>
