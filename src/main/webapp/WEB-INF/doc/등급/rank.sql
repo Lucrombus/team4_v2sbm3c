@@ -17,7 +17,7 @@ INSERT INTO rank VALUES (3, '기업 회원');
 INSERT INTO rank VALUES (4, '정지 회원');
 INSERT INTO rank VALUES (5, '탈퇴 회원');
 
-SELECT *
+SELECT rankno, rankname
 FROM rank;
 
 commit;
@@ -29,3 +29,10 @@ WHERE rankno = 2
 UPDATE rank
 SET rankname = '기업 회원'
 WHERE rankno = 3
+
+UPDATE rank
+SET rankname='아아'
+WHERE rankno = 6
+
+DELETE FROM rank
+WHERE rankno = 6;

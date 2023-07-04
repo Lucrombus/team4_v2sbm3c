@@ -40,6 +40,8 @@ CREATE SEQUENCE member_seq
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
   
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
+VALUES(member_seq.nextval, 'kd', 1234, '가나다', '010-1212-1220', sysdate, 1, 'Y', '남성', '199990101', '고졸');
+INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'kd1', 1234, '가길동', '010-0000-0000', sysdate, 2, 'Y', '남성', '19990905', '고졸');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'kd2', 1234, '나길동', '010-1234-0000', sysdate, 2, 'Y', '남성', '20000101', '2년제');
@@ -59,6 +61,9 @@ INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, g
 VALUES(member_seq.nextval, 'user1@gmail.com', 1234, '바길순', '010-7777-4444', sysdate, 3, 'N', '여성', '19800301', '4년제');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'abcd@gmail.com', 1234, '가나다', '010-1234-5678', sysdate, 3, 'N', '여성', '19400601', '고졸');
+
+INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
+VALUES(member_seq.nextval, 'kd', 1234, '마길동', '010-2222-2223', sysdate, 1, 'Y', '남성', '19950905', '고졸');
 
 
 
@@ -96,7 +101,7 @@ WHERE memberno= 13;
 
 -- 삭제
 DELETE FROM member
-WHERE memberno=2;
+WHERE memberno=41;
 
 -- 레코드 갯수
 SELECT COUNT(*) as cnt FROM member;

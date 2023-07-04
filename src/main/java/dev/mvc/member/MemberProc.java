@@ -36,6 +36,12 @@ public class MemberProc implements MemberProcInter {
     ArrayList<MemberVO> list = this.memberDAO.list();
     return list;
   }
+  
+  @Override
+  public ArrayList<MemberVO> list_by_rankno(int rankno) {
+    ArrayList<MemberVO> list = this.memberDAO.list_by_rankno(rankno);
+    return list;
+  }
 
   @Override
   public MemberVO read(int memberno) {
@@ -64,6 +70,12 @@ public class MemberProc implements MemberProcInter {
   @Override
   public int delete(int memberno) {
     int cnt = this.memberDAO.delete(memberno);
+    return cnt;
+  }
+  
+  @Override
+  public int delete_by_rankno(int rankno) {
+    int cnt = this.memberDAO.delete_by_rankno(rankno);
     return cnt;
   }
   

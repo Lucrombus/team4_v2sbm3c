@@ -7,15 +7,7 @@
 
 <script type="text/javascript">
 function recommend() {
-<<<<<<< HEAD
-	 var url = 'http://localhost:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
-//      var url = 'http://13.125.197.177:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
-
-//      var url = 'http://43.201.72.175:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
-
-=======
       var url = 'http://43.201.72.175:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
->>>>>>> 468fc690473818125c290dd0331b6ef6ef174d4e
       var win = window.open(url, '공지 사항', 'width=1300px, height=850px');
       
       var x = (screen.width - 1300) / 2;
@@ -25,15 +17,7 @@ function recommend() {
 }
 </script>
 
-<<<<<<< HEAD
-
-<DIV class='container_main'> 
-
 <DIV class='container_top'>
-
-=======
-<DIV class='container_top'>
->>>>>>> 468fc690473818125c290dd0331b6ef6ef174d4e
     <!-- 헤더 start -->
     <div class="header">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -129,8 +113,8 @@ function recommend() {
                            <li><a href="/member/login.do">로그인</a></li>
                            <li><a href="/member/create.do">개인 회원 가입</a></li>
                            <li><a href="/member/enterprise_create.do">기업회원 가입</a></li>
-                           <li><a href="/member/find_id.do">아이디 찾기</a></li>
-                           <li><a href="/member/find_passwd.do">비밀번호 찾기</a></li>
+                           <li><a href="#">아이디 찾기</a></li>
+                           <li><a href="#">비밀번호 찾기</a></li>
                          </ul>
                        </li>
                      </c:if>
@@ -149,6 +133,7 @@ function recommend() {
                          <%-- 관리자 로그인 확인 필요--%>
                          <a href="#">회원 관리</a>
                          <ul class="submenu">
+                            <li><a href="/rank/list_all.do">등급 목록</a></li>
                            <li><a href="/member/list.do">회원 목록</a></li>
                              <li><a href="/inquiry/list_all.do">문의 목록</a></li>
                              <li><a href="/answer/list_all.do">답변 목록</a></li>
@@ -163,70 +148,8 @@ function recommend() {
       </div>
 
 
-<<<<<<< HEAD
-
-                      </div>
-                  </li>
-                  
-                  <c:if test="${sessionScope.id != null}">
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">${sessionScope.id } ${sessionScope.memberno == 1 ? "(관리자)" : ""}</a>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href='/message/list_receive.do'>쪽지 
-                        <c:if test="${unread_cnt > 0 }">(${unread_cnt }) <img src='/images/new_mail.png' title="관리자" class="icon"></c:if>
-                        </a>
-                        <a class="dropdown-item" href="javascript: recommend();">관심분야 등록하고 추천받기</a>
-                        <a class="dropdown-item" href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a>
-                        <a class="dropdown-item" href="/member/read.do?memberno=${sessionScope.memberno }">가입정보 수정</a>
-                        <a class="dropdown-item" href="/member/passwd_update.do?memberno=${sessionScope.memberno } ">비밀번호 변경</a>
-                        <a class="dropdown-item" href='/member/logout.do'>로그아웃</a>
-                        <a class="dropdown-item" href="#">회원 탈퇴</a>
-                      </div>
-                  </li>
-                  </c:if>
-                  
-                  <c:if test="${sessionScope.id == null}">
-                  <li class="nav-item dropdown"> <%-- 회원 서브 메뉴 --%>
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원</a>
-                      <div class="dropdown-menu">
-                          <a class="dropdown-item" href="/member/login.do">로그인</a>
-                          <a class="dropdown-item" href="/member/create.do">개인 회원 가입</a>
-                          <a class="dropdown-item" href="/member/enterprise_create.do">기업 회원 가입</a>
-                          <a class="dropdown-item" href="#">아이디 찾기</a>
-                          <a class="dropdown-item" href="#">비밀번호 찾기</a>
-                      </div>
-                  </li>
-                  </c:if>
-                  <c:if test="${sessionScope.rankno == 1}">
-                  <li class="nav-item dropdown"> <%-- 관리자 로그인 확인 필요--%>
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">카테고리 관리</a>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/jobcate/list_all.do">구인 카테고리</a>
-                        <a class="dropdown-item" href="/board/list_all.do">커뮤니티 카테고리</a>
-                      </div>
-                  </li>
-                  </c:if>
-                  <c:if test="${sessionScope.rankno == 1}">
-                    <li class="nav-item dropdown"> <%-- 관리자 로그인 확인 필요--%>
-                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">회원 관리</a>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/member/list.do">회원 목록</a>
-                      </div>
-                    </li>
-                  </c:if>
-                    </div>
-                  </li>  
-                </ul>
-            </div>    
-        </nav>
-
 </div>
 <!-- 헤더 end -->
-
-=======
-</div>
-<!-- 헤더 end -->
->>>>>>> 468fc690473818125c290dd0331b6ef6ef174d4e
 
 <%-- 내용 --%>
 <DIV class='content'>
