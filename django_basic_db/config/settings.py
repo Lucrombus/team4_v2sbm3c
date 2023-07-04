@@ -55,9 +55,11 @@ MIDDLEWARE = [
 
 # 허용할 도메인 추가
 # CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:9091",
-#     "http://127.0.0.1:9091",
-#     "http://192.168.12.7:9091",
+#     "http://localhost:9093",
+#     "http://43.201.72.175:9093",
+#     "http://43.201.72.175:9093",
+#     "http://13.125.197.177:8000",
+
 # ]
 # 상황에 따라 모든 도메인에 대해서도 추가
 CORS_ORIGIN_ALLOW_ALL = True

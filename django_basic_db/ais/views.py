@@ -1,6 +1,8 @@
 from django.shortcuts import render
 # ais.AImodels 패키지의 Models.py 모듈의 pinterest 함수 사용
 from ais.AImodels.TSmodels import pinterest
+import numpy as np
+import pandas as pd
 
 def recommend_form(request):
     # 실제 파일 위치: /django_basic/basic/templates/recommend_form.html
@@ -22,7 +24,12 @@ def recommend_proc(request):
     memberno = request.POST['memberno']
 
     recommend_result = pinterest(memberno, recommend_data) # 딥러닝 모델 사용
-
+    print('-> recommend_result: ', recommend_result)
+    
+    recommend_result['index'] = recommend_result['index'] + 1
+    print('-> recommend_result: ', recommend_result)
+    
+    # recom = pd.to_numeric(recommend_result)
     # template으로 데이터 전달은 dictionary 형태로해야함.
     # return render(request, 'recommend_proc.html', context={"msg": "추천 처리됨"})
     return render(request, 'recommend_proc.html', context={"memberno": memberno, "recommend_result": recommend_result})
