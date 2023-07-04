@@ -351,7 +351,8 @@ public class ContentsCont {
     ModelAndView mav = new ModelAndView();
     ContentsVO contentsVO = this.contentsProc.read(contentsno);
 
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(contentsVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(contentsVO.getMemberno()) || session.getAttribute("rankno").equals(1) ) ) {
 
       MemberVO memberVO = this.memberProc.readByMemberno(contentsVO.getMemberno());
 
@@ -387,7 +388,8 @@ public class ContentsCont {
 
     ContentsVO contentsVO_old = contentsProc.read(contentsVO.getContentsno());
 
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(contentsVO_old.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(contentsVO.getMemberno()) || session.getAttribute("rankno").equals(1) )) {
       MemberVO memberVO = this.memberProc.readByMemberno(contentsVO.getMemberno());
 
       int cnt = this.contentsProc.update(contentsVO);
@@ -424,7 +426,8 @@ public class ContentsCont {
     // 삭제할 정보를 조회하여 확인
     ContentsVO contentsVO = this.contentsProc.read(contentsno);
     
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(contentsVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(contentsVO.getMemberno()) || session.getAttribute("rankno").equals(1) )) {
       mav.addObject("contentsVO", contentsVO);
 
       BoardVO boardVO = this.boardProc.read(contentsVO.getBoardno());
@@ -463,7 +466,8 @@ public class ContentsCont {
     // 삭제할 정보를 조회하여 확인
     ContentsVO contentsVO = this.contentsProc.read(contentsno);
     
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(contentsVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(contentsVO.getMemberno()) || session.getAttribute("rankno").equals(1) )) {
       String file1saved = contentsVO.getFile1saved();
       String thumb1 = contentsVO.getThumb1();
       String thumb1_origin = contentsVO.getThumb1_origin();

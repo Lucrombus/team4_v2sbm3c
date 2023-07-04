@@ -369,7 +369,8 @@ public class Guin_cCont {
     ModelAndView mav = new ModelAndView();
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
 
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(guin_cVO.getMemberno()) || session.getAttribute("rankno").equals(1)) ) {
 
       MemberVO memberVO = this.memberProc.readByMemberno(guin_cVO.getMemberno());
 
@@ -408,7 +409,8 @@ public class Guin_cCont {
     // 삭제할 파일 정보를 읽어옴, 기존에 등록된 레코드 저장용
     Guin_cVO guin_cVO_old = guin_cProc.read(guin_cVO.getGuin_cno());
 
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO_old.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(guin_cVO.getMemberno()) || session.getAttribute("rankno").equals(1))) {
       // ------------------------------------------------------------------------------
       // 파일 전송 코드 시작
       // ------------------------------------------------------------------------------
@@ -504,7 +506,8 @@ public class Guin_cCont {
     // 삭제할 정보를 조회하여 확인
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(guin_cVO.getMemberno()) || session.getAttribute("rankno").equals(1))) {
       mav.addObject("guin_cVO", guin_cVO);
 
       JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno());
@@ -543,7 +546,8 @@ public class Guin_cCont {
     // 삭제할 정보를 조회하여 확인
     Guin_cVO guin_cVO = this.guin_cProc.read(guin_cno);
     
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(guin_cVO.getMemberno()) || session.getAttribute("rankno").equals(1))) {
       String file1saved = guin_cVO.getFile1saved();
       String thumb1 = guin_cVO.getThumb1();
       String thumb1_origin = guin_cVO.getThumb1_origin();
@@ -598,7 +602,8 @@ public class Guin_cCont {
     
 
     
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(guin_cVO.getMemberno()) || session.getAttribute("rankno").equals(1))) {
       mav.addObject("guin_cVO", guin_cVO); // request.setAttribute("contentsVO", contentsVO);
 
       JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); //그룹 정보를 읽기
@@ -641,7 +646,8 @@ public class Guin_cCont {
     System.out.println("글의 주인: " + guin_cVO.getMemberno());
     System.out.println("현재 로그인: " + session.getAttribute("memberno"));
 
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(guin_cVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(guin_cVO.getMemberno()) || session.getAttribute("rankno").equals(1))) {
       this.guin_cProc.map(guin_cVO);
 
       mav.setViewName("redirect:/guin_c/read.do?jobcateno=" + guin_cVO.getJobcateno() + "&now_page="

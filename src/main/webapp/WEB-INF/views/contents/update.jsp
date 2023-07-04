@@ -135,7 +135,7 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
   
 
     <input type="hidden" name="contentsno" value="${contentsno }">
-    <input type="hidden" name="memberno" value="${sessionScope.memberno}">
+    <input type="hidden" name="memberno" value="${contentsVO.memberno}">
     <input type="hidden" name="file1" value="${file1}" id="file1">
     <input type="hidden" name="file1saved" value="${file1saved}" id="file1saved">
     <input type="hidden" name="size1" value=0 id="size1">
