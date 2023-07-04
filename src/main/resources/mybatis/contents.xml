@@ -17,7 +17,7 @@
     <!-- 조회 -->
     <select id="read" resultType="dev.mvc.contents.ContentsVO" parameterType="int">
         SELECT contentsno, boardno, memberno, title,
-        content, rdate, word, file1, file1saved
+        content, rdate, word, file1, file1saved, viewcnt
         FROM contents
         WHERE contentsno = #{contentsno}
     </select>
@@ -28,6 +28,13 @@
         SET title = #{title},
             content = #{content}, word = #{word}, file1 = #{file1}, file1saved= #{file1saved}
         WHERE contentsno = #{contentsno}
+    </update>
+    
+    <!-- 조회수 증가 -->
+    <update id="update_viewcnt" parameterType="int">
+      UPDATE contents
+      SET viewcnt = viewcnt + 1
+      WHERE contentsno = #{contentsno}
     </update>
     
     <!-- 삭제 -->
@@ -67,11 +74,11 @@
     
     <!-- 카테고리별 검색 + 페이징 목록 -->
   <select id="list_by_boardno_search_paging" resultType="dev.mvc.contents.ContentsVO" parameterType="dev.mvc.contents.ContentsVO">
-    SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word, r
+    SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word, viewcnt, r
    FROM (
-              SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word, rownum as r
+              SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word, viewcnt, rownum as r
               FROM (
-                        SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word
+                        SELECT contentsno, memberno, boardno, title, content, rdate, file1, file1saved, size1, word, viewcnt
                         FROM contents
                         <choose>
                            <when test="(word == null or word == '') and (boardno != 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리 별) -->

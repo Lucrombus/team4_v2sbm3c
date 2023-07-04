@@ -335,6 +335,10 @@ public class ContentsCont {
 
     BoardVO boardVO = this.boardProc.read(contentsVO.getBoardno()); // 그룹 정보를 읽기
     mav.addObject("boardVO", boardVO);
+    
+    int cnt = this.contentsProc.update_viewcnt(contentsno); // 조회수 증가
+    int viewcnt = contentsVO.getViewcnt();
+    mav.addObject("viewcnt", viewcnt);
 
     mav.setViewName("/contents/read"); // /WEB-INF/views/contents/read.jsp
 

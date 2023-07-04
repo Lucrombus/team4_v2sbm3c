@@ -16,6 +16,7 @@ public class ContentsVO {
   private String thumb1_origin ="";
   private long size1;
   private String word ="";
+  private int viewcnt;
 
   /**
    * 이미지 파일
@@ -106,6 +107,13 @@ public class ContentsVO {
   public void setWord(String word) {
     this.word = word;
   }
+  
+  public int getViewcnt() {
+    return viewcnt;
+  }
+  public void setViewcnt(int viewcnt) {
+    this.viewcnt = viewcnt;
+  }
   public MultipartFile getFile1MF() {
     return file1MF;
   }
@@ -136,6 +144,7 @@ public class ContentsVO {
   public void setNow_page(int now_page) {
     this.now_page = now_page;
   }
+  
   
   
  

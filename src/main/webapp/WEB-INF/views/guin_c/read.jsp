@@ -56,6 +56,7 @@
       <span style="font-size: 1.5em; font-weight: bold;">${title }</span>
       <span class='menu_divide' >│</span> ${memberVO.id}
       <span class='menu_divide' >│</span> ${rdate }
+      <span class='menu_divide' >│ 조회수 ${viewcnt }</span>
     </ASIDE>
   
     <form name='frm' id='frm' method='get' action='./list_by_jobcateno_search_paging.do'>

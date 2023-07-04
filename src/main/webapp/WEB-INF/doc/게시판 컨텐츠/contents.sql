@@ -14,6 +14,7 @@ CREATE TABLE contents(
 		file1saved                    		VARCHAR2(1000)		 NULL ,
 		size1                         		NUMBER(10)		 NULL ,
 		word                          		VARCHAR2(100)		 NULL,
+		viewcnt                           NUMBER(20)  DEFAULT 0 NOT NULL, 
         FOREIGN KEY (boardno) REFERENCES board(boardno)
 );
 

@@ -123,6 +123,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
       <span style="font-size: 1.5em; font-weight: bold;">${title }</span>
       <span class='menu_divide' >│</span> ${memberVO.id == null ? '(알 수 없음)' : memberVO.id}
       <span class='menu_divide' >│</span> ${rdate }
+      <span class='menu_divide' >│ 조회수 ${viewcnt }</span>
       <span class='menu_divide' >│</span> <a href="/report_c/create.do?contentsno=${contentsno}"><img src='/images/siren.png' title="신고" class="icon"></a>
     </ASIDE>
   
