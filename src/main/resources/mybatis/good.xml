@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace = "dev.mvc.good.GoodDAOInter">
+
+  <!-- 좋아요 중복 확인 -->
+  <select id="GoodCheck" resultType="int" parameterType="dev.mvc.guin_c.Guin_cVO">
+    SELECT COUNT(*) as cnt
+    FROM good
+    WHERE memberno = #{memberno} AND guin_cno = #{guin_cno}
+  </select>
+   
+  <!-- 좋아요 등록 -->
+
+  <insert id="create" parameterType="dev.mvc.good.GoodVO">
+    INSERT INTO good(goodno, memberno, guin_cno, rdate)
+    VALUES(good_seq.nextval, #{memberno}, #{guin_cno}, sysdate)
+  </insert>
+ 
+</mapper>

@@ -7,11 +7,11 @@
 
 <script type="text/javascript">
 function recommend() {
-<<<<<<< HEAD
-      var url = 'http://13.125.197.177:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
-=======
-      var url = 'http://43.201.72.175:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
->>>>>>> 9cd1124c72212ee07d2f93401887eee5875517f7
+	 var url = 'http://localhost:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
+//      var url = 'http://13.125.197.177:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
+
+//      var url = 'http://43.201.72.175:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
+
       var win = window.open(url, '공지 사항', 'width=1300px, height=850px');
       
       var x = (screen.width - 1300) / 2;
@@ -21,11 +21,11 @@ function recommend() {
 }
 </script>
 
-<<<<<<< HEAD
+
 <DIV class='container_main'> 
-=======
+
 <DIV class='container_top'>
->>>>>>> 9cd1124c72212ee07d2f93401887eee5875517f7
+
     <!-- 헤더 start -->
     <div class="header">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -155,7 +155,7 @@ function recommend() {
       </div>
 
 
-<<<<<<< HEAD
+
                       </div>
                   </li>
                   
@@ -210,10 +210,10 @@ function recommend() {
                 </ul>
             </div>    
         </nav>
-=======
+
 </div>
 <!-- 헤더 end -->
->>>>>>> 9cd1124c72212ee07d2f93401887eee5875517f7
+
 
 <%-- 내용 --%>
 <DIV class='content'>

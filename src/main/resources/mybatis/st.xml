@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace = "dev.mvc.st.StDAOInter">
+  <!-- 경력 유 비율  -->
+  <select id="exp_y" resultType="dev.mvc.st.StVO">
+        SELECT experience , ROUND((COUNT(EXPERIENCE) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY EXPERIENCE
+        HAVING experience = 'Y'
+  </select>
+   
+  <!-- 경력 무 비율  -->
+  <select id="exp_n">
+        SELECT experience, ROUND((COUNT(EXPERIENCE) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY EXPERIENCE
+        HAVING experience = 'N'
+  </select>
+  
+  <!-- 성별 남 비율  -->
+  <select id="gender_m">
+        SELECT gender, ROUND((COUNT(gender) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY gender
+        HAVING gender = '남성'
+  </select>
+  
+  <!-- 성별 여 비율  -->
+  <select id="gender_w">
+        SELECT gender,ROUND((COUNT(gender) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY gender
+        HAVING gender = '여성'
+  </select>
+  
+  <!-- 10대 비율 -->
+  <select id="age_10" resultType="dev.mvc.st.StVO">
+        SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY TRUNC((sysdate - birth)/365, -1)
+        HAVING TRUNC((sysdate - birth)/365, -1) = 10
+  </select>
+  
+  <!-- 20대 비율 -->
+  <select id="age_20">
+        SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY TRUNC((sysdate - birth)/365, -1)
+        HAVING TRUNC((sysdate - birth)/365, -1) = 20
+  </select>
+  
+  <!-- 30대 비율 -->
+  <select id="age_30">
+        SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY TRUNC((sysdate - birth)/365, -1)
+        HAVING TRUNC((sysdate - birth)/365, -1) = 30
+  </select>
+  
+  <!-- 40대 비율 -->
+  <select id="age_40">
+        SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY TRUNC((sysdate - birth)/365, -1)
+        HAVING TRUNC((sysdate - birth)/365, -1) = 40
+  </select>
+  
+  <!-- 50대 비율 -->
+  <select id="age_50">
+        SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY TRUNC((sysdate - birth)/365, -1)
+        HAVING TRUNC((sysdate - birth)/365, -1) = 50
+  </select>
+  
+  <!-- 60대 비율 -->
+  <select id="age_etc">
+        SELECT TRUNC((sysdate - birth)/365, -1) as age, ROUND((COUNT(TRUNC((sysdate - birth)/365, -1)) / (SELECT COUNT(*)FROM MEMBER)) * 100, 2) AS percent
+        FROM MEMBER 
+        GROUP BY TRUNC((sysdate - birth)/365, -1)
+        HAVING TRUNC((sysdate - birth)/365, -1) >= 60
+  </select>
+</mapper>

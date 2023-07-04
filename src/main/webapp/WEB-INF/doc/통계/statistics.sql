@@ -213,9 +213,6 @@ FROM MEMBER
 GROUP BY education
 HAVING education = '4년제';
 
-EDUCATION     PERCENT
----------- ----------
-4년제           45.45
 -- ?��?��
 
 --DROP TABLE statistics CASCADE CONSTRAINTS;

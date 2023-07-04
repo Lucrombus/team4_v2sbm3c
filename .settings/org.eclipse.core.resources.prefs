@@ -3,5 +3,7 @@ encoding//src/main/webapp/WEB-INF/doc/first.ddl=utf-8
 encoding//src/main/webapp/WEB-INF/doc/first2.ddl=utf-8
 encoding//src/main/webapp/WEB-INF/doc/\uAC8C\uC2DC\uD310\ \uCE74\uD14C\uACE0\uB9AC/board.sql=utf-8
 encoding//src/main/webapp/WEB-INF/doc/\uAC8C\uC2DC\uD310\ \uCEE8\uD150\uCE20/contents.sql=utf-8
+encoding//src/main/webapp/WEB-INF/doc/\uAD6C\uC778_\uCEE8\uD150\uCE20\ \uD3C9\uAC00/good.sql=MS949
+encoding//src/main/webapp/WEB-INF/doc/\uAD6C\uC778_\uCEE8\uD150\uCE20\ \uD3C9\uAC00/score.sql=MS949
 encoding//src/main/webapp/WEB-INF/doc/\uB313\uAE00/reply.sql=utf-8
 encoding//src/main/webapp/WEB-INF/doc/\uCD94\uCC9C\uC2DC\uC2A4\uD15C/recom.sql=utf-8

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.recom.RecomDAOInter">
+     <!-- 추천 업종 시급 순 나열  -->  
+<!--
+    <select id="list_by_recommend" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="dev.mvc.guin_c.Guin_cVO">
+     SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, r
+       FROM (
+                  SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, rownum as r
+                  FROM (
+                            SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word
+                            FROM guin_c
+                            WHERE (SELECT DISTINCT jobcateno FROM recommendation WHERE memberno = #{memberno}) = jobcateno
+                            ORDER BY wage DESC
+                   )
+        )
+        WHERE r <=  5;
+  </select>
+-->
+</mapper>

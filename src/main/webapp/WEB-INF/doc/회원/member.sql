@@ -44,7 +44,7 @@ VALUES(member_seq.nextval, 'kd1', 1234, '가길동', '010-0000-0000', sysdate, 2
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'kd2', 1234, '나길동', '010-1234-0000', sysdate, 2, 'Y', '남성', '20000101', '2년제');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
-VALUES(member_seq.nextval, 'kd3', 1234, '다길동', '010-5678-0000', sysdate, 2, 'Y', '남성', '20100101', '3년제');
+VALUES(member_seq.nextval, 'kd3', 1234, '다길동', '010-5678-0000', sysdate, 2, 'Y', '여성', '20100101', '3년제');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'kd4', 1234, '라길순', '010-1111-1111', sysdate, 2, 'N', '여성', '19901010', '고졸');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
@@ -52,11 +52,13 @@ VALUES(member_seq.nextval, 'kd5', 1234, '마길동', '010-2222-2222', sysdate, 2
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
 VALUES(member_seq.nextval, 'kd6', 1234, '바길순', '010-4444-4444', sysdate, 2, 'N', '여성', '19700301', '4년제');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
-VALUES(member_seq.nextval, 'kd', 1234, '홍길순', '010-4444-4444', sysdate, 1, 'N', '여성', '19700301', '4년제');
+VALUES(member_seq.nextval, 'kd', 1234, '홍길순', '010-5555-4444', sysdate, 1, 'N', '여성', '19900301', '4년제');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
-VALUES(member_seq.nextval, 'kd6', 1234, '바길순', '010-4444-4444', sysdate, 3, 'N', '여성', '19700301', '4년제');
+VALUES(member_seq.nextval, 'kd7', 1234, '바바순', '010-6666-4444', sysdate, 3, 'N', '여성', '19970501', '4년제');
 INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
-VALUES(member_seq.nextval, 'user1@gmail.com', 1234, '바길순', '010-4444-4444', sysdate, 3, 'N', '여성', '19700301', '4년제');
+VALUES(member_seq.nextval, 'user1@gmail.com', 1234, '바길순', '010-7777-4444', sysdate, 3, 'N', '여성', '19800301', '4년제');
+INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
+VALUES(member_seq.nextval, 'abcd@gmail.com', 1234, '가나다', '010-1234-5678', sysdate, 3, 'N', '여성', '19400601', '고졸');
 
 
 

@@ -64,9 +64,9 @@ CREATE SEQUENCE guin_c_seq
 /* INSERT */
 /**********************************/ 
 INSERT INTO guin_c (guin_cno, jobcateno, memberno, name, brand, title, content, rdate, address, map,
-wage, day, period, tel, email)
+wage, recom, day, period, tel, email)
 VALUES (guin_c_seq.nextval, 11, 1, 'CU 무슨무슨점', 'CU', '주말 오전 아르바이트 구함', '업무내용은 ~이고 성실하고 오래하실~ 생략', sysdate, '서울시 OO구 OO동 OO로 123-123', 'nomap',
-8900, '토요일, 일요일', '6개월', '010-1234-1234', 'test123@test.com');
+8900, 1, '토요일, 일요일', '6개월', '010-1234-1234', 'test123@test.com');
 
 /**********************************/
 /* SELECT */
