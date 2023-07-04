@@ -562,7 +562,7 @@ public class MemberCont {
     return mav;
   }
   
-//http://localhost:9093/member/create.do
+ // http://localhost:9093/member/create.do
  /**
   * 회원 정지 폼
   * 
@@ -657,6 +657,79 @@ public class MemberCont {
 
     mav.setViewName("redirect:/member/msg.do");
 
+    return mav;
+  }
+  
+  /** 아이디 찾기 폼
+   * 
+   */
+  @RequestMapping(value = "member/find_id.do", method = RequestMethod.GET)
+  public ModelAndView find_id() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/find_id"); // /WEB-INF/views/member/find_id.jsp
+
+    return mav;
+    
+  }
+  
+  /** 아이디 찾기
+   * 
+   */
+  @RequestMapping(value = "member/find_id.do", method = RequestMethod.POST)
+  public ModelAndView find_id(MemberVO memberVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    String id = this.memberProc.find_id(memberVO);
+    
+    if (id != null) {
+      mav.addObject("code", "find_id_success");
+      mav.addObject("name", memberVO.getName()); // 홍길동님(user4) 회원 정보를 변경했습니다.
+    }
+    else {
+      mav.addObject("code", "find_id_fail");
+    }
+    
+    mav.addObject("id", id);
+    mav.addObject("url", "/member/msg"); // /member/msg -> /member/msg.jsp
+    mav.setViewName("redirect:/member/msg.do");
+    
+    return mav;
+  }
+  
+  /** 비밀번호 찾기 폼
+   * 
+   */
+  @RequestMapping(value = "member/find_passwd.do", method = RequestMethod.GET)
+  public ModelAndView find_passwd() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/find_passwd"); // /WEB-INF/views/member/find_id.jsp
+
+    return mav;
+    
+  }
+  
+  /** 비밀번호 찾기
+   * 
+   */
+  @RequestMapping(value = "member/find_passwd.do", method = RequestMethod.POST)
+  public ModelAndView find_passwd(MemberVO memberVO) {
+    ModelAndView mav = new ModelAndView();
+    
+    String passwd = this.memberProc.find_passwd(memberVO);
+    
+    if (passwd != null) {
+      mav.addObject("code", "find_passwd_success");
+      mav.addObject("name", memberVO.getName()); // 홍길동님(user4) 회원 정보를 변경했습니다.
+      mav.addObject("id", memberVO.getId());
+    }
+    else {
+      mav.addObject("code", "find_passwd_fail");
+    }
+    
+    mav.addObject("passwd", passwd);
+    mav.addObject("url", "/member/msg"); // /member/msg -> /member/msg.jsp
+    mav.setViewName("redirect:/member/msg.do");
+    
     return mav;
   }
 }

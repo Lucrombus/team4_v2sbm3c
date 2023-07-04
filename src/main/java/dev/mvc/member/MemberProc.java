@@ -151,6 +151,18 @@ public class MemberProc implements MemberProcInter {
     int cnt = this.memberDAO.delete_member(memberVO);
     return cnt;
   }
+
+  @Override
+  public String find_id(MemberVO memberVO) {
+    String id = this.memberDAO.find_id(memberVO);
+    return id;
+  }
+
+  @Override
+  public String find_passwd(MemberVO memberVO) {
+    String passwd = this.memberDAO.find_passwd(memberVO);
+    return passwd;
+  }
   
 //  @Override
 //  public ArrayList<MemberVO> list_by_paging(MemberVO memberVO) {

@@ -33,9 +33,8 @@
     <colgroup>
       <col style="width: 10%;"></col>
       <col style="width: 60%;"></col>
-      <col style="width: 10%;"></col>
-      <col style="width: 10%;"></col>
-      <col style="width: 10%;"></col>
+      <col style="width: 15%;"></col>
+      <col style="width: 15%;"></col>
     </colgroup>
 
     <thead>
@@ -43,7 +42,6 @@
         <th style='text-align: center;'>번호</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
-        <th style='text-align: center;'>답변</th>
         <th style='text-align: center;'>작성자</th>
       </tr>
     
@@ -67,14 +65,6 @@
           </td>  
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${rdate.substring(0,10) }
-          </td> 
-          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-            <c:choose>
-                <c:when test = ""> 
-                </c:when>
-            </c:choose>
-            <a href="/answer/create.do?inquiryno=${inquiryno}&memberno=${memberno}"><strong> 작성 </strong>  
-            </a>
           </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${f.apply(memberno) }

@@ -102,7 +102,7 @@
         
         <c:when test="${code == 'member_different'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_fail">본인 글이 아니면 수정 할 수 없습니다.</span>
+            <span class="span_fail">본인 글이 아니면 수정하거나 삭제 할 수 없습니다.</span>
           </LI>                                                                      
         </c:when> 
         

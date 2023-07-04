@@ -55,7 +55,12 @@
                 <td>${report_cVO.reportno  }</td>
                 <td>${f.apply(report_cVO.contentsno).title }</td>
                 <td>${report_cVO.rdate }</td>
-                <td>${report_cVO.done }</td>
+                <c:if test="${report_cVO.done == 'Y' }">
+                  <td style="color: Green;">처리 완료</td>
+                </c:if>
+                <c:if test="${report_cVO.done == 'N' }">
+                  <td style="color: Red;">대기중</td>
+                </c:if>
               </tr>
             </c:forEach>
             

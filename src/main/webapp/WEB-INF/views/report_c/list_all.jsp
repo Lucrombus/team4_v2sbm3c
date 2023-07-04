@@ -28,22 +28,19 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <c:if test="${sessionScope.id != null}">
-     <A href="./create.do">등록</A>
-     <span class='menu_divide' >│</span>
-    </c:if>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
 
   <DIV class='menu_line'></DIV>
   
-  <table class="table table-secondary table-hover" style='width: 100%;'>
+  <table class="table table-hover" style='width: 100%;'>
     <colgroup>
       <col style="width: 5%;"></col>
-      <col style="width: 15%;"></col>
+      <col style="width: 10%;"></col>
       <col style="width: 60%;"></col>
-      <col style="width: 15%;"></col>
+      <col style="width: 10%;"></col>
       <col style="width: 5%;"></col>
+      <col style="width: 10%;"></col>
 
     </colgroup>
 
@@ -51,10 +48,10 @@
       <tr >
         <th style='text-align: center;'>신고번호</th>
         <th style='text-align: center;'>신고된 글 고유번호</th>
-        <th style='text-align: center;'>내용</th>
+        <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>신고자</th>
-
+        <th style='text-align: center;'>처리여부</th>
       </tr>
     
     </thead>
@@ -73,7 +70,7 @@
 
 
         
-        <tr style="height:50px;" onclick="window.location='/report_c/read.do?reportno=${reportno}'">
+        <tr style="height:50px;" onmouseover="this.style.cursor='pointer'" onclick="window.location='/report_c/read.do?reportno=${reportno}'">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
           ${reportno}
           </td>
@@ -89,6 +86,12 @@
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
             ${f.apply(memberno) }
           </td>
+          <c:if test="${report_cVO.done == 'Y' }">
+            <td style='vertical-align: middle; text-align: center; font-size: 17px; color: Green;'>처리 완료</td>
+          </c:if>
+          <c:if test="${report_cVO.done == 'N' }">
+            <td style='vertical-align: middle; text-align: center; font-size: 17px; color: Red;'>대기중</td>
+          </c:if>
         </tr>
         
         

@@ -30,10 +30,12 @@
 <DIV class='content_body'>
   <ASIDE class="aside_right">
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.id != null}">
+    <c:if test="${sessionScope.memberno == inquiryVO.memberno || sessionScope.rankno == 1}">
       <A href="./create.do?memberno=${memberno}">등록</A>
       <span class='menu_divide' >│</span>
       <A href="./update.do?inquiryno=${inquiryno}">문의 수정</A>
+      <span class='menu_divide' >│</span>
+      <A href="/answer/list_by_inquiryno.do?inquiryno=${inquiryno}">답변 목록</A>
       <span class='menu_divide' >│</span>
       <A href="./delete.do?inquiryno=${inquiryno}">삭제</A>  
       <span class='menu_divide' >│</span>

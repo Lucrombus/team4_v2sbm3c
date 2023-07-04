@@ -39,6 +39,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE inquiryno = #{inquiryno}
   </update>
   
+  <!-- inquiryno에 따른 문의 글 수정 -->
+  <update id="update_yn"  parameterType="dev.mvc.inquiry.InquiryVO">
+    UPDATE inquiry
+    SET answer_yn = 'Y'
+    WHERE inquiryno = #{inquiryno}
+  </update>
+  
   <!-- inquiryno에 따른 문의 글 삭제 -->
   <delete id="delete"  parameterType="int">
     DELETE FROM inquiry

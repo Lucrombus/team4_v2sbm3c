@@ -1,3 +1,4 @@
+DROP TABLE answer
 /**********************************/
 /* Table Name: 답변 */
 /**********************************/
@@ -5,8 +6,8 @@ CREATE TABLE answer(
 		ANSWERNO                      		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		CONTENT                       		VARCHAR2(300)    DEFAULT '미등록' NOT NULL,
 		RDATE                         		DATE		     NOT NULL,
-		inquiryno                     		NUMBER(10)		 NULL ,
-		memberno                      		NUMBER(10)		 NULL ,
+		inquiryno                     		NUMBER(10)		 NOT NULL ,
+		memberno                      		NUMBER(10)		 NOT NULL ,
   FOREIGN KEY (inquiryno) REFERENCES inquiry (inquiryno),
   FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
@@ -29,7 +30,7 @@ CREATE SEQUENCE answer_seq
   
 -- CREATE
 INSERT INTO answer(answerno, content, rdate, inquiryno, memberno) 
-VALUES (answer_seq.nextval, '답변', sysdate , 12, 1) 
+VALUES (answer_seq.nextval, '답변', sysdate , 1, 1) 
 
 -- SELECT
 SELECT * FROM answer;
@@ -54,3 +55,14 @@ WHERE answerno = 1
 
 SELECT *
 FROM 
+
+SELECT answerno, content, rdate, inquiryno, memberno
+FROM answer
+WHERE memberno = 1
+ORDER BY inquiryno ASC
+
+SELECT COUNT(inquiryno) as cnt
+FROM answer
+WHERE inquiryno = 1
+
+commit;

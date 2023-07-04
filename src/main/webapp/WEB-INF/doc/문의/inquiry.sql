@@ -9,6 +9,7 @@ CREATE TABLE inquiry(
         inquiryTitle                VARCHAR2(50)    NOT NULL,
 		inquiryReason               VARCHAR2(300)   NOT NULL,
         rdate                       DATE            NOT NULL,
+        answer_yn                   VARCHAR2(2)     DEFAULT 'N',
         FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
 
@@ -18,6 +19,7 @@ COMMENT ON COLUMN inquiry.memberno is '회원번호 (신고자)';
 COMMENT ON COLUMN inquiry.inquiryTitle is '문의제목';
 COMMENT ON COLUMN inquiry.inquiryReason is '문의사유';
 COMMENT ON COLUMN inquiry.rdate is '등록일';
+COMMENT ON COLUMN inquiry.answer_yn is '답변 유무';
 
 DROP SEQUENCE inquiry_seq;
 
@@ -44,4 +46,7 @@ ORDER BY inquiryno ASC
 
 UPDATE inquiry
 SET inquiryTitle = '버그 신고' , inquiryReason = '문의 글 조회에서 위에 버튼이 안눌려요' , rdate = sysdate
+WHERE inquiryno = 3
+
+DELETE FROM inquiry
 WHERE inquiryno = 3

@@ -24,7 +24,7 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <A href="./create.do?memberno=${sessionScope.memberno}">등록</A>
+    <A href="/inquiry/create.do?memberno=${sessionScope.memberno}">등록</A>
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
@@ -35,15 +35,17 @@
     <colgroup>
       <col style="width: 10%;"></col>
       <col style="width: 60%;"></col>
-      <col style="width: 15%;"></col>
-      <col style="width: 15%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 10%;"></col>
     </colgroup>
 
     <thead>
       <tr>
-        <th style='text-align: center;'>문의 번호</th>
+        <th style='text-align: center;'>번호</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
+        <th style='text-align: center;'>답변</th>
         <th style='text-align: center;'>작성자</th>
       </tr>
     
@@ -57,23 +59,33 @@
         <c:set var="inquiryReason" value="${inquiryVO.inquiryReason }" />
         <c:set var="rdate" value="${inquiryVO.rdate }" />
         
-        <tr style="height: 112px;">
+        
+        
+          <tr style="height: 112px;">
+            <td style='vertical-align: middle; text-align: center;'>
+              ${inquiryVO.inquiryno }
+            </td>  
           <td style='vertical-align: middle; text-align: center;'>
-            ${inquiryno }
-          </td>  
-          <td style='vertical-align: middle; text-align: center;'>
-            <a href="./read.do?inquiryno=${inquiryno}"><strong>${inquiryTitle}</strong>  
+            <a href="/answer/read_by_inquiryno.do?inquiryno=${inquiryno}"><strong>${inquiryTitle}</strong>  
             </a> 
           </td>  
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${rdate.substring(0,10) }
           </td> 
+          
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-            ${memberVO.id }
+            <c:choose>
+                <c:when test="${answerVO.inquiryno == null }"> 미등록 </c:when>
+                <c:when test="${answerVO.inquiryno != null  }"> <a href="/answer/read.do?answerno=${answerno }"></a>등록 </c:when>
+            </c:choose>
           </td> 
-        </tr>
+          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+            ${f.apply(memberno) }
+          </td> 
+          </c:forEach>
         
-      </c:forEach>
+        
+      
 
     </tbody>
   </table>

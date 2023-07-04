@@ -87,8 +87,8 @@ WHERE memberno=1;
 
 -- 수정
 UPDATE member
-SET id = 'kd1'
-WHERE memberno=1;
+SET tel = '010-1111-1117'
+WHERE memberno= 13;
 
   MEMBERNO ID                             passwd             NAME                 TEL            RDATE                    RANKNO EXPERIENCE GENDER     BIRTH                EDUCATION 
 ---------- ------------------------------ -------------------- -------------------- -------------- -------------------- ---------- ---------- ---------- -------------------- ----------
@@ -117,13 +117,23 @@ commit;
 UPDATE member
 SET rankno = 5
 WHERE memberno=1;
+
 ALTER TABLE member add constraint uni_id UNIQUE(id);
+ALTER TABLE member add constraint uni_tel UNIQUE(tel);
 ALTER TABLE member add constraint pk_memberno primary key(memberno);
 
 
 SELECT COUNT(memberno) as cnt
 FROM member
 WHERE id='user3' AND passwd = 1234 AND rankno <= 3
+
+SELECT id
+FROM member
+WHERE name = '가길동' AND tel = '010-1234-0000'
+
+SELECT passwd
+FROM member
+WHERE name = '가길동' AND tel = '010-1234-0000' AND id = 'kd2'
 
 <!-- 페이징 목록 -->
   <select id="list_by_cateno_search_paging" resultType="dev.mvc.contents.ContentsVO" parameterType="dev.mvc.contents.ContentsVO">
@@ -149,3 +159,4 @@ WHERE id='user3' AND passwd = 1234 AND rankno <= 3
     FROM answer
     WHERE name = ' ' AND tel AND birth '
   </select>
+  

@@ -37,12 +37,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE answerno = #{answerno}
   </delete>
   
+  <!-- 문의에 대한 답변 목록 출력 -->
+  <select id="list_by_inquiryno" resultType="dev.mvc.answer.AnswerVO" parameterType = "int">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    WHERE inquiryno = #{inquiryno}
+    ORDER BY inquiryno ASC
+  </select>
+  
   <!-- inquiryno에 따른 문의와 답변 조회 -->
   <select id="read_by_inquiryno" resultType="dev.mvc.answer.AnswerVO" parameterType="int">
     SELECT answerno, content, rdate, inquiryno, memberno
     FROM answer
-    WHERE inquiryno = 1
+    WHERE inquiryno = #{inquiryno}
     ORDER BY answerno DESC
+  </select>
+  
+  <!-- 전체 답변 목록 출력 -->
+  <select id="list_by_memberno" resultType="dev.mvc.answer.AnswerVO" parameterType = "int">
+    SELECT answerno, content, rdate, inquiryno, memberno
+    FROM answer
+    WHERE memberno = #{memberno}
+    ORDER BY inquiryno ASC
+  </select>
+  
+  <select id="checkAnswer" resultType="int" parameterType ="int">
+    SELECT COUNT(inquiryno) as cnt
+    FROM answer
+    WHERE inquiryno = #{inquiryno}
   </select>
   
 </mapper>

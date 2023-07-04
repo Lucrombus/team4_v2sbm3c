@@ -82,4 +82,10 @@ public class InquiryProc implements InquiryProcInter {
     int cnt = this.inquiryDAO.delete(inquiryno);
     return cnt;
   }
+
+  @Override
+  public int update_yn(InquiryVO inquiryVO) {
+    int cnt = this.inquiryDAO.update_yn(inquiryVO);
+    return cnt;
+  }
 }

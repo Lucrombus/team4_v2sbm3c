@@ -24,23 +24,19 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right" style="padding-bottom: 10px;">
-    <c:if test="${sessionScope.id != null}">
-     <A href="./create.do">등록</A>
-     <span class='menu_divide' >│</span>
-    </c:if>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
 
   <DIV class='menu_line'></DIV>
   
-  <table class="table table-secondary table-hover" style='width: 100%;'>
+  <table class="table table-hover" style='width: 100%;'>
     <colgroup>
-      <col style="width: 10%;"></col>
+      <col style="width: 5%;"></col>
       <col style="width: 60%;"></col>
-      <col style="width: 15%;"></col>
+      <col style="width: 10%;"></col>
       <col style="width: 10%;"></col>
       <col style="width: 5%;"></col>
-
+      <col style="width: 10%;"></col>
     </colgroup>
 
     <thead>
@@ -50,7 +46,7 @@
         <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>신고된 회원번호</th>
         <th style='text-align: center;'>신고자</th>
-
+        <th style='text-align: center;'>처리여부</th>
       </tr>
     
     </thead>
@@ -63,12 +59,12 @@
         <c:set var="title" value="${report_mVO.title }" />
         <c:set var="reason" value="${report_mVO.reason }" />
         <c:set var="rdate" value="${report_mVO.rdate }" />
-
+        <c:set var="done" value="${report_cVO.done }" />
 
 
 
         
-        <tr style="height:50px;" onclick="window.location='/report_m/read.do?reportno=${reportno}'">
+        <tr style="height:50px;" onmouseover="this.style.cursor='pointer'" onclick="window.location='/report_m/read.do?reportno=${reportno}'">
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
             ${reportno}
           </td>
@@ -79,11 +75,17 @@
             ${rdate }
           </td>
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
-            ${target_mno }
+            ${f2.apply(target_mno) }
           </td>
           <td style='vertical-align: middle; text-align: center; font-size: 17px;'>
             ${f.apply(memberno) }
           </td>
+          <c:if test="${report_mVO.done == 'Y' }">
+            <td style='vertical-align: middle; text-align: center; font-size: 17px; color: Green;'>처리 완료</td>
+          </c:if>
+          <c:if test="${report_mVO.done == 'N' }">
+            <td style='vertical-align: middle; text-align: center; font-size: 17px; color: Red;'>대기중</td>
+          </c:if>
         </tr>
         
       </c:forEach>

@@ -58,4 +58,18 @@ public interface AnswerProcInter {
    * @return
    */
   public AnswerVO read_by_inquiryno(int inquiryno);
+  
+  /**
+   * inquiryno에 따른 답변 목록
+   * @param inquiryno
+   * @return
+   */
+  public ArrayList<AnswerVO> list_by_inquiryno(int inquiryno);
+  
+  /**
+   * 답변 작성 유무 확인
+   * @param inquiryno
+   * @return cnt
+   */
+  public int checkAnswer(int inquiryno);
 }
