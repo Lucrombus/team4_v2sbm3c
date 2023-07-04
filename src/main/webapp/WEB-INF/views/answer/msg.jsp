@@ -41,7 +41,7 @@
           </LI>  
           <LI class='li_none'>
             <button type='button' 
-                         onclick="location.href='./list_all.do'"
+                         onclick="location.href='/inquiry/list_all.do'"
                          class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
                          onclick="location.href='/index.do'"

@@ -130,7 +130,8 @@ public class InquiryCont {
   public ModelAndView list_all(HttpServletRequest request, HttpSession session) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/inquiry/list_all"); // /webapp/WEB-INF/views/inquiry/list_all.jsp
-
+ 
+    
     if (this.memberProc.isAdmin(session)) {
       ArrayList<InquiryVO> list = this.inquiryProc.list_all();
       

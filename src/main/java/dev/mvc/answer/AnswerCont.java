@@ -62,8 +62,10 @@ public class AnswerCont {
   public ModelAndView create(HttpSession session, AnswerVO answerVO, int inquiryno) {
     ModelAndView mav = new ModelAndView();
     
-    InquiryVO inquiryVO = this.inquiryProc.read(answerVO.getInquiryno());
+    InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
+    ArrayList<InquiryVO> list = this.inquiryProc.list_all();
     mav.addObject("inquiryVO", inquiryVO);
+    mav.addObject("list", list);
     
     if (this.memberProc.isAdmin(session)) {
       mav.setViewName("/answer/create"); // /WEB-INF/views/inquiry/create.jsp
@@ -90,6 +92,10 @@ public class AnswerCont {
   public ModelAndView create(HttpServletRequest request, HttpSession session, AnswerVO answerVO) {
     ModelAndView mav = new ModelAndView();
     if (this.memberProc.isAdmin(session)) {
+      int memberno = (int)session.getAttribute("memberno");
+      answerVO.setMemberno(memberno);
+      mav.addObject("memberno", memberno);
+      
       int cnt = answerProc.create(answerVO);
       if (cnt == 1) {
         mav.addObject("code", "create_success");
@@ -274,49 +280,49 @@ public class AnswerCont {
    return mav;
  }   
  
- /** 문의 및 답변 조회
-  * 
-  * @param inquiryno
-  * @return
-  */
-
- @RequestMapping(value = "/answer/read_by_inquiryno.do", method = RequestMethod.GET)
- public ModelAndView read_by_inquiryno(HttpSession session, int inquiryno) {
-   ModelAndView mav = new ModelAndView();
-//   int memberno = (int)(session.getAttribute("memberno");
-   
-   InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
-  
-   String inquiryTitle = inquiryVO.getInquiryTitle();
-   String inquiryReason = inquiryVO.getInquiryReason();
-
-   inquiryTitle = Tool.convertChar(inquiryTitle);
-   inquiryReason = Tool.convertChar(inquiryReason);
-   
-   inquiryVO.setInquiryTitle(inquiryTitle);
-   inquiryVO.setInquiryReason(inquiryReason);
-   
-   
-   AnswerVO answerVO = this.answerProc.read_by_inquiryno(inquiryno);
-   if (answerVO != null) {
-     String content = answerVO.getContent();
-     content = Tool.convertChar(content);
-     answerVO.setContent(content);
-   }
-   
-   mav.addObject("inquiryVO", inquiryVO);
-   mav.addObject("answerVO", answerVO); // request.setAttribute("inquiryVO", inquiryVO);
-
-   Function<Integer, String> f = (memberno) -> {
-     MemberVO memberVO = memberProc.readByMemberno(memberno);
-     String id = memberVO.getId();
-     return id;
-   };
-   mav.addObject("f", f);
-
-   mav.setViewName("/answer/read_by_inquiryno"); // /WEB-INF/views/notice/read.jsp
-
-   return mav;
- }
+// /** 문의 및 답변 조회
+//  * 
+//  * @param inquiryno
+//  * @return
+//  */
+//
+// @RequestMapping(value = "/answer/read_by_inquiryno.do", method = RequestMethod.GET)
+// public ModelAndView read_by_inquiryno(HttpSession session, int inquiryno) {
+//   ModelAndView mav = new ModelAndView();
+////   int memberno = (int)(session.getAttribute("memberno");
+//   
+//   InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
+//  
+//   String inquiryTitle = inquiryVO.getInquiryTitle();
+//   String inquiryReason = inquiryVO.getInquiryReason();
+//
+//   inquiryTitle = Tool.convertChar(inquiryTitle);
+//   inquiryReason = Tool.convertChar(inquiryReason);
+//   
+//   inquiryVO.setInquiryTitle(inquiryTitle);
+//   inquiryVO.setInquiryReason(inquiryReason);
+//   
+//   
+//   AnswerVO answerVO = this.answerProc.read_by_inquiryno(inquiryno);
+//   if (answerVO != null) {
+//     String content = answerVO.getContent();
+//     content = Tool.convertChar(content);
+//     answerVO.setContent(content);
+//   }
+//   
+//   mav.addObject("inquiryVO", inquiryVO);
+//   mav.addObject("answerVO", answerVO); // request.setAttribute("inquiryVO", inquiryVO);
+//
+//   Function<Integer, String> f = (memberno) -> {
+//     MemberVO memberVO = memberProc.readByMemberno(memberno);
+//     String id = memberVO.getId();
+//     return id;
+//   };
+//   mav.addObject("f", f);
+//
+//   mav.setViewName("/answer/read_by_inquiryno"); // /WEB-INF/views/notice/read.jsp
+//
+//   return mav;
+// }
  
 }

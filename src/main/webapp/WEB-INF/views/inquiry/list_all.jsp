@@ -69,7 +69,7 @@
             ${rdate.substring(0,10) }
           </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-            <a href="/answer/create.do?inquiryno=${inquiryno}"><strong>등록</strong>  
+            <a href="/answer/create.do?inquiryno=${inquiryno }"><strong>등록</strong>  
             </a> 
           </td> 
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
