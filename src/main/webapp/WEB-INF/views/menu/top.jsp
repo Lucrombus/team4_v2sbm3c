@@ -7,15 +7,13 @@
 
 <script type="text/javascript">
 function recommend() {
-<<<<<<< HEAD
+
 	 var url = 'http://localhost:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
 //      var url = 'http://13.125.197.177:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
 
 //      var url = 'http://43.201.72.175:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
 
-=======
-      var url = 'http://43.201.72.175:8000/ais/recommend_form/?memberno=${sessionScope.memberno }';
->>>>>>> 468fc690473818125c290dd0331b6ef6ef174d4e
+
       var win = window.open(url, '공지 사항', 'width=1300px, height=850px');
       
       var x = (screen.width - 1300) / 2;
@@ -25,15 +23,8 @@ function recommend() {
 }
 </script>
 
-<<<<<<< HEAD
-
 <DIV class='container_main'> 
-
 <DIV class='container_top'>
-
-=======
-<DIV class='container_top'>
->>>>>>> 468fc690473818125c290dd0331b6ef6ef174d4e
     <!-- 헤더 start -->
     <div class="header">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -84,6 +75,7 @@ function recommend() {
                       <%-- 커뮤니티 서브 메뉴 --%>
                       <a href="/contents/list_by_boardno_search_paging.do?boardno=0&now_page=1">커뮤니티</a>
                       <ul class="submenu">
+                      <li><a href="/st/stmain.do">통계</a></li>
                        <c:forEach var="boardVO"
                            items="${list_board}">
                            <c:set var="boardno"
@@ -105,12 +97,14 @@ function recommend() {
                      <c:if test="${sessionScope.id != null}">
                        <li><a href="#">${sessionScope.id } ${sessionScope.rankno == 1 ? "(관리자)" : ""}</a>
                          <ul class="submenu">
+                         
                            <li>
                              <a href='/message/list_receive.do'>쪽지
                                <c:if test="${unread_cnt > 0 }">(${unread_cnt }) <img src='/images/new_mail.png'  title="관리자" class="icon">
                                </c:if>
                              </a>
                            </li>
+                           
                            <li><a href="javascript: recommend();">관심분야 등록하고 추천받기</a></li>
                            <li><a href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a></li>
                            <li><a href="/member/read.do?memberno=${sessionScope.memberno }">가입정보 수정</a></li>
@@ -162,11 +156,6 @@ function recommend() {
         </nav>
       </div>
 
-
-<<<<<<< HEAD
-
-                      </div>
-                  </li>
                   
                   <c:if test="${sessionScope.id != null}">
                   <li class="nav-item dropdown">
@@ -223,11 +212,8 @@ function recommend() {
 </div>
 <!-- 헤더 end -->
 
-=======
-</div>
-<!-- 헤더 end -->
->>>>>>> 468fc690473818125c290dd0331b6ef6ef174d4e
 
 <%-- 내용 --%>
 <DIV class='content'>
     <div style='clear: both; height: 50px;'></div>
+    </DIV>
