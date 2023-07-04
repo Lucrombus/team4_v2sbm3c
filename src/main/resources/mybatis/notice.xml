@@ -65,16 +65,16 @@
     
     <!-- 글 수정 -->
     <update id="update_text" parameterType="dev.mvc.notice.NoticeVO">
-      UPDATE event
-      SET title=#{title}, content=#{content},  word=#{word} 
-      WHERE evemtno = #{eventno}
+      UPDATE notice
+      SET title=#{title}, content=#{content},  word=#{word}, topview=#{topview}
+      WHERE noticeno = #{noticeno}
     </update>
     
     <!-- 파일 수정 -->
     <update id="update_file" parameterType="dev.mvc.notice.NoticeVO">
-      UPDATE event
+      UPDATE notice
       SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
-      WHERE eventno = #{eventno}
+      WHERE noticeno = #{noticeno}
     </update>
     
     <!-- 글 삭제 -->
