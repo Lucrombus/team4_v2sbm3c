@@ -117,6 +117,16 @@ public interface MemberProcInter {
   public int login(HashMap<String, Object> map);
   
   /**
+   * 정지 회원이 아닌 회원 로그인 처리
+   */
+  public int login_p(HashMap<String, Object> map);
+  
+  /**
+   * 탈퇴 회원이 아닌 회원 로그인 처리
+   */
+  public int login_s(HashMap<String, Object> map);
+  
+  /**
    * 탈퇴 회원 처리
    * @param memberVO
    * @return

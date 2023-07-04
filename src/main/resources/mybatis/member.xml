@@ -90,6 +90,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE id=#{id} AND passwd=#{passwd} AND rankno &lt;= 3
   </select>
   
+  <!-- 정지 회원이 아닌 회원 로그인 -->
+  <select id="login_p" resultType="int" parameterType="HashMap">
+    SELECT COUNT(memberno) as cnt
+    FROM member
+    WHERE id=#{id} AND rankno = 4
+  </select>
+  
+  <!-- 탈퇴 회원이 아닌 회원 로그인 -->
+  <select id="login_s" resultType="int" parameterType="HashMap">
+    SELECT COUNT(memberno) as cnt
+    FROM member
+    WHERE id=#{id} AND rankno = 5
+  </select>
+  
   <!-- 회원 정지 -->
   <update id="suspend_member" parameterType="dev.mvc.member.MemberVO">
     UPDATE member 

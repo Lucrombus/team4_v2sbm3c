@@ -96,6 +96,18 @@ public class MemberProc implements MemberProcInter {
     int cnt = this.memberDAO.login(map);
     return cnt;
   }
+  
+  @Override
+  public int login_p(HashMap<String, Object> map) {
+    int cnt = this.memberDAO.login_p(map);
+    return cnt;
+  }
+  
+  @Override
+  public int login_s(HashMap<String, Object> map) {
+    int cnt = this.memberDAO.login_s(map);
+    return cnt;
+  }
 
   @Override
   public boolean isMember(HttpSession session) {
