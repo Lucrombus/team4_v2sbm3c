@@ -40,6 +40,12 @@
             <span class="span_fail">회원 가입에 실패했습니다. 다시 시도해주세요.</span>
           </LI>                                                                      
         </c:when>
+        
+        <c:when test="${param.code == 'exist_id'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">이미 존재하는 아이디 입니다. 중복 확인 후 다시 시도해주세요.</span>
+          </LI>                                                                      
+        </c:when>
 
         <c:when test="${param.code == 'update_success'}"> <%-- Java if --%>
           <LI class='li_none'>
@@ -162,6 +168,30 @@
             <span class="span_fail">${param.name }님(${param.id }) 회원 탈퇴에 실패했습니다.</span>
           </LI>                                                                      
         </c:when> 
+        
+        <c:when test="${param.code == 'suspend_member'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">탈퇴 회원은 로그인 하실 수 없습니다.</span>
+          </LI>
+          <LI class='li_none'>  
+            <button type='button' 
+                         onclick="location.href='/'"
+                         class="btn btn-info btn-sm">시작 화면</button>
+          </LI>                                                                    
+        </c:when>    
+            
+        <c:when test="${param.code == 'pause_member'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">정지 회원은 로그인 하실 수 없습니다.</span>
+          </LI>
+          <LI class='li_none'>  
+            <button type='button' 
+                         onclick="location.href='/'"
+                         class="btn btn-info btn-sm">시작 화면</button>
+          </LI>                                                                          
+        </c:when> 
+        
+        
         
         <c:otherwise>
           <LI class='li_none_left'>

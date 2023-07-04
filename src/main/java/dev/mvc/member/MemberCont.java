@@ -86,10 +86,17 @@ public class MemberCont {
     ModelAndView mav = new ModelAndView();
 
     // System.out.println("id: " + memberVO.getId());
-
+    int cnt = memberProc.checkID(memberVO.getId());
+    
+    if (cnt > 0) { 
+      mav.addObject("code", "exist_id");
+      mav.setViewName("redirect:/member/msg.do");
+      return mav;
+    }
+    
     memberVO.setRankno(2); // 기본 회원 가입 등록 2 지정 ( 기본 1 : 관리자 / 2 : 회원 / 3 : 기업)
 
-    int cnt = memberProc.create(memberVO);
+    cnt = memberProc.create(memberVO);
 
     if (cnt == 1) {
       mav.addObject("code", "create_success");
@@ -122,10 +129,17 @@ public class MemberCont {
     ModelAndView mav = new ModelAndView();
 
     // System.out.println("id: " + memberVO.getId());
-
+    int cnt = memberProc.checkID(memberVO.getId());
+    
+    if (cnt > 0) { 
+      mav.addObject("code", "exist_id");
+      mav.setViewName("redirect:/member/msg.do");
+      return mav;
+    }
+    
     memberVO.setRankno(3); // 기본 회원 가입 등록 3 지정 ( 기본 1 : 관리자 / 2 : 회원 / 3 : 기업)
 
-    int cnt = memberProc.create(memberVO);
+    cnt = memberProc.create(memberVO);
 
     if (cnt == 1) {
       mav.addObject("code", "create_success");
@@ -148,8 +162,7 @@ public class MemberCont {
   }
 
   /**
-   * POST 요청시 JSP 페이지에서 JSTL 호출 기능 지원
-   * 새로고침 방지, EL에서 param으로 접근, GET -> POST
+   * POST 요청시 JSP 페이지에서 JSTL 호출 기능 지원 새로고침 방지, EL에서 param으로 접근, GET -> POST
    * 
    * @return
    */
@@ -492,15 +505,19 @@ public class MemberCont {
    */
   // http://localhost:9093/member/login.do
   @RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
-  public ModelAndView login_cookie_proc(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-      String id, String passwd, @RequestParam(value = "id_save", defaultValue = "") String id_save,
-      @RequestParam(value = "passwd_save", defaultValue = "") String passwd_save) {
+  public ModelAndView login_cookie_proc(
+                            HttpServletRequest request,
+                            HttpServletResponse response,
+                            HttpSession session,
+                            String id,
+                            String passwd,
+                            @RequestParam(value="id_save", defaultValue="") String id_save,
+                            @RequestParam(value="passwd_save", defaultValue="") String passwd_save) {
     ModelAndView mav = new ModelAndView();
-    
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("id", id);
     map.put("passwd", passwd);
-
+    // MemberVO memberVO = this.memberProc.readById(id);
     int cnt = memberProc.login(map);
     if (cnt == 1) { // 로그인 성공
       // System.out.println(id + " 로그인 성공");
@@ -509,13 +526,13 @@ public class MemberCont {
       session.setAttribute("id", id);
       session.setAttribute("name", memberVO.getName());
       session.setAttribute("rankno", memberVO.getRankno());
-
+   
       // -------------------------------------------------------------------
       // id 관련 쿠기 저장
       // -------------------------------------------------------------------
       if (id_save.equals("Y")) { // id를 저장할 경우, Checkbox를 체크한 경우
         Cookie ck_id = new Cookie("ck_id", id);
-        ck_id.setPath("/"); // root 폴더에 쿠키를 기록함으로 모든 경로에서 쿠기 접근 가능
+        ck_id.setPath("/");  // root 폴더에 쿠키를 기록함으로 모든 경로에서 쿠기 접근 가능
         ck_id.setMaxAge(60 * 60 * 24 * 30); // 30 day, 초단위
         response.addCookie(ck_id); // id 저장
       } else { // N, id를 저장하지 않는 경우, Checkbox를 체크 해제한 경우
@@ -524,14 +541,14 @@ public class MemberCont {
         ck_id.setMaxAge(0);
         response.addCookie(ck_id); // id 저장
       }
-
-      // id를 저장할지 선택하는 CheckBox 체크 여부
+      
+      // id를 저장할지 선택하는  CheckBox 체크 여부
       Cookie ck_id_save = new Cookie("ck_id_save", id_save);
       ck_id_save.setPath("/");
       ck_id_save.setMaxAge(60 * 60 * 24 * 30); // 30 day
       response.addCookie(ck_id_save);
       // -------------------------------------------------------------------
-
+  
       // -------------------------------------------------------------------
       // Password 관련 쿠기 저장
       // -------------------------------------------------------------------
@@ -546,23 +563,25 @@ public class MemberCont {
         ck_passwd.setMaxAge(0);
         response.addCookie(ck_passwd);
       }
-      // passwd를 저장할지 선택하는 CheckBox 체크 여부
+      // passwd를 저장할지 선택하는  CheckBox 체크 여부
       Cookie ck_passwd_save = new Cookie("ck_passwd_save", passwd_save);
       ck_passwd_save.setPath("/");
       ck_passwd_save.setMaxAge(60 * 60 * 24 * 30); // 30 day
       response.addCookie(ck_passwd_save);
       // -------------------------------------------------------------------
-
-      mav.setViewName("redirect:/index.do");
+   
+      mav.setViewName("redirect:/index.do");  
     } else {
       mav.addObject("url", "/member/login_fail_msg");
-      mav.setViewName("redirect:/member/msg.do");
+      mav.setViewName("redirect:/member/msg.do"); 
     }
-
+       
     return mav;
   }
-  
- // http://localhost:9093/member/create.do
+
+
+
+  // http://localhost:9093/member/create.do
  /**
   * 회원 정지 폼
   * 
@@ -581,7 +600,7 @@ public class MemberCont {
    }
    return mav; // forward
  }
- 
+
  /**
   * 회원 정지 처리
   * 
@@ -609,7 +628,7 @@ public class MemberCont {
 
    return mav;
  }
-  
+
   // http://localhost:9093/member/create.do
   /**
    * 회원 탈퇴 폼
@@ -629,7 +648,7 @@ public class MemberCont {
     }
     return mav; // forward
   }
-  
+
   /**
    * 회원 정보 탈퇴 처리
    * 
@@ -659,7 +678,7 @@ public class MemberCont {
 
     return mav;
   }
-  
+
   /** 아이디 찾기 폼
    * 
    */
@@ -671,32 +690,33 @@ public class MemberCont {
     return mav;
     
   }
-  
-  /** 아이디 찾기
+
+  /**
+   * 아이디 찾기
    * 
    */
   @RequestMapping(value = "member/find_id.do", method = RequestMethod.POST)
   public ModelAndView find_id(MemberVO memberVO) {
     ModelAndView mav = new ModelAndView();
-    
+
     String id = this.memberProc.find_id(memberVO);
-    
+
     if (id != null) {
       mav.addObject("code", "find_id_success");
       mav.addObject("name", memberVO.getName()); // 홍길동님(user4) 회원 정보를 변경했습니다.
-    }
-    else {
+    } else {
       mav.addObject("code", "find_id_fail");
     }
-    
+
     mav.addObject("id", id);
     mav.addObject("url", "/member/msg"); // /member/msg -> /member/msg.jsp
     mav.setViewName("redirect:/member/msg.do");
-    
+
     return mav;
   }
-  
-  /** 비밀번호 찾기 폼
+
+  /**
+   * 비밀번호 찾기 폼
    * 
    */
   @RequestMapping(value = "member/find_passwd.do", method = RequestMethod.GET)
@@ -705,31 +725,31 @@ public class MemberCont {
     mav.setViewName("/member/find_passwd"); // /WEB-INF/views/member/find_id.jsp
 
     return mav;
-    
+
   }
-  
-  /** 비밀번호 찾기
+
+  /**
+   * 비밀번호 찾기
    * 
    */
   @RequestMapping(value = "member/find_passwd.do", method = RequestMethod.POST)
   public ModelAndView find_passwd(MemberVO memberVO) {
     ModelAndView mav = new ModelAndView();
-    
+
     String passwd = this.memberProc.find_passwd(memberVO);
-    
+
     if (passwd != null) {
       mav.addObject("code", "find_passwd_success");
       mav.addObject("name", memberVO.getName()); // 홍길동님(user4) 회원 정보를 변경했습니다.
       mav.addObject("id", memberVO.getId());
-    }
-    else {
+    } else {
       mav.addObject("code", "find_passwd_fail");
     }
-    
+
     mav.addObject("passwd", passwd);
     mav.addObject("url", "/member/msg"); // /member/msg -> /member/msg.jsp
     mav.setViewName("redirect:/member/msg.do");
-    
+
     return mav;
   }
 }

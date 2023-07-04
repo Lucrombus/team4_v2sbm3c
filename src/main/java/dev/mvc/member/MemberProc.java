@@ -36,6 +36,12 @@ public class MemberProc implements MemberProcInter {
     ArrayList<MemberVO> list = this.memberDAO.list();
     return list;
   }
+  
+  @Override
+  public ArrayList<MemberVO> list_by_rankno(int rankno) {
+    ArrayList<MemberVO> list = this.memberDAO.list_by_rankno(rankno);
+    return list;
+  }
 
   @Override
   public MemberVO read(int memberno) {
@@ -68,6 +74,12 @@ public class MemberProc implements MemberProcInter {
   }
   
   @Override
+  public int delete_by_rankno(int rankno) {
+    int cnt = this.memberDAO.delete_by_rankno(rankno);
+    return cnt;
+  }
+  
+  @Override
   public int passwd_check(HashMap<Object, Object> map) {
     int cnt = this.memberDAO.passwd_check(map);
     return cnt;
@@ -82,6 +94,18 @@ public class MemberProc implements MemberProcInter {
   @Override
   public int login(HashMap<String, Object> map) {
     int cnt = this.memberDAO.login(map);
+    return cnt;
+  }
+  
+  @Override
+  public int login_p(HashMap<String, Object> map) {
+    int cnt = this.memberDAO.login_p(map);
+    return cnt;
+  }
+  
+  @Override
+  public int login_s(HashMap<String, Object> map) {
+    int cnt = this.memberDAO.login_s(map);
     return cnt;
   }
 

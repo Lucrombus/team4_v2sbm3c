@@ -34,6 +34,12 @@ public interface MemberDAOInter {
   public ArrayList<MemberVO> list();
   
   /**
+   * 등급에 따른 회원 목록
+   * @return
+   */
+  public ArrayList<MemberVO> list_by_rankno(int rankno);
+  
+  /**
    * memberno로 회원 정보 조회
    * @param memberno
    * @return
@@ -69,6 +75,13 @@ public interface MemberDAOInter {
   public int delete(int memberno);
   
   /**
+   * 등급에 따른 회원 삭제 처리
+   * @param rankno
+   * @return
+   */
+  public int delete_by_rankno(int rankno);
+  
+  /**
    * 현재 패스워드 검사
    * @param map
    * @return 0: 일치하지 않음, 1: 일치함
@@ -86,6 +99,16 @@ public interface MemberDAOInter {
    * 로그인 처리
    */
   public int login(HashMap<String, Object> map);
+  
+  /**
+   * 정지 회원이 아닌 회원 로그인 처리
+   */
+  public int login_p(HashMap<String, Object> map);
+  
+  /**
+   * 탈퇴 회원이 아닌 회원 로그인 처리
+   */
+  public int login_s(HashMap<String, Object> map);
   
   /**
    * 탈퇴 회원 처리

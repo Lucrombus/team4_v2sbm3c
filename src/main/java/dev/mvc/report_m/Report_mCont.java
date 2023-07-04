@@ -159,6 +159,7 @@ public class Report_mCont {
      ArrayList<Report_mVO> list = this.report_mProc.list_all();
      mav.addObject("list", list);     
      
+     //신고자 id조회
      Function<Integer, String> f = (memberno) -> {
        MemberVO memberVO = memberProc.readByMemberno(memberno);
        String id = memberVO.getId();
@@ -166,6 +167,7 @@ public class Report_mCont {
      };
      mav.addObject("f", f);
      
+     //신고대상 id조회
      Function<Integer, String> f2 = (target_mno) -> {
        MemberVO memberVO = memberProc.readByMemberno(target_mno);
        String id = memberVO.getId();
@@ -174,7 +176,7 @@ public class Report_mCont {
      mav.addObject("f2", f2);
      
      } else {
-       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+       mav.setViewName("/member/admin_login_need"); // /WEB-INF/views/member/login_need.jsp
      }
      
      return mav;

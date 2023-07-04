@@ -22,6 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     ORDER BY rankno ASC
   </select>
   
+  <select id="list_by_rankno" resultType="dev.mvc.member.MemberVO" parameterType="int">
+    SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education
+    FROM member
+    WHERE rankno = #{rankno}
+    ORDER BY rankno ASC
+  </select>
+  
   <!-- memberno로 회원 정보 조회 -->
   <select id="read" resultType="dev.mvc.member.MemberVO" parameterType="int">
     SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education
@@ -56,6 +63,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE memberno=#{memberno}
   </delete>
   
+  <!-- 등급에 따른 회원 삭제 -->
+  <delete id="delete_by_rankno" parameterType="int">
+    DELETE FROM member
+    WHERE rankno=#{rankno}
+  </delete>
+  
   <!--  현재 패스워드 검사 -->
   <select id="passwd_check" parameterType="HashMap" resultType="int">
     SELECT COUNT(memberno) as cnt
@@ -75,6 +88,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     SELECT COUNT(memberno) as cnt
     FROM member
     WHERE id=#{id} AND passwd=#{passwd} AND rankno &lt;= 3
+  </select>
+  
+  <!-- 정지 회원이 아닌 회원 로그인 -->
+  <select id="login_p" resultType="int" parameterType="HashMap">
+    SELECT COUNT(memberno) as cnt
+    FROM member
+    WHERE id=#{id} AND rankno = 4
+  </select>
+  
+  <!-- 탈퇴 회원이 아닌 회원 로그인 -->
+  <select id="login_s" resultType="int" parameterType="HashMap">
+    SELECT COUNT(memberno) as cnt
+    FROM member
+    WHERE id=#{id} AND rankno = 5
   </select>
   
   <!-- 회원 정지 -->
