@@ -44,7 +44,7 @@
                          onclick="location.href='./list_all.do'"
                          class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./index.do'"
+                         onclick="location.href='/index.do'"
                          class="btn btn-info btn-sm">메인</button>
           </LI> 
         </c:when>
@@ -58,7 +58,7 @@
                          onclick="location.href='./list_all.do'"
                          class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./index.do'"
+                         onclick="location.href='/index.do'"
                          class="btn btn-info btn-sm">메인</button>
           </LI>                                                                     
         </c:when>
@@ -72,7 +72,7 @@
                          onclick="location.href='./list_all.do'"
                          class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./index.do'"
+                         onclick="location.href='/index.do'"
                          class="btn btn-info btn-sm">메인</button>                  
           </LI>                                                                       
         </c:when>
@@ -86,7 +86,7 @@
                          onclick="location.href='./list_all.do'"
                          class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./index.do'"
+                         onclick="location.href='/index.do'"
                          class="btn btn-info btn-sm">메인</button>                  
           </LI>                                                                         
         </c:when>
@@ -100,7 +100,7 @@
                          onclick="location.href='./list_all.do'"
                          class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./index.do'"
+                         onclick="location.href='/index.do'"
                          class="btn btn-info btn-sm">메인</button>                  
           </LI>                                                                       
         </c:when>    
@@ -114,7 +114,7 @@
                          onclick="location.href='./list_all.do'"
                          class="btn btn-info btn-sm">답변 목록</button>
             <button type='button' 
-                         onclick="location.href='./index.do'"
+                         onclick="location.href='/index.do'"
                          class="btn btn-info btn-sm">메인</button>                  
           </LI>                                                                           
         </c:when> 

@@ -59,11 +59,11 @@ public interface AnswerDAOInter {
   public AnswerVO read_by_inquiryno(int inquiryno);
   
   /**
-   * memberno에 따른 답변 목록
-   * @param memberno
+   * inquiryno에 따른 답변 목록
+   * @param inquiryno
    * @return
    */
-  public ArrayList<AnswerVO> list_by_memberno(int memberno);
+  public ArrayList<AnswerVO> list_by_inquiryno(int inquiryno);
   
   /**
    * 답변 작성 유무 확인

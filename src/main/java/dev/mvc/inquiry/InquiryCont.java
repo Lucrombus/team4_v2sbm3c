@@ -288,18 +288,30 @@ public class InquiryCont {
   
   /**
    * 삭제 폼
-   * @param contentsno
+   * @param inquiryno
    * @return
    */
   @RequestMapping(value="/inquiry/delete.do", method=RequestMethod.GET )
-  public ModelAndView delete(int inquiryno) { 
+  public ModelAndView delete(int inquiryno, HttpSession session) { 
     ModelAndView mav = new  ModelAndView();
     
-    // 삭제할 정보를 조회하여 확인
     InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
-    mav.addObject("inquiryVO", inquiryVO);
+    // 삭제할 정보를 조회하여 확인
+    if(this.memberProc.isAdmin(session) || session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(inquiryVO.getMemberno())) {
+      mav.addObject("inquiryVO", inquiryVO);
+      mav.setViewName("/inquiry/delete");  // /webapp/WEB-INF/views/inquiry/delete.jsp
+    } else {
+      mav.addObject("url", "/inquiry/msg");
+      mav.addObject("code", "member_different");
+      mav.setViewName("redirect:/inquiry/msg.do");
+    }
     
-    mav.setViewName("/inquiry/delete");  // /webapp/WEB-INF/views/inquiry/delete.jsp
+    Function<Integer, String> f = (memberno) -> {
+      MemberVO memberVO = memberProc.readByMemberno(memberno);
+      String id = memberVO.getId();
+      return id;
+    };
+    mav.addObject("f", f);
     
     return mav; 
   }

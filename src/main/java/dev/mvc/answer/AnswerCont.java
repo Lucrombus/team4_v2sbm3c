@@ -89,10 +89,8 @@ public class AnswerCont {
   @RequestMapping(value = "/answer/create.do", method = RequestMethod.POST)
   public ModelAndView create(HttpServletRequest request, HttpSession session, AnswerVO answerVO) {
     ModelAndView mav = new ModelAndView();
-    
     if (this.memberProc.isAdmin(session)) {
       int cnt = answerProc.create(answerVO);
-
       if (cnt == 1) {
         mav.addObject("code", "create_success");
       } else {
@@ -139,16 +137,16 @@ public class AnswerCont {
   }
   
   /**
-   * memberno에 따른 답변, http://localhost:9093/answer/list_by_memberno.do
+   * inquiryno에 따른 답변 목록, http://localhost:9093/answer/list_by_memberno.do
    * 
    * @return
    */
-  @RequestMapping(value = "/answer/list_by_memberno.do", method = RequestMethod.GET)
-  public ModelAndView list_by_memberno(HttpServletRequest request, HttpSession session, int memberno) {
+  @RequestMapping(value = "/answer/list_by_inquiryno.do", method = RequestMethod.GET)
+  public ModelAndView list_by_inquiryno(HttpServletRequest request, HttpSession session, int inquiryno) {
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/answer/list_by_memberno"); // /webapp/WEB-INF/views/inquiry/list_all.jsp
+    mav.setViewName("/answer/list_by_inquiryno"); // /webapp/WEB-INF/views/inquiry/list_all.jsp
 
-    ArrayList<InquiryVO> list = this.inquiryProc.list_by_memberno(memberno);
+    ArrayList<AnswerVO> list = this.answerProc.list_by_inquiryno(inquiryno);
     
     mav.addObject("list", list);
 
@@ -283,23 +281,28 @@ public class AnswerCont {
   */
 
  @RequestMapping(value = "/answer/read_by_inquiryno.do", method = RequestMethod.GET)
- public ModelAndView read_by_inquiryno(int inquiryno) {
+ public ModelAndView read_by_inquiryno(HttpSession session, int inquiryno) {
    ModelAndView mav = new ModelAndView();
+//   int memberno = (int)(session.getAttribute("memberno");
    
    InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
-   AnswerVO answerVO = this.answerProc.read_by_inquiryno(inquiryno);
-   
+  
    String inquiryTitle = inquiryVO.getInquiryTitle();
    String inquiryReason = inquiryVO.getInquiryReason();
-   String content = answerVO.getContent();
-   
+
    inquiryTitle = Tool.convertChar(inquiryTitle);
    inquiryReason = Tool.convertChar(inquiryReason);
-   content = Tool.convertChar(content);
    
    inquiryVO.setInquiryTitle(inquiryTitle);
    inquiryVO.setInquiryReason(inquiryReason);
-   answerVO.setContent(content);
+   
+   
+   AnswerVO answerVO = this.answerProc.read_by_inquiryno(inquiryno);
+   if (answerVO != null) {
+     String content = answerVO.getContent();
+     content = Tool.convertChar(content);
+     answerVO.setContent(content);
+   }
    
    mav.addObject("inquiryVO", inquiryVO);
    mav.addObject("answerVO", answerVO); // request.setAttribute("inquiryVO", inquiryVO);

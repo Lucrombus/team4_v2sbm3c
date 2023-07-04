@@ -50,6 +50,13 @@ public interface InquiryDAOInter {
   public int update(InquiryVO inquiryVO);
   
   /**
+   * 답변 유무 처리
+   * @param inquiryVO
+   * @return
+   */
+  public int update_yn(InquiryVO inquiryVO);
+  
+  /**
    * 문의 글 삭제 처리
    * @param inquiryno
    * @return

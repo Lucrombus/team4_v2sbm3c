@@ -24,14 +24,15 @@
 <DIV class='content_body'>
   <ASIDE class="aside_right">
     <%-- 관리자로 로그인해야 메뉴가 출력됨 --%>
-    <c:if test="${sessionScope.id != null}">
-      <A href="./create.do?inquiryno=${inquiryno}">등록</A>
+    <A href="/inquiry/create.do?inquiryno=${param.inquiryno}">등록</A>
+    <c:if test="${sessionScope.rankno == 1}">
+      
       <span class='menu_divide' >│</span>
-      <A href="./update.do?answerno=${answerno}">답변 수정</A>
+      <A href="./update.do?answerno=${param.answerno}">답변 수정</A>
       <span class='menu_divide' >│</span>
       <A href="./delete.do?answerno=${answerno}">삭제</A>  
-      <span class='menu_divide' >│</span>
     </c:if>
+    <span class='menu_divide' >│</span>
 
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>
@@ -51,7 +52,12 @@
       <li class="li_none">
         <DIV style="width: 100%; word-break: break-all;">
           <span style="font-size: 1.5em; font-weight: bold;">답변</span><br>
-          <div style="font-size: 1em;">${f.apply(answerVO.memberno) } / ${answerVO.rdate }</div><br>
+          <div style="font-size: 1em;"> 
+            <c:choose>
+                <c:when test = "${answerVO.memberno == null}"></c:when>
+                <c:when test = "${answerVO.memberno != null }">${f.apply(answerVO.memberno) } /</c:when>
+            </c:choose>
+            ${answerVO.rdate }</div><br>
             <c:choose>
                 <c:when test = "${answerVO.content == null}">답변 미등록</c:when>
                 <c:when test = "${answerVO.content != null }">${answerVO.content }</c:when>

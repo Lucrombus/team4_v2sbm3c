@@ -1,3 +1,4 @@
+DROP TABLE answer
 /**********************************/
 /* Table Name: 답변 */
 /**********************************/
@@ -5,8 +6,8 @@ CREATE TABLE answer(
 		ANSWERNO                      		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		CONTENT                       		VARCHAR2(300)    DEFAULT '미등록' NOT NULL,
 		RDATE                         		DATE		     NOT NULL,
-		inquiryno                     		NUMBER(10)		 NULL ,
-		memberno                      		NUMBER(10)		 NULL ,
+		inquiryno                     		NUMBER(10)		 NOT NULL ,
+		memberno                      		NUMBER(10)		 NOT NULL ,
   FOREIGN KEY (inquiryno) REFERENCES inquiry (inquiryno),
   FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
@@ -63,3 +64,5 @@ ORDER BY inquiryno ASC
 SELECT COUNT(inquiryno) as cnt
 FROM answer
 WHERE inquiryno = 1
+
+commit;

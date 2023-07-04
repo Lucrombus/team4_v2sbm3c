@@ -19,12 +19,12 @@
 <c:import url="/menu/top.do" />
  
 <DIV class='title_line'>
-  내 문의 목록
+  문의 번호 - ${param.inquiryno } > 답변 목록
 </DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <A href="./create.do?memberno=${sessionScope.memberno}">등록</A>
+    <A href="/inquiry/create.do?memberno=${sessionScope.memberno}">문의 등록</A>
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE> 
@@ -41,7 +41,7 @@
 
     <thead>
       <tr>
-        <th style='text-align: center;'>문의 번호</th>
+        <th style='text-align: center;'>답변 번호</th>
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>작성자</th>
@@ -50,30 +50,34 @@
     </thead>
     
     <tbody>
-      <c:forEach var="inquiryVO" items="${list }">
-        <c:set var="inquiryno" value="${inquiryVO.inquiryno }" />
-        <c:set var="memberno" value="${inquiryVO.memberno }" />
-        <c:set var="inquiryTitle" value="${inquiryVO.inquiryTitle }" />
-        <c:set var="inquiryReason" value="${inquiryVO.inquiryReason }" />
-        <c:set var="rdate" value="${inquiryVO.rdate }" />
+      <c:forEach var="answerVO" items="${list }">
+        <c:set var="inquiryno" value="${answerVO.inquiryno }" />
+        <c:set var="memberno" value="${answerVO.memberno }" />
+        <c:set var="content" value="${answerVO.content }" />
+        <c:set var="answerno" value="${answerVO.answerno }" />
+        <c:set var="rdate" value="${answerVO.rdate }" />
         
-        <tr style="height: 112px;">
+          <tr style="height: 112px;">
+            <td style='vertical-align: middle; text-align: center;'>
+              ${answerno }
+            </td>  
+          
           <td style='vertical-align: middle; text-align: center;'>
-            ${inquiryno }
-          </td>  
-          <td style='vertical-align: middle; text-align: center;'>
-            <a href="./read.do?inquiryno=${inquiryno}"><strong>${inquiryTitle}</strong>  
+            <a href="/answer/read.do?answerno=${answerno}"><strong>${content}</strong>  
             </a> 
           </td>  
+          
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
             ${rdate.substring(0,10) }
           </td> 
+           
           <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
-            ${memberVO.id }
+            ${f.apply(memberno) }
           </td> 
-        </tr>
-        
       </c:forEach>
+        
+        
+      
 
     </tbody>
   </table>

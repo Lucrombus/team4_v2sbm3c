@@ -72,8 +72,8 @@ public class AnswerProc implements AnswerProcInter {
   }
 
   @Override
-  public ArrayList<AnswerVO> list_by_memberno(int memberno) {
-    ArrayList<AnswerVO> list = this.answerDAO.list_by_memberno(memberno);
+  public ArrayList<AnswerVO> list_by_inquiryno(int inquiryno) {
+    ArrayList<AnswerVO> list = this.answerDAO.list_by_inquiryno(inquiryno);
     
     // for문을 사용하여 객체를 추출, Call By Reference 기반의 원본 객체 값 변경
     for (AnswerVO answerVO : list) {
