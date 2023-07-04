@@ -83,5 +83,11 @@
       WHERE noticeno=#{noticeno}
     </delete>
 
+    <!-- 조회수 1 추가하기 -->
+    <update id="viewcnt_add" parameterType="int">
+      UPDATE notice
+      SET viewcnt = viewcnt + 1
+      WHERE noticeno = #{noticeno}
+    </update>
     
 </mapper>

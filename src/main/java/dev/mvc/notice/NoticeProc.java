@@ -220,7 +220,13 @@ public class NoticeProc implements NoticeProcInter {
     return cnt;
   }
 
+  @Override
+  public int viewcnt_add(int noticeno) {
+    int cnt = this.noticeDAO.viewcnt_add(noticeno);
+    return cnt;
+  }
 
+  
   
 
   

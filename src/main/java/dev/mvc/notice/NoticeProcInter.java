@@ -69,6 +69,10 @@ public interface NoticeProcInter {
    */
   public int delete(int noticeno);
   
-  
+  /**
+   * 조회수 1 추가
+   * @return
+   */
+  public int viewcnt_add(int noticeno);
 
 }
