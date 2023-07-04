@@ -41,22 +41,22 @@ public class StCont{
     double exp_n = this.stProc.exp_n().getPercent();
     double gender_m = this.stProc.gender_m().getPercent();
     double gender_w = this.stProc.gender_w().getPercent();
-    double age_10 = this.stProc.age_10().getPercent();
-    double age_20 = this.stProc.age_20().getPercent();
-    double age_30 = this.stProc.age_30().getPercent();
-    double age_40 = this.stProc.age_40().getPercent();
-    double age_50 = this.stProc.age_50().getPercent();
-    double age_etc = this.stProc.age_etc().getPercent();
+//    double age_10 = this.stProc.age_10().getPercent();
+//    double age_20 = this.stProc.age_20().getPercent();
+//    double age_30 = this.stProc.age_30().getPercent();
+//    double age_40 = this.stProc.age_40().getPercent();
+//    double age_50 = this.stProc.age_50().getPercent();
+//    double age_etc = this.stProc.age_etc().getPercent();
     mav.addObject("exp_y",  exp_y);
     mav.addObject("exp_n",  exp_n);
     mav.addObject("gender_m",  gender_m);
     mav.addObject("gender_w",  gender_w);
-    mav.addObject("age_10",  age_10);
-    mav.addObject("age_20",  age_20);
-    mav.addObject("age_30",  age_30);
-    mav.addObject("age_410",  age_40);
-    mav.addObject("age_50",  age_50);
-    mav.addObject("age_etc",  age_etc);
+//    mav.addObject("age_10",  age_10);
+//    mav.addObject("age_20",  age_20);
+//    mav.addObject("age_30",  age_30);
+//    mav.addObject("age_410",  age_40);
+//    mav.addObject("age_50",  age_50);
+//    mav.addObject("age_etc",  age_etc);
 
     mav.setViewName("/st/stmain"); // /webapp/WEB-INF/views/st/stmain.jsp
     return mav;
