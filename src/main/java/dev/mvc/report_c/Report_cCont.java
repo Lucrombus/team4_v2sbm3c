@@ -149,6 +149,7 @@ public class Report_cCont {
      ArrayList<Report_cVO> list = this.report_cProc.list_all();
      mav.addObject("list", list);     
      
+     //신고자 id조회
      Function<Integer, String> f = (memberno) -> {
        MemberVO memberVO = memberProc.readByMemberno(memberno);
        String id = memberVO.getId();
@@ -158,7 +159,7 @@ public class Report_cCont {
 
      
      } else {
-       mav.setViewName("/member/login_need"); // /WEB-INF/views/member/login_need.jsp
+       mav.setViewName("/member/admin_login_need"); // /WEB-INF/views/member/login_need.jsp
      }
      
      return mav;
