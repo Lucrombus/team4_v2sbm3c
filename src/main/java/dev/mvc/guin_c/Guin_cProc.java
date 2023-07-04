@@ -102,6 +102,12 @@ public class Guin_cProc implements Guin_cProcInter {
   }
   
   @Override
+  public int update_viewcnt(int guin_cno) {
+    int cnt = this.guin_cDAO.update_viewcnt(guin_cno);
+    return cnt;
+  }
+  
+  @Override
   public int delete(int guin_cno) {
     int cnt = this.guin_cDAO.delete(guin_cno);
     return cnt;

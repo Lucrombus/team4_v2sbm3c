@@ -39,6 +39,12 @@ public interface Guin_cProcInter {
   public int update(Guin_cVO guin_cVO);
   
   /**
+   * 조회수 증가
+   * @return
+   */
+  public int update_viewcnt(int guin_cno);
+  
+  /**
    * 삭제
    * @return
    */

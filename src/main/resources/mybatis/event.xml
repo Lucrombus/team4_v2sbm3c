@@ -50,7 +50,7 @@
       SELECT eventno, memberno, title, content, viewcnt, 
              word, rdate, file1, file1saved, thumb1, size1
       FROM event 
-      WHERE eventno = #{envetno}
+      WHERE eventno = #{eventno}
     </select>
     
     <!-- 글 수정 -->

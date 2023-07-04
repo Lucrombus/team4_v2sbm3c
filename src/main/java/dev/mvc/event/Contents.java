@@ -2,7 +2,7 @@ package dev.mvc.event;
 
 import java.io.File;
 
-public class Event {
+public class Contents {
     /** 페이지당 출력할 레코드 갯수 */
     public static int RECORD_PER_PAGE = 10;
 

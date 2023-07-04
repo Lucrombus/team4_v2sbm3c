@@ -25,6 +25,7 @@ CREATE TABLE guin_c(
 		thumb1                        		VARCHAR2(100)		 NULL ,
         thumb1_origin                       VARCHAR2(100)		 NULL ,
 		size1                         		NUMBER(10)		 NULL ,
+        viewcnt                             NUMBER(20)      DEFAULT 0 NOT NULL ,
   FOREIGN KEY (jobcateno) REFERENCES jobcate (jobcateno),
   FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
@@ -49,6 +50,7 @@ COMMENT ON COLUMN guin_c.file1saved is '실제로 저장된 메인 이미지';
 COMMENT ON COLUMN guin_c.thumb1 is '크기가 바뀐 썸네일 이미지';
 COMMENT ON COLUMN guin_c.thumb1_origin is '썸네일 오리지널 이미지';
 COMMENT ON COLUMN guin_c.size1 is '이미지 용량';
+COMMENT ON COLUMN guin_c.viewcnt is '조회수';
 
 DROP SEQUENCE guin_c_seq;
 
@@ -58,23 +60,22 @@ CREATE SEQUENCE guin_c_seq
   MAXVALUE 9999999999  -- 최대값: 9999999999 --> NUMBER(10) 대응
   CACHE 2                        -- 2번은 메모리에서만 계산
   NOCYCLE;                      -- 다시 1부터 생성되는 것을 방지
-  
-  
+
 /**********************************/
 /* INSERT */
 /**********************************/ 
 INSERT INTO guin_c (guin_cno, jobcateno, memberno, name, brand, title, content, rdate, address, map,
-wage, recom, day, period, tel, email)
+wage, recom, day, period, tel, email, viewcnt)
 VALUES (guin_c_seq.nextval, 11, 1, 'CU 무슨무슨점', 'CU', '주말 오전 아르바이트 구함', '업무내용은 ~이고 성실하고 오래하실~ 생략', sysdate, '서울시 OO구 OO동 OO로 123-123', 'nomap',
-8900, 1, '토요일, 일요일', '6개월', '010-1234-1234', 'test123@test.com');
+8900, 1, '토요일, 일요일', '6개월', '010-1234-1234', 'test123@test.com', 0);
 
 /**********************************/
 /* SELECT */
 /**********************************/ 
-SELECT guin_cno, jobcateno, memberno, name, brand, title, content, rdate, address, wage, day, period, tel, email  -- 전부 읽기
+SELECT guin_cno, jobcateno, memberno, name, brand, title, content, rdate, address, wage, day, period, tel, email, viewcnt  -- 전부 읽기
 FROM guin_c; 
 
-SELECT guin_cno, jobcateno, memberno, name, brand, title, content, rdate, address, wage, day, period, tel, email  -- 특정 레코드만
+SELECT guin_cno, jobcateno, memberno, name, brand, title, content, rdate, address, wage, day, period, tel, email, viewcnt  -- 특정 레코드만
 FROM guin_c 
 WHERE guin_cno =1; 
 
@@ -109,11 +110,11 @@ WHERE jobcateno = 1 AND (UPPER(title) LIKE '%' ||UPPER('123') || '%'
 /**********************************/
 /* 검색 리스트 */
 /**********************************/ 
- SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, r
+ SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt, r
    FROM (
-              SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, rownum as r
+              SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt, rownum as r
               FROM (
-                        SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word
+                        SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt
                         FROM guin_c
                         WHERE jobcateno=1 AND (UPPER(title) LIKE '%' || UPPER('123') || '%' 
                                                                       OR UPPER(content) LIKE '%' || UPPER('123') || '%' 

@@ -353,9 +353,12 @@ public class Guin_cCont {
 
     JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
     mav.addObject("jobcateVO", jobcateVO);
+    
+    int viewcnt = this.guin_cProc.update_viewcnt(guin_cno);
+    mav.addObject("viewcnt", viewcnt);
 
     mav.setViewName("/guin_c/read"); // /WEB-INF/views/contents/read.jsp
-
+    
     return mav;
   }
 
@@ -681,7 +684,20 @@ public class Guin_cCont {
     return mav; // forward
   }
   
-  
+  /**
+   * 조회수 증가
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/guin_c/viewcnt.do", method = RequestMethod.GET)
+  public ModelAndView update_viewcnt(int guin_cno) {
+    ModelAndView mav = new ModelAndView();
+    
+    int viewcnt = this.guin_cProc.update_viewcnt(guin_cno);
+    mav.addObject("viewcnt", viewcnt);
+    
+    return mav;
+  }
   
   
   

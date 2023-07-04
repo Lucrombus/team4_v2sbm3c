@@ -120,10 +120,11 @@ function like_n(image) {
     <colgroup>
       <col style="width: 5%;"></col>
       <col style="width: 5%;"></col>
-      <col style="width: 60%;"></col>
+      <col style="width: 55%;"></col>
       <col style="width: 5%;"></col>
       <col style="width: 10%;"></col>
       <col style="width: 10%;"></col>
+      <col style="width: 5%;"></col>
     </colgroup>
 
     <thead>
@@ -134,6 +135,7 @@ function like_n(image) {
         <th style='text-align: center;'>기타</th>
         <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>작성자</th>
+        <th style='text-align: center;'>조회수</th>
       </tr>
     
     </thead>
@@ -155,6 +157,7 @@ function like_n(image) {
         <c:set var="thumb1" value="${guin_cVO.thumb1 }" />
         <c:set var="rdate" value="${guin_cVO.rdate }" />
         <c:set var="memberno" value="${guin_cVO.memberno }" />
+        <c:set var="viewcnt" value="${guin_cVO.viewcnt }" />
         
         <c:set target="${like_guinVO}" property="guin_cno" value="${guin_cno }" />
         <c:set target="${like_guinVO}" property="memberno" value="${sessionScope.memberno == null ? -1 : sessionScope.memberno }" />
@@ -194,6 +197,9 @@ function like_n(image) {
           </td>
            <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
           ${f.apply(memberno) }
+          </td>
+          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+          ${viewcnt }
           </td>
         </tr>
         

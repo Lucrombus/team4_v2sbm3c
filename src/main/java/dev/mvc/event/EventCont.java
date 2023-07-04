@@ -36,7 +36,7 @@ public class EventCont {
     System.out.println("EventCont created");
   }
 
-  // 공지사항 등록 폼
+  // 이벤트 등록 폼
   // http://localhost:9093/event/create.do
   @RequestMapping(value = "/event/create.do", method = RequestMethod.GET)
   public ModelAndView create(HttpSession session) {
@@ -51,7 +51,7 @@ public class EventCont {
     return mav;
   }
 
-  // 공지사항 등록 처리
+  // 이벤트 등록 처리
   @RequestMapping(value = "/event/create.do", method = RequestMethod.POST)
   public ModelAndView create(HttpServletRequest request, HttpSession session, EventVO eventVO) {
 
@@ -65,7 +65,7 @@ public class EventCont {
       String file1saved = "";   // 저장된 파일명, image
       String thumb1 = "";     // preview image
 
-      String upDir =  Event.getUploadDir();
+      String upDir =  Contents.getUploadDir();
       System.out.println("-> upDir: " + upDir);
       
       // 전송 파일이 없어도 file1MF 객체가 생성됨.
@@ -165,7 +165,7 @@ public class EventCont {
      return mav;
    }
    
-   // 공지사항 조회
+   // 이벤트 조회
    @RequestMapping(value="/event/read.do", method=RequestMethod.GET )
    public ModelAndView read(int eventno) {
      ModelAndView mav = new ModelAndView();
@@ -195,7 +195,7 @@ public class EventCont {
      return mav;
    }
    
-   // 공지사항 글 수정 폼
+   // 이벤트 글 수정 폼
    @RequestMapping(value = "/event/update_text.do", method = RequestMethod.GET)
    public ModelAndView update_text(HttpSession session, int eventno) {
      ModelAndView mav = new ModelAndView();
@@ -269,7 +269,7 @@ public class EventCont {
        String thumb1 = eventVO_old.getThumb1();       // 실제 저장된 preview 이미지 파일명
        long size1 = 0;
           
-       String upDir =  Event.getUploadDir(); // C:/kd/deploy/team4_v2sbm3c/event/storage/
+       String upDir =  Contents.getUploadDir(); // C:/kd/deploy/team4_v2sbm3c/event/storage/
        
        Tool.deleteFile(upDir, file1saved);  // 실제 저장된 파일삭제
        Tool.deleteFile(upDir, thumb1);     // preview 이미지 삭제
@@ -363,7 +363,7 @@ public class EventCont {
        String file1saved = eventVO.getFile1saved();
        String thumb1 = eventVO.getThumb1();
        
-       String uploadDir = Event.getUploadDir();
+       String uploadDir = Contents.getUploadDir();
        Tool.deleteFile(uploadDir, file1saved);  // 실제 저장된 파일삭제
        Tool.deleteFile(uploadDir, thumb1);     // preview 이미지 삭제
        // -------------------------------------------------------------------

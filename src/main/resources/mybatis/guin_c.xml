@@ -10,12 +10,12 @@
         (guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1, like_w)
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, size1, viewcnt)
         VALUES
         (guin_c_seq.nextval, #{jobcateno}, #{memberno}, #{name},
         #{brand}, #{title},
         #{content}, sysdate, #{address},
-        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1}, #{thumb1_origin}, #{file1}, #{file1saved}, #{size1}, 'N')
+        #{wage}, #{day}, #{period}, #{tel}, #{email}, #{word}, #{thumb1}, #{thumb1_origin}, #{file1}, #{file1saved}, #{size1}, 0)
     </insert>
     
     <!-- 조회 -->
@@ -23,7 +23,7 @@
         SELECT guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map, like_w
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map, viewcnt
         FROM guin_c
         WHERE guin_cno = #{guin_cno}
     </select>
@@ -37,6 +37,13 @@
             word = #{word}, thumb1 = #{thumb1}, thumb1_origin = #{thumb1_origin},
             file1 = #{file1}, file1saved= #{file1saved}
         WHERE guin_cno = #{guin_cno}
+    </update>
+    
+    <!-- 조회수 증가 -->
+    <update id="update_viewcnt" parameterType="int">
+      UPDATE guin_c
+      SET viewcnt = viewcnt + 1
+      WHERE guin_cno = #{guin_cno}
     </update>
     
     <!-- 삭제 -->
@@ -84,11 +91,11 @@
     
     <!-- 카테고리별 검색 + 페이징 목록 -->
   <select id="list_by_jobcateno_search_paging" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="dev.mvc.guin_c.Guin_cVO">
-    SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, r
+    SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt, r
    FROM (
-              SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, rownum as r
+              SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt, rownum as r
               FROM (
-                        SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word
+                        SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt
                         FROM guin_c
                         <choose>
                            <when test="(word == null or word == '') and (jobcateno != 0)"> <!-- 검색하지 않는 경우의 레코드 갯수 (카테고리 별) -->
