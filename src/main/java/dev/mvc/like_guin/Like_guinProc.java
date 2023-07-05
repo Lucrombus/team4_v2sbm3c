@@ -15,25 +15,6 @@ public class Like_guinProc implements Like_guinProcInter{
     int cnt = this.like_guinDAO.create(like_guinVO); 
     return cnt;
   }
-
-  @Override
-  public ArrayList<Like_guinVO> list_all(Like_guinVO like_guinVO) {
-    ArrayList<Like_guinVO> list = this.like_guinDAO.list_all(like_guinVO);
-    
-    return list;
-  }
-  
-  @Override
-  public Like_guinVO read(int guin_cno) {
-    Like_guinVO like_guinVO = this.like_guinDAO.read(guin_cno);
-    return like_guinVO;
-  }
-  
-  @Override
-  public int delete(int like_guinno) {
-    int cnt = this.like_guinDAO.delete(like_guinno);
-    return cnt;
-  }
   
   @Override
   public int check(Like_guinVO like_guinVO) {

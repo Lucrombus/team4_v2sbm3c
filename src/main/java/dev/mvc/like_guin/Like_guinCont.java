@@ -141,7 +141,6 @@ public class Like_guinCont {
 
   }
 
-  // AJAX
   // 관심구인 해제
   @ResponseBody
   @RequestMapping(value = "/like_guin/like_n.do", method = RequestMethod.POST)

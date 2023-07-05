@@ -78,8 +78,7 @@
         <DIV style="width: 100%; word-break: break-all;">
           <c:choose>
             <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
-              <%-- /static/event/storage/ --%>
-              <img src="/event/storage/${file1saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
+              <img src="/contents/storage/${file1saved }" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> 
             </c:when>
             <c:otherwise> <!-- 기본 이미지 출력 -->
               <!-- <img src="/event/images/none1.png" style='width: 50%; float: left; margin-top: 0.5%; margin-right: 1%;'> --> 
