@@ -49,6 +49,7 @@ public class Guin_cCont {
   @Qualifier("dev.mvc.like_guin.Like_guinProc")
   private Like_guinProcInter like_guinProc;
 
+  
   public Guin_cCont() {
     System.out.println("Guin_cCont created");
   }
@@ -742,7 +743,7 @@ public class Guin_cCont {
     JobcateVO jobcateVO = jobcateProc.read(guin_cVO.getJobcateno());
     mav.addObject("jobcateVO", jobcateVO);
     
-
+    
     // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
     Function<Integer, String> f = (memberno) -> {
       MemberVO memberVO = memberProc.readByMemberno(memberno);
@@ -781,7 +782,7 @@ public class Guin_cCont {
     // mav.addObject("now_page", now_page);
 
     mav.setViewName("/guin_c/recommend_wage"); // /contents/recommend_wage.jsp
-
+    
     return mav;
   }
   
