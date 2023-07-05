@@ -56,7 +56,7 @@ public class Guin_cCont {
   // 등록 폼 조회
   // http://localhost:9093/guin_c/create.do
   @RequestMapping(value = "/guin_c/create.do", method = RequestMethod.GET)
-  public ModelAndView create(int jobcateno, HttpSession session) {
+  public ModelAndView create(int jobcateno, int now_page, HttpSession session) {
     ModelAndView mav = new ModelAndView();
 
     JobcateVO jobcateVO = this.jobcateProc.read(jobcateno);
@@ -65,7 +65,18 @@ public class Guin_cCont {
     mav.addObject("list", list);
 
     if (session.getAttribute("id") != null) {
-      mav.setViewName("/guin_c/create_test");
+      if (session.getAttribute("rankno").equals(3) || session.getAttribute("rankno").equals(1) ) {
+        mav.setViewName("/guin_c/create_test");
+        
+      }else {
+        mav.addObject("url", "/guin_c/msg");
+        mav.addObject("code", "rank_different");
+        mav.addObject("jobcateno", jobcateno);
+        mav.addObject("now_page", now_page);
+        mav.setViewName("redirect:/guin_c/msg.do");
+        
+      }
+      
 
     } else {
       mav.setViewName("/member/login_need");
@@ -138,6 +149,7 @@ public class Guin_cCont {
     ModelAndView mav = new ModelAndView();
 
     if (session.getAttribute("id") != null) {
+      if (session.getAttribute("rankno").equals(3) || session.getAttribute("rankno").equals(1) ) {
       // ------------------------------------------------------------------------------
       // 파일 전송 코드 시작
       // ------------------------------------------------------------------------------
@@ -209,6 +221,14 @@ public class Guin_cCont {
       mav.addObject("jobcateno", guin_cVO.getJobcateno());
       mav.addObject("now_page", guin_cVO.getNow_page());
       mav.setViewName("redirect:/guin_c/list_by_jobcateno_search_paging.do");
+      }else {
+        mav.addObject("url", "/guin_c/msg");
+        mav.addObject("code", "rank_different");
+        mav.addObject("jobcateno", guin_cVO.getJobcateno());
+        mav.addObject("now_page", guin_cVO.getNow_page());
+        mav.setViewName("redirect:/guin_c/msg.do");
+        
+      }
 
     } else {
       mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp

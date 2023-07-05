@@ -69,6 +69,12 @@
           </LI> 
         </c:when> 
         
+         <c:when test="${code == 'rank_different'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_success">구인 게시글은 기업회원 또는 관리자만 등록할 수 있습니다</span>
+          </LI> 
+        </c:when> 
+        
         <c:otherwise>
           <LI class='li_none_left'>
             <span class="span_fail">알 수 없는 에러로 작업에 실패했습니다.</span>
