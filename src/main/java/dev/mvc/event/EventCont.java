@@ -187,8 +187,8 @@ public class EventCont {
      mav.addObject("eventVO", eventVO); // request.setAttribute("eventVO", eventVO);
      
      // 회원 번호: admino -> AdminVO -> name
-     String name = this.memberProc.read(eventVO.getMemberno()).getName();
-     mav.addObject("name", name);
+     String id = this.memberProc.read(eventVO.getMemberno()).getId();
+     mav.addObject("id", id);
 
      mav.setViewName("/event/read"); // /WEB-INF/views/event/read.jsp
          

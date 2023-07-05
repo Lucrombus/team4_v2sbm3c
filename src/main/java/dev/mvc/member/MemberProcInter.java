@@ -116,15 +116,15 @@ public interface MemberProcInter {
    */
   public int login(HashMap<String, Object> map);
   
-  /**
-   * 정지 회원이 아닌 회원 로그인 처리
-   */
-  public int login_p(HashMap<String, Object> map);
-  
-  /**
-   * 탈퇴 회원이 아닌 회원 로그인 처리
-   */
-  public int login_s(HashMap<String, Object> map);
+//  /**
+//   * 정지 회원이 아닌 회원 로그인 처리
+//   */
+//  public int login_p(HashMap<String, Object> map);
+//  
+//  /**
+//   * 탈퇴 회원이 아닌 회원 로그인 처리
+//   */
+//  public int login_s(HashMap<String, Object> map);
   
   /**
    * 탈퇴 회원 처리
@@ -160,7 +160,7 @@ public interface MemberProcInter {
 //   * @return
 //   */
 //  public ArrayList<MemberVO> list_by_paging(MemberVO memberVO);
-//  
+  
 //  /** 
 //   * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 
 //   * 현재 페이지: 11 / 22   [이전] 11 12 13 14 15 16 17 18 19 20 [다음] 
