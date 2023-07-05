@@ -8,7 +8,7 @@ CREATE TABLE notice(
 		noticeno                      		NUMBER(10)		 NOT NULL    PRIMARY KEY,
 		topview                       		CHAR(1)		 DEFAULT 'N'		 NOT NULL,
 		memberno                      		NUMBER(10)		 NOT NULL,
-		title                         		VARCHAR2(50)		 NOT NULL,
+		title                         		VARCHAR2(300)		 NOT NULL,
 		content                       		VARCHAR2(4000)		 NOT NULL,
 		viewcnt                           	NUMBER(7)		 NOT NULL,
 		word                          		VARCHAR2(100)		 NULL ,
