@@ -752,4 +752,61 @@ public class MemberCont {
 
     return mav;
   }
+  
+///**
+//* 특정 카테고리의 검색된 글목록
+//* http://localhost:9091/contents/list_by_cateno.do?cateno=8&word=부대찌게
+//* @return
+//*/
+//@RequestMapping(value="/contents/list_by_cateno.do", method=RequestMethod.GET)
+//public ModelAndView list_by_cateno_search(ContentsVO contentsVO) {
+// ModelAndView mav = new ModelAndView();
+// 
+// CateVO cateVO = this.cateProc.read(contentsVO.getCateno());
+// mav.addObject("cateVO", cateVO);
+//     
+// ArrayList<ContentsVO> list = this.contentsProc.list_by_cateno_search(contentsVO);
+// mav.addObject("list", list);
+// 
+// mav.setViewName("/contents/list_by_cateno_search"); // /webapp/WEB-INF/views/contents/list_by_cateno_search.jsp
+// 
+// return mav;
+//}
+// /**
+//* 목록 + 검색 + 페이징 지원
+//* http://localhost:9091/contents/list_by_cateno.do?cateno=1&word=스위스&now_page=1
+//* 
+//* @param cateno
+//* @param word
+//* @param now_page
+//* @return
+//*/
+//@RequestMapping(value = "/contents/list_by_cateno.do", method = RequestMethod.GET)
+//public ModelAndView list_by_cateno_search_paging(ContentsVO contentsVO) {
+// ModelAndView mav = new ModelAndView();
+//
+// // 검색 목록
+// ArrayList<ContentsVO> list = contentsProc.list_by_cateno_search_paging(contentsVO);
+// mav.addObject("list", list);
+//
+// CateVO cateVO = cateProc.read(contentsVO.getCateno());
+// mav.addObject("cateVO", cateVO);
+//
+// /*
+//  * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
+//  * 18 19 20 [다음]
+//  * @param cateno 카테고리번호
+//  * @param now_page 현재 페이지
+//  * @param word 검색어
+//  * @return 페이징용으로 생성된 HTML/CSS tag 문자열
+//  */
+// String paging = contentsProc.pagingBox(contentsVO.getCateno(), contentsVO.getNow_page(), contentsVO.getWord(), "list_by_cateno.do");
+// mav.addObject("paging", paging);
+//
+// // mav.addObject("now_page", now_page);
+// 
+// mav.setViewName("/member/list_by_cateno_search_paging");  // /contents/list_by_cateno_search_paging.jsp
+//
+// return mav;
+//}
 }

@@ -132,8 +132,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE name = #{name} AND tel = #{tel} AND id = #{id}
   </select>
   
-  <!-- 페이징 목록 
-  <select id="list_by__paging" resultType="dev.mvc.member.MemberVO" parameterType="dev.mvc.member.MemberVO">
+  <!-- 페이징 목록 -->
+  <select id="list_by_paging" resultType="dev.mvc.member.MemberVO" parameterType="dev.mvc.member.MemberVO">
     SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education, r
     FROM (
                 SELECT memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education, rownum as r
@@ -147,7 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
      
    <!--  1 page: WHERE r >= 1 AND r <= 10; 
           2 page: WHERE r >= 11 AND r <= 20;
-          3 page: WHERE r >= 21 AND r <= 30; 
-  </select> -->
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select> 
   
 </mapper>
