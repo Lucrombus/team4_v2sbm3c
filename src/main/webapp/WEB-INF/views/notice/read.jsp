@@ -87,7 +87,7 @@
           </c:choose>
 
           <span style="font-size: 1.5em; font-weight: bold;">${title }</span><br>
-          <div style="font-size: 1em;">${id } / ${rdate }</div><br>
+          <div style="font-size: 1em;">작성자 : ${id } / 작성일자 : ${rdate } / 조회수 : ${viewcnt }</div><br>
           ${content }
         </DIV>
       </li>

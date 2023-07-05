@@ -198,7 +198,7 @@ function like_n(image) {
            <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
           ${f.apply(memberno) }
           </td>
-          <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
+          <td style='vertical-align: middle; text-align: center;'>
           ${viewcnt }
           </td>
         </tr>

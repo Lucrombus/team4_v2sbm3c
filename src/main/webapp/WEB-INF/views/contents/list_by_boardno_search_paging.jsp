@@ -59,7 +59,8 @@
       <col style="width: 5%;"></col>
       <col style="width: 65%;"></col>
       <col style="width: 15%;"></col>
-      <col style="width: 15%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 5%;"></col>
     </colgroup>
 
     <thead>
@@ -68,6 +69,7 @@
         <th style='text-align: center;'>제목</th>
         <th style='text-align: center;'>작성일</th>
         <th style='text-align: center;'>작성자</th>
+        <th style='text-align: center;'>조회수</th>
       </tr>
     
     </thead>
@@ -87,6 +89,7 @@
         <c:set var="boardno" value="${contentsVO.boardno }" />
         <c:set var="contentsno" value="${contentsVO.contentsno }" />
         <c:set var="rdate" value="${contentsVO.rdate }" />
+        <c:set var="viewcnt" value="${contentsVO.viewcnt }" />
         <c:set var="memberno" value="${contentsVO.memberno }" />
         
         <tr style="height:50px;">
@@ -102,6 +105,9 @@
           </td>
            <td style='vertical-align: middle; text-align: center; font-weight:bold;'>
           ${f.apply(memberno) }
+          </td>
+          <td style='vertical-align: middle; text-align: center;'>
+          ${viewcnt}
           </td>
         </tr>
         

@@ -38,6 +38,12 @@ public interface ContentsDAOInter {
   public int update(ContentsVO contentsVO);
   
   /**
+   * 조회수 증가
+   * @return
+   */
+  public int update_viewcnt(int contentsno);
+  
+  /**
    * 삭제
    * @return
    */

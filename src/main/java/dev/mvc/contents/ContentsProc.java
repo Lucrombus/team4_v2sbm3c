@@ -91,6 +91,12 @@ public class ContentsProc implements ContentsProcInter {
   }
   
   @Override
+  public int update_viewcnt(int contentsno) {
+    int cnt = this.contentsDAO.update_viewcnt(contentsno);
+    return cnt;
+  }
+  
+  @Override
   public int delete(int contentsno) {
     int cnt = this.contentsDAO.delete(contentsno);
     return cnt;

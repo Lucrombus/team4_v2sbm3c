@@ -354,7 +354,8 @@ public class Guin_cCont {
     JobcateVO jobcateVO = this.jobcateProc.read(guin_cVO.getJobcateno()); // 그룹 정보를 읽기
     mav.addObject("jobcateVO", jobcateVO);
     
-    int viewcnt = this.guin_cProc.update_viewcnt(guin_cno);
+    int cnt = this.guin_cProc.update_viewcnt(guin_cno);
+    int viewcnt = guin_cVO.getViewcnt();
     mav.addObject("viewcnt", viewcnt);
 
     mav.setViewName("/guin_c/read"); // /WEB-INF/views/contents/read.jsp

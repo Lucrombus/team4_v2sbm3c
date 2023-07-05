@@ -216,8 +216,13 @@ public class NoticeCont {
      mav.addObject("noticeVO", noticeVO); // request.setAttribute("noticeVO", noticeVO);
      
      // 회원 번호: admino -> AdminVO -> name
-     String name = this.memberProc.read(noticeVO.getMemberno()).getName();
-     mav.addObject("name", name);
+     String id = this.memberProc.read(noticeVO.getMemberno()).getId();
+     mav.addObject("id", id);
+     
+     //조회수 증가
+     this.noticeProc.viewcnt_add(noticeno);
+     int viewcnt = noticeVO.getViewcnt();
+     mav.addObject("viewcnt", viewcnt);
 
      mav.setViewName("/notice/read"); // /WEB-INF/views/notice/read.jsp
          
@@ -402,7 +407,7 @@ public class NoticeCont {
      this.noticeProc.delete(noticeVO.getNoticeno()); // DBMS 삭제
      
     
-     mav.setViewName("redirect:/notice/list_all.do"); 
+     mav.setViewName("redirect:/notice/list_all_search_paging.do"); 
      } else {
        mav.setViewName("/member/admin_login_need");
      }

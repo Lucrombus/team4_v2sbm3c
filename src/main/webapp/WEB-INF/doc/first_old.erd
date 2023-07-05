@@ -51,8 +51,8 @@
             <constraint>
               <height>-1</height>
               <width>-1</width>
-              <x>1029</x>
-              <y>813</y>
+              <x>1059</x>
+              <y>823</y>
             </constraint>
             <sourceConnections/>
             <targetConnections>
@@ -899,6 +899,22 @@
                                   <description></description>
                                   <autoIncrement>false</autoIncrement>
                                   <defaultValue></defaultValue>
+                                </net.java.amateras.db.visual.model.ColumnModel>
+                                <net.java.amateras.db.visual.model.ColumnModel>
+                                  <columnName>viewcnt</columnName>
+                                  <logicalName>조회수</logicalName>
+                                  <columnType class="net.java.amateras.db.dialect.ColumnType">
+                                    <name>NUMBER</name>
+                                    <logicalName>Numeric</logicalName>
+                                    <supportSize>true</supportSize>
+                                    <type>2</type>
+                                  </columnType>
+                                  <size>20</size>
+                                  <notNull>true</notNull>
+                                  <primaryKey>false</primaryKey>
+                                  <description></description>
+                                  <autoIncrement>false</autoIncrement>
+                                  <defaultValue>0</defaultValue>
                                 </net.java.amateras.db.visual.model.ColumnModel>
                               </columns>
                               <indices/>
@@ -3349,6 +3365,22 @@
           <description></description>
           <autoIncrement>false</autoIncrement>
           <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>viewcnt</columnName>
+          <logicalName>조회수</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>NUMBER</name>
+            <logicalName>Numeric</logicalName>
+            <supportSize>true</supportSize>
+            <type>2</type>
+          </columnType>
+          <size>20</size>
+          <notNull>true</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue>0</defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
       </columns>
       <indices/>
