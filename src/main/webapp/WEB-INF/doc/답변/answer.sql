@@ -54,6 +54,9 @@ WHERE answerno = 1
 DELETE FROM answer
 WHERE answerno = 1
 
+DELETE FROM answer
+WHERE inquiryno = 8
+
 SELECT *
 FROM 
 
