@@ -37,6 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE answerno = #{answerno}
   </delete>
   
+  <!-- inquiryno에 따른 답변 삭제 -->
+  <delete id="delete_inquiryno"  parameterType="int">
+    DELETE FROM answer
+    WHERE inquiryno = #{inquiryno}
+  </delete>
+  
   <!-- 문의에 대한 답변 목록 출력 -->
   <select id="list_by_inquiryno" resultType="dev.mvc.answer.AnswerVO" parameterType = "int">
     SELECT answerno, content, rdate, inquiryno, memberno

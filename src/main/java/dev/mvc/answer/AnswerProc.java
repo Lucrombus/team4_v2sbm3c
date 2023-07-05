@@ -58,6 +58,12 @@ public class AnswerProc implements AnswerProcInter {
     int cnt = this.answerDAO.delete(answerno);
     return cnt;
   }
+  
+  @Override
+  public int delete_inquiryno(int inquiryno) {
+    int cnt = this.answerDAO.delete_inquiryno(inquiryno);
+    return cnt;
+  }
 
   @Override
   public AnswerVO read_by_inquiryno(int inquiryno) {

@@ -328,7 +328,7 @@ public class InquiryCont {
     ModelAndView mav = new ModelAndView();
     
     InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
-    
+    this.answerProc.delete_inquiryno(inquiryno);
     int cnt = inquiryProc.delete(inquiryno); // 회원 삭제
 
     if (cnt == 1) {

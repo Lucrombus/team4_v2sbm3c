@@ -53,6 +53,13 @@ public interface AnswerProcInter {
   public int delete(int answerno);
   
   /**
+   * 답변 삭제 처리
+   * @param inquiryno
+   * @return
+   */
+  public int delete_inquiryno(int inquiryno);
+  
+  /**
    * 문의 번호에 따른 문의 및 답변 조회
    * @param inquiryno
    * @return
