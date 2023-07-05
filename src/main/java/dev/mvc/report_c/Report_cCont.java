@@ -195,9 +195,11 @@ public class Report_cCont {
 //     String id = this.memberProc.read(report_cVO.getMemberno()).getId(); //신고자
 //     String id_t = this.memberProc.read(report_cVO.getContentsno()).getId(); //컨텐츠 작성자
      String title_c = this.contentsProc.read(report_cVO.getContentsno()).getTitle(); //컨텐츠 제목
+     int boardno = this.contentsProc.read(report_cVO.getContentsno()).getBoardno();
 //     mav.addObject("id", id);
 //     mav.addObject("id_t", id_t);
      mav.addObject("title_c", title_c);
+     mav.addObject("boardno", boardno);
 
      mav.setViewName("/report_c/read"); // /WEB-INF/views/resume/read.jsp
      } else {

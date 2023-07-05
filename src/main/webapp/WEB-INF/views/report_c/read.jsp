@@ -56,7 +56,7 @@ function check(){
             </div>    
             <div class="input-group mb-3" >
                 <span class="input-group-text" id="basic-addon1" >신고된 게시글</span>
-                <a href="/contents/read.do?contentsno=${contentsno }" style="display: flex; flex-grow: 1;">
+                <a href="/contents/read.do?contentsno=${contentsno }&boardno=${boardno }" style="display: flex; flex-grow: 1;">
                   <input type="text" class="form-control" placeholder="게시글 제목" id="title_c" name="title_c" value="${title_c }" style="background-color: white;" readonly>
                 </a>
             </div>

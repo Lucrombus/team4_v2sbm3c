@@ -205,7 +205,7 @@ public class Report_mCont {
      String id_t = this.memberProc.read(report_mVO.getTarget_mno()).getId();
      mav.addObject("id", id);
      mav.addObject("id_t", id_t);
-
+     
      mav.setViewName("/report_m/read"); // /WEB-INF/views/resume/read.jsp
          
      return mav;
@@ -230,13 +230,20 @@ public class Report_mCont {
    public ModelAndView delete(HttpSession session, Report_mVO report_mVO) {
      ModelAndView mav = new ModelAndView();
          
-     System.out.println(report_mVO.getReportno());
-     this.report_mProc.delete(report_mVO.getReportno()); // DBMS 삭제
-     
-     int memberno = (int) session.getAttribute("memberno");
-     mav.addObject("memberno", memberno);
-     mav.setViewName("redirect:/report_m/list_all_by_memberno.do"); // request -> param으로 접근 전환
-     
+     if (this.memberProc.isAdmin(session) || this.memberProc.isMember(session)) {
+       System.out.println(report_mVO.getReportno());
+       this.report_mProc.delete(report_mVO.getReportno()); // DBMS 삭제
+       
+       int memberno = (int) session.getAttribute("memberno");
+       mav.addObject("memberno", memberno);
+       if(this.memberProc.isAdmin(session)) {
+         mav.setViewName("redirect:/report_all/list_all.do"); // request -> param으로 접근 전환
+       } else {
+         mav.setViewName("redirect:/report_m/list_all_by_memberno.do");
+       }
+     } else {
+       
+     }
      
      return mav;
    }  
