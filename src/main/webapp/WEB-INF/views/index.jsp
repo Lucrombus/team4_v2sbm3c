@@ -37,6 +37,11 @@
 		  </DIV>
 		</DIV>
   </DIV>
+  <p>
+  <DIV style='width: 70%; margin: 10px auto;'>
+     <h2>왕눈이 님을 위한 추천 상품</h2>
+     <c:import url="/guin_c/recommend_wage.do" />
+   </DIV>
 <jsp:include page="./menu/bottom.jsp" flush='false' />
  
 </body>

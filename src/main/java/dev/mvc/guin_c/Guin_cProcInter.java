@@ -80,5 +80,9 @@ public interface Guin_cProcInter {
    */ 
   public String pagingBox(int typeno, int search_count, int now_page, String word, String list_file);
 
-
+  /**
+   * 급여순 추천 업종 카테고리 나열
+   * @return
+   */
+  public ArrayList<Guin_cVO> recommend_wage(Guin_cVO guin_cVO);
 }

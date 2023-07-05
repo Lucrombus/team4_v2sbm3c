@@ -32,15 +32,25 @@ CREATE SEQUENCE jobcate_seq
 /* INSERT */
 /**********************************/ 
 INSERT INTO jobcate (jobcateno, name, seqno, visible)
-VALUES (jobcate_seq.nextval, '편의점', 0, 'N');
+VALUES (jobcate_seq.nextval, '카운터', 0, 'N');
 
 INSERT INTO jobcate (jobcateno, name, seqno, visible)
-VALUES (jobcate_seq.nextval, '카페', 0, 'N');
+VALUES (jobcate_seq.nextval, '배달대행', 0, 'N');
 
 INSERT INTO jobcate (jobcateno, name, seqno, visible)
-VALUES (jobcate_seq.nextval, '피시방', 0, 'N');
+VALUES (jobcate_seq.nextval, '물류', 0, 'N');
 
+INSERT INTO jobcate (jobcateno, name, seqno, visible)
+VALUES (jobcate_seq.nextval, '재택근무', 0, 'N');
 
+INSERT INTO jobcate (jobcateno, name, seqno, visible)
+VALUES (jobcate_seq.nextval, '음식점', 0, 'N');
+
+INSERT INTO jobcate (jobcateno, name, seqno, visible)
+VALUES (jobcate_seq.nextval, '임상시험', 0, 'N');
+
+INSERT INTO jobcate (jobcateno, name, seqno, visible)
+VALUES (jobcate_seq.nextval, '기타', 0, 'N');
 /**********************************/
 /* SELECT */
 /**********************************/ 

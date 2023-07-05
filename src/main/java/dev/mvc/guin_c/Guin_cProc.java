@@ -229,4 +229,51 @@ public class Guin_cProc implements Guin_cProcInter {
   
   
 
+  @Override
+  public ArrayList<Guin_cVO> recommend_wage(Guin_cVO guin_cVO) {
+    /*
+     * 예) 페이지당 10개의 레코드 출력 1 page: WHERE r >= 1 AND r <= 10 2 page: WHERE r >= 11
+     * AND r <= 20 3 page: WHERE r >= 21 AND r <= 30
+     * 
+     * 페이지에서 출력할 시작 레코드 번호 계산 기준값, nowPage는 1부터 시작 1 페이지 시작 rownum: now_page = 1, (1
+     * - 1) * 10 --> 0 2 페이지 시작 rownum: now_page = 2, (2 - 1) * 10 --> 10 3 페이지 시작
+     * rownum: now_page = 3, (3 - 1) * 10 --> 20
+     */
+    int begin_of_page = (guin_cVO.getNow_page() - 1) * Contents.RECORD_PER_PAGE;
+
+    // 시작 rownum 결정
+    // 1 페이지 = 0 + 1: 1
+    // 2 페이지 = 10 + 1: 11
+    // 3 페이지 = 20 + 1: 21
+    int start_num = begin_of_page + 1;
+
+    // 종료 rownum
+    // 1 페이지 = 0 + 10: 10
+    // 2 페이지 = 0 + 20: 20
+    // 3 페이지 = 0 + 30: 30
+    int end_num = begin_of_page + Contents.RECORD_PER_PAGE;
+    /*
+     * 1 페이지: WHERE r >= 1 AND r <= 10 2 페이지: WHERE r >= 11 AND r <= 20 3 페이지: WHERE
+     * r >= 21 AND r <= 30
+     */
+    guin_cVO.setStart_num(start_num);
+    guin_cVO.setEnd_num(end_num);
+
+    ArrayList<Guin_cVO> list = this.guin_cDAO.recommend_wage(guin_cVO);
+
+    for (int i = 0; i < list.size(); i++) {
+      guin_cVO = list.get(i);
+
+      String title = guin_cVO.getTitle();
+      String content = guin_cVO.getContent();
+
+      title = Tool.convertChar(title);
+      content = Tool.convertChar(content);
+
+      guin_cVO.setTitle(title);
+      guin_cVO.setContent(content);
+    }
+
+    return list;
+  }
 }

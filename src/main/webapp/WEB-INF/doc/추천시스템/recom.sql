@@ -31,6 +31,9 @@ CREATE SEQUENCE recommendation_seq
 INSERT INTO recommendation(recomno, jobcateno, memberno, recom, rcdate)
 VALUES (recommendation_seq.nextval, 1, 1, 1, sysdate);
 
+SELECT recomno, jobcateno, memberno, recom
+FROM recommendation;
+
 -- 조회
 SELECT recomno, jobcateno, memberno, recom
 FROM recommendation

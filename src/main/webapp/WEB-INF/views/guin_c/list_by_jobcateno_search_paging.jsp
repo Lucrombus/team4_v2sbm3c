@@ -149,7 +149,7 @@ function like_n(image) {
      </c:if>
     
     <tbody>
-      <c:forEach var="guin_cVO" items="${list }">
+      <c:forEach var="guin_cVO" items="${list }" >
         <c:set var="title" value="${guin_cVO.title }" />
         <c:set var="content" value="${guin_cVO.content }" />
         <c:set var="jobcateno" value="${guin_cVO.jobcateno }" />

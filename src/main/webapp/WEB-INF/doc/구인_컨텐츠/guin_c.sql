@@ -129,7 +129,21 @@ FROM guin_c
 WHERE guin_cno IN (SELECT guin_cno FROM like_guin WHERE memberno =1);
 
 
+/**********************************/
+/* 급여별 추천 테이블 카테고리별 나열 */
+/**********************************/ 
 
+ SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt,r
+   FROM (
+              SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt,rownum as r
+              FROM (
+                        SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt
+                        FROM guin_c
+                        WHERE jobcateno=1
+                        ORDER BY wage DESC
+               )
+    )
+    WHERE r >= 1 and r <= 5; 
 
 
 
