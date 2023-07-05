@@ -63,9 +63,9 @@ public class AnswerCont {
     ModelAndView mav = new ModelAndView();
     
     InquiryVO inquiryVO = this.inquiryProc.read(inquiryno);
-    ArrayList<InquiryVO> list = this.inquiryProc.list_all();
+    // ArrayList<InquiryVO> list = this.inquiryProc.list_all();
     mav.addObject("inquiryVO", inquiryVO);
-    mav.addObject("list", list);
+    // mav.addObject("list", list);
     
     if (this.memberProc.isAdmin(session)) {
       mav.setViewName("/answer/create"); // /WEB-INF/views/inquiry/create.jsp
@@ -94,7 +94,6 @@ public class AnswerCont {
     if (this.memberProc.isAdmin(session)) {
       int memberno = (int)session.getAttribute("memberno");
       answerVO.setMemberno(memberno);
-      mav.addObject("memberno", memberno);
       
       int cnt = answerProc.create(answerVO);
       if (cnt == 1) {
@@ -103,6 +102,8 @@ public class AnswerCont {
         mav.addObject("code", "create_fail");
       }
       
+      // redirect시에 hidden tag로 보낸것들이 전달이 안됨으로 request에 다시 저장
+      mav.addObject("memberno", memberno); // redirect parameter 적용
       mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
       mav.addObject("url", "/answer/msg"); // /member/msg -> /member/msg.jsp
       mav.setViewName("redirect:/answer/msg.do");
