@@ -74,15 +74,15 @@ function checkLength() { // 입력되는 문자열의 길이를 구해서 오라
   console.log('내용길이' + content_length);
 
   if (document.getElementById("frm").checkValidity() && content_length > 0) { // required 옵션 체크하는 함수
-    if (title_length < 60) {
+    if (title_length < 30) {
       if (content_length < 1300) {
         formSubmitted = true;          
         $("#frm").submit();
       } else {
-        alert("내용은 1300자 이내로 해주세요");
+        alert("내용은 1300자 이내로 해주세요\n현재 글자 수: "+content_length);
       }
     } else {
-      alert("제목은 60자 이내로 해주세요");
+      alert("제목은 30자 이내로 해주세요\n현재 글자 수: "+title_length);
 
     }
   } else {

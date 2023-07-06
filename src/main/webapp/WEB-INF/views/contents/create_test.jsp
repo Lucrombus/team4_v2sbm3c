@@ -71,10 +71,10 @@
 					formSubmitted = true;          
 					$("#frm").submit();
 				} else {
-					alert("내용은 1300자 이내로 해주세요");
+					alert("내용은 1300자 이내로 해주세요\n현재 글자 수: "+content_length );
 				}
 			} else {
-				alert("제목은 30자 이내로 해주세요");
+				alert("제목은 30자 이내로 해주세요\n현재 글자 수: "+title_length);
 
 			}
 		} else {
