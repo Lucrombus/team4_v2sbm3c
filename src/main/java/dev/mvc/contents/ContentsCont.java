@@ -490,14 +490,19 @@ public class ContentsCont {
       Tool.deleteFile(upDir, thumb1_origin); // 썸네일 삭제
       
       
-      int cnt_reply = this.replyProc.delete_by_contentsno(contentsno); // FK 참조 관계로 자식테이블인 댓글부터 삭제해야 함
+      this.replyProc.delete_by_contentsno(contentsno); // FK 참조 관계로 자식테이블인 댓글부터 삭제해야 함
       int cnt = this.contentsProc.delete(contentsno);
       
-
-      mav.addObject("boardno", contentsVO.getBoardno());
-      mav.addObject("now_page", contentsVO.getNow_page());
-      mav.setViewName("redirect:/contents/list_by_boardno_search_paging.do"); // /webapp/WEB-INF/views/contents/delete.jsp
-   
+      if (cnt == 1) {
+        mav.addObject("boardno", contentsVO.getBoardno());
+        mav.addObject("now_page", contentsVO.getNow_page());
+        mav.setViewName("redirect:/contents/list_by_boardno_search_paging.do"); // /webapp/WEB-INF/views/contents/delete.jsp
+     
+      } else {
+        mav.addObject("url", "/contents/msg");
+        mav.addObject("code", "delete_fail");
+        mav.setViewName("redirect:/contents/msg.do");
+      }
     
 
     } else {
