@@ -42,7 +42,7 @@
 	    </c:if>
 		  <c:if test="${sessionScope.rankno == 2 || sessionScope.rankno == 3}">
 		    <a href="/inquiry/list_by_memberno.do?memberno=${memberno}"><IMG src="/mypage/images/inquiry.png" style='width: 40%; margin-bottom: 10px;'></a><br>
-	      <button type='button' onclick="location.href='/inquirylist_by_memberno.do?memberno=${memberno}'" class="btn btn-secondary">문의</button>
+	      <button type='button' onclick="location.href='/inquiry/list_by_memberno.do?memberno=${memberno}'" class="btn btn-secondary">문의</button>
 	    </c:if>
 	  </DIV>
 	  <DIV class='myinfo_box' >
