@@ -87,9 +87,16 @@ public class MemberCont {
 
     // System.out.println("id: " + memberVO.getId());
     int cnt = memberProc.checkID(memberVO.getId());
+    int cnt2 = memberProc.checkTEL(memberVO.getTel());
     
     if (cnt > 0) { 
       mav.addObject("code", "exist_id");
+      mav.setViewName("redirect:/member/msg.do");
+      return mav;
+    }
+    
+    if (cnt2 > 0) { 
+      mav.addObject("code", "exist_tel");
       mav.setViewName("redirect:/member/msg.do");
       return mav;
     }
@@ -130,9 +137,16 @@ public class MemberCont {
 
     // System.out.println("id: " + memberVO.getId());
     int cnt = memberProc.checkID(memberVO.getId());
+    int cnt2 = memberProc.checkTEL(memberVO.getTel());
     
     if (cnt > 0) { 
       mav.addObject("code", "exist_id");
+      mav.setViewName("redirect:/member/msg.do");
+      return mav;
+    }
+    
+    if (cnt2 > 0) { 
+      mav.addObject("code", "exist_tel");
       mav.setViewName("redirect:/member/msg.do");
       return mav;
     }

@@ -11,6 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     WHERE id=#{id}
   </select>
   
+  <select id="checkTEL" resultType="int" parameterType="String">
+    SELECT COUNT(tel) as cnt
+    FROM member
+    WHERE tel=#{tel}
+  </select>
+  
   <insert id="create" parameterType="dev.mvc.member.MemberVO">
     INSERT INTO member(memberno, id, passwd, name, tel, rdate, rankno, experience, gender, birth, education) 
     VALUES(member_seq.nextval, #{id}, #{passwd}, #{name}, #{tel}, sysdate, #{rankno}, #{experience}, #{gender}, #{birth}, #{education})

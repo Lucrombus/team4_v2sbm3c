@@ -46,6 +46,12 @@
             <span class="span_fail">이미 존재하는 아이디 입니다. 중복 확인 후 다시 시도해주세요.</span>
           </LI>                                                                      
         </c:when>
+        
+        <c:when test="${param.code == 'exist_tel'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class="span_fail">이미 회원 가입한 아이디 입니다. 전화번호는 하나만 사용하실 수 있습니다.</span>
+          </LI>                                                                      
+        </c:when>
 
         <c:when test="${param.code == 'update_success'}"> <%-- Java if --%>
           <LI class='li_none'>

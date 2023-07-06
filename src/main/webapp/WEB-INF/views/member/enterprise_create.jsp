@@ -111,7 +111,7 @@
         $('#btn_close').attr("data-focus", "id");  // 닫기 버튼 클릭시 id 입력으로 focus 이동
         $('#modal_panel').modal();               // 다이얼로그 출력
         return false;
-        } 
+      } 
          
     // 패스워드를 정상적으로 2번 입력했는지 확인
     if ($('#passwd').val() != $('#passwd2').val()) {
@@ -140,17 +140,17 @@
         return false;
         } 
 
-    // let tel = $('#tel').val().trim(); // 태그의 아이디가 'id'인 태그의 값
-      // if (tel.length == 0) { // id를 입력받지 않은 경우
-    	  // $('#modal_title').html('전화번호 입력 누락'); // 제목 
+     let tel = $('#tel').val().trim(); // 태그의 아이디가 'id'인 태그의 값
+     if (tel.length == 0) { // id를 입력받지 않은 경우
+    	   $('#modal_title').html('전화번호 입력 누락'); // 제목 
          
-        // $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
-        // msg = '· 전화번호를 입력하세요.<br>· 전화번호 입력은 필수입니다.';
-        // $('#modal_content').html(msg);        // 내용
-        // $('#btn_close').attr("data-focus", "tel");  // 닫기 버튼 클릭시 tel 입력으로 focus 이동
-        // $('#modal_panel').modal();               // 다이얼로그 출력
-        // return false;
-        // } 
+         $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+         msg = '· 전화번호를 입력하세요.<br>· 전화번호 입력은 필수입니다.';
+         $('#modal_content').html(msg);        // 내용
+         $('#btn_close').attr("data-focus", "tel");  // 닫기 버튼 클릭시 tel 입력으로 focus 이동
+         $('#modal_panel').modal();               // 다이얼로그 출력
+         return false;
+         } 
 
     $('#frm').submit(); // required="required" 작동 안됨.
   }  
@@ -197,7 +197,7 @@
   <div class='menu_line'></div>
   
   <div style="width: 60%; margin: 0px auto ">
-  <FORM name='frm' id='frm' method='POST' action='./enterprise_create.do' class="">
+  <FORM name='frm' id='frm' method='POST' action='./enterprise_create.do' enctype="multipart/form-data">
   
     <div class="form-group"> <%-- 줄이 변경되지 않는 패턴 --%>
       <label>아이디*:
@@ -208,54 +208,74 @@
                 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
       <label>패스워드*: 
-        <input type='password' class="form-control form-control-sm" name='passwd' id='passwd' value='1234' required="required" placeholder="패스워드*">
+        <input type='password' class="form-control form-control-sm" 
+               name='passwd' id='passwd' value='1234' required="required" 
+               placeholder="패스워드*">
       </label>
     </div>   
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
       <label>패스워드 확인*: 
-        <input type='password' class="form-control form-control-sm" name='passwd2' id='passwd2' value='1234' required="required" placeholder="패스워드 확인*">
+        <input type='password' class="form-control form-control-sm" 
+               name='passwd2' id='passwd2' value='1234' required="required"
+               placeholder="패스워드 확인*">
       </label>
     </div>   
     
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태 --%>
       <label>기업 이름*:
-        <input type='text' class="form-control form-control-sm" name='name' id='name' value='하정우' required="required" placeholder="성명*">
+        <input type='text' class="form-control form-control-sm" name='name' id='name' value='롯데리아' required="required" placeholder="성명*">
       </label>
     </div>   
 
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
       <label>전화 번호:
-        <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='010-0000-0000' required="required" placeholder="전화번호*">
+        <input type='text' class="form-control form-control-sm" name='tel' id='tel' value='' required="required" placeholder="전화번호*">
       </label>
-      예) 010-0000-0000
+      기업 번호를 - 사용하여 입력해 주세요.
     </div>   
     
-    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
+    <%-- <div class="form-group">  label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 
       <label>성별:
-        <input type='text' class="form-control form-control-sm" name='gender' id='gender' value='남성' required="required" placeholder="성별*">
+        <select name ="gender" class="form-control form-control-sm" required="required">
+            <option value="남성" > 남성 </option>
+            <option value="여성" > 여성 </option>
+        </select>
       </label>
-      예) 남성 / 여성
-    </div>   
+    </div>   --%>
     
-    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
+    <input type="hidden" name="gender" value="남성">
+    
+    <%-- <div class="form-group">  label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 
       <label>경력:
-        <input type='text' class="form-control form-control-sm" name='experience' id='experience' value='Y' required="required" placeholder="경력*">
+        <select name ="experience" class="form-control form-control-sm" required="required">
+            <option value="Y" > Y </option>
+            <option value="N" > N </option>
+        </select>
       </label>
-    </div>   
+    </div> --%>   
+    
+    <input type="hidden" name="experience" value="N">
     
     <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
-      <label>생년 월일:
+      <label>회사 창립일:
         <input type='text' class="form-control form-control-sm" name='birth' id='birth' value='20000101' required="required" placeholder="생년월일*">
       </label>
-      예) 20001027
+      회사 창립일을 - 없이 입력해 주세요.
     </div>   
     
-    <div class="form-group"> <%-- label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴 --%>
+    <%--<div class="form-group">  label의 크기에따라 input 태그의 크기가 지정되는 형태, 줄이 변경되지 않는 패턴
       <label>학력:
-        <input type='text' class="form-control form-control-sm" name='education' id='education' value='대졸' required="required" placeholder="학력*">
+        <select name ="education" class="form-control form-control-sm" required="required">
+            <option value="고졸" > 고졸 </option>
+            <option value="2년제" > 2년제 </option>
+            <option value="3년제" > 3년제 </option>
+            <option value="4년제" > 4년제 </option>
+        </select>
       </label>
-    </div>   
+    </div>  --%>  
+    
+    <input type="hidden" name="education" value="X">
 
     <div>
 

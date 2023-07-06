@@ -21,6 +21,13 @@ public interface MemberDAOInter {
   public int checkID(String id);
   
   /**
+   * 중복 전화번호 검사
+   * @param tel
+   * @return 중복 아이디 갯수
+   */
+  public int checkTEL(String tel);
+  
+  /**
    * 회원 가입
    * @param memberVO
    * @return

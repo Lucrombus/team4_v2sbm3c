@@ -26,7 +26,7 @@ public class MemberVO {
     /** 회원 성명 */
     private String name = "";
     /** 전화 번호 */
-    private String tel = "";
+    private String tel = " ";
     /** 가입일 */
     private String rdate = "";
     /** 등급 */
