@@ -140,17 +140,17 @@
         return false;
         } 
 
-    // let tel = $('#tel').val().trim(); // 태그의 아이디가 'id'인 태그의 값
-      // if (tel.length == 0) { // id를 입력받지 않은 경우
-    	  // $('#modal_title').html('전화번호 입력 누락'); // 제목 
-         
-        // $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
-        // msg = '· 전화번호를 입력하세요.<br>· 전화번호 입력은 필수입니다.';
-        // $('#modal_content').html(msg);        // 내용
-        // $('#btn_close').attr("data-focus", "tel");  // 닫기 버튼 클릭시 tel 입력으로 focus 이동
-        // $('#modal_panel').modal();               // 다이얼로그 출력
-        // return false;
-        // } 
+    let tel = $('#tel').val().trim(); // 태그의 아이디가 'tel'인 태그의 값
+      if (tel.length == 0) { // tel를 입력받지 않은 경우
+        $('#modal_title').html('전화번호 입력 누락'); // 제목 
+          
+        $('#modal_content').attr('class', 'alert alert-danger'); // Bootstrap CSS 변경
+        msg = '· 전화번호를 입력하세요.<br>· 전화번호 입력은 필수입니다.';
+        $('#modal_content').html(msg);        // 내용
+        $('#btn_close').attr("data-focus", "tel");  // 닫기 버튼 클릭시 tel 입력으로 focus 이동
+        $('#modal_panel').modal();               // 다이얼로그 출력
+        return false;
+        } 
 
     $('#frm').submit(); // required="required" 작동 안됨.
   }  
