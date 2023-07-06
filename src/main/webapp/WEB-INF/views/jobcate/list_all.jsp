@@ -29,7 +29,7 @@
   <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
     <FORM name='frm_create' id='frm_create' method='POST' action='./create.do'>
       <label>카테고리 이름</label>
-      <input type='text' name='name' value='' required="required" style='width: 25%; margin-right: 10px;' autofocus="autofocus">
+      <input type='text' name='name' maxlength='15' value='' required="required" style='width: 25%; margin-right: 10px;' autofocus="autofocus">
       <label> 출력 순서</label>
       <input type='number' name='seqno' min="1" value='1' required="required" style='width: 5%;'>
   

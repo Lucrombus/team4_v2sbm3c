@@ -50,7 +50,7 @@
     
     <div>
        <label>답변 내용</label>
-       <textarea name='content' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
+       <textarea name='content' maxlength='333' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
     </div>
     
     <div class="content_body_bottom">

@@ -41,12 +41,12 @@
     
     <div>
        <label>문의명</label>
-       <input type='text' name='inquiryTitle' value='${inquiryTitle }' required="required" 
+       <input type='text' name='inquiryTitle' maxlength='50' value='${inquiryTitle }' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
        <label>문의 내용</label>
-       <textarea name='inquiryReason' required="required" class="form-control" rows="12" style='width: 100%;'>${inquiryReason }</textarea>
+       <textarea name='inquiryReason' maxlength='333' required="required" class="form-control" rows="12" style='width: 100%;'>${inquiryReason }</textarea>
     </div>
     
     <input type="hidden" name="rdate" value="${rdate}"> <!-- 등록일 -->

@@ -52,3 +52,6 @@ WHERE inquiryno = 3
 UPDATE inquiry
 SET answer_yn = 'Y'
 WHERE inquiryno = 3
+
+ALTER TABLE inquiry MODIFY (inquiryTitle VARCHAR2(150));
+ALTER TABLE inquiry MODIFY (inquiryReason VARCHAR2(1000));

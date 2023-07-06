@@ -31,12 +31,12 @@
     
     <div>
        <label>문의명</label>
-       <input type='text' name='inquiryTitle' value='' required="required" 
+       <input type='text' name='inquiryTitle' maxlength='50' value='' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 100%;'>
     </div>
     <div>
        <label>문의 내용</label>
-       <textarea name='inquiryReason' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
+       <textarea name='inquiryReason' maxlength='333' required="required" class="form-control" rows="12" style='width: 100%;'></textarea>
     </div>
     
     <div class="content_body_bottom">

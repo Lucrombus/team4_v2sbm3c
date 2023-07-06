@@ -35,7 +35,7 @@ JobcateVO jobcateVO_read = (JobcateVO)request.getAttribute("jobcateVO");
     <FORM name='frm_create' id='frm_create' method='POST' action='./update.do'>
       <input type="hidden" name="jobcateno" value="<%=jobcateVO_read.getJobcateno() %>">
       <label>카테고리 이름</label>
-      <input type='text' name='name' value='<%=jobcateVO_read.getName() %>' required="required" style='width: 25%;' autofocus="autofocus">
+      <input type='text' maxlength="15" name='name' value='<%=jobcateVO_read.getName() %>' required="required" style='width: 25%;' autofocus="autofocus">
       <label>출력 순서</label>
       <input type='number' name='seqno' value='<%=jobcateVO_read.getSeqno() %>' min='1' required="required" style='width: 5%;'>  
       <button type="submit" id='submit' class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>수정</button>
