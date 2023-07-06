@@ -25,6 +25,8 @@ import dev.mvc.like_guin.Like_guinVO;
 import dev.mvc.member.MemberProc;
 import dev.mvc.member.MemberProcInter;
 import dev.mvc.member.MemberVO;
+import dev.mvc.recom.RecomProcInter;
+import dev.mvc.recom.RecomVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -49,6 +51,9 @@ public class Guin_cCont {
   @Qualifier("dev.mvc.like_guin.Like_guinProc")
   private Like_guinProcInter like_guinProc;
 
+  @Autowired
+  @Qualifier("dev.mvc.recom.RecomProc")
+  private RecomProcInter recomProc;
   
   public Guin_cCont() {
     System.out.println("Guin_cCont created");
@@ -724,8 +729,8 @@ public class Guin_cCont {
   
   
   /**
-   * 목록 + 검색 + 페이징 지원
-   * http://localhost:9090/contents/recommend_wage.do?typeno=1&word=스위스&now_page=1
+   * 시급별 추천목록
+   * http://localhost:9093/guin_c/recommend_wage.do
    * 
    * @param typeno
    * @param word
@@ -733,55 +738,19 @@ public class Guin_cCont {
    * @return
    */
   @RequestMapping(value = "/guin_c/recommend_wage.do", method = RequestMethod.GET)
-  public ModelAndView recommend_wage(Guin_cVO guin_cVO) {
+  public ModelAndView recommend_wage(HttpSession session) {
     ModelAndView mav = new ModelAndView();
-
+    
+    int memberno = (int)(session.getAttribute("memberno"));
+    RecomVO recomVO = this.recomProc.read(memberno);
+    
     // 검색 목록
-    ArrayList<Guin_cVO> list = guin_cProc.recommend_wage(guin_cVO);
-    mav.addObject("list", list);
-
-    JobcateVO jobcateVO = jobcateProc.read(guin_cVO.getJobcateno());
-    mav.addObject("jobcateVO", jobcateVO);
-    
-    
-    // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
-    Function<Integer, String> f = (memberno) -> {
-      MemberVO memberVO = memberProc.readByMemberno(memberno);
-      String id = ("알 수 없음");
-      if (memberVO != null) {
-        id = memberVO.getId();
-      }
-      
-      return id;
-    };
-    mav.addObject("f", f);
-    
-    
-    // 업종번호로 업종VO를 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
-    Function<Integer, JobcateVO> f3 = (jobcateno) -> {
-      JobcateVO jobcatenoVO_read = this.jobcateProc.read(jobcateno);
-      return jobcatenoVO_read;
-    };
-    mav.addObject("f3", f3);
-
-    /*
-     * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
-     * 18 19 20 [다음]
-     * 
-     * @param typeno 카테고리번호
-     * 
-     * @param search_count 검색(전체) 레코드수
-     * 
-     * @param now_page 현재 페이지
-     * 
-     * @param word 검색어
-     * 
-     * @return 페이징용으로 생성된 HTML/CSS tag 문자열
-     */
- 
-    // mav.addObject("now_page", now_page);
+    ArrayList<Guin_cVO> list_wage = guin_cProc.recommend_wage(recomVO.getJobcateno());
+    mav.addObject("list_wage", list_wage);
 
     mav.setViewName("/guin_c/recommend_wage"); // /contents/recommend_wage.jsp
+    
+    
     
     return mav;
   }

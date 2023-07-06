@@ -16,6 +16,8 @@ import dev.mvc.board.BoardVO;
 import dev.mvc.jobcate.JobcateProcInter;
 import dev.mvc.jobcate.JobcateVO;
 import dev.mvc.message.MessageProcInter;
+import dev.mvc.recom.RecomProcInter;
+import dev.mvc.recom.RecomVO;
 
 // Setvlet으로 작동함, GET/POST등의 요청을 처리함.
 @Controller
@@ -32,6 +34,10 @@ public class HomeCont {
   @Qualifier("dev.mvc.message.MessageProc")
   private MessageProcInter messageProc;
   
+  @Autowired
+  @Qualifier("dev.mvc.recom.RecomProc")
+  private RecomProcInter recomProc;
+  
   public HomeCont() {
     System.out.println("-> HomeCont created.");
   }
@@ -39,11 +45,29 @@ public class HomeCont {
   // http://localhost:9093/
   // http://localhost:9093/index.do
   @RequestMapping(value= {"/", "/index.do"}, method=RequestMethod.GET)
-  public ModelAndView home() {
+  public ModelAndView home(HttpSession session) {
     ModelAndView mav = new ModelAndView();
     // spring.mvc.view.prefix=/WEB-INF/views/
     // spring.mvc.view.suffix=.jsp
+    
+    boolean recom_sw = false; // 추천 여부
+    
+    if(session.getAttribute("memberno") != null) {
+    
+    int memberno = (int)(session.getAttribute("memberno"));
+    System.out.println("-> memberno: " + memberno);
+    
+      //회원 추천여부
+      RecomVO recomVO = this.recomProc.read(memberno);
+      if(recomVO != null) {
+        recom_sw = true;
+      }
+    }
+    mav.addObject("recom_sw", recom_sw);
+    
     mav.setViewName("/index"); // /WEB-INF/views/index.jsp
+    
+    
     
     return mav;
   }

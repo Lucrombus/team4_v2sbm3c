@@ -19,4 +19,12 @@
         WHERE r <=  5;
   </select>
 -->
+  
+  
+  <!-- 조회 -->
+  <select id="read" resultType="dev.mvc.recom.RecomVO" parameterType="int">
+    SELECT recomno, jobcateno, memberno, recom
+    FROM recommendation
+    WHERE memberno=#{memberno}
+  </select>
 </mapper>

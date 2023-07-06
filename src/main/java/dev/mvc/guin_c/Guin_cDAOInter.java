@@ -68,8 +68,8 @@ public interface Guin_cDAOInter {
   public int delete_all(int jobcateno);
   
   /**
-   * 급여순 추천 업종 카테고리 나열
+   * 급여순 추천 업종 카테고리 5가지 나열
    * @return
    */
-  public ArrayList<Guin_cVO> recommend_wage(Guin_cVO guin_cVO);
+  public ArrayList<Guin_cVO> recommend_wage(int memberno);
 }

@@ -2,10 +2,12 @@ package dev.mvc.recom;
 
 public interface RecomDAOInter{
   
+  
   /**
-   * 등록
-   * @param RecomVO
+   * 조회
+   * @param recomno
    * @return
    */
-  public int recommend(RecomVO recomVO);
+  public RecomVO read(int memberno);
+  
 }

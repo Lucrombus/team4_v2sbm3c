@@ -31,14 +31,36 @@ CREATE SEQUENCE recommendation_seq
 INSERT INTO recommendation(recomno, jobcateno, memberno, recom, rcdate)
 VALUES (recommendation_seq.nextval, 1, 1, 1, sysdate);
 
+
 SELECT recomno, jobcateno, memberno, recom
-FROM recommendation;
+FROM recommendation
+ORDER BY recomno;
+
+   RECOMNO  JOBCATENO   MEMBERNO      RECOM
+---------- ---------- ---------- ----------
+        19          1          1          1
+        23          5         45          1
+        33          6         34          1
+        34          6         13          1
 
 -- 조회
 SELECT recomno, jobcateno, memberno, recom
 FROM recommendation
-WHERE recomno=1;
+WHERE recomno=19;
 
+   RECOMNO  JOBCATENO   MEMBERNO      RECOM
+---------- ---------- ---------- ----------
+        19          1          1          1
+
+--회원번호로 조회
+SELECT recomno, jobcateno, memberno, recom
+FROM recommendation
+WHERE memberno=1;
+
+   RECOMNO  JOBCATENO   MEMBERNO      RECOM
+---------- ---------- ---------- ----------
+        19          1          1          1
+        
 -- 수정
 UPDATE recommendation
 SET score = 3.5

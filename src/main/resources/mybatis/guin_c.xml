@@ -141,7 +141,7 @@
     </delete>
 
   <!-- 급여순 추천 업종 카테고리 나열 -->
-  <select id="recommend_wage" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="dev.mvc.guin_c.Guin_cVO">
+  <select id="recommend_wage" resultType="dev.mvc.guin_c.Guin_cVO" parameterType="int">
      SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt r
        FROM (
                   SELECT guin_cno, memberno, jobcateno, name, brand, title, content, rdate, address, map, wage, day, period, tel, email, file1, file1saved, thumb1, size1, word, viewcnt, rownum as r

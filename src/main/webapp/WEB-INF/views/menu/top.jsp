@@ -105,7 +105,8 @@ function recommend() {
                              </a>
                            </li>
                            
-                           <li><a href="javascript: recommend();">관심분야 등록하고 추천받기</a></li>
+                           <%-- <li><a href="javascript: recommend();">관심분야 등록하고 추천받기</a></li>--%>
+                           <li><a href="http://localhost:8000/ais/recommend_form/?memberno=${sessionScope.memberno }">관심분야 등록하고 추천받기</a></li>
                            <li><a href="/mypage/mypage_main.do?memberno=${sessionScope.memberno }">마이페이지</a></li>
                            <li><a href="/member/read.do?memberno=${sessionScope.memberno }">가입정보 수정</a></li>
                            <li><a href="/member/passwd_update.do?memberno=${sessionScope.memberno } ">비밀번호 변경</a></li>
