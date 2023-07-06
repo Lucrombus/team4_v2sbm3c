@@ -36,7 +36,7 @@ BoardVO boardVO_read = (BoardVO)request.getAttribute("boardVO");
     <FORM name='frm_create' id='frm_create' method='POST' action='./update.do'>
       <input type="hidden" name="boardno" value="<%=boardVO_read.getBoardno() %>">
       <label>카테고리 이름</label>
-      <input type='text' name='name' value='<%=boardVO_read.getName() %>' required="required" style='width: 25%;' autofocus="autofocus">
+      <input type='text' name='name' value='<%=boardVO_read.getName() %>' maxlength='15' required="required" style='width: 25%;' autofocus="autofocus">
       <label>출력 순서</label>
       <input type='number' name='seqno' value='<%=boardVO_read.getSeqno() %>' min='1' required="required" style='width: 5%;'>  
       <button type="submit" id='submit' class='btn btn-info btn-sm' style='height: 28px; margin-bottom: 5px;'>수정</button>

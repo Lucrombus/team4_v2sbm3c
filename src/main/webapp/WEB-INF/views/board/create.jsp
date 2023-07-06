@@ -28,7 +28,7 @@
   <FORM name='frm' method='POST' action='./create.do'> <!-- /cate 폴더 자동 인식, 권장 -->
     <div>
        <label>카테고리 이름</label>
-       <input type='text' name='name' value='' required="required" 
+       <input type='text' name='name' maxlength='15' value='' required="required" 
                  autofocus="autofocus" class="form-control" style='width: 50%;'>
     </div>
     <div class="content_body_bottom">

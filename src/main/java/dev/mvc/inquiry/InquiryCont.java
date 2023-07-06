@@ -167,7 +167,7 @@ public class InquiryCont {
     MemberVO memberVO = this.memberProc.read(memberno);
     mav.addObject("memberVO", memberVO);
 
-    if (this.memberProc.isMember(session) || this.memberProc.isEnterprise(session)) {
+    if (this.memberProc.isMember(session) || this.memberProc.isEnterprise(session) || this.memberProc.isAdmin(session)) {
       ArrayList<InquiryVO> list = this.inquiryProc.list_by_memberno(memberno);
       mav.addObject("list", list);
 
@@ -221,7 +221,7 @@ public class InquiryCont {
     
     
     InquiryVO inquiryVO = this.inquiryProc.read(inquiryno); // 수정용 데이터
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(inquiryVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(inquiryVO.getMemberno()) || this.memberProc.isAdmin(session)) {
       MemberVO memberVO = this.memberProc.readByMemberno(inquiryVO.getMemberno());
       mav.addObject("inquiryVO", inquiryVO);
       mav.addObject("memberVO", memberVO);

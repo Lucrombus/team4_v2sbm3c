@@ -88,7 +88,7 @@
             <button type='button' 
                          onclick="location.href='/'"
                          class="btn btn-info btn-sm">시작 화면</button>
-            <button type='button' 
+            <button type='button'
                          onclick="location.href='./list_by_memberno.do?memberno=${memberno}'"
                          class="btn btn-info btn-sm">문의 목록</button>   
           </LI>                                                                     

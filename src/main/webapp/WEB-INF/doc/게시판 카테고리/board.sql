@@ -5,7 +5,7 @@ DROP TABLE board CASCADE CONSTRAINTS;
 /**********************************/
 CREATE TABLE board(
 		boardno                       		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
-		name                          		VARCHAR2(20)		 NOT NULL,
+		name                          		VARCHAR2(50)		 NOT NULL,
 		seqno                         		NUMBER(10)		 NOT NULL,
 		visible                       		CHAR(1)		 DEFAULT N		 NOT NULL
 );
@@ -86,3 +86,5 @@ DELETE FROM board
 WHERE boardno = 3;
 
 commit;
+
+ALTER TABLE board MODIFY (name VARCHAR2(50));

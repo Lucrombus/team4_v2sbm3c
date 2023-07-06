@@ -5,7 +5,7 @@ DROP TABLE answer
 /**********************************/
 CREATE TABLE answer(
 		ANSWERNO                      		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
-		CONTENT                       		VARCHAR2(300)    NOT NULL,
+		CONTENT                       		VARCHAR2(1000)    NOT NULL,
 		RDATE                         		DATE		     NOT NULL,
 		inquiryno                     		NUMBER(10)		 NOT NULL ,
 		memberno                      		NUMBER(10)		 NOT NULL ,
@@ -70,3 +70,5 @@ FROM answer
 WHERE inquiryno = 1
 
 commit;
+
+ALTER TABLE answer MODIFY (content VARCHAR2(1000));

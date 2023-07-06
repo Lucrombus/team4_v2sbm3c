@@ -6,8 +6,8 @@ DROP TABLE inquiry;
 CREATE TABLE inquiry(
 		inquiryno                   NUMBER(10)      NOT NULL PRIMARY KEY,
         memberno                    NUMBER(10)      NOT NULL,
-        inquiryTitle                VARCHAR2(50)    NOT NULL,
-		inquiryReason               VARCHAR2(300)   NOT NULL,
+        inquiryTitle                VARCHAR2(150)    NOT NULL,
+		inquiryReason               VARCHAR2(1000)   NOT NULL,
         rdate                       DATE            NOT NULL,
         FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
