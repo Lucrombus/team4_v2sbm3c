@@ -2,7 +2,7 @@ package dev.mvc.guin_c;
 
 import java.io.File;
 
-public class Contents {
+public class Guin_c {
     /** 페이지당 출력할 레코드 갯수 */
     public static int RECORD_PER_PAGE = 10;
 
@@ -17,12 +17,12 @@ public class Contents {
         String path = "";
         if (File.separator.equals("\\")) { //window, 개발환경의 파일 업로드 폴더
             // path = "C:/kd/deploy/resort_v1sbm3c/contents/storage/";
-            path="C:\\kd\\deploy\\team4_v2sbm3c\\contents\\storage\\";
+            path="C:\\kd\\deploy\\team4_v2sbm3c\\guin_c\\storage\\";
             // System.out.println("Windows 10: " + path);
             
         } else { //Linux, AWS, 서비스용 배치 폴더
             // System.out.println("Linux");
-            path = "/home/ubuntu/deploy/team4_v2sbm3c/contents/storage/";
+            path = "/home/ubuntu/deploy/team4_v2sbm3c/guin_c/storage/";
         }
         
         return path;

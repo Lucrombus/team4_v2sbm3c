@@ -4,7 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import dev.mvc.guin_c.Contents;
+import dev.mvc.contents.Contents;
+import dev.mvc.guin_c.Guin_c;
 import dev.mvc.notice.Notice;
 import dev.mvc.resume.Resume;
 import dev.mvc.tool.Tool;
@@ -20,6 +21,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
         // ▶ file:////home/ubuntu/deploy/resort_v2sbm3c_blog/contents/storage
       
         // JSP 인식되는 경로: http://localhost:9091/contents/storage";
+        registry.addResourceHandler("/guin_c/storage/**").addResourceLocations("file:///" +  Guin_c.getUploadDir());
         registry.addResourceHandler("/contents/storage/**").addResourceLocations("file:///" +  Contents.getUploadDir());
         registry.addResourceHandler("/notice/storage/**").addResourceLocations("file:///" +  Notice.getUploadDir());
         registry.addResourceHandler("/resume/storage/**").addResourceLocations("file:///" +  Resume.getUploadDir());

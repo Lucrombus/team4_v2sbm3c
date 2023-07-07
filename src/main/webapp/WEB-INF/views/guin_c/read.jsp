@@ -89,7 +89,7 @@
             <c:choose>
               <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
                 <%-- /static/guin_c/storage/ --%>
-                <IMG src="/contents/storage/${thumb1 }" style="width: 100%; "> 
+                <IMG src="/guin_c/storage/${thumb1 }" style="width: 100%; "> 
               </c:when>
               <c:otherwise> <!-- 기본 이미지 출력 -->
                 <IMG src="/contents/images/none1.png" style="width: 100%; "> 

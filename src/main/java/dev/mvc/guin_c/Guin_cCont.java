@@ -105,7 +105,7 @@ public class Guin_cCont {
 
     System.out.println("연결성공");
 
-    String upDir = Contents.getUploadDir();
+    String upDir = Guin_c.getUploadDir();
     String file1 = ""; // 원본 파일명 image
     String file1saved = ""; // 저장된 파일명, image
 
@@ -134,7 +134,7 @@ public class Guin_cCont {
     json.put("size1", size1);
 
     json.put("uploaded", true);
-    json.put("url", "/contents/storage/" + file1saved);
+    json.put("url", "/guin_c/storage/" + file1saved);
     json.put("fileName", file1saved);
 
     System.out.println("업로드 성패: " + json.get("uploaded"));
@@ -162,7 +162,7 @@ public class Guin_cCont {
       String thumb1 = ""; // preview image
       String thumb1_origin = ""; // original image
 
-      String upDir = Contents.getUploadDir();
+      String upDir = Guin_c.getUploadDir();
       System.out.println("-> upDir: " + upDir);
 
       MultipartFile mf = guin_cVO.getFile1MF();
@@ -259,7 +259,7 @@ public class Guin_cCont {
     System.out.println("응답성공 저장하던 이미지 지우자");
     System.out.println("받은 파일 문자열: "+ value);
     
-    String upDir = Contents.getUploadDir();
+    String upDir = Guin_c.getUploadDir();
     
     if (value.length() > 0) { // 뭐가 있을 때만
 
@@ -451,7 +451,7 @@ public class Guin_cCont {
       String thumb1_new = ""; // 새로운 이미지
       String thumb1_new_origin = ""; // 새로운 이미지
 
-      String upDir = Contents.getUploadDir();
+      String upDir = Guin_c.getUploadDir();
       System.out.println("-> upDir: " + upDir);
 
       MultipartFile mf = guin_cVO.getFile1MF();
@@ -583,7 +583,7 @@ public class Guin_cCont {
       String thumb1_origin = guin_cVO.getThumb1_origin();
       System.out.println("원래 문자열: " + file1saved);
 
-      String upDir = Contents.getUploadDir();
+      String upDir = Guin_c.getUploadDir();
 
       String[] file1saved_list = file1saved.split("---");
       System.out.println("분할된 리스트: " + file1saved_list);
