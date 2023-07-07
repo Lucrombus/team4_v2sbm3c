@@ -23,7 +23,7 @@
         SELECT guin_cno, jobcateno, memberno, name, brand, title,
         content,
         rdate, address,
-        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map, viewcnt
+        wage, day, period, tel, email, word, thumb1, thumb1_origin, file1, file1saved, map, viewcnt, size1
         FROM guin_c
         WHERE guin_cno = #{guin_cno}
     </select>
@@ -35,7 +35,7 @@
             content = #{content}, address = #{address}, wage = #{wage},
             day = #{day}, period = #{period}, tel = #{tel}, email = #{email},
             word = #{word}, thumb1 = #{thumb1}, thumb1_origin = #{thumb1_origin},
-            file1 = #{file1}, file1saved= #{file1saved}
+            file1 = #{file1}, file1saved= #{file1saved}, size1= #{size1}
         WHERE guin_cno = #{guin_cno}
     </update>
     

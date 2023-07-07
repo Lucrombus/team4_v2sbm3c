@@ -17,7 +17,7 @@
     <!-- 조회 -->
     <select id="read" resultType="dev.mvc.contents.ContentsVO" parameterType="int">
         SELECT contentsno, boardno, memberno, title,
-        content, rdate, word, file1, file1saved, viewcnt
+        content, rdate, word, file1, file1saved, viewcnt, size1
         FROM contents
         WHERE contentsno = #{contentsno}
     </select>
@@ -26,7 +26,7 @@
     <update id="update" parameterType="dev.mvc.contents.ContentsVO">
         UPDATE contents
         SET title = #{title},
-            content = #{content}, word = #{word}, file1 = #{file1}, file1saved= #{file1saved}
+            content = #{content}, word = #{word}, file1 = #{file1}, file1saved= #{file1saved}, size1 = #{size1}
         WHERE contentsno = #{contentsno}
     </update>
     

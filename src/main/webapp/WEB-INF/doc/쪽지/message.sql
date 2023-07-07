@@ -6,14 +6,14 @@ DROP TABLE message CASCADE CONSTRAINTS;
 
 CREATE TABLE message(
 		messageno                     		NUMBER(10)		 NOT NULL,
-		memberno                            NUMBER(10)		 NOT NULL,
-		receive_memberno                    NUMBER(10)		 NOT NULL,
+		memberno                            NUMBER(10)		 NULL,
+		receive_memberno                    NUMBER(10)		 NULL,
 		title                         		VARCHAR2(100)		 NOT NULL,
 		content                       		VARCHAR2(1000)		 NOT NULL,
 		rdate                         		DATE		 NOT NULL,
-        read                                CHAR(1)      DEFAULT('N') NOT NULL,
-        FOREIGN KEY (memberno) REFERENCES member(memberno),
-        FOREIGN KEY (receive_memberno) REFERENCES member(memberno)
+    read                                CHAR(1)      DEFAULT('N') NOT NULL,
+    FOREIGN KEY (memberno) REFERENCES member(memberno) ON DELETE SET NULL,
+    FOREIGN KEY (receive_memberno) REFERENCES member(memberno) ON DELETE SET NULL
         
 );
 

@@ -490,7 +490,8 @@ public class ContentsCont {
       Tool.deleteFile(upDir, thumb1_origin); // 썸네일 삭제
       
       
-      this.replyProc.delete_by_contentsno(contentsno); // FK 참조 관계로 자식테이블인 댓글부터 삭제해야 함
+      int cnt_child = this.replyProc.delete_by_contentsno(contentsno); // FK 참조 관계로 자식테이블인 댓글부터 삭제해야 함
+      
       int cnt = this.contentsProc.delete(contentsno);
       
       if (cnt == 1) {

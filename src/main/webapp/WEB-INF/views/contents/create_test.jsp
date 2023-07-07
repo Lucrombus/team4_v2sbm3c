@@ -89,7 +89,7 @@
 <body>
 <c:import url="/menu/top.do" />
  
-<DIV class='title_line'><A href="./list_by_boardno_search_paging.do?boardno=${param.boardno }&now_page=1" class='title_link'>${param.boardno != 0 ? boardVO.name : "전체목록" } 구인</A> > 글 등록 </DIV>
+<DIV class='title_line'><A href="./list_by_boardno_search_paging.do?boardno=${param.boardno }&now_page=1" class='title_link'>${param.boardno != 0 ? boardVO.name : "전체목록" } 게시판</A> > 글 등록 </DIV>
 
 <DIV class='content_body'>
   <ASIDE class="aside_right"  style="padding-bottom: 10px;">

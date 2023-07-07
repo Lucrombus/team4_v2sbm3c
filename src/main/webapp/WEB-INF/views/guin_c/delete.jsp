@@ -8,6 +8,7 @@
 <c:set var="file1saved" value="${guin_cVO.file1saved.toLowerCase() }" />
 <c:set var="file1" value="${guin_cVO.file1 }" />
 <c:set var="thumb1" value="${guin_cVO.thumb1 }" />
+<c:set var="thumb1_origin" value="${guin_cVO.thumb1_origin }" />
 <c:set var="size1" value="${guin_cVO.size1 }" />
            
 <!DOCTYPE html> 
@@ -77,7 +78,7 @@
         <DIV style='text-align: left; width: 47%; float: left;'>
           <span style='font-size: 1.5em;'>${title}</span>
           <c:if test="${size1 > 0 }">
-            <br>삭제되는 파일: ${file1 }
+            <br>삭제되는 파일: ${thumb1_origin }
           </c:if>
           <br>
           <FORM name='frm' method='POST' action='./delete.do'>

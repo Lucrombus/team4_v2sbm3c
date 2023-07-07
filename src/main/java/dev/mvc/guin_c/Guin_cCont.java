@@ -301,7 +301,7 @@ public class Guin_cCont {
     // 관리자번호로 관리자 이름 얻는 메소드를 람다식으로 객체화 후 페이지에 전달
     Function<Integer, String> f = (memberno) -> {
       MemberVO memberVO = memberProc.readByMemberno(memberno);
-      String id = ("알 수 없음");
+      String id = ("(알수없음)");
       if (memberVO != null) {
         id = memberVO.getId();
       }
@@ -383,6 +383,9 @@ public class Guin_cCont {
     int cnt = this.guin_cProc.update_viewcnt(guin_cno);
     int viewcnt = guin_cVO.getViewcnt();
     mav.addObject("viewcnt", viewcnt);
+    
+    String size1_label = Tool.unit(guin_cVO.getSize1());
+    mav.addObject("size1_label", size1_label);
 
     mav.setViewName("/guin_c/read"); // /WEB-INF/views/contents/read.jsp
     
