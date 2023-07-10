@@ -670,11 +670,11 @@ public class MemberCont {
    * @return
    */
   @RequestMapping(value = "/member/delete_member.do", method = RequestMethod.POST)
-  public ModelAndView delete_member(MemberVO memberVO) {
+  public ModelAndView delete_member(MemberVO memberVO, HttpSession session) {
     ModelAndView mav = new ModelAndView();
 
     // System.out.println("id: " + memberVO.getId());
-
+    session.invalidate(); // 모든 session 변수 삭제
     int cnt = this.memberProc.delete_member(memberVO);
 
     if (cnt == 1) {

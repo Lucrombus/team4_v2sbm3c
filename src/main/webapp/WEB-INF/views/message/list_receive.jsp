@@ -31,8 +31,8 @@
     <DIV style='width: 50%; margin: 30px auto; text-align: center;'>
         <table class="table table-hover table-bordered table-sm" style="width: 100%;">
             <colgroup>
-                <col style='width: 10%;' />
-                <col style='width: 50%;' />
+                <col style='width: 15%;' />
+                <col style='width: 45%;' />
                 <col style='width: 10%;' />
                 <col style='width: 20%;' />
                 <col style='width: 10%;' />
@@ -61,7 +61,7 @@
             <c:forEach var="MessageVO" items="${list }">
               <tr onclick="location.href='/message/read.do?messageno=${MessageVO.messageno }'" class="hover">
               <a href="/message/read.do?messageno=${MessageVO.messageno }">
-                <td>${f.apply(MessageVO.memberno).id }</td>
+                <td>${f.apply(MessageVO.memberno).id == null ? '(알수없음)' : f.apply(MessageVO.memberno).id}</td>
                 <td>${MessageVO.title}</td>
                 <td>${MessageVO.messageno }</td>
                 <td>${MessageVO.rdate }</td>

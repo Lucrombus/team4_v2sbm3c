@@ -8,11 +8,11 @@
 <c:set var="file1" value="${guin_cVO.file1 }" />
 <c:set var="file1saved" value="${guin_cVO.file1saved }" />
 <c:set var="thumb1" value="${guin_cVO.thumb1 }" />
+<c:set var="thumb1_origin" value="${guin_cVO.thumb1_origin }" />
 <c:set var="content" value="${guin_cVO.content }" />
 <c:set var="rdate" value="${guin_cVO.rdate }" />
 <c:set var="word" value="${guin_cVO.word }" />
 <c:set var="map" value="${guin_cVO.map }" />
-<c:set var="size1_label" value="${guin_cVO.size1_label }" />
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -54,7 +54,7 @@
   <DIV style="text-align: right; clear: both;">  
     <ASIDE class="aside_left" style="padding-bottom: 10px;">
       <span style="font-size: 1.5em; font-weight: bold;">${title }</span>
-      <span class='menu_divide' >│</span> ${memberVO.id}
+      <span class='menu_divide' >│</span> ${memberVO.id == null ? '(알 수 없음)' : memberVO.id}
       <span class='menu_divide' >│</span> ${rdate }
       <span class='menu_divide' >│ 조회수 ${viewcnt }</span>
     </ASIDE>
@@ -162,7 +162,7 @@
       <li class="li_none">
         <DIV>
           <c:if test="${thumb1.trim().length() > 0 }">
-            썸네일: <A href='/download?dir=/guin_c/storage&filename=${thumb1}&downname=${thumb1}'>${thumb1}</A> (${size1_label})  
+            썸네일: <A href='/download?dir=/guin_c/storage&filename=${thumb1}&downname=${thumb1}'>${thumb1} (${size1_label})</A>  
           </c:if>
         </DIV>
       </li>  

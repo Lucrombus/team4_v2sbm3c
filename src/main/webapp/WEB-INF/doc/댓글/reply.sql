@@ -1,16 +1,16 @@
-DROP TABLE reply CASCADE CONSTRAINTS;
-
 /**********************************/
 /* Table Name: 댓글 */
 /**********************************/
+DROP TABLE reply CASCADE CONSTRAINTS;
+
 CREATE TABLE reply(
 		replyno                       		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		contentsno                    		NUMBER(10)		 NOT NULL,
-		memberno                      		NUMBER(10)		 NOT NULL ,
-        reply_content                       VARCHAR2(400)    NOT NULL,
+		memberno                      		NUMBER(10)		 NULL ,
+    reply_content                     VARCHAR2(400)    NOT NULL,
 		rdate                         		DATE		 NOT NULL,
         FOREIGN KEY (contentsno) REFERENCES contents(contentsno),
-        FOREIGN KEY (memberno) REFERENCES member(memberno)
+        FOREIGN KEY (memberno) REFERENCES member(memberno) ON DELETE SET NULL
 );
 
 COMMENT ON TABLE reply is '댓글';

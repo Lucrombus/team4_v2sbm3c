@@ -224,7 +224,8 @@ public class AnswerCont {
  @RequestMapping(value = "/answer/update.do", method = RequestMethod.POST)
  public ModelAndView update(HttpSession session, AnswerVO answerVO) {
    ModelAndView mav = new ModelAndView();
-
+   int memberno = (int)session.getAttribute("memberno");
+   answerVO.setMemberno(memberno);
    // System.out.println("-> word: " + contentsVO.getWord());
 
    if (this.memberProc.isAdmin(session)) { // 회원이나 기업 로그인
@@ -239,6 +240,7 @@ public class AnswerCont {
      mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
      mav.addObject("url", "/answer/msg");  // /member/msg -> /member/msg.jsp
      mav.addObject("answerno", answerVO.getAnswerno());
+     mav.addObject("memberno", memberno);
      mav.setViewName("redirect:/answer/msg.do");
 
    } else {

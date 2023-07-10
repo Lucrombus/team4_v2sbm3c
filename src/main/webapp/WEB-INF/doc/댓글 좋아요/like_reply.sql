@@ -7,8 +7,8 @@ CREATE TABLE like_reply(
 		likeno                     		   NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		replyno                            NUMBER(10)        NOT NULL,    
         memberno                           NUMBER(10)	     NOT NULL,
-        FOREIGN KEY (replyno) REFERENCES reply (replyno),
-        FOREIGN KEY (memberno) REFERENCES member (memberno)
+        FOREIGN KEY (replyno) REFERENCES reply (replyno) ON DELETE CASCADE,
+        FOREIGN KEY (memberno) REFERENCES member (memberno) ON DELETE CASCADE
 );
 
 COMMENT ON TABLE like_reply is '댓글 좋아요';

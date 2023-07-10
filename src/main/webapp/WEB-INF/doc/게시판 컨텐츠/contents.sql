@@ -6,7 +6,7 @@ DROP TABLE contents CASCADE CONSTRAINTS;
 CREATE TABLE contents(
 		contentsno                    		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		boardno                       		NUMBER(10)		 NOT NULL ,
-		memberno                      		NUMBER(10)		 NOT NULL,
+		memberno                      		NUMBER(10)		 NULL,
 		title                         		VARCHAR2(100)		 NOT NULL,
 		content                       		VARCHAR2(4000)		 NOT NULL ,
 		rdate                         		DATE		 NOT NULL,
@@ -15,7 +15,8 @@ CREATE TABLE contents(
 		size1                         		NUMBER(10)		 NULL ,
 		word                          		VARCHAR2(100)		 NULL,
 		viewcnt                           NUMBER(20)  DEFAULT 0 NOT NULL, 
-        FOREIGN KEY (boardno) REFERENCES board(boardno)
+        FOREIGN KEY (boardno) REFERENCES board(boardno),
+        FOREIGN KEY (memberno) REFERENCES member(memberno) ON DELETE SET NULL
 );
 
 COMMENT ON TABLE contents is '게시판 컨텐츠';

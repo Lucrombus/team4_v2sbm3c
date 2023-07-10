@@ -50,9 +50,9 @@ function check(){
             
             <div class="input-group mb-3" style="width:60%;">
                 <span class="input-group-text" id="basic-addon1">보낸사람</span>
-                <input type="text" class="form-control" value="${sender }"style="background-color: white;" readonly>
+                <input type="text" class="form-control" value="${sender == null ? '(알수없음)' : sender}"style="background-color: white;" readonly>
                 <span class="input-group-text" id="basic-addon1">받는사람</span>
-                <input type="text" class="form-control" value="${receiver}"style="background-color: white;" readonly>
+                <input type="text" class="form-control" value="${receiver == null ? '(알수없음)' : receiver}"style="background-color: white;" readonly>
             </div>
             
         

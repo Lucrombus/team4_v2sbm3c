@@ -32,8 +32,8 @@
         <table class="table table-hover table-bordered table-sm" style="width: 100%;">
             <colgroup>
                 <col style='width: 10%;' />
-                <col style='width: 50%;' />
-                <col style='width: 10%;' />
+                <col style='width: 45%;' />
+                <col style='width: 15%;' />
                 <col style='width: 20%;' />
                 <col style='width: 10%;' />
             </colgroup>
@@ -62,7 +62,7 @@
               <tr onclick="location.href='/message/read.do?messageno=${MessageVO.messageno }'" class="hover">
                 <td>${MessageVO.messageno }</td>
                 <td>${MessageVO.title}</td>
-                <td>${f.apply(MessageVO.receive_memberno).id }</td>
+                <td>${f.apply(MessageVO.receive_memberno).id == null ? '(알수없음)' : f.apply(MessageVO.receive_memberno).id }</td>
                 <td>${MessageVO.rdate }</td>
                 <td>${MessageVO.read }</td>
               </tr>

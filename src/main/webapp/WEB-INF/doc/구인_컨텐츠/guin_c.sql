@@ -6,7 +6,7 @@ DROP TABLE guin_c CASCADE CONSTRAINTS;
 CREATE TABLE guin_c(
 		guin_cno                      		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		jobcateno                     		NUMBER(10)		 NOT NULL,  --FK
-		memberno                      		NUMBER(10)		 NOT NULL,  --FK
+		memberno                      		NUMBER(10)		 NULL,  --FK
 		name                          		VARCHAR2(50)		 NOT NULL,
 		brand                         		VARCHAR2(50)		 NOT NULL,
 		title                         		VARCHAR2(200)		 NOT NULL,
@@ -26,8 +26,8 @@ CREATE TABLE guin_c(
         thumb1_origin                       VARCHAR2(100)		 NULL ,
 		size1                         		NUMBER(10)		 NULL ,
         viewcnt                             NUMBER(20)      DEFAULT 0 NOT NULL ,
-  FOREIGN KEY (jobcateno) REFERENCES jobcate (jobcateno),
-  FOREIGN KEY (memberno) REFERENCES member (memberno)
+  FOREIGN KEY (jobcateno) REFERENCES jobcate (jobcateno) ,
+  FOREIGN KEY (memberno) REFERENCES member (memberno) ON DELETE SET NULL
 );
 
 COMMENT ON TABLE guin_c is '구인 컨텐츠';
