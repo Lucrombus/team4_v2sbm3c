@@ -147,7 +147,17 @@ WHERE guin_cno IN (SELECT guin_cno FROM like_guin WHERE memberno =1);
 
 
 
-
+        SELECT guin_cno, memberno, jobcateno, name, title, thumb1 ,r
+        FROM (
+                    SELECT guin_cno, memberno, jobcateno, name, title, thumb1,rownum as r
+                    FROM (
+                                SELECT guin_cno, memberno, jobcateno, name, title, thumb1
+                                FROM guin_c
+                                WHERE jobcateno=1
+                                ORDER BY wage DESC
+                    )
+            )
+            WHERE r >= 1 and r <= 5;
 
 
 
