@@ -147,7 +147,6 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
 
 <body>
     <c:import url="/menu/top.do" />
-    sdfasdfsadf:${current_memberno}
 
     <DIV class='title_line'>
         <A
