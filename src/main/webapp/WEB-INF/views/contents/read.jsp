@@ -36,7 +36,29 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
 
 	    if (result) {
 	      if ( ${sessionScope.memberno == null ? -1 : sessionScope.memberno } == memno ){
-	    	  window.location.href = "/reply/delete.do?contentsno=${param.contentsno }&boardno=${param.boardno}&now_page=${param.now_page}&word=${param.word}&replyno="+replyno
+
+	        var dataToSend = {replyno: replyno};
+
+ 
+	    	  $.ajax({                // 자바스크립트 객체 표기법: {, }  
+                  url: "/reply/delete_ajax.do", // form action 기능을 함.
+                  type: "post",          // form method 기능을 함.
+                  cache: false,         // 응답 결과 임시 저장 취소
+                  async: true,          // true: 비동기 통신 (권장), false: 동기 통신
+                  dataType: "json",     // 서버로부터의 응답 형식: json, html, xml..., JSON.parse() 자동 처리
+                  data: dataToSend,         // 서버로 보내는 데이터, id=user1&passwd=1234
+                  success: function(rdata) { // 응답 성공
+                    if (rdata.result == "성공") {
+                      window.location.reload();
+                    } else {
+                      alert("다른 회원으로 로그인한 것 같습니다");  
+                    }
+                        
+                  },
+                  error: function(request, status, error) {
+                  }   
+                });
+	    	  
           }else {
         	  alert("다른 회원의 댓글은 삭제할 수 없습니다");
               }
@@ -81,7 +103,28 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
       function send(){ // 댓글을 작성했는지 확인하고 댓글 작성전 로그인 했는지 확인
     	  if (document.getElementById("frm2").checkValidity()) {
           if (${sessionScope.memberno != null}){
-              $("#frm2").submit();
+
+       	   var dataToSend = {reply_content: $('#reply_content').val(), contentsno: $('#hidden_contentsno').val() };
+
+        	   $.ajax({                // 자바스크립트 객체 표기법: {, }  
+                   url: "/reply/create_ajax.do", // form action 기능을 함.
+                   type: "post",          // form method 기능을 함.
+                   cache: false,         // 응답 결과 임시 저장 취소
+                   async: true,          // true: 비동기 통신 (권장), false: 동기 통신
+                   dataType: "json",     // 서버로부터의 응답 형식: json, html, xml..., JSON.parse() 자동 처리
+                   data: dataToSend,         // 서버로 보내는 데이터, id=user1&passwd=1234
+                   success: function(rdata) { // 응답 성공
+                     if (rdata.result == "성공") {
+                       window.location.reload();
+                       window.scrollTo(0, document.body.scrollHeight); // 스크롤 제일 아래로 내리기
+                     } else {
+                       alert("로그아웃된 상태입니다");  
+                     }
+                         
+                   },
+                   error: function(request, status, error) {
+                   }   
+                 });
 
               }else{
             	  alert("댓글을 쓰려면 로그인을 하십시오");
@@ -207,10 +250,7 @@ function confirmClick(image) { //댓글 삭제 할때 경고 후 내 댓글인�
 
   
   <form name='frm2' id='frm2' method='post' action='/reply/create.do'>
-      <input type="hidden" name="contentsno" value="${param.contentsno }" >
-      <input type="hidden" name="boardno" value="${param.boardno}" >
-      <input type="hidden" name="now_page" value="${param.now_page}" >
-      <input type="hidden" name="word" value="${param.word}" >
+      <input type="hidden" name="contentsno" id="hidden_contentsno"value="${param.contentsno }" >
       <textarea name="reply_content" class="form-control" placeholder="댓글입력" id="reply_content" style="height: 100px" required="required"  maxlength="100"></textarea>
       <BR>
       <div style="text-align:right;">

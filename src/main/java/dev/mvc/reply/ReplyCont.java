@@ -2,11 +2,13 @@ package dev.mvc.reply;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.board.BoardVO;
@@ -31,38 +33,39 @@ public class ReplyCont {
   
   
   // 등록 처리
-  // http://localhost:9093/contents/create.do
-  @RequestMapping(value="/reply/create.do", method=RequestMethod.POST)
-  public ModelAndView create(HttpSession session, ReplyVO replyVO, ContentsVO contentsVO) {
-    ModelAndView mav = new ModelAndView();
+  // http://localhost:9093/contents/create_ajax.do
+  @ResponseBody
+  @RequestMapping(value="/reply/create_ajax.do", method=RequestMethod.POST)
+  public String create(HttpSession session, ReplyVO replyVO) {
+    
+    JSONObject json = new JSONObject();
     
     if (session.getAttribute("id") != null) {
       replyVO.setMemberno((int) session.getAttribute("memberno"));
       int cnt = this.replyProc.create(replyVO);
       
-      mav.addObject("contentsno", contentsVO.getContentsno());
-      mav.addObject("boardno", contentsVO.getBoardno());
-      mav.addObject("now_page", contentsVO.getNow_page());
-      mav.addObject("word", contentsVO.getWord());
-      
-      mav.setViewName("redirect:/contents/read.do");
+      json.put("result", "성공");
 
     } else {
-      mav.addObject("url", "/member/login_need"); // /WEB-INF/views/admin/login_need.jsp
-      mav.setViewName("redirect:/contents/msg.do"); 
+      json.put("result", "실패"); // 로그인 한함
+
 
     }
     
   
-    return mav;
+    return json.toString();
     
   }
   
   // 삭제 처리
-  // http://localhost:9093/contents/create.do
-  @RequestMapping(value="/reply/delete.do", method=RequestMethod.GET)
-  public ModelAndView create(int replyno, ContentsVO contentsVO, HttpSession session) {
-    ModelAndView mav = new ModelAndView();
+  // http://localhost:9093/contents/delete_ajax.do
+  @ResponseBody
+  @RequestMapping(value="/reply/delete_ajax.do", method=RequestMethod.POST)
+  public String create(int replyno, HttpSession session) {
+    
+    JSONObject json = new JSONObject();
+    
+    System.out.println("받은 댓글번호: "+ replyno);
     
     ReplyVO replyVO = this.replyProc.read(replyno);
     
@@ -71,29 +74,21 @@ public class ReplyCont {
       int cnt_like = this.like_replyProc.delete_by_replyno(replyno);
       int cnt = this.replyProc.delete(replyno);
       
-      
-      mav.addObject("contentsno", contentsVO.getContentsno());
-      mav.addObject("boardno", contentsVO.getBoardno());
-      mav.addObject("now_page", contentsVO.getNow_page());
-      mav.addObject("word", contentsVO.getWord());
-      
-      mav.setViewName("redirect:/contents/read.do");
+      json.put("result", "성공");
+
      
 
 
     } else {
-      mav.addObject("url", "/contents/msg");
-      mav.addObject("code", "member_different");
-      mav.addObject("contentsno", contentsVO.getContentsno());
-      mav.addObject("boardno", contentsVO.getBoardno());
-      mav.addObject("now_page", contentsVO.getNow_page());
-      mav.setViewName("redirect:/contents/msg.do");
+      
+      json.put("result", "실패");
+
 
     }
     
     
    
-    return mav;
+    return json.toString();
     
   }
 
