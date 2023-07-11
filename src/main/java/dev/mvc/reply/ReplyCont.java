@@ -69,7 +69,8 @@ public class ReplyCont {
     
     ReplyVO replyVO = this.replyProc.read(replyno);
     
-    if (session.getAttribute("memberno") != null && session.getAttribute("memberno").equals(replyVO.getMemberno())) {
+    if (session.getAttribute("memberno") != null 
+        && (session.getAttribute("memberno").equals(replyVO.getMemberno()) || session.getAttribute("rankno").equals(1)) ) {
       
       int cnt_like = this.like_replyProc.delete_by_replyno(replyno);
       int cnt = this.replyProc.delete(replyno);
