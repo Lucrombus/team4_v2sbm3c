@@ -673,19 +673,27 @@ public class MemberCont {
   public ModelAndView delete_member(MemberVO memberVO, HttpSession session) {
     ModelAndView mav = new ModelAndView();
 
-    // System.out.println("id: " + memberVO.getId());
-    session.invalidate(); // 모든 session 변수 삭제
-    int cnt = this.memberProc.delete_member(memberVO);
+    HashMap<Object, Object> map = new HashMap<Object, Object>();
+    map.put("memberno", memberVO.getMemberno());
+    map.put("passwd", memberVO.getPasswd());
+    int passwd_cnt = this.memberProc.passwd_check(map); // 비밀번호 확인
 
-    if (cnt == 1) {
-      mav.addObject("code", "delete_member_success");
-      mav.addObject("name", memberVO.getName()); // 홍길동님(user4) 회원 정보를 변경했습니다.
-      mav.addObject("id", memberVO.getId());
+    if (passwd_cnt == 1) {
+      int cnt = this.memberProc.delete_member(memberVO);
+      if (cnt == 1) {
+        String name = (String) session.getAttribute("name");
+        String id = (String) session.getAttribute("id");
+        session.invalidate(); // 탈퇴 성공 후 모든 session 변수 삭제
+        mav.addObject("code", "delete_member_success");
+        mav.addObject("name", name);
+        mav.addObject("id", id);
+      } else {
+        mav.addObject("code", "delete_member_fail");
+      }
     } else {
       mav.addObject("code", "delete_member_fail");
     }
 
-    mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
     mav.addObject("url", "/member/msg"); // /member/msg -> /member/msg.jsp
 
     mav.setViewName("redirect:/member/msg.do");
