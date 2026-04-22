@@ -21,14 +21,16 @@
 <c:import url="/menu/top.do" />
  
   <DIV class='title_line'>
-    회원 탈퇴
+    회원 삭제
   </DIV>
 
   <DIV class='content_body'>
     <ASIDE class="aside_right">
       <A href="javascript:location.reload();">새로고침</A>
       <span class='menu_divide' >│</span> 
-      <A href='/index.do'>시작 화면</A>
+      <A href='./create.do'>회원 가입</A>
+      <span class='menu_divide' >│</span> 
+      <A href='./list.do'>목록</A>
     </ASIDE> 
    
     <div class='menu_line'></div>
@@ -36,14 +38,12 @@
    
     <DIV class='message'>
       <FORM name='frm' method='POST' action='./delete_member.do'>
-        '${sessionScope.name }(${sessionScope.id })' 회원을 탈퇴하면 복구 할 수 없습니다.<br><br>
-        비밀번호를 입력하여 탈퇴를 확인해 주세요.<br><br>
-        <input type='password' name='passwd' class="form-control form-control-sm" style="width:200px; display:inline-block;"
-               placeholder="비밀번호" required="required"><br><br>
+        '${name }(${id })' 회원을 삭제하면 복구 할 수 없습니다.<br><br>
+        정말로 삭제하시겠습니까?<br><br>         
         <input type='hidden' name='memberno' value='${memberVO.memberno}'>     
             
-        <button type="submit" class="btn btn-danger btn-sm">탈퇴</button>
-        <button type="button" onclick="history.back()" class="btn btn-info btn-sm">취소</button>
+        <button type="submit" class="btn btn-info btn-sm">삭제</button>
+        <button type="button" onclick="location.href='/index.do'" class="btn btn-info btn-sm">취소</button>
      
       </FORM>
     </DIV>
